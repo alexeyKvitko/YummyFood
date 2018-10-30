@@ -1,6 +1,7 @@
 package ru.yummy.food.util;
 
 import ru.yummy.food.AppConstants;
+import ru.yummy.food.model.SearchParam;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -29,6 +30,21 @@ public abstract class AppUtils {
     }
 
     public static synchronized String getValueFromHtml(String html, String start, String end){
+        StringBuilder sb = new StringBuilder();
+        int startIndex = html.indexOf( start ) > -1 ? html.indexOf( start )+ start.length() : -1;
+        if ( startIndex == -1 ){
+            return null;
+        }
+        for ( int i = startIndex; i < html.length();i++ ){
+            if ( html.charAt(i) == end.charAt(0) ){
+                break;
+            }
+            sb.append( html.charAt(i) );
+        }
+        return sb.toString().trim();
+    }
+
+    public static synchronized String getBackValueFromHtml(String html, String start, String end){
         StringBuilder sb = new StringBuilder();
         int startIndex = html.indexOf( start ) > -1 ? html.indexOf( start )+ start.length() : -1;
         if ( startIndex == -1 ){
@@ -74,6 +90,15 @@ public abstract class AppUtils {
     public static int getRandomBetweenRange(int min, int max){
         Double x = (Math.random()*((max-min)+1))+min;
         return x.intValue();
+    }
+
+    public static SearchParam convertToSearch( String tag ){
+        SearchParam param = new SearchParam();
+        String[] tags = tag.split( AppConstants.CURVE_SPLIT );
+        param.setStartTag( tags[0] );
+        param.setEndTag( tags[1]);
+        param.setDirection( tags[2] );
+        return param;
     }
 
 }
