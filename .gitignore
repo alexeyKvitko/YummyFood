@@ -1,0 +1,37 @@
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+
+# compiled output
+/webapp/dist
+/webapp/tmp
+/webapp/out-tsc
+
+# dependencies
+/webapp/node_modules
+
+
+# misc
+/webapp/.sass-cache
+/webapp/connect.lock
+/webapp/coverage
+/webapp/libpeerconnection.log
+/webapp/npm-debug.log
+/webapp/testem.log
+/webapp/typings
+
+# e2e
+/webapp/e2e/*.js
+/webapp/e2e/*.map
+
+# System Files
+/webapp/.DS_Store
+/webapp/Thumbs.db
