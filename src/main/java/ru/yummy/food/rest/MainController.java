@@ -1,9 +1,10 @@
 package ru.yummy.food.rest;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.pojomatic.annotations.AutoProperty;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.*;
+import ru.yummy.food.service.ParseService;
 
 import javax.annotation.PostConstruct;
 
@@ -13,9 +14,13 @@ import javax.annotation.PostConstruct;
 public class MainController {
 
 
-    @PostMapping("/parsePage")
-    public String parsePagee() {
+    @Autowired
+    @Qualifier("parsePageService")
+    ParseService parseService;
 
+    @GetMapping("/parsePage")
+    public String parsePagee() {
+        parseService.parsePage();
         return "OK";
     }
 

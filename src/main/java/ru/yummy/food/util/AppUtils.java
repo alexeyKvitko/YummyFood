@@ -44,32 +44,73 @@ public abstract class AppUtils {
         return sb.toString().trim();
     }
 
-    public static synchronized String getBackValueFromHtml(String html, String start, String end){
+    public static synchronized String getBackValueFromHtml(String html, String end, String start){
         StringBuilder sb = new StringBuilder();
-        int startIndex = html.indexOf( start ) > -1 ? html.indexOf( start )+ start.length() : -1;
-        if ( startIndex == -1 ){
+        int endIndex = html.indexOf( end )-1;
+        if ( endIndex == -1 ){
             return null;
         }
-        for ( int i = startIndex; i < html.length();i++ ){
+        int startIndex = endIndex;
+        for ( int i = endIndex; i >= 0 ;i-- ){
             if ( html.charAt(i) == end.charAt(0) ){
+                startIndex = i;
                 break;
             }
+        }
+        for( int i = startIndex+1; i <= endIndex; i++ ){
             sb.append( html.charAt(i) );
         }
         return sb.toString().trim();
     }
 
+    public static synchronized String polish(String html){
+        boolean processed = true;
+        while ( processed ){
+            int startIdx = html.indexOf( AppConstants.START_COMMENT );
+            processed = startIdx > -1;
+            if ( processed ) {
+                int endIdx = html.indexOf( AppConstants.END_COMMENT )+3;
+                String remove = html.substring(startIdx,endIdx);
+                html = html.replace( remove, "");
+            }
 
-    public static int pingIP(String inet) {
-        // This try will give the Public IP Address of the Host.
-        try {
-            URL url = new URL("http://"+inet);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            int response = conn.getResponseCode();
-            return (response);
-        } catch (Exception e) {
-            return 500;
         }
+        html = html.replaceAll( AppConstants.LEFT_QUOT,AppConstants.LEFT_QUOT_LIT );
+        html = html.replaceAll( AppConstants.RIGHT_QUOT,AppConstants.RIGHT_QUOT_LIT );
+        html = html.replaceAll( AppConstants.BACK_SLASH_TRIM,AppConstants.BACK_SLASH );
+        //уберем множественные пробелы
+        StringBuilder sb = new StringBuilder();
+        char prev = 65;
+        for( int i=0; i < html.length();i++ ){
+            if( html.charAt(i) != 32 || (html.charAt(i) == 32 && prev != 32) ){
+                sb.append( html.charAt(i) );
+            }
+            prev = html.charAt(i);
+        }
+        return sb.toString();
+    }
+
+    public static synchronized String getFieldValue( String html, String tag ){
+        SearchParam param = convertToSearch( tag );
+        if ( AppConstants.SPACE_SPLIT.equals( param.getEndTag() ) ){
+            param.setEndTag(" ");
+        }
+        String value = AppConstants.DIRECT_FORWARD.equals( param.getDirection() ) ?
+                getValueFromHtml( html, param.getStartTag(), param.getEndTag() ) :
+                getBackValueFromHtml( html, param.getStartTag(), param.getEndTag() );
+        return value != null ? value.trim() : null;
+    }
+
+
+
+    public static String getSection(String html,String sectionTag) {
+        int endIdx = html.indexOf( sectionTag );
+        String section = html.substring( endIdx+ sectionTag.length() );
+         endIdx = section.indexOf( sectionTag );
+        if ( endIdx > -1){
+            section = section.substring( 0, endIdx );
+        }
+        return section;
     }
 
     public static int HaversineInM(double lat1, double long1, double lat2, double long2) {

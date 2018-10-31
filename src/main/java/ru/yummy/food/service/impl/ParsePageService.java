@@ -1,12 +1,151 @@
 package ru.yummy.food.service.impl;
 
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.yummy.food.AppConstants;
+import ru.yummy.food.entity.MenuEntity;
+import ru.yummy.food.entity.MenuItem;
+import ru.yummy.food.entity.ParseMenu;
+import ru.yummy.food.repo.CityRepository;
+import ru.yummy.food.repo.MenuEntityRepository;
+import ru.yummy.food.repo.MenuItemRepository;
+import ru.yummy.food.repo.ParseMenuRepository;
+import ru.yummy.food.util.AppUtils;
+
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 @Service
-public class ParseRoomService extends ParseServiceImpl {
+public class ParsePageService extends ParseServiceImpl {
+
+    @Autowired
+    ParseMenuRepository parseRepository;
+
+    @Autowired
+    MenuEntityRepository menuEntityRepository;
+
+    @Autowired
+    MenuItemRepository menuItemRepository;
+
+    @Autowired
+    CityRepository cityRepository;
 
     @Override
     public synchronized void parsePage() {
+           List<ParseMenu> parseMenus = parseRepository.findAllByProcessed( AppConstants.PROCEED );
+           HttpTransport httpTransport = new NetHttpTransport();
+           HttpRequestFactory requestFactory = httpTransport.createRequestFactory( );
+           for( ParseMenu parseMenu: parseMenus){
+               String htmlResponse = null;
+               try {
+                   htmlResponse = requestFactory.buildGetRequest( new GenericUrl( parseMenu.getParseUrl() ) ).
+                                    execute( ).parseAsString( ).replace( "\n", "" ).replace( "\r", "" ).replace( "\t", "" );
+               } catch (IOException e) {
+                   break;
+               }
+               // Убираем заголовок
+               if ( parseMenu.getTagTrash() != null ){
+                   int trashIdx = htmlResponse.indexOf( parseMenu.getTagTrash() )+parseMenu.getTagTrash().length();
+                   htmlResponse = htmlResponse.substring( trashIdx );
+               }
+               htmlResponse = htmlResponse.substring( htmlResponse.indexOf( parseMenu.getTagEndSection() ));
+               // Убираем комментарии
+               htmlResponse = AppUtils.polish( htmlResponse );
+               boolean proceed = true;
+               List<MenuEntity> menuEntities =  new LinkedList<>();
+               while ( proceed ){
+                   //Укорачиваем
+                   int endSectionIdx = htmlResponse.indexOf( parseMenu.getTagEndSection() );
+                   String section = null;
+                   if ( endSectionIdx > -1 ){
+                       section = AppUtils.getSection( htmlResponse, parseMenu.getTagEndSection() );
+                       htmlResponse = htmlResponse.substring( section.length() );
+                   } else {
+                       section = htmlResponse;
+                   }
+                   //Получаем данные
+                   String entityName = AppUtils.getFieldValue( section, parseMenu.getTagName() );
+                   if ( entityName ==  null ){
+                       proceed = false;
+                       break;
+                   }
+                   MenuEntity menuEntity = menuEntityRepository.findByName( entityName.toUpperCase() );
+                   if ( menuEntity == null ){
+                       menuEntity = new MenuEntity();
+                   }
+                   menuEntity.setName( entityName.toUpperCase() );
+                   menuEntity.setDisplayName( entityName );
+                   menuEntity.setDescription( AppUtils.getFieldValue( section, parseMenu.getTagDescription() ) );
+                   menuEntity.setImageUrl( AppUtils.getFieldValue( section, parseMenu.getTagImageUrl() ) );
+                   if( parseMenu.getTagPriceOne() != null ){
+                       Integer entityPrice = 0;
+                       try {
+                           entityPrice = Integer.valueOf( AppUtils.getFieldValue( section, parseMenu.getTagPriceOne() ) );    
+                       } catch ( Exception e ){
+                           //TODO
+                       }
+                       menuEntity.setPriceOne( entityPrice );
+                       menuEntity.setWeightOne( AppUtils.getFieldValue( section, parseMenu.getTagWeightOne() ) );
+                       menuEntity.setSizeOne( AppUtils.getFieldValue( section, parseMenu.getTagSizeOne() ) );
+                   }
+                   if( parseMenu.getTagPriceTwo() != null ){
+                       Integer entityPrice = 0;
+                       try {
+                           entityPrice = Integer.valueOf( AppUtils.getFieldValue( section, parseMenu.getTagPriceTwo() ) );
+                       } catch ( Exception e ){
+                           //TODO
+                       }
+                       menuEntity.setPriceTwo( entityPrice );
+                       menuEntity.setWeightTwo( AppUtils.getFieldValue( section, parseMenu.getTagWeightTwo() ) );
+                       menuEntity.setSizeTwo( AppUtils.getFieldValue( section, parseMenu.getTagSizeTwo() ) );
+                   }
+                   if( parseMenu.getTagPriceThree() != null ){
+                       Integer entityPrice = 0;
+                       try {
+                           entityPrice = Integer.valueOf( AppUtils.getFieldValue( section, parseMenu.getTagPriceThree() ) );
+                       } catch ( Exception e ){
+                           //TODO
+                       }
+                       menuEntity.setPriceThree( entityPrice );
+                       menuEntity.setWeightThree( AppUtils.getFieldValue( section, parseMenu.getTagWeightThree() ) );
+                       menuEntity.setSizeThree( AppUtils.getFieldValue( section, parseMenu.getTagSizeThree() ) );
+                   }
+                   if( parseMenu.getTagPriceFour() != null ){
+                       Integer entityPrice = 0;
+                       try {
+                           entityPrice = Integer.valueOf( AppUtils.getFieldValue( section, parseMenu.getTagPriceFour() ) );
+                       } catch ( Exception e ){
+                           //TODO
+                       }
+                       menuEntity.setPriceFour( entityPrice );
+                       menuEntity.setWeightFour( AppUtils.getFieldValue( section, parseMenu.getTagWeightFour() ) );
+                       menuEntity.setSizeFour( AppUtils.getFieldValue( section, parseMenu.getTagSizeFour() ) );
+                   }
+                   menuEntityRepository.save( menuEntity );
+                   Integer itemId = menuItemRepository.getMenuItemId( parseMenu.getCompanyId(),parseMenu.getTypeId(),
+                           parseMenu.getCategoryId(), menuEntity.getId() );
+                   if ( itemId == null ){
+                       MenuItem menuItem = new MenuItem();
+                       menuItem.setCompanyId( parseMenu.getCompanyId() );
+                       menuItem.setTypeId( parseMenu.getTypeId() );
+                       menuItem.setCategoryId( parseMenu.getCategoryId() );
+                       menuItem.setEntityId( menuEntity.getId() );
+                       menuItemRepository.save( menuItem );
+                   }
+               }
+               parseMenu.setProcessed( AppConstants.PROCESSED );
+               parseRepository.save( parseMenu );
+           }
+
+//           HttpRequest request = httpTransport.createRequestFactory( ).buildGetRequest( new GenericUrl( path ) );
+//                        ////                ПОЛУЧАЕМ HTML
+//                        htmlResponse = request.execute( ).parseAsString( ).replace( "\n", "" );
+
 //        SearchResponse searchResponse = new SearchResponse( );
 //        initProcess();
 //        if ( getProxies().size() < 5  ){

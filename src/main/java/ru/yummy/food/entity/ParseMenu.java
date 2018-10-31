@@ -30,6 +30,9 @@ public class ParseMenu implements Serializable {
     @Column( name = "tag_trash" )
     private String tagTrash;
 
+    @Column( name = "tag_end_section" )
+    private String tagEndSection;
+
     @Column( name = "tag_name" )
     private String tagName;
 
@@ -75,6 +78,9 @@ public class ParseMenu implements Serializable {
     @Column( name = "tag_pf" )
     private String tagPriceFour;
 
+    @Column( name = "processed" )
+    private Integer processed;
+
     public Integer getId() {
         return id;
     }
@@ -113,6 +119,14 @@ public class ParseMenu implements Serializable {
 
     public void setParseUrl( String parseUrl ) {
         this.parseUrl = parseUrl;
+    }
+
+    public String getTagEndSection() {
+        return tagEndSection;
+    }
+
+    public void setTagEndSection(String tagEndSection) {
+        this.tagEndSection = tagEndSection;
     }
 
     public String getTagTrash() {
@@ -243,14 +257,24 @@ public class ParseMenu implements Serializable {
         this.tagPriceFour = tagPriceFour;
     }
 
-    @Override
-    public int hashCode() {
-        return Pojomatic.hashCode( this );
+    public Integer getProcessed() {
+        return processed;
     }
 
-    @Override
-    public String toString() {
-        return Pojomatic.toString( this );
+    public void setProcessed(Integer processed) {
+        this.processed = processed;
+    }
+
+    @Override public boolean equals(Object o) {
+        return Pojomatic.equals(this, o);
+    }
+
+    @Override public int hashCode() {
+        return Pojomatic.hashCode(this);
+    }
+
+    @Override public String toString() {
+        return Pojomatic.toString(this);
     }
 
 }
