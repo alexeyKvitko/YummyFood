@@ -1,7 +1,6 @@
 package ru.yummy.food;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public abstract class AppConstants {
 
@@ -28,6 +27,19 @@ public abstract class AppConstants {
     public static final String RIGHT_QUOT_LIT= "»";
     public static final String BACK_SLASH_TRIM= " / ";
     public static final String BACK_SLASH= "/";
+
+    public static final Map<String,String> HTML_TAGS = new LinkedHashMap<String,String>(){
+        {
+            put("<p>","");
+            put("</p>","");
+            put("<h3>","");
+            put("</h3>","");
+            put("<span>","");
+            put("</span","");
+            put("&quot;","");
+            put("</","");
+        }
+    };
 
 
 }
