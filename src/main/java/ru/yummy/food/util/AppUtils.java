@@ -45,7 +45,7 @@ public abstract class AppUtils {
         }
         int startIndex = endIndex;
         for ( int i = endIndex; i >= 0; i-- ) {
-            if ( html.charAt( i ) == end.charAt( 0 ) ) {
+            if ( html.charAt( i ) == start.charAt( 0 ) ) {
                 startIndex = i;
                 break;
             }
@@ -53,7 +53,7 @@ public abstract class AppUtils {
         for ( int i = startIndex + 1; i <= endIndex; i++ ) {
             sb.append( html.charAt( i ) );
         }
-        return sb.toString( ).trim( );
+        return sb.toString( ).trim( ).length() > 0 ? sb.toString( ).trim( ) : null;
     }
 
     public static synchronized String polish( String html ) {
@@ -92,10 +92,10 @@ public abstract class AppUtils {
                 getValueFromHtml( html, param.getStartTag( ), param.getEndTag( ) ) :
                 getBackValueFromHtml( html, param.getStartTag( ), param.getEndTag( ) );
         if ( value != null ) {
-            value = value.trim( );
             for ( String htmlTag : AppConstants.HTML_TAGS.keySet() ) {
                 value = value.replace( htmlTag, AppConstants.HTML_TAGS.get( htmlTag ) );
             }
+            value = value.trim( );
         }
         return value;
     }

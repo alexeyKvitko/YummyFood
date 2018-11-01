@@ -7,7 +7,7 @@ import ru.yummy.food.entity.MenuItem;
 
 public interface MenuItemRepository extends CrudRepository<MenuItem,Integer> {
 
-    static final String SELECT_SQL = "select id from menu_item where company_id = :companyId " +
+    String SELECT_SQL = "select id from menu_item where company_id = :companyId " +
                                                 "and type_id = :typeId and category_id = :categoryId and entity_id=:entityId";
 
     @Query(value=SELECT_SQL,nativeQuery = true)

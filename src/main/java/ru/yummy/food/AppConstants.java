@@ -37,7 +37,11 @@ public abstract class AppConstants {
             put("<span>","");
             put("</span","");
             put("&quot;","");
+            put("&nbsp;"," ");
+            put("руб.","");
+            put("руб","");
             put("</","");
+            put(">","");
         }
     };
 

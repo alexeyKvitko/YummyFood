@@ -35,3 +35,7 @@
 # System Files
 /webapp/.DS_Store
 /webapp/Thumbs.db
+
+# angular
+/yummyapp/.editorconfig
+/yummyapp/.gitignore
