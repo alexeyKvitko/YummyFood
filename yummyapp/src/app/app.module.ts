@@ -6,18 +6,27 @@ import { AppComponent } from './app.component';
 import { CompanyComponent } from './company/company.component';
 import { CompanyService} from './services/company.service';
 import { HttpClientModule } from "@angular/common/http";
+import { LoginComponent } from './login/login.component';
+import {LoginService} from "./services/login.service";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {ReactiveFormsModule} from "@angular/forms";
+import {TokenInterceptor} from "./services/token-interceptor.service";
 
 @NgModule({
   declarations: [
     AppComponent,
-    CompanyComponent
+    CompanyComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [CompanyService],
+  providers: [CompanyService,LoginService,{provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi : true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

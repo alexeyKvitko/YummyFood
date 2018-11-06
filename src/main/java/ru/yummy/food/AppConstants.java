@@ -1,8 +1,13 @@
 package ru.yummy.food;
 
 import java.util.*;
-
+//https://www.devglan.com/angular/angular-7-crud-example
 public abstract class AppConstants {
+
+    public static final long ACCESS_TOKEN_VALIDITY_SECONDS = 5*60*60;
+    public static final String SIGNING_KEY = "admin";
+    public static final String TOKEN_PREFIX = "Bearer ";
+    public static final String HEADER_STRING = "Authorization";
 
     public static final int PROCEED = 1;
     public static final int PROCESSED = 0;
