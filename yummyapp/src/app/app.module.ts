@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CompanyComponent } from './company/company.component';
 import { CompanyService} from './services/company.service';
-import { HttpClientModule } from "@angular/common/http";
 import { LoginComponent } from './login/login.component';
 import {LoginService} from "./services/login.service";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";

@@ -4,6 +4,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service(value = "userService")
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Autowired
     UserRepository userRepo;
@@ -27,11 +28,11 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder bcryptEncoder;
 
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        User user = userRepo.findByLogin( login );
+        User user = userRepo.findByUsername( login );
         if(user == null){
             throw new UsernameNotFoundException("Invalid username or password.");
         }
-        return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), getAuthority());
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthority());
     }
 
     private List<SimpleGrantedAuthority> getAuthority() {
@@ -51,7 +52,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findOne(String login) {
-        return userRepo.findByLogin(login);
+        return userRepo.findByUsername(login);
     }
 
     @Override
@@ -72,12 +73,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(UserModel user) {
-        User newUser = new User();
-        newUser.setLogin(user.getLogin());
-        newUser.setFirstName(user.getFirstName());
-        newUser.setLastName(user.getLastName());
-        newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-        newUser.setRole(user.getRole());
-        return userRepo.save(newUser);
+          String ps = bcryptEncoder.encode("admin");
+//        User newUser = new User();
+//        newUser.setUsername(user.getUsername());
+//        newUser.setFirstName(user.getFirstName());
+//        newUser.setLastName(user.getLastName());
+//        newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+//        newUser.setRole(user.getRole());
+//        return userRepo.save(newUser);
+        System.out.println( ps );
+        return null;
     }
 }

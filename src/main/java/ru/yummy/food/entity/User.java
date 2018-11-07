@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "cities")
+@Table(name = "user")
 @AutoProperty
 public class User implements Serializable {
 
@@ -25,8 +25,8 @@ public class User implements Serializable {
     @Column(name="last_name")
     private String lastName;
 
-    @Column(name="login")
-    private String login;
+    @Column(name="username")
+    private String username;
 
     @Column(name="password")
     @JsonIgnore
@@ -67,12 +67,12 @@ public class User implements Serializable {
         this.lastName = lastName;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

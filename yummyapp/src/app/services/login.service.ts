@@ -11,9 +11,10 @@ export class LoginService {
 
   constructor(private http:HttpClient) {}
   private loginUrl = '/api/login';
+  private tokenUrl = '/token/generate-token';
 
   login(loginPayload) : Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(this.loginUrl+ 'token/generate-token', loginPayload);
+    return this.http.post<ApiResponse>(this.tokenUrl, loginPayload);
   }
 
   getUsers() : Observable<ApiResponse> {

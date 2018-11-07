@@ -7,5 +7,5 @@ import ru.yummy.food.entity.User;
 @Repository
 public interface UserRepository  extends CrudRepository<User,Integer> {
 
-    User findByLogin(String login);
+    User findByUsername(String username);
 }
