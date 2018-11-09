@@ -18,7 +18,12 @@ $danger:#fa5167;
 $warning:#ff7403;
 $info:#2cc3ff;
 body {
-    background: $body-bg;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d1e395+0,399600+100 */
+  background: #d1e395; /* Old browsers */
+  background: -moz-linear-gradient(top, #d1e395 0%, #399600 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #d1e395 0%,#399600 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #d1e395 0%,#399600 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d1e395', endColorstr='#399600',GradientType=0 ); /* IE6-9 */
 }
 
 .bg-default {

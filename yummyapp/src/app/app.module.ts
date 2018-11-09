@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CustomMaterialModule } from './shared/material.module';
 import { CompanyComponent } from './company/company.component';
 import { CompanyService} from './services/company.service';
 import { LoginComponent } from './login/login.component';
@@ -12,7 +13,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { ReactiveFormsModule } from "@angular/forms";
 import { TokenInterceptor } from "./services/token-interceptor.service";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LayoutModule } from './shared/layout.module';
 
 @NgModule({
   declarations: [
@@ -25,8 +25,8 @@ import { LayoutModule } from './shared/layout.module';
     BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    CustomMaterialModule,
     HttpClientModule,
-    LayoutModule,
     FormsModule
   ],
   providers: [CompanyService,LoginService,{provide: HTTP_INTERCEPTORS,

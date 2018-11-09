@@ -1,28 +1,36 @@
-<div class="row">
-  <div class="col-md-3 animated fadeIn">
-    <div class="card card-block tip-card">
-      <div class="tip-msg">
-        <h3>Current Users</h3>
-        <span>102,018 / 200,450</span>
-      </div>
-      <button class="tip-ico tip-ico-primary">
-        <i class="fa fa-group fa-fw"></i>
+<div class="app-header">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+    <span>
+      <img src="../../assets/logo.png"/>
+    </span>
+      <span class="example-fill-remaining-space"></span>
+      <span class="align-center"></span>
+      <span class="example-spacer"></span>
+      <button mat-button>About</button>
+      <button mat-button>Contact</button>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
       </button>
-    </div>
-  </div>
-  <div class="col-md-3 animated fadeIn">
-    <div class="card card-block tip-card">
-      <div class="tip-msg">
-        <h3>Messages</h3>
-        <span>2 messages</span>
-      </div>
-      <button class="tip-ico tip-ico-info">
-        <i class="fa fa-comments fa-fw"></i>
-      </button>
-    </div>
-  </div>
-
-  <router-outlet></router-outlet>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>dialpad</mat-icon>
+          <span>Redial</span>
+        </button>
+        <button mat-menu-item disabled>
+          <mat-icon>voicemail</mat-icon>
+          <span>Check voicemail</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>notifications_off</mat-icon>
+          <span>Disable alerts</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar-row>
+  </mat-toolbar>
 </div>
+
+<router-outlet></router-outlet>
+
 
 

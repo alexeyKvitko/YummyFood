@@ -1,31 +1,29 @@
-<div class="card card-block login-card">
-  <h3 class="form-label">Welcome Back</h3>
-  <span class="form-label">sign in to continue to Lines</span>
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <div class="input-group">
-      <span class="input-group-addon addon-left" id="username-1">
-        <i class="fa fa-user fa-fw"></i>
-      </span>
-        <input class="form-control with-primary-addon" placeholder="User Account" type="text" formControlName="username"
-               id="username" autocomplete="off">
-      </div>
-      <div class="input-group">
-      <span class="input-group-addon addon-left" id="password">
-        <i class="fa fa-lock fa-fw"></i>
-      </span>
-        <input type="password" class="form-control with-primary-addon" placeholder="Password" formControlName="password"
-               id="pwd" autocomplete="off">
-        <div class="error"
-             *ngIf="loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched">
-          Password is required
-        </div>
-      </div>
-      <button class="btn btn-lg btn-primary">Login</button>
-      <div *ngIf="invalidLogin" class="error">
-        <div>Invalid credentials.</div>
-      </div>
-      <a href="" class="btn btn-link">Register Now. →</a>
-    </div>
-  </form>
-</div>
+ <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form class="example-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <table class="example-full-width" cellspacing="0">
+          <tr>
+            <td>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Username" placeholder="User Account" type="text" formControlName="username"
+                       id="username" autocomplete="off" required>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td><mat-form-field class="example-full-width">
+              <input matInput placeholder="Password" type="password" placeholder="Password" formControlName="password"
+                     id="pwd" autocomplete="off">
+            </mat-form-field></td>
+          </tr></table>
+      </form>
+      <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button (click)="onSubmit()" color="primary">Login</button>
+    </mat-card-actions>
+  </mat-card>
+
