@@ -13,7 +13,7 @@
     left: 10px;
     transform: translate(0, -50%);
     padding: 15px 0;
-    margin: 0 auto;
+    margin: 8px auto;
     display: flex;
     flex-direction: row;
     width: 240px;
@@ -21,9 +21,8 @@
     min-height: 50px;
     @include transition(all .4s);
     .avatar {
-        width: 50px;
-        height: 50px;
-        border-radius: 5px;
+        width: 85px;
+        height: 85px;
         overflow: hidden;
         @include transition(all .4s);
         img {

@@ -1,3 +1,7 @@
+* {
+  font-family: Roboto, "Helvetica Neue", sans-serif /*Replace with your custom font*/, sans-serif !important;
+  /*Add the !important to overwrite all elements*/
+}
 @import './color-schemes/_default';
 //@import './color-schemes/_dark';
 //@import './color-schemes/_light';

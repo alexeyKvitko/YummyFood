@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 
-import { CompanyModel } from '../model/company.model';
-import { CompanyService } from '../services/company.service';
+import { CompanyModel } from '../../model/company.model';
+import { CompanyService } from '../../services/company.service';
 
 @Component({
   selector: 'app-company',

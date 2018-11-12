@@ -17,7 +17,8 @@
     .pages-content {
         padding: 15px;
         flex: 1;
-        background: transparent;
+      background: transparent;
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d1e395', endColorstr='#399600',GradientType=0 ); /* IE6-9 */
         border-left: 1px solid $border-color;
         border-top: 1px solid $border-color;
         color: $fonts-color;

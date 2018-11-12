@@ -1,20 +1,29 @@
-<div class="card card-block login-card">
-  <h3 class="form-label">Welcome Back</h3>
-  <span class="form-label">sign in to continue to Lines</span>
-  <div class="form-group">
-    <div class="input-group">
-      <span class="input-group-addon addon-left" id="username">
-        <i class="fa fa-user fa-fw"></i>
-      </span>
-      <input class="form-control with-primary-addon" placeholder="User Account" type="text">
-    </div>
-    <div class="input-group">
-      <span class="input-group-addon addon-left" id="password">
-        <i class="fa fa-lock fa-fw"></i>
-      </span>
-      <input class="form-control with-primary-addon" placeholder="Password" type="password">
-    </div>
-    <button class="btn btn-lg btn-primary">Login</button>
-    <a href="" class="btn btn-link">Register Now. →</a>
-  </div>
-</div>
+ <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>Авторизация</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form class="example-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <table class="example-full-width" cellspacing="0">
+          <tr>
+            <td>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Пользователь" type="text" formControlName="username"
+                       id="username" autocomplete="off" required>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td><mat-form-field class="example-full-width">
+              <input matInput type="password" placeholder="Пароль" formControlName="password"
+                     id="pwd" autocomplete="off">
+            </mat-form-field></td>
+          </tr></table>
+      </form>
+      <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button (click)="onSubmit()" color="primary">Вход</button>
+    </mat-card-actions>
+  </mat-card>
+
