@@ -12,6 +12,7 @@ import { TokenInterceptor } from "./services/token-interceptor.service";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PagesModule } from './pages/pages.module';
 
+
 @NgModule({
   declarations: [
     AppComponent

@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  avatarImgSrc: string = 'assets/images/avatar.png';
+  avatarImgSrc: string = 'assets/images/logo.png';
   userName: string = 'Folisise Chosielie';
   userPost: string = 'Musician, Player';
   

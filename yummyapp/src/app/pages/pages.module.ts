@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { routing } from './pages.routing';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -14,6 +15,7 @@ import { LoginComponent } from './login/login.component';
 @NgModule({
     imports: [
         CommonModule,
+        AngularFontAwesomeModule,
         LayoutModule,
         ReactiveFormsModule,
         SharedModule,

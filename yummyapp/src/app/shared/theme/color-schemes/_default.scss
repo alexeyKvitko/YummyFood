@@ -1,10 +1,21 @@
 @import '../mixin';
+//Material
+$primary-color-dark:   #388E3C;
+$primary-color:        #4CAF50;
+$primary-color-light:  #C8E6C9;
+$primary-color-text:   #FFFFFF;
+$accent-color:         #FF5722;
+$primary-text-color:   #212121;
+$secondary-text-color: #757575;
+$divider-color:        #BDBDBD;
+
 $default-text:14px;
 $sm-text:12px;
 $lg-text:16px;
-$body-bg:#fff;
-$sidebar-bg:#399600;
-$sidebar-fonts-color:#fff;
+$body-bg:#fefefe;
+$top-panel-bg: $primary-color-dark;
+$sidebar-bg: $primary-color;
+$sidebar-fonts-color: $primary-color-text;
 $card-bg:#fff;
 $card-border:#e4e3e3;
 $white:#fff;
@@ -17,14 +28,7 @@ $success:#16be9a;
 $danger:#fa5167;
 $warning:#ff7403;
 $info:#2cc3ff;
-body {
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d1e395+0,399600+100 */
-  background: #d1e395; /* Old browsers */
-  background: -moz-linear-gradient(top, #d1e395 0%, #399600 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, #d1e395 0%,#399600 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, #d1e395 0%,#399600 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d1e395', endColorstr='#399600',GradientType=0 ); /* IE6-9 */
-}
+
 
 .bg-default {
     @include linear-gradient(to top right, darken($card-bg, 40%), darken($card-bg, 30%));

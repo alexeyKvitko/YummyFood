@@ -2,9 +2,10 @@
 .pages-top {
     position: relative;
     width: 100%;
-    height: 81px;
-    background: $sidebar-bg;
+    height: 85px;
+    background: $top-panel-bg;
     border: none;
+      box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.16), 0 0 0 2px rgba(0, 0, 0, 0.08);
 }
 
 .avatar-wrap {
