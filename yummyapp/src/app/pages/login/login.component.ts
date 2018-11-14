@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
     this.loginService.login(loginPayload).subscribe(data => {
       if(data.status === 200) {
         window.localStorage.setItem('token', data.result.token);
+        window.localStorage.setItem('username', data.result.username);
         this.router.navigate(['pages']);
       }else {
         this.invalidLogin = true;
