@@ -26,9 +26,10 @@ export class PagesTopComponent {
       console.log('Error: ' + error);
     }); */
     this._globalService.data$.subscribe(data => {
-      console.log('data.ev 1',data.ev);
+
       if (data.ev === 'sidebarToggle') {
         this.sidebarToggle = data.value;
+        console.log('Toogle',this.sidebarToggle);
       }
     }, error => {
       console.log('Error: ' + error);

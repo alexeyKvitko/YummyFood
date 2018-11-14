@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { routing } from './pages.routing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { LayoutModule } from '../shared/layout.module';
 import { SharedModule } from '../shared/shared.module';
@@ -17,7 +16,6 @@ import { LoginComponent } from './login/login.component';
         CommonModule,
         LayoutModule,
         ReactiveFormsModule,
-        FontAwesomeModule,
         SharedModule,
         CustomMaterialModule,
         routing
