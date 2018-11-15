@@ -16,6 +16,7 @@ export const childRoutes: Routes = [
     component: PagesComponent,
     children: [
       { path: '', redirectTo: 'index', pathMatch: 'full' },
+      { path: 'company', loadChildren: './company/company.module#CompanyModule' },
       // { path: 'index', loadChildren: './index/index.module#IndexModule' }
     ]
   }
