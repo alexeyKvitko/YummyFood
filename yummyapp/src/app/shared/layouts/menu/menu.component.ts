@@ -17,6 +17,7 @@ export class MenuComponent {
     item.toggle === 'on' ? item.toggle = 'off' : item.toggle = 'on';
   }
 
+
   private _selectItem(item) {
     //this._globalService._isActived(item);
     this._globalService.dataBusChanged('isActived', item);

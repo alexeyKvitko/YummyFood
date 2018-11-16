@@ -1,23 +1,16 @@
 <div class="pages-top">
-  <div class="avatar-wrap">
+  <div class="collapse-menu" (click)="_sidebarToggle()">
+    <div [hidden]="!sidebarToggle" ><i  class="fas fa-align-justify"></i></div>
+    <div [hidden]="sidebarToggle"><i  class="fas fa-times"></i></div>
+  </div>
+  <div class="avatar-wrap" >
     <div class="avatar">
-      <img src="{{avatarImgSrc}}" width="110" alt="avatar">
+      <img src="{{avatarImgSrc}}" alt="avatar">
     </div>
     <div class="user-info-wrap">
       <span class="user-name" title="{{userName}}">{{userName}}</span>
       <span class="user-post" title="{{userPost}}">{{userPost}}</span>
     </div>
-  </div>
-  <div class="collapse-menu" (click)="_sidebarToggle()">
-    <!--&lt;!&ndash; <i class="fa fa-navicon fa-fw" [ngClass]="{'toggle-on':sidebarToggle,'toggle-off':!sidebarToggle}"></i> &ndash;&gt;-->
-    <!--<i  *ngClass="sidebarToggle?'fas fa-align-justify':'fas fa-align-justify fa-rotate-90'"></i>-->
-    <!--<i [hidden]="sidebarToggle === true" [style]="sidebarToggle : display:none" class='fa fa-align-justify' ></i>-->
-    <!--<i [hidden]="sidebarToggle === true" class='fa fa-align-justify fa-rotate-90' ></i>-->
-    <div [hidden]="!sidebarToggle" ><i  class="fas fa-align-justify"></i></div>
-    <div [hidden]="sidebarToggle"><i  class="fas fa-times"></i></div>
-    <!--<i class="fas fa-align-justify fa-rotate-90" *ngIf="!sidebarToggle"></i>-->
-    <!--<i class="fas fa-align-justify">*ngIf="sidebarToggle"></i>-->
-    <!--<i class="fa fa-indent fa-fw" *ngIf="!sidebarToggle"></i>-->
   </div>
 
 

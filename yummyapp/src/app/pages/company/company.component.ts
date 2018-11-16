@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { CompanyModel } from '../../model/company.model';
 import { CompanyService } from '../../services/company.service';
+import { GlobalService } from '../../shared/services/global.service';
 
 @Component({
   selector: 'app-company',
@@ -13,17 +14,31 @@ import { CompanyService } from '../../services/company.service';
 export class CompanyComponent implements OnInit {
 
   companies: CompanyModel[];
+  loading: boolean = false;
 
-  constructor(private router: Router, private companyService: CompanyService) {
 
+  /* pagination Info */
+  pageSize = 10;
+  pageNumber = 1;
+
+
+  constructor(private router: Router,
+              private companyService: CompanyService, private _globalService: GlobalService) {
+    this.loading = true;
+    this._globalService.dataBusChanged('pageLoading', true);
   }
 
   ngOnInit() {
     this.companyService.getCompanies()
       .subscribe( data => {
         this.companies = data;
-        console.log(data);
+        this._globalService.dataBusChanged('pageLoading', false);
+        this.loading = false;
       });
   };
+
+  pageChanged(pN: number): void {
+    this.pageNumber = pN;
+  }
 
 }

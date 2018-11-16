@@ -11,19 +11,19 @@
 .avatar-wrap {
     position: absolute;
     top: 50%;
-    left: 10px;
+    left: 100px;
     transform: translate(0, -50%);
-    padding: 15px 0;
-    margin: 8px auto;
+    padding: 0 0;
+    margin: 0 auto;
     display: flex;
     flex-direction: row;
-    width: 240px;
+    width: 75px;
     height: auto;
-    min-height: 50px;
+    min-height: 75px;
     @include transition(all .4s);
     .avatar {
-        width: 85px;
-        height: 85px;
+        min-width: 75px;
+        height: 75px;
         overflow: hidden;
         @include transition(all .4s);
         img {
@@ -32,8 +32,8 @@
         }
     }
     .user-info-wrap {
-        padding: 2px 14px;
-        width: 170px;
+        padding: 16px 24px;
+        width: 240px;
         height: auto;
         @include transition(all .4s);
     }
@@ -55,28 +55,6 @@
     }
 }
 
-.collapse-menu {
-    position: absolute;
-    top: 50%;
-    left: 250px;
-    transform: translate(0, -50%);
-    color: $sidebar-fonts-color;
-    font-size: 24px;
-    cursor: pointer;
-    @include center(40px, 40px);
-    @include transition(all .2s);
-    &:hover {
-        color: $primary;
-    }
-    .toggle-on {
-        transform: rotate(0);
-        @include transition(all .5s);
-    }
-    .toggle-off {
-        transform: rotate(-270deg);
-        @include transition(all .5s);
-    }
-}
 
 .search-group {
     position: absolute;
@@ -162,6 +140,38 @@
     }
 }
 
+.collapse-menu {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translate(0, -50%);
+  color: $secondary-text-color;
+  font-size: 24px;
+  background: $primary-color;
+  border-radius: 30px ;
+  border: $primary-color-dark;
+  cursor: pointer;
+  @include center(60px, 60px);
+  @include transition(all .2s);
+  &:hover {
+    color: $primary;
+  }
+  .toggle-on {
+    transform: rotate(0);
+    @include transition(all .5s);
+  }
+  .toggle-off {
+    transform: rotate(-270deg);
+    @include transition(all .5s);
+  }
+}
+
+@media (max-width:1440px) {
+  .menu-wrap {
+    width: 210px;
+  }
+}
+
 @media (max-width:414px) {
     .avatar-wrap {
         width: auto;
@@ -179,3 +189,4 @@
         display: none;
     }
 }
+

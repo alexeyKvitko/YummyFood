@@ -1,4 +1,11 @@
 @import '../shared/theme/conf';
+.page-bg-img {
+  overflow: hidden;
+  width: 100%;
+  @include transition(all .4s);
+  z-index: -999;
+}
+
 .pages-wrap {
     position: absolute;
     width: 100%;
@@ -12,12 +19,12 @@
     flex: 1;
     display: flex;
     flex-direction: row;
-    background: transparent;
+    background-image: url("../../assets/images/rest.jpg");
     overflow-x: hidden;
+
     .pages-content {
-        padding: 0px;
-        flex: 1;
-      background: $body-bg;
+      flex: 1;
+      padding: 10px;
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d1e395', endColorstr='#399600',GradientType=0 ); /* IE6-9 */
         border-left: 1px solid $border-color;
         border-top: 1px solid $border-color;

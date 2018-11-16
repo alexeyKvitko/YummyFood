@@ -1,25 +1,57 @@
-<div class="col-md-6">
-  <h2> User Details</h2>
-
-  <table class="table table-striped">
-    <thead>
-    <tr>
-      <th class="hidden">Id</th>
-      <th>Имя</th>
-      <th>Отображаемое</th>
-      <th>URL</th>
-      <th>Email</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let company of companies">
-      <td class="hidden">{{company.id}}</td>
-      <td>{{company.companyName}}</td>
-      <td>{{company.displayName}}</td>
-      <td>{{company.url}}</td>
-      <td>{{company.email}}</td>
-    </tr>
-    </tbody>
-  </table>
+<div class="row" *ngIf="!loading">
+  <div class="col-md-12">
+    <card cardTitle="Кафе, Рестораны">
+      <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+          <th class="hidden-cell">Id</th>
+          <th>ОРГАНИЗАЦИЯ</th>
+          <th>НАИМЕНОВАНИЕ</th>
+          <th>URL</th>
+          <th>EMAIL</th>
+          <th>РЕГИОН</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let company of companies | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
+          <td class="hidden-cell">{{company.id}}</td>
+          <td>{{company.companyName}}</td>
+          <td>{{company.displayName}}</td>
+          <td><a href="{{company.url}}" target="_blank">{{company.url}}</a></td>
+          <td>{{company.email}}</td>
+          <td>{{company.city.name}}</td>
+          <td>
+            <span class="label label-info">info</span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <form class="pagination-wrapper">
+        <div class="form-group pages">
+          <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)" maxSize="9" directionLinks="true"
+                               autoHide="true" previousLabel="Prev" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                               screenReaderCurrentLabel="You're on page">
+          </pagination-controls>
+        </div>
+        <div class="form-group options pages">
+          <div class="input-group input-group-sm">
+            <select class="form-control" name="pageChangedName" [(ngModel)]="pageSize" (ngModelChange)="loadData()">
+              <option>1</option>
+              <option>5</option>
+              <option>10</option>
+              <option>20</option>
+              <option>50</option>
+              <option>100</option>
+              <option>200</option>
+            </select>
+            <span class="input-group-addon addon-right">Per Page</span>
+          </div>
+        </div>
+      </form>
+    </card>
+  </div>
 </div>
+<!--<loading [loading]="loading"></loading>-->
+
 

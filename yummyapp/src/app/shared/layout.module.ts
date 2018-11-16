@@ -9,7 +9,6 @@ import { NotificationComponent } from './components/notification/notification.co
 import { LoadingComponent } from './components/loading/loading.component';
 import { MenuComponent } from './layouts/menu/menu.component';
 import { SidebarComponent } from './layouts/sidebar/sidebar.component';
-import { ContentTopComponent } from './layouts/content-top/content-top.component';
 import { PagesTopComponent } from './layouts/pages-top/pages-top.component';
 import { RightConfigComponent } from './layouts/right-config/right-config.component';
 
@@ -26,7 +25,6 @@ import { RightConfigComponent } from './layouts/right-config/right-config.compon
         MenuComponent,
         SidebarComponent,
         PagesTopComponent,
-        ContentTopComponent,
         NotificationComponent,
         RightConfigComponent,
         LoadingComponent
@@ -34,7 +32,6 @@ import { RightConfigComponent } from './layouts/right-config/right-config.compon
     exports: [
         SidebarComponent,
         PagesTopComponent,
-        ContentTopComponent,
         NotificationComponent,
         RightConfigComponent,
         LoadingComponent

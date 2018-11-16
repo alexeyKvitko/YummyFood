@@ -9,10 +9,10 @@ import { GlobalService } from '../../services/global.service';
 export class PagesTopComponent {
   avatarImgSrc: string = 'assets/images/logo.png';
   userName: string = "John Doe";
-  userPost: string = 'Musician, Player';
-
+  userPost: string = 'Admin, Adminov';
 
   sidebarToggle: boolean = true;
+
   tip = { ring: true, email: true };
 
   constructor(private _globalService: GlobalService) {
@@ -20,23 +20,15 @@ export class PagesTopComponent {
   }
 
   public _sidebarToggle() {
-    /* this._globalService.sidebarToggle$.subscribe(sidebarToggle => {
-      this.sidebarToggle = sidebarToggle;
-    }, error => {
-      console.log('Error: ' + error);
-    }); */
     this._globalService.data$.subscribe(data => {
-
       if (data.ev === 'sidebarToggle') {
         this.sidebarToggle = data.value;
-        console.log('Toogle',this.sidebarToggle);
       }
     }, error => {
       console.log('Error: ' + error);
     });
     this._globalService.dataBusChanged('sidebarToggle', !this.sidebarToggle);
-
-
-    //this._globalService._sidebarToggleState(!this.sidebarToggle);
   }
+
+
 }

@@ -1,10 +1,13 @@
 .table {
+    border-spacing: 0;
+    border-collapse: collapse;
     &>thead {
         &>tr {
             &>th {
                 border-bottom: 1px solid $table-border-color;
                 text-align: center;
                 white-space: nowrap;
+                padding: 3px;
             }
         }
     }
@@ -14,6 +17,7 @@
                 border-bottom: 1px solid $table-border-color;
                 text-align: center;
                 vertical-align: middle;
+                padding: 3px;
             }
         }
     }

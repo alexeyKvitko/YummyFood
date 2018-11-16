@@ -41,7 +41,7 @@ export class SidebarComponent implements OnInit {
 
   }
 
-  /* 初始化 判断当前路由状态信息 首次加载菜单状态 */
+
   _isSelectItem(item) {
     for (const i in item) {
       if (item[i].children) {
