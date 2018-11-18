@@ -41,4 +41,8 @@ export class CompanyComponent implements OnInit {
     this.pageNumber = pN;
   }
 
+  showCompanyDetails( companyId ){
+    alert("CompanyId: "+companyId)
+    this.router.navigate(['pages/company-info']);
+  }
 }
