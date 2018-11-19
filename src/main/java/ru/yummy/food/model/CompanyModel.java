@@ -18,6 +18,7 @@ public class CompanyModel implements Serializable {
     private String phoneOne;
     private String phoneTwo;
     private String phoneThree;
+    private String logo;
 
     public Integer getId() {
         return id;
@@ -89,6 +90,14 @@ public class CompanyModel implements Serializable {
 
     public void setPhoneThree(String phoneThree) {
         this.phoneThree = phoneThree;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
     }
 
     @Override public boolean equals(Object o) {

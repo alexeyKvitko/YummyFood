@@ -42,7 +42,7 @@ export class CompanyComponent implements OnInit {
   }
 
   showCompanyDetails( companyId ){
-    alert("CompanyId: "+companyId)
+    this._globalService.dataBusChanged('companyId', companyId);
     this.router.navigate(['pages/company-info']);
   }
 }

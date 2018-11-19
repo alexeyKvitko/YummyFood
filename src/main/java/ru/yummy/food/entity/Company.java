@@ -39,6 +39,9 @@ public class Company implements Serializable {
     @Column( name = "phone_three" )
     private String phoneThree;
 
+    @Column( name = "logo" )
+    private String logo;
+
     public Integer getId() {
         return id;
     }
@@ -111,7 +114,15 @@ public class Company implements Serializable {
         this.phoneThree = phoneThree;
     }
 
-    @Override public boolean equals( Object o) {
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    @Override public boolean equals(Object o) {
         return Pojomatic.equals(this, o);
     }
 

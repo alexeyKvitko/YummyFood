@@ -6,7 +6,7 @@ import {Injectable} from "@angular/core";
 export class TokenInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let token = window.localStorage.getItem('token');
-    debugger
+    // debugger
     if (token) {
       req = req.clone({
         setHeaders: {

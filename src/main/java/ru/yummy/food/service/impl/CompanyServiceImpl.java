@@ -2,11 +2,17 @@ package ru.yummy.food.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.yummy.food.entity.City;
 import ru.yummy.food.entity.Company;
+import ru.yummy.food.entity.MenuCategory;
+import ru.yummy.food.entity.MenuType;
+import ru.yummy.food.model.CompanyInfo;
 import ru.yummy.food.model.CompanyModel;
-import ru.yummy.food.repo.CityRepository;
+import ru.yummy.food.model.MenuCategoryModel;
+import ru.yummy.food.model.MenuTypeModel;
 import ru.yummy.food.repo.CompanyRepository;
+import ru.yummy.food.repo.MenuCategoryRepository;
+import ru.yummy.food.repo.MenuTypeRepository;
+import ru.yummy.food.util.ConvertUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,28 +24,46 @@ public class CompanyServiceImpl {
     CompanyRepository companyRepo;
 
     @Autowired
-    CityRepository cityRepo;
+    MenuTypeRepository menuTypeRepo;
+
+    @Autowired
+    MenuCategoryRepository menuCategoryRepo;
+
+    @Autowired
+    ConvertUtils convertUtils;
 
     public List<CompanyModel> getAllCompanies(){
         List<Company> companies = (List<Company>) companyRepo.findAll();
         List<CompanyModel> models = new ArrayList<>();
         for( Company company: companies ){
-            models.add( convertToModel( company ) );
+            models.add( convertUtils.convertCompanyToModel( company ) );
         }
         return models;
     }
 
-    private CompanyModel convertToModel(Company company){
-        CompanyModel companyModel = new CompanyModel();
-        companyModel.setId( company.getId() );
-        companyModel.setCompanyName( company.getCompanyName() );
-        companyModel.setDisplayName( company.getDisplayName() );
-        City city = cityRepo.findById( company.getCityId() ).get();
-        companyModel.setCity( city );
-        companyModel.setUrl( company.getUrl() );
-        companyModel.setPhoneOne( company.getPhoneOne() );
-        companyModel.setPhoneTwo( company.getPhoneTwo() );
-        companyModel.setPhoneThree( company.getPhoneThree() );
-        return companyModel;
+    public CompanyInfo getCompanyInfo(Integer companyId){
+        CompanyInfo companyInfo = new CompanyInfo();
+        CompanyModel company  = convertUtils.convertCompanyToModel( companyRepo.findById( companyId ).get() );
+        List<MenuType> menuTypes = menuTypeRepo.findTypesByCompanyId( Integer.valueOf( companyId ) );
+        List<MenuTypeModel> menuTypeModels = new ArrayList<>();
+        for(MenuType menuType : menuTypes ){
+            MenuTypeModel menuTypeModel = convertUtils.convertMenuTypeToModel( menuType );
+            List<MenuCategoryModel> menuCategoryModels = new ArrayList<>();
+            List<MenuCategory> categories = menuCategoryRepo.findCategoriesByCompanyAndTypeId( Integer.valueOf( companyId ),
+                                                menuType.getId() );
+            for(MenuCategory category: categories ){
+                MenuCategoryModel menuCategoryModel = convertUtils.convertMenuCategoryToModel( category );
+                menuCategoryModel.setMenuTypeId( menuType.getId() );
+                menuCategoryModels.add( menuCategoryModel );
+            }
+            menuTypeModel.setMenuCategoryModels( menuCategoryModels );
+            menuTypeModels.add( menuTypeModel );
+        }
+        companyInfo.setCompanyModel( company );
+        companyInfo.setMenuTypes( menuTypeModels );
+        return companyInfo;
     }
+
+
+
 }

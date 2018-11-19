@@ -7,7 +7,7 @@ export class CompanyModel {
   url: string;
   email: string;
   phoneOne: string;
-  phoneTwo: string;cd
+  phoneTwo: string;
   phoneThree: string;
 
 }

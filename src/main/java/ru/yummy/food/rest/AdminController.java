@@ -1,10 +1,8 @@
 package ru.yummy.food.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.yummy.food.model.CompanyInfo;
 import ru.yummy.food.service.impl.CompanyServiceImpl;
 
 import java.util.List;
@@ -21,5 +19,10 @@ public class AdminController {
     @GetMapping("/getCompanies")
     public List getAllCompanies() {
         return companyService.getAllCompanies();
+    }
+
+    @GetMapping("/getCompanyInfo/{id}")
+    public CompanyInfo getAllCompanies(@PathVariable int id) {
+        return companyService.getCompanyInfo(id);
     }
 }

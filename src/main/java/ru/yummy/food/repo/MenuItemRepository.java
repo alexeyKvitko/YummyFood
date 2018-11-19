@@ -4,6 +4,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import ru.yummy.food.entity.MenuItem;
+import ru.yummy.food.entity.MenuType;
+
+import java.util.List;
 
 public interface MenuItemRepository extends CrudRepository<MenuItem,Integer> {
 
@@ -13,4 +16,6 @@ public interface MenuItemRepository extends CrudRepository<MenuItem,Integer> {
     @Query(value=SELECT_SQL,nativeQuery = true)
     Integer getMenuItemId(@Param("companyId") Integer companyId,@Param("typeId") Integer typeId,
                                 @Param("categoryId") Integer categoryId, @Param("entityId") Integer entityId);
+
+
 }
