@@ -9,5 +9,6 @@ export class CompanyModel {
   phoneOne: string;
   phoneTwo: string;
   phoneThree: string;
+  logo:string;
 
 }

@@ -7,6 +7,7 @@ const childRoutes: Routes = [
     component: CompanyInfoComponent
   }
 
+
 ];
 
 export const routing = RouterModule.forChild(childRoutes);

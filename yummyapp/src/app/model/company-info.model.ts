@@ -3,7 +3,7 @@ import {MenuTypesModel} from "./menu-types.model";
 
 export class CompanyInfoModel {
 
-  company: CompanyModel;
+  companyModel: CompanyModel;
   menuTypes: MenuTypesModel[];
 
 }

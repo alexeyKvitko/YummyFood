@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Router } from '@angular/router';
+
 import { CompanyInfoModel } from '../../model/company-info.model';
 import { CompanyService } from '../../services/company.service';
 import { GlobalService } from '../../shared/services/global.service';
@@ -10,32 +12,30 @@ import { GlobalService } from '../../shared/services/global.service';
   styleUrls: ['./company-info.component.scss']
 })
 export class CompanyInfoComponent implements OnInit {
-
+  companyId : string;
+  btnBackImgSrc:string = 'assets/images/buttons/back.png';
+  logoImgSrc: string = 'assets/images/logos/fidel.png';
   companyInfo: CompanyInfoModel;
   loading: boolean = false;
 
-  constructor(private companyService: CompanyService, private _globalService: GlobalService) {
+  constructor(private router: Router,
+              private companyService: CompanyService, private _globalService: GlobalService) {
+   this.companyId = window.localStorage.getItem('companyId');
   }
 
-  public getCompanyInfo( id ){
-    this.companyService.getCompanyInfo(id)
+
+  ngOnInit() {
+      this.companyService.getCompanyInfo( this.companyId )
       .subscribe( data => {
         this.companyInfo = data;
-        console.log('COMPANY INFO',this.companyInfo);
+        this.logoImgSrc = 'assets/images/logos/'+this.companyInfo.companyModel.logo;
         this._globalService.dataBusChanged('pageLoading', false);
         this.loading = false;
       });
   }
 
-  ngOnInit() {
-    this._globalService.data$.subscribe(data => {
-      if (data.ev === 'companyId') {
-        console.log('comapny id: ',data.value);
-        this.getCompanyInfo( data.value );
-      }
-    }, error => {
-      console.log('Error: ' + error);
-    });
+  public back(){
+    this.router.navigate(['pages/company']);
   }
 
 }

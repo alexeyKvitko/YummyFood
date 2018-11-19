@@ -42,7 +42,8 @@ export class CompanyComponent implements OnInit {
   }
 
   showCompanyDetails( companyId ){
-    this._globalService.dataBusChanged('companyId', companyId);
+    window.localStorage.setItem('companyId',companyId);
     this.router.navigate(['pages/company-info']);
+
   }
 }

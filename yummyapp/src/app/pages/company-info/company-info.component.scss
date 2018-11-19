@@ -1,0 +1,26 @@
+@import '../../shared/theme/conf';
+
+.company-info-headeer{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  background-color: $card-bg;
+  padding: 10px 0;
+  //justify-content: space-between;
+}
+.btn-back-wrap{
+  cursor: pointer;
+  margin-left: 12px;
+  margin-top: 12px;
+  width: 34px;
+}
+.logo-wrap{
+  margin-left: 12px;
+}
+.text-wrap{
+  margin-left: 12px;
+  margin-top: 8px;
+  font-size: 36px;
+  color: $accent-color;
+}
