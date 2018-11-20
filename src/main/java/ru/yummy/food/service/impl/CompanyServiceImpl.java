@@ -49,9 +49,7 @@ public class CompanyServiceImpl {
             List<MenuCategory> categories = menuCategoryRepo.findCategoriesByCompanyAndTypeId( Integer.valueOf( companyId ),
                                                 menuType.getId() );
             for(MenuCategory category: categories ){
-                MenuCategoryModel menuCategoryModel = convertUtils.convertMenuCategoryToModel( category );
-                menuCategoryModel.setMenuTypeId( menuType.getId() );
-                menuCategoryModels.add( menuCategoryModel );
+                menuCategoryModels.add( convertUtils.convertMenuCategoryToModel( category, menuType.getId() ) );
             }
             menuTypeModel.setMenuCategories( menuCategoryModels );
             menuTypeModels.add( menuTypeModel );

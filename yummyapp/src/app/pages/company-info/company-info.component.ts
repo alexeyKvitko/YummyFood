@@ -55,6 +55,9 @@ export class CompanyInfoComponent implements OnInit {
 
   menuCategorySelect(id) {
     this.selectedCategory = id;
+    this.companyService.getCompanyMenu( this.companyId, this.selectedType, this.selectedCategory ).subscribe(data => {
+      console.log(data);
+    });
 }
 
   public back() {

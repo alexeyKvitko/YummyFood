@@ -17,17 +17,17 @@ public class AdminController {
     @Autowired
     CompanyServiceImpl companyService;
 
-    @GetMapping("/getCompanies")
+    @GetMapping("/company")
     public List getAllCompanies() {
         return companyService.getAllCompanies();
     }
 
-    @GetMapping("/getCompanyInfo/{id}")
+    @GetMapping("/company/{id}")
     public CompanyInfo getAllCompanies(@PathVariable int id) {
         return companyService.getCompanyInfo(id);
     }
 
-    @GetMapping("/getCompanyMenu/{companyId}/{typeId}/{categoryId}")
+    @GetMapping("/company/{companyId}/{typeId}/{categoryId}")
     public CompanyMenu getCompanyMenu(@PathVariable int companyId, @PathVariable int typeId,
                                       @PathVariable int categoryId) {
         return companyService.getCompanyMenu( companyId,typeId,categoryId );
