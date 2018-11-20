@@ -45,7 +45,7 @@
         text-overflow: ellipsis
     }
     .user-name {
-        color: $sidebar-fonts-color;
+        color: $page-top-fonts-color;
         font-size: $lg-text;
     }
     .user-post {
@@ -72,7 +72,7 @@
         background: transparent;
         border: none;
         outline: none;
-        color: $sidebar-fonts-color;
+        color: $page-top-fonts-color;
         font-size: $sm-text;
         text-indent: 1.5em;
     }
@@ -110,7 +110,7 @@
     transform: translate(0, -50%);
     width: 100px;
     height: 40px;
-    color: $sidebar-fonts-color;
+    color: $page-top-fonts-color;
     @include transition(all .4s);
 }
 
@@ -121,7 +121,7 @@
     line-height: 40px;
     text-align: center;
     @include transition(all .4s);
-    color: $sidebar-fonts-color;
+    color: $page-top-fonts-color;
     &:hover {
         cursor: pointer;
         color: $primary;

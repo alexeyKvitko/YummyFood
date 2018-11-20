@@ -9,9 +9,12 @@ import { GlobalService } from '../../services/global.service';
   animations: [collapse]
 })
 export class MenuComponent {
+  selectedPath: string;
   @Input() menuInfo: any;
 
-  constructor(private _globalService: GlobalService) { }
+  constructor(private _globalService: GlobalService) {
+    this.selectedPath = window.localStorage.getItem('activeMenuPath');
+  }
 
   private isToggleOn(item) {
     item.toggle === 'on' ? item.toggle = 'off' : item.toggle = 'on';
@@ -20,6 +23,7 @@ export class MenuComponent {
 
   private _selectItem(item) {
     //this._globalService._isActived(item);
-    this._globalService.dataBusChanged('isActived', item);
+    this.selectedPath = item.path
+    window.localStorage.setItem('activeMenuPath',this.selectedPath);
   }
 }

@@ -8,14 +8,14 @@ import java.util.List;
 @AutoProperty
 public class MenuTypeModel extends DictionaryModel implements Serializable {
 
-    private List<MenuCategoryModel> menuCategoryModels;
+    private List<MenuCategoryModel> menuCategories;
 
-    public List<MenuCategoryModel> getMenuCategoryModels() {
-        return menuCategoryModels;
+    public List<MenuCategoryModel> getMenuCategories() {
+        return menuCategories;
     }
 
-    public void setMenuCategoryModels(List<MenuCategoryModel> menuCategoryModels) {
-        this.menuCategoryModels = menuCategoryModels;
+    public void setMenuCategories(List<MenuCategoryModel> menuCategories) {
+        this.menuCategories = menuCategories;
     }
 }
 

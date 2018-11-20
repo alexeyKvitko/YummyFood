@@ -53,8 +53,8 @@
     }
     .menu-link.active {
         //@include linear-gradient(to right, $primary, #e0cbff);
-        border-left: 3px solid $primary;
-        color: $primary;
+        border-left: 3px solid $primary-color-text;
+        color: $primary-color-text;
     }
 }
 

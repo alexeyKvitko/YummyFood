@@ -5,10 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.yummy.food.entity.Company;
 import ru.yummy.food.entity.MenuCategory;
 import ru.yummy.food.entity.MenuType;
-import ru.yummy.food.model.CompanyInfo;
-import ru.yummy.food.model.CompanyModel;
-import ru.yummy.food.model.MenuCategoryModel;
-import ru.yummy.food.model.MenuTypeModel;
+import ru.yummy.food.model.*;
 import ru.yummy.food.repo.CompanyRepository;
 import ru.yummy.food.repo.MenuCategoryRepository;
 import ru.yummy.food.repo.MenuTypeRepository;
@@ -56,7 +53,7 @@ public class CompanyServiceImpl {
                 menuCategoryModel.setMenuTypeId( menuType.getId() );
                 menuCategoryModels.add( menuCategoryModel );
             }
-            menuTypeModel.setMenuCategoryModels( menuCategoryModels );
+            menuTypeModel.setMenuCategories( menuCategoryModels );
             menuTypeModels.add( menuTypeModel );
         }
         companyInfo.setCompanyModel( company );
@@ -64,6 +61,9 @@ public class CompanyServiceImpl {
         return companyInfo;
     }
 
-
+    public CompanyMenu getCompanyMenu(int companyId, int typeId,int categoryId ){
+        CompanyMenu companyMenu =  new CompanyMenu();
+        return companyMenu;
+    }
 
 }

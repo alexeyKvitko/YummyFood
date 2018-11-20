@@ -1,9 +1,8 @@
 import { CompanyModel } from '../model/company.model';
-import {MenuTypesModel} from "./menu-types.model";
+import {MenuTypeModel} from "./menu-type.model";
 
 export class CompanyInfoModel {
 
   companyModel: CompanyModel;
-  menuTypes: MenuTypesModel[];
-
+  menuTypes: MenuTypeModel[];
 }

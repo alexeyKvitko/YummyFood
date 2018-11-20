@@ -1,15 +1,54 @@
-<div class="row">
-  <div class="company-info-headeer">
+<div class="row" [hidden]="loading" *ngIf="companyInfo != null">
+  <div class="company-info-header">
   <span class="btn-back-wrap" (click)="back()">
     <img src="{{btnBackImgSrc}}" alt="btnBack">
   </span>
-    <span class="logo-wrap">
-      <img src="{{logoImgSrc}}" alt="btnBack">
-  </span>
-    <!--<span class="text-wrap">-->
-      <!--{{companyInfo.companyModel.displayName}}-->
-  <!--</span>-->
+    <table>
+      <tr>
+        <th class="company-title">{{headerTitle}}</th>
+      </tr>
+      <tr>
+        <th class="company-url">
+          <a href="{{companyInfo.companyModel.url}}" target="_blank">{{companyInfo.companyModel.url}}</a>
+        </th>
+      </tr>
+    </table>
   </div>
-
-
+  <div class="menu-company" >
+    <div id="type-menu" class="menu-content col-6 col-md-4">
+      <div class="menu-title">Характеристика</div>
+      <div class="menu-group">
+        <div *ngFor="let menuType of companyInfo.menuTypes">
+          <div class="menu-item" (click)="menuTypeSelect(menuType.id)">
+          <span class="menu-icon" *ngIf="menuType.id === selectedType">
+            <i class="fa fa-check menu-ico"></i>
+          </span>
+            <span class="menu-icon-transparent" *ngIf="menuType.id != selectedType">
+            <i class="fa fa-check menu-ico"></i>
+          </span>
+            {{menuType.displayName}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="category-menu" class="col-6 col-md-4 menu-content" *ngIf="selectedType != -1">
+      <div class=" menu-title category">Категория</div>
+      <div class=" menu-group category-group">
+        <div *ngFor="let menuCategory of menuCategoryList">
+          <div class="menu-item item-category" (click)="menuCategorySelect(menuCategory.id)">
+          <span class="menu-icon icon-category" *ngIf="menuCategory.id === selectedCategory">
+            <i class="fa fa-check menu-ico"></i>
+          </span>
+            <span class="menu-icon-transparent" *ngIf="menuCategory.id != selectedCategory">
+            <i class="fa fa-check menu-ico"></i>
+          </span>
+            {{menuCategory.displayName}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+

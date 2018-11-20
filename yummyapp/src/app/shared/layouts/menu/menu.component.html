@@ -1,6 +1,6 @@
 <ul class="menu-wrap animated fadeIn">
   <li *ngFor="let item of menuInfo;let i = index" class="menu-item" [ngClass]="{'item-toggle-on':item.toggle === 'on'}">
-    <a [routerLink]="[item.routerLink.join('/')]" *ngIf="item.routerLink" routerLinkActive="active" class="menu-link" (click)="_selectItem(item)">
+    <a [routerLink]="[item.routerLink.join('/')]" *ngIf="item.routerLink"  class="menu-link" [ngClass]="{'active':item.path === selectedPath}"(click)="_selectItem(item)">
       <div class="placeholder">
         <i class="fa fa-{{item.icon}} fa-fw"></i>
       </div>

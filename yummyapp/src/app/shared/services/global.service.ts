@@ -45,6 +45,7 @@ export class GlobalService {
             value: value
         })
     }
+
 }
 
 

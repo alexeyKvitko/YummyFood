@@ -72,15 +72,11 @@ export class menuService {
   }
 
   public selectItem(item) {
+    let selectedPath = window.localStorage.getItem('activeMenuPath');
     item.forEach(element => {
-      if (element.routerLink) {
-        element.isActive = this._router.isActive(this._router.createUrlTree(element.routerLink), true);
-        if (element.isActive)
-          //this._globalService._isActived(element);
-          this._globalService.dataBusChanged('isActived', element);
-      } else if (element.children)
-        this.selectItem(element.children);
-    });
+        element.isActive = element.path === selectedPath;
+      }
+    );
   }
 
 }
