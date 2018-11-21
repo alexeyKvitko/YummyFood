@@ -8,6 +8,7 @@ import {CompanyService} from '../../services/company.service';
 import {GlobalService} from '../../shared/services/global.service';
 import {ParseMenuModel} from "../../model/parse-menu.model";
 import {MenuEntityModel} from "../../model/menu-entity.model";
+import {MenuTypeModel} from "../../model/menu-type.model";
 
 @Component({
   selector: 'app-company-info',
@@ -21,7 +22,7 @@ export class CompanyInfoComponent implements OnInit {
   headerTitle: string;
   companyInfo: CompanyInfoModel = null;
   menuCategoryList: MenuCategoryModel[];
-  selectedType: number = -1;
+  selMenuType: MenuTypeModel = new MenuTypeModel();
   selectedCategory: number = -1;
   loading: boolean = true;
   parseMenu: ParseMenuModel = null;
@@ -34,6 +35,7 @@ export class CompanyInfoComponent implements OnInit {
               private companyService: CompanyService, private _globalService: GlobalService) {
     this.companyId = window.localStorage.getItem('companyId');
     this._globalService.dataBusChanged('pageLoading', true);
+    this.selMenuType.id ='-1';
   }
 
 
@@ -48,12 +50,12 @@ export class CompanyInfoComponent implements OnInit {
       });
   }
 
-  menuTypeSelect(id) {
-    this.selectedType = id;
+  menuTypeSelect( menuType) {
+    this.selMenuType = menuType;
     this.selectedCategory = -1;
     let menuTypeIdx = -1;
     this.companyInfo.menuTypes.forEach(function ( value,idx ) {
-      if ( value.id == id ){
+      if ( value.id == menuType.id){
         menuTypeIdx = idx;
       }
     });
@@ -62,7 +64,7 @@ export class CompanyInfoComponent implements OnInit {
 
   menuCategorySelect(id) {
     this.selectedCategory = id;
-    this.companyService.getCompanyMenu( this.companyId, this.selectedType, this.selectedCategory ).subscribe(data => {
+    this.companyService.getCompanyMenu( this.companyId, this.selMenuType.id, this.selectedCategory ).subscribe(data => {
       this.parseMenu = data.parseMenu;
       this.menuEntities = data.menuEntities;
       console.log(this.parseMenu);

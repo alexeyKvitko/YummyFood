@@ -5,7 +5,12 @@
   </span>
     <table>
       <tr>
-        <th class="company-title">{{headerTitle}}</th>
+        <th>
+          <span class="company-title">{{headerTitle}}</span>
+          <span class="menu-type-title" *ngIf="selMenuType != null">
+            {{selMenuType.displayName}}
+          </span>
+        </th>
       </tr>
       <tr>
         <th class="company-url">
@@ -19,11 +24,11 @@
       <div class="menu-title">Характеристика</div>
       <div class="menu-group">
         <div *ngFor="let menuType of companyInfo.menuTypes">
-          <div class="menu-item" (click)="menuTypeSelect(menuType.id)">
-          <span class="menu-icon" *ngIf="menuType.id === selectedType">
+          <div class="menu-item" (click)="menuTypeSelect(menuType)">
+          <span class="menu-icon" *ngIf="menuType.id === selMenuType.id">
             <i class="fa fa-check menu-ico"></i>
           </span>
-            <span class="menu-icon-transparent" *ngIf="menuType.id != selectedType">
+            <span class="menu-icon-transparent" *ngIf="menuType.id != selMenuType.id">
             <i class="fa fa-check menu-ico"></i>
           </span>
             {{menuType.displayName}}
@@ -31,7 +36,7 @@
         </div>
       </div>
     </div>
-    <div id="category-menu" class="col-6 col-md-4 menu-content" *ngIf="selectedType != -1">
+    <div id="category-menu" class="col-6 col-md-4 menu-content" *ngIf="selMenuType != null">
       <div class=" menu-title category">Категория</div>
       <div class=" menu-group category-group">
         <div *ngFor="let menuCategory of menuCategoryList">

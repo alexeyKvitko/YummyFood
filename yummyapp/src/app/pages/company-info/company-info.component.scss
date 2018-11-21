@@ -12,6 +12,14 @@
     font-size: 36px;
     color: $accent-color;
   }
+  .menu-type-title{
+    padding-left: 12px;
+    font-size: 32px;
+    color: $primary;
+    i{
+      font-size: 24px;
+    }
+  }
   .company-url{
     padding-left: 12px;
   }
