@@ -6,6 +6,8 @@ import {CompanyInfoModel} from '../../model/company-info.model';
 import {MenuCategoryModel} from '../../model/menu-category.model';
 import {CompanyService} from '../../services/company.service';
 import {GlobalService} from '../../shared/services/global.service';
+import {ParseMenuModel} from "../../model/parse-menu.model";
+import {MenuEntityModel} from "../../model/menu-entity.model";
 
 @Component({
   selector: 'app-company-info',
@@ -22,6 +24,11 @@ export class CompanyInfoComponent implements OnInit {
   selectedType: number = -1;
   selectedCategory: number = -1;
   loading: boolean = true;
+  parseMenu: ParseMenuModel = null;
+  menuEntities : MenuEntityModel[];
+  /* pagination Info */
+  pageSize = 4;
+  pageNumber = 1;
 
   constructor(private router: Router,
               private companyService: CompanyService, private _globalService: GlobalService) {
@@ -56,9 +63,16 @@ export class CompanyInfoComponent implements OnInit {
   menuCategorySelect(id) {
     this.selectedCategory = id;
     this.companyService.getCompanyMenu( this.companyId, this.selectedType, this.selectedCategory ).subscribe(data => {
-      console.log(data);
+      this.parseMenu = data.parseMenu;
+      this.menuEntities = data.menuEntities;
+      console.log(this.parseMenu);
+      console.log(this.menuEntities);
     });
-}
+  }
+
+  pageChanged(pN: number): void {
+    this.pageNumber = pN;
+  }
 
   public back() {
     this.router.navigate(['pages/company']);

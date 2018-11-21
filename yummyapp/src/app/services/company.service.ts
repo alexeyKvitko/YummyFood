@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {CompanyModel} from '../model/company.model';
 import {CompanyInfoModel} from '../model/company-info.model';
+import {CompanyMenuModel} from "../model/company-menu.model";
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -27,8 +28,7 @@ export class CompanyService {
   }
 
   public getCompanyMenu(companyId, typeId, categoryId) {
-    debugger
-    return this.http.get<CompanyInfoModel>(this.companyUrl + '/' + companyId
+    return this.http.get<CompanyMenuModel>(this.companyUrl + '/' + companyId
       + '/' + typeId + '/' + categoryId);
   }
 

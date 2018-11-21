@@ -26,7 +26,7 @@
 }
 
 
-.menu-company{
+.menu-wrapper{
   margin-top: 10px;
   background-color: $card-bg;
   padding: 10px 0;
@@ -81,7 +81,7 @@
           font-size: 15px;
           transform: rotate(30deg);
           @include center(20px, 20px);
-          @extend .bg-success;
+          @extend .bg-primary;
           .menu-ico {
             color: $white;
             transform: rotate(-30deg);
@@ -117,3 +117,59 @@
   }
 }
 
+.entity-wrapper{
+    margin-top: 10px;
+    background-color: $card-bg;
+    padding: 10px 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+  text-align: left;
+  img{
+    border: transparent;
+    border-radius: 10px;
+    height:100px!important;
+  }
+
+  .description{
+    padding: 3px;
+    position: relative;
+    color: #212121;
+    font-size: 14px;
+    text-align: left;
+  }
+  .entity-title{
+    font-weight: bold;
+    color: $accent-color;
+  }
+  .wsp-wrap{
+    padding: 3px;
+    text-align: left;
+  }
+  .wsp{
+    text-align: left;
+    font-size: 11px;
+    color: $secondary-text-color;
+    margin-right: 6px;
+  }
+  .weight-size{
+    text-align: left;
+    font-size: 14px;
+    font-weight: 600;
+    color: $primary-text-color;
+    padding: 4px;
+  }
+
+  .price{
+    font-size: 18px;
+    font-weight: bolder;
+    color: $primary-color-text;
+    @extend .bg-success;
+    border-radius: 4px;
+    padding: 4px;
+  }
+}
+
+.hidden-cell{
+  display: none;
+}

@@ -14,7 +14,7 @@
       </tr>
     </table>
   </div>
-  <div class="menu-company" >
+  <div class="menu-wrapper" >
     <div id="type-menu" class="menu-content col-6 col-md-4">
       <div class="menu-title">Характеристика</div>
       <div class="menu-group">
@@ -47,6 +47,66 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="entity-wrapper" *ngIf="menuEntities != null">
+    <div class="col-md-12">
+      <card >
+        <table class="table table-hover">
+          <tbody>
+          <tr *ngFor="let menuEntity of menuEntities | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
+            <td class="hidden-cell">{{menuEntity.id}}</td>
+            <td>
+              <img src="{{menuEntity.imageUrl}}" alt="{{menuEntity.imageUrl}}">
+              <div class="entity-title">{{menuEntity.displayName}}</div>
+            </td>
+            <td valign="top">
+              <div class="description"><strong>{{menuEntity.description}}</strong></div>
+              <div class="wsp-wrap">
+                <span *ngIf="menuEntity.weightOne"><span class="wsp">Вес:</span><span class="weight-size">{{menuEntity.weightOne}}</span></span>
+                <span *ngIf="menuEntity.sizeOne"><span class="wsp">Размер:</span><span class="weight-size">{{menuEntity.sizeOne}}</span></span>
+                <span *ngIf="menuEntity.priceOne"><span class="wsp">Цена:</span><span class="price">{{menuEntity.priceOne}}&nbsp;Р</span></span>
+              </div>
+              <div class="wsp-wrap">
+                <span *ngIf="menuEntity.weightTwo"><span class="wsp">Вес:</span><span class="weight-size">{{menuEntity.weightTwo}}</span></span>
+                <span *ngIf="menuEntity.sizeTwo"><span class="wsp">Размер:</span><span class="weight-size">{{menuEntity.sizeTwo}}</span></span>
+                <span *ngIf="menuEntity.priceTwo"><span class="wsp">Цена:</span><span class="price">{{menuEntity.priceTwo}}&nbsp;Р</span></span>
+              </div>
+              <div class="wsp-wrap">
+                <span *ngIf="menuEntity.weightThree"><span class="wsp">Вес:</span><span class="weight-size">{{menuEntity.weightThree}}</span></span>
+                <span *ngIf="menuEntity.sizeThree"><span class="wsp">Размер:</span><span class="weight-size">{{menuEntity.sizeThree}}</span></span>
+                <span *ngIf="menuEntity.priceThree"><span class="wsp">Цена:</span><span class="price">{{menuEntity.priceThree}}&nbsp;Р</span></span>
+              </div>
+              <div class="wsp-wrap">
+                <span *ngIf="menuEntity.weightFour"><span class="wsp">Вес:</span><span class="weight-size">{{menuEntity.weightFour}}</span></span>
+                <span *ngIf="menuEntity.sizeFour"><span class="wsp">Размер:</span><span class="weight-size">{{menuEntity.sizeFour}}</span></span>
+                <span *ngIf="menuEntity.priceFour"><span class="wsp">Цена:</span><span class="price">{{menuEntity.priceFour}}&nbsp;Р</span></span>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <form class="pagination-wrapper">
+          <div class="form-group pages">
+            <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)" maxSize="9" directionLinks="true"
+                                 autoHide="false" previousLabel="Prev" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                                 screenReaderCurrentLabel="You're on page">
+            </pagination-controls>
+          </div>
+          <div class="form-group options pages">
+            <div class="input-group input-group-sm">
+              <select class="form-control" name="pageChangedName" [(ngModel)]="pageSize" (ngModelChange)="loadData()">
+                <option>1</option>
+                <option>5</option>
+                <option>10</option>
+                <option>20</option>
+              </select>
+              <span class="input-group-addon addon-right">Per Page</span>
+            </div>
+          </div>
+        </form>
+      </card>
+    </div>
+
   </div>
 </div>
 

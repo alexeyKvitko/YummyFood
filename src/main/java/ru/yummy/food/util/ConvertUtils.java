@@ -73,13 +73,12 @@ public class ConvertUtils {
         return menuEntityModel;
     }
 
-    public ParseMenuModel convertParseMenuToModel(ParseMenu parseMenu, Integer companyId, Integer typeId,
-                                                   Integer categoryId){
+    public ParseMenuModel convertParseMenuToModel(ParseMenu parseMenu ){
         ParseMenuModel parseMenuModel = new ParseMenuModel();
         parseMenuModel.setId(parseMenu.getId());
-        parseMenuModel.setCompanyId( companyId );
-        parseMenuModel.setTypeId( typeId );
-        parseMenuModel.setCategoryId( categoryId );
+        parseMenuModel.setCompanyId( parseMenu.getCompanyId() );
+        parseMenuModel.setTypeId( parseMenu.getTypeId() );
+        parseMenuModel.setCategoryId( parseMenu.getCategoryId() );
         parseMenuModel.setParseUrl(parseMenu.getParseUrl());
         parseMenuModel.setTagTrash(parseMenu.getTagTrash());
         parseMenuModel.setTagEndSection(parseMenu.getTagEndSection());

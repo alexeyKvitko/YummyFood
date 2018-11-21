@@ -2,13 +2,9 @@ package ru.yummy.food.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.yummy.food.entity.Company;
-import ru.yummy.food.entity.MenuCategory;
-import ru.yummy.food.entity.MenuType;
+import ru.yummy.food.entity.*;
 import ru.yummy.food.model.*;
-import ru.yummy.food.repo.CompanyRepository;
-import ru.yummy.food.repo.MenuCategoryRepository;
-import ru.yummy.food.repo.MenuTypeRepository;
+import ru.yummy.food.repo.*;
 import ru.yummy.food.util.ConvertUtils;
 
 import java.util.ArrayList;
@@ -25,6 +21,12 @@ public class CompanyServiceImpl {
 
     @Autowired
     MenuCategoryRepository menuCategoryRepo;
+
+    @Autowired
+    MenuEntityRepository menuEntityRepo;
+
+    @Autowired
+    ParseMenuRepository parseRepo;
 
     @Autowired
     ConvertUtils convertUtils;
@@ -61,6 +63,14 @@ public class CompanyServiceImpl {
 
     public CompanyMenu getCompanyMenu(int companyId, int typeId,int categoryId ){
         CompanyMenu companyMenu =  new CompanyMenu();
+        List<MenuEntity> menuEntities = menuEntityRepo.findMenuEntity( companyId, typeId, categoryId );
+        List<MenuEntityModel> entityModels = new ArrayList<>();
+        for( MenuEntity menuEntity : menuEntities ){
+            entityModels.add( convertUtils.convertMenuEntityToModel( menuEntity, companyId, typeId, categoryId ));
+        }
+        ParseMenu parseMenu = parseRepo.findParseMenuByCompanyIdAndTypeIdAndCategoryId( companyId, typeId, categoryId );
+        companyMenu.setParseMenu( convertUtils.convertParseMenuToModel( parseMenu ) );
+        companyMenu.setMenuEntities( entityModels );
         return companyMenu;
     }
 

@@ -37,7 +37,7 @@ $info:#2cc3ff;
 }
 
 .bg-primary {
-    @include linear-gradient(to top right, $primary, #ffd17c);
+    @include linear-gradient(to top right, $primary-color-dark, $primary-color);
 }
 
 .bg-success {

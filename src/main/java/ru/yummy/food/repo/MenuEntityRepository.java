@@ -7,6 +7,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import ru.yummy.food.entity.MenuEntity;
 
+import java.util.List;
+
 public interface MenuEntityRepository extends CrudRepository<MenuEntity,Integer> {
 
     String UPDATE_SQL = "update menu_entity set status = 'УДАЛИТЬ' where id in " +
@@ -20,4 +22,10 @@ public interface MenuEntityRepository extends CrudRepository<MenuEntity,Integer>
     @Query(value=UPDATE_SQL,nativeQuery = true)
     Integer updateMenuEntities(@Param("companyId") Integer companyId, @Param("typeId") Integer typeId,
                                 @Param("categoryId") Integer categoryId);
+
+    @Query("FROM MenuEntity me WHERE me.id IN (SELECT mi.entityId from MenuItem mi WHERE " +
+            "mi.companyId = :companyId and mi.typeId= :typeId and mi.categoryId= :categoryId)")
+    List<MenuEntity> findMenuEntity(@Param("companyId") Integer companyId,@Param("typeId") Integer typeId,
+                                    @Param("categoryId") Integer categoryId);
+
 }
