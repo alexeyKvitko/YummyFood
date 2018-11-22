@@ -26,7 +26,6 @@ export class CompanyInfoComponent implements OnInit {
   selMenuCategory: MenuCategoryModel = new MenuCategoryModel();
   loading: boolean = true;
   showIcon: boolean = true;
-  showIconCat: boolean = true;
   parseMenu: ParseMenuModel = null;
   menuEntities : MenuEntityModel[];
   /* pagination Info */
@@ -54,11 +53,11 @@ export class CompanyInfoComponent implements OnInit {
   }
 
   menuTypeSelect( menuType) {
+    menuType.menuOpen = !menuType.menuOpen;
     this.selMenuType = menuType;
-    this.showIcon = false;
-    this.showIconCat = true;
     this.selMenuCategory =  new MenuCategoryModel();
     this.selMenuCategory.id = '-1';
+    this.showIcon = true;
     this.menuEntities = null;
     let menuTypeIdx = -1;
     this.companyInfo.menuTypes.forEach(function ( value,idx ) {
@@ -69,11 +68,12 @@ export class CompanyInfoComponent implements OnInit {
     this.menuCategoryList  = this.companyInfo.menuTypes[ menuTypeIdx ].menuCategories;
   }
 
-  menuCategorySelect( menuCategory) {
+  menuCategorySelect( menuType, menuCategory) {
+    this.selMenuType = menuType;
     this.selMenuCategory = menuCategory;
+    this.showIcon = false;
     this.pageNumber = 1;
-    this.showIconCat = false;
-    this.companyService.getCompanyMenu( this.companyId, this.selMenuType.id, this.selMenuCategory.id ).subscribe(data => {
+    this.companyService.getCompanyMenu( this.companyId, menuType.id, menuCategory.id ).subscribe(data => {
       this.parseMenu = data.parseMenu;
       this.menuEntities = data.menuEntities;
     });

@@ -7,10 +7,10 @@
       <tr>
         <th>
           <span class="company-title">{{headerTitle}}</span>
-          <span [hidden]="showIcon" class="menu-type-title"><i  class="fas fa-angle-double-right"></i>
+          <span [hidden]="showIcon" class="menu-type-title"><i class="fas fa-angle-double-right"></i>
             {{selMenuType.displayName}}
           </span>
-          <span [hidden]="showIconCat" class="menu-category-title"><i  class="fas fa-angle-double-right"></i>
+          <span [hidden]="showIcon" class="menu-category-title"><i class="fas fa-angle-double-right"></i>
             {{selMenuCategory.displayName}}
           </span>
         </th>
@@ -22,59 +22,46 @@
       </tr>
     </table>
   </div>
-  <div class="menu-wrapper" >
+  <div class="menu-wrapper">
     <div id="type-menu" class="menu-content col-md-3">
-      <!--<div class="menu-title">Характеристика</div>-->
       <div class="menu-group">
         <div *ngFor="let menuType of companyInfo.menuTypes">
-          <span class="menu-icon" *ngIf="menuType.id != selMenuType.id">
+          <span class="menu-icon" *ngIf="!menuType.menuOpen">
             <i class="far fa-folder"></i>
           </span>
-          <span class="menu-icon" *ngIf="menuType.id === selMenuType.id">
+          <span class="menu-icon" *ngIf="menuType.menuOpen">
             <i class="far fa-folder-open"></i>
           </span>
           <span class="menu-item" (click)="menuTypeSelect(menuType)">
-          <!--<span class="menu-icon" *ngIf="menuType.id === selMenuType.id">-->
-            <!--<i class="fa fa-check menu-ico"></i>-->
-          <!--</span>-->
-            <!--<span class="menu-icon-transparent" *ngIf="menuType.id != selMenuType.id">-->
-            <!--<i class="fa fa-check menu-ico"></i>-->
-          <!--</span>-->
             {{menuType.displayName}}
           </span>
-        </div>
-      </div>
-    </div>
-    <div id="category-menu" class="col-6 col-md-4 menu-content" *ngIf="selMenuType != null">
-      <div class=" menu-title category">Категория</div>
-      <div class=" menu-group category-group">
-        <div *ngFor="let menuCategory of menuCategoryList">
-          <div class="menu-item item-category" (click)="menuCategorySelect(menuCategory)">
-          <span class="menu-icon icon-category" *ngIf="menuCategory.id === selMenuCategory.id">
-            <i class="fa fa-check menu-ico"></i>
-          </span>
-            <span class="menu-icon-transparent" *ngIf="menuCategory.id != selMenuCategory.id">
-            <i class="fa fa-check menu-ico"></i>
-          </span>
-            {{menuCategory.displayName}}
+          <div class="submenu-group" [hidden]="!menuType.menuOpen">
+            <div *ngFor="let menuCategory of menuType.menuCategories" class="submenu-sel"
+                 (click)="menuCategorySelect( menuType, menuCategory)">
+              <span class="submenu-icon">
+                <i class="far fa-file"></i>
+              </span>
+              <span [className]="menuCategory.id === selMenuCategory.id ? 'submenu-item sel-menu' : 'submenu-item'">
+                  {{menuCategory.displayName}}
+              </span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-  <div class="row entity-wrapper" *ngIf="menuEntities != null">
-    <div class="col-md-12">
-      <card>
-        <table class="table table-bordered table-hover">
-          <tbody>
-          <tr *ngFor="let menuEntity of menuEntities | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
+  <!--TABLE-->
+  <div class="entity-wrapper" *ngIf="menuEntities != null">
+    <div class="col-md-10" >
+      <card >
+        <table class="table table-hover" >
+          <tr
+            *ngFor="let menuEntity of menuEntities | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
             <td class="hidden-cell">{{menuEntity.id}}</td>
-            <td>
+            <td class="col-md-2" style="border-top: 0px!important;">
               <img src="{{menuEntity.imageUrl}}" alt="{{menuEntity.imageUrl}}">
               <div class="entity-title">{{menuEntity.displayName}}</div>
             </td>
-            <td valign="top">
+            <td class="wsp-td">
               <div class="description"><strong>{{menuEntity.description}}</strong></div>
               <div class="wsp-wrap">
                 <span *ngIf="menuEntity.weightOne"><span class="wsp">Вес:</span><span class="weight-size">{{menuEntity.weightOne}}</span></span>
@@ -98,20 +85,22 @@
               </div>
             </td>
           </tr>
-          </tbody>
         </table>
         <form class="pagination-wrapper">
           <div class="form-group pages">
-            <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)" maxSize="9" directionLinks="true"
-                                 autoHide="false" previousLabel="Prev" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+            <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)" maxSize="9"
+                                 directionLinks="true"
+                                 autoHide="false" previousLabel="Prev" nextLabel="Next"
+                                 screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
                                  screenReaderCurrentLabel="You're on page">
             </pagination-controls>
           </div>
         </form>
       </card>
     </div>
-
   </div>
+  </div>
+</div>
 
 
 
