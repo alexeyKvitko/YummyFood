@@ -23,8 +23,10 @@ export class CompanyInfoComponent implements OnInit {
   companyInfo: CompanyInfoModel = null;
   menuCategoryList: MenuCategoryModel[];
   selMenuType: MenuTypeModel = new MenuTypeModel();
-  selectedCategory: number = -1;
+  selMenuCategory: MenuCategoryModel = new MenuCategoryModel();
   loading: boolean = true;
+  showIcon: boolean = true;
+  showIconCat: boolean = true;
   parseMenu: ParseMenuModel = null;
   menuEntities : MenuEntityModel[];
   /* pagination Info */
@@ -36,6 +38,7 @@ export class CompanyInfoComponent implements OnInit {
     this.companyId = window.localStorage.getItem('companyId');
     this._globalService.dataBusChanged('pageLoading', true);
     this.selMenuType.id ='-1';
+    this.selMenuCategory.id = '-1';
   }
 
 
@@ -52,7 +55,11 @@ export class CompanyInfoComponent implements OnInit {
 
   menuTypeSelect( menuType) {
     this.selMenuType = menuType;
-    this.selectedCategory = -1;
+    this.showIcon = false;
+    this.showIconCat = true;
+    this.selMenuCategory =  new MenuCategoryModel();
+    this.selMenuCategory.id = '-1';
+    this.menuEntities = null;
     let menuTypeIdx = -1;
     this.companyInfo.menuTypes.forEach(function ( value,idx ) {
       if ( value.id == menuType.id){
@@ -62,13 +69,13 @@ export class CompanyInfoComponent implements OnInit {
     this.menuCategoryList  = this.companyInfo.menuTypes[ menuTypeIdx ].menuCategories;
   }
 
-  menuCategorySelect(id) {
-    this.selectedCategory = id;
-    this.companyService.getCompanyMenu( this.companyId, this.selMenuType.id, this.selectedCategory ).subscribe(data => {
+  menuCategorySelect( menuCategory) {
+    this.selMenuCategory = menuCategory;
+    this.pageNumber = 1;
+    this.showIconCat = false;
+    this.companyService.getCompanyMenu( this.companyId, this.selMenuType.id, this.selMenuCategory.id ).subscribe(data => {
       this.parseMenu = data.parseMenu;
       this.menuEntities = data.menuEntities;
-      console.log(this.parseMenu);
-      console.log(this.menuEntities);
     });
   }
 

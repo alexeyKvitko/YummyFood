@@ -20,6 +20,14 @@
       font-size: 24px;
     }
   }
+  .menu-category-title{
+    padding-left: 12px;
+    font-size: 26px;
+    color: $primary-color-light;
+    i{
+      font-size: 18px;
+    }
+  }
   .company-url{
     padding-left: 12px;
   }
@@ -50,9 +58,12 @@
       background-color: $info;
       border-radius: 3px;
       border-bottom: 0px;
-      padding: 8px 0;
+      padding: 8px;
       min-height: 34px;
-      text-align: center;
+      span{
+        text-decoration: underline;
+        color: black;
+      }
       color: $primary-color-text;
     }
     .category{
@@ -69,51 +80,23 @@
       padding: 3px;
       text-align: left;
       .menu-item{
-        border: 1px solid $success;
         margin: 3px 0;
         border-radius: 3px;
-        padding: 8px 50px;
-        min-height: 40px;
-        max-height: 40px;
+        padding: 2px 20px;
+        min-height: 24px;
+        max-height: 24px;
         &:hover {
           border: 1px solid $primary;
           cursor: pointer;
           color: $primary;
         }
-        .menu-icon {
-          position: relative;
-          display: inline-block;
-          left: -40px;
-          text-align: left;
-          border-radius: 5px;
-          font-size: 15px;
-          transform: rotate(30deg);
-          @include center(20px, 20px);
-          @extend .bg-primary;
-          .menu-ico {
-            color: $white;
-            transform: rotate(-30deg);
-          }
-        }
+
         .icon-category{
           @extend .bg-primary-light;
         }
-        .menu-icon-transparent {
-          position: relative;
-          display: inline-block;
-          left: -40px;
-          text-align: left;
-          border-radius: 5px;
-          font-size: 15px;
-          transform: rotate(30deg);
-          @include center(20px, 20px);
-          background-color: transparent;
-          .menu-ico {
-            color: transparent;
-            transform: rotate(-30deg);
-          }
-        }
-
+      }
+      .menu-icon {
+        color: $primary;
       }
       .item-category{
         border: 1px solid $primary-color-light;

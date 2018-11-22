@@ -13,7 +13,7 @@ export class MenuComponent {
   @Input() menuInfo: any;
 
   constructor(private _globalService: GlobalService) {
-    this.selectedPath = window.localStorage.getItem('activeMenuPath');
+    this.selectedPath = "";
   }
 
   private isToggleOn(item) {

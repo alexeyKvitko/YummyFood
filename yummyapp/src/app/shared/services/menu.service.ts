@@ -72,7 +72,7 @@ export class menuService {
   }
 
   public selectItem(item) {
-    let selectedPath = window.localStorage.getItem('activeMenuPath');
+    let selectedPath = "";
     item.forEach(element => {
         element.isActive = element.path === selectedPath;
       }

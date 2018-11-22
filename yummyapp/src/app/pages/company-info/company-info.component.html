@@ -7,8 +7,11 @@
       <tr>
         <th>
           <span class="company-title">{{headerTitle}}</span>
-          <span class="menu-type-title" *ngIf="selMenuType != null">
+          <span [hidden]="showIcon" class="menu-type-title"><i  class="fas fa-angle-double-right"></i>
             {{selMenuType.displayName}}
+          </span>
+          <span [hidden]="showIconCat" class="menu-category-title"><i  class="fas fa-angle-double-right"></i>
+            {{selMenuCategory.displayName}}
           </span>
         </th>
       </tr>
@@ -20,19 +23,25 @@
     </table>
   </div>
   <div class="menu-wrapper" >
-    <div id="type-menu" class="menu-content col-6 col-md-4">
-      <div class="menu-title">Характеристика</div>
+    <div id="type-menu" class="menu-content col-md-3">
+      <!--<div class="menu-title">Характеристика</div>-->
       <div class="menu-group">
         <div *ngFor="let menuType of companyInfo.menuTypes">
-          <div class="menu-item" (click)="menuTypeSelect(menuType)">
+          <span class="menu-icon" *ngIf="menuType.id != selMenuType.id">
+            <i class="far fa-folder"></i>
+          </span>
           <span class="menu-icon" *ngIf="menuType.id === selMenuType.id">
-            <i class="fa fa-check menu-ico"></i>
+            <i class="far fa-folder-open"></i>
           </span>
-            <span class="menu-icon-transparent" *ngIf="menuType.id != selMenuType.id">
-            <i class="fa fa-check menu-ico"></i>
-          </span>
+          <span class="menu-item" (click)="menuTypeSelect(menuType)">
+          <!--<span class="menu-icon" *ngIf="menuType.id === selMenuType.id">-->
+            <!--<i class="fa fa-check menu-ico"></i>-->
+          <!--</span>-->
+            <!--<span class="menu-icon-transparent" *ngIf="menuType.id != selMenuType.id">-->
+            <!--<i class="fa fa-check menu-ico"></i>-->
+          <!--</span>-->
             {{menuType.displayName}}
-          </div>
+          </span>
         </div>
       </div>
     </div>
@@ -40,11 +49,11 @@
       <div class=" menu-title category">Категория</div>
       <div class=" menu-group category-group">
         <div *ngFor="let menuCategory of menuCategoryList">
-          <div class="menu-item item-category" (click)="menuCategorySelect(menuCategory.id)">
-          <span class="menu-icon icon-category" *ngIf="menuCategory.id === selectedCategory">
+          <div class="menu-item item-category" (click)="menuCategorySelect(menuCategory)">
+          <span class="menu-icon icon-category" *ngIf="menuCategory.id === selMenuCategory.id">
             <i class="fa fa-check menu-ico"></i>
           </span>
-            <span class="menu-icon-transparent" *ngIf="menuCategory.id != selectedCategory">
+            <span class="menu-icon-transparent" *ngIf="menuCategory.id != selMenuCategory.id">
             <i class="fa fa-check menu-ico"></i>
           </span>
             {{menuCategory.displayName}}
@@ -53,10 +62,11 @@
       </div>
     </div>
   </div>
-  <div class="entity-wrapper" *ngIf="menuEntities != null">
+</div>
+  <div class="row entity-wrapper" *ngIf="menuEntities != null">
     <div class="col-md-12">
-      <card >
-        <table class="table table-hover">
+      <card>
+        <table class="table table-bordered table-hover">
           <tbody>
           <tr *ngFor="let menuEntity of menuEntities | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
             <td class="hidden-cell">{{menuEntity.id}}</td>
@@ -97,23 +107,12 @@
                                  screenReaderCurrentLabel="You're on page">
             </pagination-controls>
           </div>
-          <div class="form-group options pages">
-            <div class="input-group input-group-sm">
-              <select class="form-control" name="pageChangedName" [(ngModel)]="pageSize" (ngModelChange)="loadData()">
-                <option>1</option>
-                <option>5</option>
-                <option>10</option>
-                <option>20</option>
-              </select>
-              <span class="input-group-addon addon-right">Per Page</span>
-            </div>
-          </div>
         </form>
       </card>
     </div>
 
   </div>
-</div>
+
 
 
 
