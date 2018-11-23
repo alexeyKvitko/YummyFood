@@ -103,16 +103,20 @@
         </div>
       </div>
     </tab-content>
-    <tab-content for="company-info-tab" tabTitle="Настройка парсинга">
-      <div class="col-md-12" *ngIf="menuEntities != null">
+    <tab-content  for="company-info-tab" tabTitle="Настройка парсинга">
+      <div class="tab-parsing">
+      <div class="col-md-12 " *ngIf="menuEntities != null">
         <form   [formGroup]="parseForm" (ngSubmit)="onSubmit()">
           <div class="input-group " >
-            <span class="input-group-addon input-group-addon-teal addon-left" id="basic-addon1">&nbsp;Парсим&nbsp;</span>
+            <span class="input-group-addon input-group-addon-teal addon-left" id="parseUrl"
+            (click)="inputControlClick('parseUrl')">
+              <span [hidden]="isControlHidden('parseUrl')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('parseUrl')"><i class="fa fa-lock"></i></span>
+              &nbsp;&nbsp;Парсим</span>
             <input class="form-control " placeholder="" type="text" formControlName="parseUrl">
           </div>
         </form>
-
-
+      </div>
       </div>
     </tab-content>
   </tabset>

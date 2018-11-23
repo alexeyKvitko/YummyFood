@@ -79,9 +79,10 @@ export class CompanyInfoComponent implements OnInit {
       this.parseMenu = data.parseMenu;
       this.menuEntities = data.menuEntities;
       this.parseForm = this.formBuilder.group({
-        parseUrl: [ this.parseMenu.parseUrl, Validators.compose([Validators.required])],
+        parseUrl: [ { value:this.parseMenu.parseUrl, disabled: true},Validators.compose([Validators.required])],
         password: ['', Validators.required]
       });
+      // this.parseForm.controls.parseUrl.disable();
     });
   }
 
@@ -91,6 +92,18 @@ export class CompanyInfoComponent implements OnInit {
 
   public back() {
     this.router.navigate(['pages/company']);
+  }
+
+  isControlHidden( controlName){
+    return this.parseForm.get( controlName ).status === 'DISABLED';
+  }
+
+  inputControlClick( controlName ){
+    if ( this.parseForm.get( controlName ).status == 'DISABLED' ){
+      this.parseForm.get( controlName ).enable();
+    } else {
+      this.parseForm.get( controlName ).disable();
+    }
   }
 
 }

@@ -205,6 +205,9 @@ input.with-info-addon {
 
 .input-group-addon-teal {
   background: $teal-color;
+  color: $primary-color-text;
+  cursor: pointer;
+  padding: 0px 8px;
 }
 
 .input-group-addon-danger {
