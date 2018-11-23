@@ -72,10 +72,12 @@ export class menuService {
   }
 
   public selectItem(item) {
-    let selectedPath = "";
     item.forEach(element => {
-        element.isActive = element.path === selectedPath;
+      element.isActive = this._router.isActive(this._router.createUrlTree(element.routerLink), true);
+      if ( element.isActive == true ){
+        window.localStorage.setItem('activeMenuPath',element.path);
       }
+     }
     );
   }
 

@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { collapse } from '../../animation/collapse-animate';
-import { GlobalService } from '../../services/global.service';
+import {menuService} from "../../services/menu.service";
 
 @Component({
   selector: 'du-menu',
@@ -12,17 +12,16 @@ export class MenuComponent {
   selectedPath: string;
   @Input() menuInfo: any;
 
-  constructor(private _globalService: GlobalService) {
-    this.selectedPath = "";
+  constructor( private menuService: menuService) {
+    menuService.selectItem( menuService.putSidebarJson() );
+    this.selectedPath = window.localStorage.getItem('activeMenuPath');
   }
 
   private isToggleOn(item) {
     item.toggle === 'on' ? item.toggle = 'off' : item.toggle = 'on';
   }
 
-
   private _selectItem(item) {
-    //this._globalService._isActived(item);
     this.selectedPath = item.path
     window.localStorage.setItem('activeMenuPath',this.selectedPath);
   }

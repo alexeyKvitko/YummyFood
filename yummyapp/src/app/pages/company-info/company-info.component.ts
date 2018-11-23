@@ -9,6 +9,7 @@ import {GlobalService} from '../../shared/services/global.service';
 import {ParseMenuModel} from "../../model/parse-menu.model";
 import {MenuEntityModel} from "../../model/menu-entity.model";
 import {MenuTypeModel} from "../../model/menu-type.model";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-company-info',
@@ -27,12 +28,13 @@ export class CompanyInfoComponent implements OnInit {
   loading: boolean = true;
   showIcon: boolean = true;
   parseMenu: ParseMenuModel = null;
+  parseForm: FormGroup;
   menuEntities : MenuEntityModel[];
   /* pagination Info */
   pageSize = 4;
   pageNumber = 1;
 
-  constructor(private router: Router,
+  constructor(private router: Router,private formBuilder: FormBuilder,
               private companyService: CompanyService, private _globalService: GlobalService) {
     this.companyId = window.localStorage.getItem('companyId');
     this._globalService.dataBusChanged('pageLoading', true);
@@ -76,6 +78,10 @@ export class CompanyInfoComponent implements OnInit {
     this.companyService.getCompanyMenu( this.companyId, menuType.id, menuCategory.id ).subscribe(data => {
       this.parseMenu = data.parseMenu;
       this.menuEntities = data.menuEntities;
+      this.parseForm = this.formBuilder.group({
+        parseUrl: [ this.parseMenu.parseUrl, Validators.compose([Validators.required])],
+        password: ['', Validators.required]
+      });
     });
   }
 

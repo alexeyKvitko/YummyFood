@@ -22,84 +22,101 @@
       </tr>
     </table>
   </div>
-  <div class="menu-wrapper">
-    <div id="type-menu" class="menu-content col-md-3">
-      <div class="menu-group">
-        <div *ngFor="let menuType of companyInfo.menuTypes">
+  <tabset id="company-info-tab" theme="justified">
+    <tab-content for="company-info-tab" tabTitle="Меню" [active]="true">
+      <div class="menu-wrapper">
+        <div id="type-menu" class="menu-content col-md-3">
+          <div class="menu-group">
+            <div *ngFor="let menuType of companyInfo.menuTypes">
           <span class="menu-icon" *ngIf="!menuType.menuOpen">
             <i class="far fa-folder"></i>
           </span>
-          <span class="menu-icon" *ngIf="menuType.menuOpen">
+              <span class="menu-icon" *ngIf="menuType.menuOpen">
             <i class="far fa-folder-open"></i>
           </span>
-          <span class="menu-item" (click)="menuTypeSelect(menuType)">
+              <span class="menu-item" (click)="menuTypeSelect(menuType)">
             {{menuType.displayName}}
           </span>
-          <div class="submenu-group" [hidden]="!menuType.menuOpen">
-            <div *ngFor="let menuCategory of menuType.menuCategories" class="submenu-sel"
-                 (click)="menuCategorySelect( menuType, menuCategory)">
+              <div class="submenu-group" [hidden]="!menuType.menuOpen">
+                <div *ngFor="let menuCategory of menuType.menuCategories" class="submenu-sel"
+                     (click)="menuCategorySelect( menuType, menuCategory)">
               <span class="submenu-icon">
                 <i class="far fa-file"></i>
               </span>
-              <span [className]="menuCategory.id === selMenuCategory.id ? 'submenu-item sel-menu' : 'submenu-item'">
+                  <span [className]="menuCategory.id === selMenuCategory.id ? 'submenu-item sel-menu' : 'submenu-item'">
                   {{menuCategory.displayName}}
               </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        <!--TABLE-->
+        <div class="entity-wrapper" *ngIf="menuEntities != null">
+          <div class="col-md-10" >
+            <card >
+              <table class="table table-hover" >
+                <tr
+                  *ngFor="let menuEntity of menuEntities | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
+                  <td class="hidden-cell">{{menuEntity.id}}</td>
+                  <td class="col-md-2" style="border-top: 0px!important;">
+                    <img src="{{menuEntity.imageUrl}}" alt="{{menuEntity.imageUrl}}">
+                    <div class="entity-title">{{menuEntity.displayName}}</div>
+                  </td>
+                  <td class="wsp-td">
+                    <div class="description"><strong>{{menuEntity.description}}</strong></div>
+                    <div class="wsp-wrap">
+                      <span *ngIf="menuEntity.weightOne"><span class="wsp">Вес:</span><span class="weight-size">{{menuEntity.weightOne}}</span></span>
+                      <span *ngIf="menuEntity.sizeOne"><span class="wsp">Размер:</span><span class="weight-size">{{menuEntity.sizeOne}}</span></span>
+                      <span *ngIf="menuEntity.priceOne"><span class="wsp">Цена:</span><span class="price">{{menuEntity.priceOne}}&nbsp;Р</span></span>
+                    </div>
+                    <div class="wsp-wrap">
+                      <span *ngIf="menuEntity.weightTwo"><span class="wsp">Вес:</span><span class="weight-size">{{menuEntity.weightTwo}}</span></span>
+                      <span *ngIf="menuEntity.sizeTwo"><span class="wsp">Размер:</span><span class="weight-size">{{menuEntity.sizeTwo}}</span></span>
+                      <span *ngIf="menuEntity.priceTwo"><span class="wsp">Цена:</span><span class="price">{{menuEntity.priceTwo}}&nbsp;Р</span></span>
+                    </div>
+                    <div class="wsp-wrap">
+                      <span *ngIf="menuEntity.weightThree"><span class="wsp">Вес:</span><span class="weight-size">{{menuEntity.weightThree}}</span></span>
+                      <span *ngIf="menuEntity.sizeThree"><span class="wsp">Размер:</span><span class="weight-size">{{menuEntity.sizeThree}}</span></span>
+                      <span *ngIf="menuEntity.priceThree"><span class="wsp">Цена:</span><span class="price">{{menuEntity.priceThree}}&nbsp;Р</span></span>
+                    </div>
+                    <div class="wsp-wrap">
+                      <span *ngIf="menuEntity.weightFour"><span class="wsp">Вес:</span><span class="weight-size">{{menuEntity.weightFour}}</span></span>
+                      <span *ngIf="menuEntity.sizeFour"><span class="wsp">Размер:</span><span class="weight-size">{{menuEntity.sizeFour}}</span></span>
+                      <span *ngIf="menuEntity.priceFour"><span class="wsp">Цена:</span><span class="price">{{menuEntity.priceFour}}&nbsp;Р</span></span>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+              <form class="pagination-wrapper">
+                <div class="form-group pages">
+                  <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)" maxSize="9"
+                                       directionLinks="true"
+                                       autoHide="false" previousLabel="Prev" nextLabel="Next"
+                                       screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                                       screenReaderCurrentLabel="You're on page">
+                  </pagination-controls>
+                </div>
+              </form>
+            </card>
+          </div>
+        </div>
       </div>
-    </div>
-  <!--TABLE-->
-  <div class="entity-wrapper" *ngIf="menuEntities != null">
-    <div class="col-md-10" >
-      <card >
-        <table class="table table-hover" >
-          <tr
-            *ngFor="let menuEntity of menuEntities | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
-            <td class="hidden-cell">{{menuEntity.id}}</td>
-            <td class="col-md-2" style="border-top: 0px!important;">
-              <img src="{{menuEntity.imageUrl}}" alt="{{menuEntity.imageUrl}}">
-              <div class="entity-title">{{menuEntity.displayName}}</div>
-            </td>
-            <td class="wsp-td">
-              <div class="description"><strong>{{menuEntity.description}}</strong></div>
-              <div class="wsp-wrap">
-                <span *ngIf="menuEntity.weightOne"><span class="wsp">Вес:</span><span class="weight-size">{{menuEntity.weightOne}}</span></span>
-                <span *ngIf="menuEntity.sizeOne"><span class="wsp">Размер:</span><span class="weight-size">{{menuEntity.sizeOne}}</span></span>
-                <span *ngIf="menuEntity.priceOne"><span class="wsp">Цена:</span><span class="price">{{menuEntity.priceOne}}&nbsp;Р</span></span>
-              </div>
-              <div class="wsp-wrap">
-                <span *ngIf="menuEntity.weightTwo"><span class="wsp">Вес:</span><span class="weight-size">{{menuEntity.weightTwo}}</span></span>
-                <span *ngIf="menuEntity.sizeTwo"><span class="wsp">Размер:</span><span class="weight-size">{{menuEntity.sizeTwo}}</span></span>
-                <span *ngIf="menuEntity.priceTwo"><span class="wsp">Цена:</span><span class="price">{{menuEntity.priceTwo}}&nbsp;Р</span></span>
-              </div>
-              <div class="wsp-wrap">
-                <span *ngIf="menuEntity.weightThree"><span class="wsp">Вес:</span><span class="weight-size">{{menuEntity.weightThree}}</span></span>
-                <span *ngIf="menuEntity.sizeThree"><span class="wsp">Размер:</span><span class="weight-size">{{menuEntity.sizeThree}}</span></span>
-                <span *ngIf="menuEntity.priceThree"><span class="wsp">Цена:</span><span class="price">{{menuEntity.priceThree}}&nbsp;Р</span></span>
-              </div>
-              <div class="wsp-wrap">
-                <span *ngIf="menuEntity.weightFour"><span class="wsp">Вес:</span><span class="weight-size">{{menuEntity.weightFour}}</span></span>
-                <span *ngIf="menuEntity.sizeFour"><span class="wsp">Размер:</span><span class="weight-size">{{menuEntity.sizeFour}}</span></span>
-                <span *ngIf="menuEntity.priceFour"><span class="wsp">Цена:</span><span class="price">{{menuEntity.priceFour}}&nbsp;Р</span></span>
-              </div>
-            </td>
-          </tr>
-        </table>
-        <form class="pagination-wrapper">
-          <div class="form-group pages">
-            <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)" maxSize="9"
-                                 directionLinks="true"
-                                 autoHide="false" previousLabel="Prev" nextLabel="Next"
-                                 screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
-                                 screenReaderCurrentLabel="You're on page">
-            </pagination-controls>
+    </tab-content>
+    <tab-content for="company-info-tab" tabTitle="Настройка парсинга">
+      <div class="col-md-12" *ngIf="menuEntities != null">
+        <form   [formGroup]="parseForm" (ngSubmit)="onSubmit()">
+          <div class="input-group " >
+            <span class="input-group-addon input-group-addon-teal addon-left" id="basic-addon1">&nbsp;Парсим&nbsp;</span>
+            <input class="form-control " placeholder="" type="text" formControlName="parseUrl">
           </div>
         </form>
-      </card>
-    </div>
-  </div>
-  </div>
+
+
+      </div>
+    </tab-content>
+  </tabset>
+
 </div>
 
 

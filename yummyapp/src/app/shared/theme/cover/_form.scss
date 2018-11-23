@@ -141,10 +141,16 @@ select.form-control[multiple] {
     }
 }
 
-input.with-primary-addon {
+input.with-teal-addon {
     &:focus {
-        border-bottom: 1px solid $primary;
+        border-bottom: 1px solid $teal-color;
     }
+}
+
+input.with-primary-addon {
+  &:focus {
+    border-bottom: 1px solid $primary;
+  }
 }
 
 input.with-success-addon {
@@ -195,6 +201,10 @@ input.with-info-addon {
 
 .input-group-addon-warning {
     background: $warning;
+}
+
+.input-group-addon-teal {
+  background: $teal-color;
 }
 
 .input-group-addon-danger {
