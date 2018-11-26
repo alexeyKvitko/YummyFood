@@ -206,8 +206,11 @@ input.with-info-addon {
 .input-group-addon-teal {
   background: $teal-color;
   color: $primary-color-text;
+  width: 150px;
+  text-align: left;
   cursor: pointer;
   padding: 0px 8px;
+  margin-bottom: 6px;
 }
 
 .input-group-addon-danger {

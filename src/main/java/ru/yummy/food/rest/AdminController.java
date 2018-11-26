@@ -1,9 +1,11 @@
 package ru.yummy.food.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
-import ru.yummy.food.model.CompanyInfo;
-import ru.yummy.food.model.CompanyMenu;
+import ru.yummy.food.entity.User;
+import ru.yummy.food.model.*;
 import ru.yummy.food.service.impl.CompanyServiceImpl;
 
 import java.util.List;
@@ -31,5 +33,10 @@ public class AdminController {
     public CompanyMenu getCompanyMenu(@PathVariable int companyId, @PathVariable int typeId,
                                       @PathVariable int categoryId) {
         return companyService.getCompanyMenu( companyId,typeId,categoryId );
+    }
+
+    @RequestMapping(value = "/testParse", method = RequestMethod.POST)
+    public CompanyMenu testParseModel(@RequestBody ParseMenuModel parseMenuModel)  {
+        return new CompanyMenu();
     }
 }

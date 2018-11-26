@@ -29,6 +29,7 @@ export class CompanyComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._globalService.dataBusChanged('headerTitle', 'Кафе/Рестораны');
     this.companyService.getCompanies()
       .subscribe( data => {
         this.companies = data;

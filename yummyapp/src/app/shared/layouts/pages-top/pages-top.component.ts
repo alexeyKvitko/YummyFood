@@ -8,15 +8,35 @@ import { GlobalService } from '../../services/global.service';
 })
 export class PagesTopComponent {
   avatarImgSrc: string = 'assets/images/logo.png';
-  userName: string = "John Doe";
-  userPost: string = 'Admin, Adminov';
-
   sidebarToggle: boolean = true;
+  headerTitle: string;
+  showIcon: boolean = true;
+  menuType: string;
+  menuCategory: string;
+  companyUrl: string;
 
   tip = { ring: true, email: true };
 
   constructor(private _globalService: GlobalService) {
-    this.userName = window.localStorage.getItem('username');
+    this._globalService.data$.subscribe(data => {
+      if (data.ev === 'headerTitle') {
+        this.headerTitle = data.value;
+      }
+      if (data.ev === 'companyUrl') {
+        this.companyUrl = data.value;
+      }
+      if (data.ev === 'showIcon') {
+        this.showIcon = data.value;
+      }
+      if (data.ev === 'menuType') {
+        this.menuType = data.value;
+      }
+      if (data.ev === 'menuCategory') {
+        this.menuCategory = data.value;
+      }
+    }, error => {
+      console.log('Error: ' + error);
+    });
   }
 
   public _sidebarToggle() {

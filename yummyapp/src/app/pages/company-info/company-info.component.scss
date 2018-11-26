@@ -1,38 +1,7 @@
 @import '../../shared/theme/conf';
 @import '../../shared/theme/pagination';
 
-.company-info-header {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  background-color: $card-bg;
-  padding: 10px 0;
-  .company-title {
-    padding-left: 12px;
-    font-size: 36px;
-    color: $accent-color;
-  }
-  .menu-type-title {
-    padding-left: 12px;
-    font-size: 32px;
-    color: $primary;
-    i {
-      font-size: 24px;
-    }
-  }
-  .menu-category-title {
-    padding-left: 12px;
-    font-size: 26px;
-    color: $teal-color;
-    i {
-      font-size: 18px;
-    }
-  }
-  .company-url {
-    padding-left: 12px;
-  }
-}
+
 
 .btn-back-wrap {
   cursor: pointer;
@@ -45,7 +14,10 @@
 }
 
 .menu-wrapper {
-  margin-top: 10px;
+  position: relative;
+  top:-10px;
+  left:-10px;
+  width: 100%;
   background-color: $card-bg;
   max-height: 600px;
   min-height: 600px;
@@ -170,13 +142,42 @@
 }
 .tab-parsing {
   position: relative;
-  top:0px;
-  left:0px;
+  top:-10px;
+  left:-10px;
   width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-
   background-color: $card-bg;
-  border: 1px solid red;
+  padding: 10px;
 }
+
+.input-box{
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  margin-bottom: 4px;
+  .btn-grp{
+    padding: 6px;
+  }
+  .addon-left{
+    min-width: 150px;
+  }
+  span{
+    padding-top: 3px;
+    height: 28px;
+    border: 1px solid $teal-color;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+  }
+  input{
+    border: 1px solid $divider-color;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    padding-left: 8px;
+    width: 100%;
+    height: 28px;
+  }
+}
+
+

@@ -7,29 +7,32 @@
     <div class="avatar">
       <img src="{{avatarImgSrc}}" alt="avatar">
     </div>
-    <div class="user-info-wrap">
-      <span class="user-name" title="{{userName}}">{{userName}}</span>
-      <span class="user-post" title="{{userPost}}">{{userPost}}</span>
-    </div>
   </div>
 
 
-  <div class="search-group">
-    <input type="text" class="search-input" placeholder="Search project · · ·">
-    <button class="search-btn">
-      <i class="fa fa-search fa-fw"></i>
-    </button>
+  <div class="company-info-header">
+  <!--<span class="btn-back-wrap" (click)="back()">-->
+    <!--<img src="{{btnBackImgSrc}}" alt="btnBack">-->
+  <!--</span>-->
+    <table>
+      <tr>
+        <th>
+          <span class="company-title">{{headerTitle}}</span>
+          <span [hidden]="showIcon" class="menu-type-title"><i class="fas fa-angle-double-right"></i>
+            {{menuType}}
+          </span>
+          <span [hidden]="showIcon" class="menu-category-title"><i class="fas fa-angle-double-right"></i>
+            {{menuCategory}}
+          </span>
+        </th>
+      </tr>
+      <tr>
+        <th class="company-url">
+          <a href="{{companyUrl}}" target="_blank">{{companyUrl}}</a>
+        </th>
+      </tr>
+    </table>
   </div>
 
-  <div class="msg-tips-wrap">
-    <div class="msg-entrance ring">
-      <span class="fa fa-bell fa-fw"></span>
-      <span class="badge" *ngIf="tip.ring"></span>
-    </div>
-    <div class="msg-entrance email">
-      <span class="fa fa-envelope fa-fw"></span>
-      <span class="badge" *ngIf="tip.email"></span>
-    </div>
-  </div>
 
 </div>

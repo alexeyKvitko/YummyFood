@@ -18,6 +18,7 @@ export class CompanyService {
   }
 
   private companyUrl = '/api/company';
+  private testParseUrl = '/api/testParse';
 
   public getCompanies() {
     return this.http.get<CompanyModel[]>(this.companyUrl);
@@ -30,6 +31,10 @@ export class CompanyService {
   public getCompanyMenu(companyId, typeId, categoryId) {
     return this.http.get<CompanyMenuModel>(this.companyUrl + '/' + companyId
       + '/' + typeId + '/' + categoryId);
+  }
+
+  public testMenuPage(parseMenuModel) {
+    return this.http.post<CompanyMenuModel>(this.testParseUrl, parseMenuModel);
   }
 
 }

@@ -72,6 +72,7 @@ export class menuService {
   }
 
   public selectItem(item) {
+    window.localStorage.setItem('activeMenuPath','');
     item.forEach(element => {
       element.isActive = this._router.isActive(this._router.createUrlTree(element.routerLink), true);
       if ( element.isActive == true ){

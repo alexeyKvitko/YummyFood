@@ -166,6 +166,39 @@
   }
 }
 
+.company-info-header {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  padding: 10px 200px;
+  .company-title {
+    padding-left: 12px;
+    font-size: 36px;
+    color: $accent-color;
+  }
+  .menu-type-title {
+    padding-left: 12px;
+    font-size: 32px;
+    color: $primary;
+    i {
+      font-size: 24px;
+    }
+  }
+  .menu-category-title {
+    padding-left: 12px;
+    font-size: 26px;
+    color: $teal-color;
+    i {
+      font-size: 18px;
+    }
+  }
+  .company-url {
+    padding-left: 12px;
+  }
+}
+
 @media (max-width:1440px) {
   .menu-wrap {
     width: 210px;
@@ -189,4 +222,6 @@
         display: none;
     }
 }
+
+
 
