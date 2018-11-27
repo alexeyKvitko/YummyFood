@@ -10,7 +10,9 @@ import {ParseMenuModel} from "../../model/parse-menu.model";
 import {MenuEntityModel} from "../../model/menu-entity.model";
 import {MenuTypeModel} from "../../model/menu-type.model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { ClipboardService } from 'ngx-clipboard'
 import swal from 'sweetalert2';
+import {NgxNotificationService} from "ngx-notification";
 
 @Component({
   selector: 'app-company-info',
@@ -26,7 +28,7 @@ export class CompanyInfoComponent implements OnInit {
   selMenuType: MenuTypeModel = new MenuTypeModel();
   selMenuCategory: MenuCategoryModel = new MenuCategoryModel();
   loading: boolean = true;
-  parseMenu: ParseMenuModel = null;
+  parseMenu: ParseMenuModel = new ParseMenuModel();
   updateParseMenu: ParseMenuModel = new ParseMenuModel();
   parseForm: FormGroup;
   menuEntities: MenuEntityModel[];
@@ -35,7 +37,8 @@ export class CompanyInfoComponent implements OnInit {
   pageSize = 4;
   pageNumber = 1;
 
-  constructor(private router: Router, private formBuilder: FormBuilder,
+  constructor(private router: Router, private formBuilder: FormBuilder,private _clipboardService: ClipboardService,
+              private _ngxNotificationService: NgxNotificationService,
               private companyService: CompanyService, private _globalService: GlobalService) {
     this.companyId = window.localStorage.getItem('companyId');
     this._globalService.dataBusChanged('pageLoading', true);
@@ -198,11 +201,12 @@ export class CompanyInfoComponent implements OnInit {
   }
 
   undoControl( controlName ){
-    return this.parseForm.get(controlName).setValue( this.parseMenu.getByName( controlName) );
+    return this.parseForm.get(controlName).setValue( this.getByName( controlName) );
   }
 
   copyControl(controlName){
-
+    this._clipboardService.copyFromContent(this.parseForm.get(controlName).value);
+    this._ngxNotificationService.sendMessage('Скоипровано.', 'success', 'top-right');
   }
 
   inputControlClick(controlName,isSplit) {
@@ -274,6 +278,87 @@ export class CompanyInfoComponent implements OnInit {
 
       this._globalService.dataBusChanged('pageLoading', false);
     });
+  }
+
+  public getByName( name: string): string {
+    let value = null;
+    switch ( name ) {
+      case 'id': {
+        value = this.parseMenu.id;
+        break;}
+      case 'companyId': {
+        value = this.parseMenu.companyId;
+        break; }
+      case 'typeId': {
+        value = this.parseMenu.typeId;
+        break;}
+      case 'categoryId': {
+        value = this.parseMenu.categoryId;
+        break;}
+      case 'htmlResponse': {
+        value = this.parseMenu.htmlResponse;
+        break;}
+      case 'parseUrl': {
+        value = this.parseMenu.parseUrl;
+        break;}
+      case 'prefixUrl': {
+        value = this.parseMenu.prefixUrl;
+        break;}
+      case 'tagTrash': {
+        value = this.parseMenu.tagTrash;
+        break;}
+      case 'tagEndSection': {
+        value = this.parseMenu.tagEndSection;
+        break;}
+      case 'tagName': {
+        value = this.parseMenu.tagName;
+        break;}
+      case 'tagDescription': {
+        value = this.parseMenu.tagDescription;
+        break;}
+      case 'tagImageUrl': {
+        value = this.parseMenu.tagImageUrl;
+        break;}
+      case 'tagWeightOne': {
+        value = this.parseMenu.tagWeightOne;
+        break;}
+      case 'tagSizeOne': {
+        value = this.parseMenu.tagSizeOne;
+        break;}
+      case 'tagPriceOne': {
+        value = this.parseMenu.tagPriceOne;
+        break;}
+      case 'tagWeightTwo': {
+        value = this.parseMenu.tagWeightTwo;
+        break;}
+      case 'tagSizeTwo': {
+        value = this.parseMenu.tagSizeTwo;
+        break;}
+      case 'tagPriceTwo': {
+        value = this.parseMenu.tagPriceTwo;
+        break;}
+      case 'tagWeightThree': {
+        value = this.parseMenu.tagWeightThree;
+        break;}
+      case 'tagSizeThree': {
+        value = this.parseMenu.tagSizeThree;
+        break;}
+      case 'tagPriceThree': {
+        value = this.parseMenu.tagPriceThree;
+        break;}
+      case 'tagWeightFour': {
+        value = this.parseMenu.tagWeightFour;
+        break;}
+      case 'tagSizeFour': {
+        value = this.parseMenu.tagSizeFour;
+        break;}
+      case 'tagPriceFour': {
+        value = this.parseMenu.tagPriceFour;
+        break;}
+      default:
+        break;
+    }
+    return value;
   }
 
 
