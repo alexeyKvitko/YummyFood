@@ -1,11 +1,15 @@
 package ru.yummy.food.rest;
 
+import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.yummy.food.entity.User;
-import ru.yummy.food.model.*;
+import ru.yummy.food.exception.BusinessLogicException;
+import ru.yummy.food.model.ApiResponse;
+import ru.yummy.food.model.CompanyInfo;
+import ru.yummy.food.model.CompanyMenu;
+import ru.yummy.food.model.ParseMenuModel;
+import ru.yummy.food.service.ParseService;
 import ru.yummy.food.service.impl.CompanyServiceImpl;
 
 import java.util.List;
@@ -18,6 +22,9 @@ public class AdminController {
 
     @Autowired
     CompanyServiceImpl companyService;
+
+    @Autowired
+    ParseService parseService;
 
     @GetMapping("/company")
     public List getAllCompanies() {
@@ -37,6 +44,19 @@ public class AdminController {
 
     @RequestMapping(value = "/testParse", method = RequestMethod.POST)
     public CompanyMenu testParseModel(@RequestBody ParseMenuModel parseMenuModel)  {
-        return new CompanyMenu();
+        return parseService.testPage( parseMenuModel );
+    }
+
+    @RequestMapping(value = "/saveParseModel", method = RequestMethod.POST)
+    public ApiResponse saveParseModel(@RequestBody ParseMenuModel parseMenuModel)  {
+        ApiResponse response = new ApiResponse();
+        response.setStatus( HttpStatus.OK.value() );
+        try {
+            parseService.saveParseModel( parseMenuModel );
+        } catch (BusinessLogicException e){
+            response.setStatus( HttpStatus.INTERNAL_SERVER_ERROR.value() );
+            response.setMessage( e.getMessage() );
+        }
+        return response;
     }
 }

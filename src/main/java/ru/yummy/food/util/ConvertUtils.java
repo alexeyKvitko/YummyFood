@@ -3,6 +3,7 @@ package ru.yummy.food.util;
 import org.pojomatic.annotations.AutoProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.yummy.food.AppConstants;
 import ru.yummy.food.entity.*;
 import ru.yummy.food.model.*;
 import ru.yummy.food.repo.CityRepository;
@@ -73,13 +74,14 @@ public class ConvertUtils {
         return menuEntityModel;
     }
 
-    public ParseMenuModel convertParseMenuToModel(ParseMenu parseMenu ){
+    public ParseMenuModel convertParseMenuToModel( ParseMenu parseMenu ){
         ParseMenuModel parseMenuModel = new ParseMenuModel();
         parseMenuModel.setId(parseMenu.getId());
         parseMenuModel.setCompanyId( parseMenu.getCompanyId() );
         parseMenuModel.setTypeId( parseMenu.getTypeId() );
         parseMenuModel.setCategoryId( parseMenu.getCategoryId() );
         parseMenuModel.setParseUrl(parseMenu.getParseUrl());
+        parseMenuModel.setPrefixUrl( parseMenu.getPrefixUrl() );
         parseMenuModel.setTagTrash(parseMenu.getTagTrash());
         parseMenuModel.setTagEndSection(parseMenu.getTagEndSection());
         parseMenuModel.setTagName(parseMenu.getTagName());
@@ -99,5 +101,28 @@ public class ConvertUtils {
         parseMenuModel.setTagPriceFour(parseMenu.getTagPriceFour());
         parseMenuModel.setProcessed(parseMenu.getProcessed());
         return parseMenuModel;
+    }
+
+    public void convertParseMenuModelToEntity( ParseMenu parseMenu, ParseMenuModel parseMenuModel ) throws Exception{
+        parseMenu.setParseUrl(parseMenuModel.getParseUrl());
+        parseMenu.setPrefixUrl( parseMenuModel.getPrefixUrl() );
+        parseMenu.setTagTrash(parseMenuModel.getTagTrash());
+        parseMenu.setTagEndSection(parseMenuModel.getTagEndSection());
+        parseMenu.setTagName(parseMenuModel.getTagName());
+        parseMenu.setTagDescription(parseMenuModel.getTagDescription());
+        parseMenu.setTagImageUrl(parseMenuModel.getTagImageUrl());
+        parseMenu.setTagWeightOne(parseMenuModel.getTagWeightOne());
+        parseMenu.setTagSizeOne(parseMenuModel.getTagSizeOne());
+        parseMenu.setTagPriceOne(parseMenuModel.getTagPriceOne());
+        parseMenu.setTagWeightTwo(parseMenuModel.getTagWeightTwo());
+        parseMenu.setTagSizeTwo(parseMenuModel.getTagSizeTwo());
+        parseMenu.setTagPriceTwo(parseMenuModel.getTagPriceTwo());
+        parseMenu.setTagWeightThree(parseMenuModel.getTagWeightThree());
+        parseMenu.setTagSizeThree(parseMenuModel.getTagSizeThree());
+        parseMenu.setTagPriceThree(parseMenuModel.getTagPriceThree());
+        parseMenu.setTagWeightFour(parseMenuModel.getTagWeightFour());
+        parseMenu.setTagSizeFour(parseMenuModel.getTagSizeFour());
+        parseMenu.setTagPriceFour(parseMenuModel.getTagPriceFour());
+        parseMenu.setProcessed( AppConstants.PROCEED );
     }
 }

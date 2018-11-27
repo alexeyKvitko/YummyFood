@@ -9,8 +9,8 @@ import java.util.List;
 @AutoProperty
 public class CompanyInfo implements Serializable {
 
-     private CompanyModel companyModel;
-     private List<MenuTypeModel> menuTypes;
+    private CompanyModel companyModel;
+    private List<MenuTypeModel> menuTypes;
 
     public CompanyModel getCompanyModel() {
         return companyModel;

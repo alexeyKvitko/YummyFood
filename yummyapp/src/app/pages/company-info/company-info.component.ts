@@ -10,6 +10,7 @@ import {ParseMenuModel} from "../../model/parse-menu.model";
 import {MenuEntityModel} from "../../model/menu-entity.model";
 import {MenuTypeModel} from "../../model/menu-type.model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-company-info',
@@ -28,16 +29,17 @@ export class CompanyInfoComponent implements OnInit {
   parseMenu: ParseMenuModel = null;
   updateParseMenu: ParseMenuModel = new ParseMenuModel();
   parseForm: FormGroup;
-  menuEntities : MenuEntityModel[];
+  menuEntities: MenuEntityModel[];
+  testEntities: MenuEntityModel[];
   /* pagination Info */
   pageSize = 4;
   pageNumber = 1;
 
-  constructor(private router: Router,private formBuilder: FormBuilder,
+  constructor(private router: Router, private formBuilder: FormBuilder,
               private companyService: CompanyService, private _globalService: GlobalService) {
     this.companyId = window.localStorage.getItem('companyId');
     this._globalService.dataBusChanged('pageLoading', true);
-    this.selMenuType.id ='-1';
+    this.selMenuType.id = '-1';
     this.selMenuCategory.id = '-1';
   }
 
@@ -50,28 +52,27 @@ export class CompanyInfoComponent implements OnInit {
         this._globalService.dataBusChanged('headerTitle', this.companyInfo.companyModel.displayName);
         this._globalService.dataBusChanged('companyUrl', this.companyInfo.companyModel.url);
         this._globalService.dataBusChanged('pageLoading', false);
-
         this.loading = false;
       });
   }
 
-  menuTypeSelect( menuType) {
+  menuTypeSelect(menuType) {
     menuType.menuOpen = !menuType.menuOpen;
     this.selMenuType = menuType;
-    this.selMenuCategory =  new MenuCategoryModel();
+    this.selMenuCategory = new MenuCategoryModel();
     this.selMenuCategory.id = '-1';
     this._globalService.dataBusChanged('showIcon', true);
     this.menuEntities = null;
     let menuTypeIdx = -1;
-    this.companyInfo.menuTypes.forEach(function ( value,idx ) {
-      if ( value.id == menuType.id){
+    this.companyInfo.menuTypes.forEach(function (value, idx) {
+      if (value.id == menuType.id) {
         menuTypeIdx = idx;
       }
     });
-    this.menuCategoryList  = this.companyInfo.menuTypes[ menuTypeIdx ].menuCategories;
+    this.menuCategoryList = this.companyInfo.menuTypes[menuTypeIdx].menuCategories;
   }
 
-  menuCategorySelect( menuType, menuCategory) {
+  menuCategorySelect(menuType, menuCategory) {
     this._globalService.dataBusChanged('menuType', menuType.displayName);
     this._globalService.dataBusChanged('menuCategory', menuCategory.displayName);
     this._globalService.dataBusChanged('showIcon', false);
@@ -79,34 +80,100 @@ export class CompanyInfoComponent implements OnInit {
     this.selMenuCategory = menuCategory;
 
     this.pageNumber = 1;
-    this.companyService.getCompanyMenu( this.companyId, menuType.id, menuCategory.id ).subscribe(data => {
+    this.companyService.getCompanyMenu(this.companyId, menuType.id, menuCategory.id).subscribe(data => {
       this.parseMenu = data.parseMenu;
       this.updateParseMenu.id = this.parseMenu.id;
       this.updateParseMenu.companyId = this.parseMenu.companyId;
       this.updateParseMenu.typeId = this.parseMenu.typeId;
       this.updateParseMenu.categoryId = this.parseMenu.categoryId;
       this.menuEntities = data.menuEntities;
+      let tagNameSplitted = this.splitValue( this.parseMenu.tagName );
+      let tagDescSplitted = this.splitValue( this.parseMenu.tagDescription );
+      let tagImgUrlSplitted = this.splitValue( this.parseMenu.tagImageUrl );
+      let tagWeightOneSplitted = this.splitValue( this.parseMenu.tagWeightOne );
+      let tagSizeOneSplitted = this.splitValue( this.parseMenu.tagSizeOne );
+      let tagPriceOneSplitted = this.splitValue( this.parseMenu.tagPriceOne );
+      let tagWeightTwoSplitted = this.splitValue( this.parseMenu.tagWeightTwo );
+      let tagSizeTwoSplitted = this.splitValue( this.parseMenu.tagSizeTwo );
+      let tagPriceTwoSplitted = this.splitValue( this.parseMenu.tagPriceTwo );
+      let tagWeightThreeSplitted = this.splitValue( this.parseMenu.tagWeightThree );
+      let tagSizeThreeSplitted = this.splitValue( this.parseMenu.tagSizeThree );
+      let tagPriceThreeSplitted = this.splitValue( this.parseMenu.tagPriceThree );
+      let tagWeightFourSplitted = this.splitValue( this.parseMenu.tagWeightFour );
+      let tagSizeFourSplitted = this.splitValue( this.parseMenu.tagSizeFour );
+      let tagPriceFourSplitted = this.splitValue( this.parseMenu.tagPriceFour );
+
       this.parseForm = this.formBuilder.group({
-        parseUrl: [ { value:this.parseMenu.parseUrl, disabled: true},Validators.compose([Validators.required])],
+        prefixUrl: [{value: this.parseMenu.prefixUrl, disabled: true}],
+        parseUrl: [{value: this.parseMenu.parseUrl, disabled: true}, Validators.compose([Validators.required])],
         tagTrash: [{value: this.parseMenu.tagTrash, disabled: true}, Validators.compose([Validators.required])],
-        tagEndSection: [{value: this.parseMenu.tagEndSection, disabled: true}, Validators.compose([Validators.required])],
-        tagName: [{value: this.parseMenu.tagName, disabled: true}, Validators.compose([Validators.required])],
-        tagDescription: [{value: this.parseMenu.tagDescription,disabled: true}, Validators.compose([Validators.required])],
-        tagImageUrl: [{value: this.parseMenu.tagImageUrl, disabled: true}, Validators.compose([Validators.required])],
-        tagWeightOne: [{value: this.parseMenu.tagWeightOne, disabled: true}, Validators.compose([Validators.required])],
-        tagSizeOne: [{value: this.parseMenu.tagSizeOne, disabled: true}, Validators.compose([Validators.required])],
-        tagPriceOne: [{value: this.parseMenu.tagPriceOne, disabled: true}, Validators.compose([Validators.required])],
-        tagWeightTwo: [{value: this.parseMenu.tagWeightTwo, disabled: true}],
-        tagSizeTwo: [{value: this.parseMenu.tagSizeTwo, disabled: true}],
-        tagPriceTwo: [{value: this.parseMenu.tagPriceTwo, disabled: true}],
-        tagWeightThree: [{value: this.parseMenu.tagWeightThree,disabled: true}],
-        tagSizeThree: [{value: this.parseMenu.tagSizeThree, disabled: true}],
-        tagPriceThree: [{value: this.parseMenu.tagPriceThree, disabled: true}],
-        tagWeightFour: [{value: this.parseMenu.tagWeightFour, disabled: true}],
-        tagSizeFour: [{value: this.parseMenu.tagSizeFour, disabled: true}],
-        tagPriceFour: [{value: this.parseMenu.tagPriceFour, disabled: true}]
+        tagEndSection: [{value: this.parseMenu.tagEndSection,disabled: true}, Validators.compose([Validators.required])],
+        htmlResponse: [{value: this.parseMenu.htmlResponse,disabled: true}, Validators.compose([Validators.required])],
+        
+        tagNameStart: [{value: tagNameSplitted[0], disabled: true}, Validators.compose([Validators.required])],
+        tagNameEnd:[{value: tagNameSplitted[1], disabled: true}, Validators.compose([Validators.required])],
+        tagNameDirection:[{value: tagNameSplitted[2], disabled: true}],
+
+        tagDescStart: [{value: tagDescSplitted[0], disabled: true}, Validators.compose([Validators.required])],
+        tagDescEnd:[{value: tagDescSplitted[1], disabled: true}, Validators.compose([Validators.required])],
+        tagDescDirection:[{value: tagDescSplitted[2], disabled: true}],
+
+        tagImgUrlStart: [{value: tagImgUrlSplitted[0], disabled: true}, Validators.compose([Validators.required])],
+        tagImgUrlEnd:[{value: tagImgUrlSplitted[1], disabled: true}, Validators.compose([Validators.required])],
+        tagImgUrlDirection:[{value: tagImgUrlSplitted[2], disabled: true}],
+        
+        tagWeightOneStart: [{value: tagWeightOneSplitted[0], disabled: true}, Validators.compose([Validators.required])],
+        tagWeightOneEnd:[{value: tagWeightOneSplitted[1], disabled: true}, Validators.compose([Validators.required])],
+        tagWeightOneDirection:[{value: tagWeightOneSplitted[2], disabled: true}],
+        tagSizeOneStart: [{value: tagSizeOneSplitted[0], disabled: true}, Validators.compose([Validators.required])],
+        tagSizeOneEnd:[{value: tagSizeOneSplitted[1], disabled: true}, Validators.compose([Validators.required])],
+        tagSizeOneDirection:[{value: tagSizeOneSplitted[2], disabled: true}],
+        tagPriceOneStart: [{value: tagPriceOneSplitted[0], disabled: true}, Validators.compose([Validators.required])],
+        tagPriceOneEnd:[{value: tagPriceOneSplitted[1], disabled: true}, Validators.compose([Validators.required])],
+        tagPriceOneDirection:[{value: tagPriceOneSplitted[2], disabled: true}],
+
+        tagWeightTwoStart: [{value: tagWeightTwoSplitted[0], disabled: true}],
+        tagWeightTwoEnd:[{value: tagWeightTwoSplitted[1], disabled: true}],
+        tagWeightTwoDirection:[{value: tagWeightTwoSplitted[2], disabled: true}],
+        tagSizeTwoStart: [{value: tagSizeTwoSplitted[0], disabled: true}],
+        tagSizeTwoEnd:[{value: tagSizeTwoSplitted[1], disabled: true}],
+        tagSizeTwoDirection:[{value: tagSizeTwoSplitted[2], disabled: true}],
+        tagPriceTwoStart: [{value: tagPriceTwoSplitted[0], disabled: true}],
+        tagPriceTwoEnd:[{value: tagPriceTwoSplitted[1], disabled: true}],
+        tagPriceTwoDirection:[{value: tagPriceTwoSplitted[2], disabled: true}],
+
+        tagWeightThreeStart: [{value: tagWeightThreeSplitted[0], disabled: true}],
+        tagWeightThreeEnd:[{value: tagWeightThreeSplitted[1], disabled: true}],
+        tagWeightThreeDirection:[{value: tagWeightThreeSplitted[2], disabled: true}],
+        tagSizeThreeStart: [{value: tagSizeThreeSplitted[0], disabled: true}],
+        tagSizeThreeEnd:[{value: tagSizeThreeSplitted[1], disabled: true}],
+        tagSizeThreeDirection:[{value: tagSizeThreeSplitted[2], disabled: true}],
+        tagPriceThreeStart: [{value: tagPriceThreeSplitted[0], disabled: true}],
+        tagPriceThreeEnd:[{value: tagPriceThreeSplitted[1], disabled: true}],
+        tagPriceThreeDirection:[{value: tagPriceThreeSplitted[2], disabled: true}],
+
+        tagWeightFourStart: [{value: tagWeightFourSplitted[0], disabled: true}],
+        tagWeightFourEnd:[{value: tagWeightFourSplitted[1], disabled: true}],
+        tagWeightFourDirection:[{value: tagWeightFourSplitted[2], disabled: true}],
+        tagSizeFourStart: [{value: tagSizeFourSplitted[0], disabled: true}],
+        tagSizeFourEnd:[{value: tagSizeFourSplitted[1], disabled: true}],
+        tagSizeFourDirection:[{value: tagSizeFourSplitted[2], disabled: true}],
+        tagPriceFourStart: [{value: tagPriceFourSplitted[0], disabled: true}],
+        tagPriceFourEnd:[{value: tagPriceFourSplitted[1], disabled: true}],
+        tagPriceFourDirection:[{value: tagPriceFourSplitted[2], disabled: true}],
       });
+
     });
+  }
+
+  splitValue( val ){
+    let splitted = null;
+    if ( val != null ){
+      splitted = val.split('~');
+    } else {
+      splitted = ['','','f'];
+    }
+    return splitted;
   }
 
   pageChanged(pN: number): void {
@@ -117,39 +184,97 @@ export class CompanyInfoComponent implements OnInit {
     this.router.navigate(['pages/company']);
   }
 
-  isControlHidden( controlName){
-    return this.parseForm.get( controlName ).status === 'DISABLED';
+  isControlHidden(controlName) {
+    return this.parseForm.get(controlName).status === 'DISABLED';
   }
 
-  inputControlClick( controlName ){
+  isForwardDirection(controlName) {
+    return this.parseForm.get(controlName).value === 'f';
+  }
+
+  changeDirection(controlName){
+    let val = this.parseForm.get(controlName).value;
+    this.parseForm.get(controlName).setValue( val === 'f' ? 'b' : 'f');
+  }
+
+  undoControl( controlName ){
+    return this.parseForm.get(controlName).setValue( this.parseMenu.getByName( controlName) );
+  }
+
+  copyControl(controlName){
+
+  }
+
+  inputControlClick(controlName,isSplit) {
     for (let field in this.parseForm.controls) {
       this.parseForm.get(field).disable();
     }
-    this.parseForm.get( controlName ).enable();
+    if ( isSplit === 'split' ){
+      this.parseForm.get(controlName+'Start').enable();
+      this.parseForm.get(controlName+'End').enable();
+    } else {
+      this.parseForm.get(controlName).enable();
+    }
+
   }
 
-  testParseModel(){
-    this.updateParseMenu.parseUrl= this.parseForm.get('parseUrl').value;
-      this.updateParseMenu.tagTrash= this.parseForm.get('tagTrash').value;
-      this.updateParseMenu.tagEndSection= this.parseForm.get('tagEndSection').value;
-      this.updateParseMenu.tagName= this.parseForm.get('tagName').value;
-      this.updateParseMenu.tagDescription= this.parseForm.get('tagDescription').value;
-      this.updateParseMenu.tagImageUrl= this.parseForm.get('tagImageUrl').value;
-      this.updateParseMenu.tagWeightOne= this.parseForm.get('tagWeightOne').value;
-      this.updateParseMenu.tagSizeOne= this.parseForm.get('tagSizeOne').value;
-      this.updateParseMenu.tagPriceOne= this.parseForm.get('tagPriceOne').value;
-      this.updateParseMenu.tagWeightTwo= this.parseForm.get('tagWeightTwo').value;
-      this.updateParseMenu.tagSizeTwo= this.parseForm.get('tagSizeTwo').value;
-      this.updateParseMenu.tagPriceTwo= this.parseForm.get('tagPriceTwo').value;
-      this.updateParseMenu.tagWeightThree= this.parseForm.get('tagWeightThree').value;
-      this.updateParseMenu.tagSizeThree= this.parseForm.get('tagSizeThree').value;
-      this.updateParseMenu.tagPriceThree= this.parseForm.get('tagPriceThree').value;
-      this.updateParseMenu.tagWeightFour= this.parseForm.get('tagWeightFour').value;
-      this.updateParseMenu.tagSizeFour= this.parseForm.get('tagSizeFour').value;
-      this.updateParseMenu.tagPriceFour= this.parseForm.get('tagPriceFour').value;
-      this.companyService.testMenuPage( this.updateParseMenu ).subscribe(data => {
-        console.log(data);
+  convertFormToModel(){
+    this.updateParseMenu.prefixUrl = this.parseForm.get('prefixUrl').value;
+    this.updateParseMenu.parseUrl = this.parseForm.get('parseUrl').value;
+    this.updateParseMenu.tagTrash = this.parseForm.get('tagTrash').value;
+    this.updateParseMenu.tagEndSection = this.parseForm.get('tagEndSection').value;
+    
+    this.updateParseMenu.tagName = this.concatTagValues('tagName');
+    this.updateParseMenu.tagDescription = this.concatTagValues('tagDesc');
+    this.updateParseMenu.tagImageUrl = this.concatTagValues('tagImgUrl');
+    this.updateParseMenu.tagWeightOne = this.concatTagValues('tagWeightOne');
+    this.updateParseMenu.tagSizeOne = this.concatTagValues('tagSizeOne');
+    this.updateParseMenu.tagPriceOne = this.concatTagValues('tagPriceOne');
+    this.updateParseMenu.tagSizeTwo = this.concatTagValues('tagSizeTwo');
+    this.updateParseMenu.tagPriceTwo = this.concatTagValues('tagPriceTwo');
+    this.updateParseMenu.tagWeightThree = this.concatTagValues('tagWeightThree');
+    this.updateParseMenu.tagSizeThree = this.concatTagValues('tagSizeThree');
+    this.updateParseMenu.tagPriceThree = this.concatTagValues('tagPriceThree');
+    this.updateParseMenu.tagWeightFour = this.concatTagValues('tagWeightFour');
+    this.updateParseMenu.tagSizeFour = this.concatTagValues('tagSizeFour');
+    this.updateParseMenu.tagPriceFour = this.concatTagValues('tagPriceFour');
+  }
+  
+  concatTagValues( tag ){
+    let val = this.parseForm.get( tag+'Start').value+"~"+
+      this.parseForm.get( tag+'End').value+"~"+
+      this.parseForm.get(tag+'Direction').value;
+    return val
+  }
+
+  testParseModel() {
+    this._globalService.dataBusChanged('pageLoading', true);
+    this.convertFormToModel();
+    this.companyService.testMenuPage(this.updateParseMenu).subscribe(data => {
+      this.parseForm.get('htmlResponse').setValue( data.parseMenu.htmlResponse );
+      this.testEntities = data.menuEntities;
+      this._globalService.dataBusChanged('pageLoading', false);
     });
   }
+
+  saveParseModel(){
+    this._globalService.dataBusChanged('pageLoading', true);
+    this.convertFormToModel();
+    this.companyService.saveParseModel(this.updateParseMenu).subscribe(data => {
+      this.menuCategorySelect( this.selMenuType, this.selMenuCategory );
+      if ( data.status === 200 ){
+        swal('Обновление данных, успешно');
+      } else {
+        swal({
+          type: 'error',
+          title: data.status,
+          text: data.message,
+        });
+      }
+
+      this._globalService.dataBusChanged('pageLoading', false);
+    });
+  }
+
 
 }

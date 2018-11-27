@@ -19,8 +19,8 @@
   left:-10px;
   width: 100%;
   background-color: $card-bg;
-  max-height: 600px;
-  min-height: 600px;
+  max-height: 650px;
+  min-height: 650px;
   overflow-x: hidden;
   overflow-y: auto;
   border-right: 1px solid $divider-color;
@@ -106,6 +106,12 @@
   .wsp-wrap {
     padding: 3px;
     text-align: left;
+    margin-bottom: 4px;
+  }
+  .wsp-wrap-center{
+    padding: 3px;
+    text-align: center;
+    margin-bottom: 4px;
   }
   .wsp-td{
     border-top: 0px!important;
@@ -172,11 +178,50 @@
   }
   input{
     border: 1px solid $divider-color;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
     padding-left: 8px;
     width: 100%;
     height: 28px;
+  }
+  .check-direction{
+    margin-top: -5px;
+    font-size: 24px;
+    width: 5%;
+    border: none!important;
+    cursor: pointer;
+    .forward{
+      border: none!important;
+      color: $primary-color;
+      &:hover {
+        color: $primary;
+      }
+    }
+    .back{
+      border: none!important;
+      color: $danger;
+      &:hover {
+        color: $primary;
+      }
+    }
+
+  }
+}
+
+.test-parse{
+  border-left: 1px solid $divider-color;
+  height: 750px;
+  max-height: 750px;
+  margin-left: 6px;
+  padding: 4px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.test-img{
+  color: $accent-color;
+  font-size: 16px;
+  img{
+    max-height: 150px;
+    border: 1px solid $divider-color;
+    border-radius: 8px;
   }
 }
 

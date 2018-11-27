@@ -1,150 +1,150 @@
 .form-group {
-    padding: 0 10px;
-    label {
-        font-weight: normal;
-        font-size: $default-text;
-    }
+  padding: 0 10px;
+  label {
+    font-weight: normal;
+    font-size: $default-text;
+  }
 }
 
 @mixin placeholderStyle($color, $opacity) {
-    &::-webkit-input-placeholder {
-        color: $color;
-        opacity: $opacity;
-    }
-    &::-moz-placeholder {
-        color: $color;
-        opacity: $opacity;
-    }
-    &::-ms-input-placeholder {
-        color: $color;
-        opacity: $opacity;
-    }
+  &::-webkit-input-placeholder {
+    color: $color;
+    opacity: $opacity;
+  }
+  &::-moz-placeholder {
+    color: $color;
+    opacity: $opacity;
+  }
+  &::-ms-input-placeholder {
+    color: $color;
+    opacity: $opacity;
+  }
 }
 
 .control-label {
-    font-size: $default-text;
-    font-weight: normal;
+  font-size: $default-text;
+  font-weight: normal;
 }
 
 .help-block {
-    color: lighten($fonts-color, 20%);
-    vertical-align: sub;
-    font-size: $sm-text;
+  color: lighten($fonts-color, 20%);
+  vertical-align: sub;
+  font-size: $sm-text;
 }
 
 .form-control {
-    display: block;
-    width: 100%;
-    color: $fonts-color;
-    background-color: transparent;
-    box-shadow: none;
-    font-size: 14px;
-    @include placeholderStyle($fonts-color, 0.4);
-    &:focus {
-        @include box-shadow(none);
-    }
+  display: block;
+  width: 100%;
+  color: $fonts-color;
+  background-color: transparent;
+  box-shadow: none;
+  font-size: 14px;
+  @include placeholderStyle($fonts-color, 0.4);
+  &:focus {
+    @include box-shadow(none);
+  }
 }
 
 .form-control-sm {
-    font-size: 12px;
-    height: 31px;
+  font-size: 12px;
+  height: 31px;
 }
 
 .form-control-lg {
-    font-size: 16px;
-    height: 50px;
+  font-size: 16px;
+  height: 50px;
 }
 
 input.form-control {
-    border-radius: 0;
-    border: none;
-    border-bottom: 1px solid transparent;
-    background: $border-color;
-    @include transition(all 1s);
-    &:focus {
-        border-bottom: 1px solid $primary;
-    }
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid transparent;
+  background: $border-color;
+  @include transition(all 1s);
+  &:focus {
+    border-bottom: 1px solid $primary;
+  }
 }
 
 input.form-control[disabled] {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 input.form-control[readonly] {
-    background-color: transparent;
-    &:focus {
-        border-bottom: 1px solid transparent;
-    }
+  background-color: transparent;
+  &:focus {
+    border-bottom: 1px solid transparent;
+  }
 }
 
 input.table-form-control {
-    border: 1px solid $border-color;
-    border-radius: 3px;
-    background: $border-color;
-    font-size: 12px;
-    color: $fonts-color;
-    text-align: center;
-    &:focus {
-        border: 1px solid $primary;
-    }
+  border: 1px solid $border-color;
+  border-radius: 3px;
+  background: $border-color;
+  font-size: 12px;
+  color: $fonts-color;
+  text-align: center;
+  &:focus {
+    border: 1px solid $primary;
+  }
 }
 
 textarea.form-control {
-    font-size: 14px;
-    max-width: 100%;
-    height: 96px;
-    background: $border-color;
-    border: 1px solid transparent;
-    border-radius: 0;
-    @include transition(border 1s);
-    &:focus {
-        border: 1px solid $primary;
-    }
+  font-size: 14px;
+  max-width: 100%;
+  height: 96px;
+  background: $border-color;
+  border: 1px solid transparent;
+  border-radius: 0;
+  @include transition(border 1s);
+  &:focus {
+    border: 1px solid $primary;
+  }
 }
 
 select.form-control {
-    border-radius: 0;
-    border: 1px solid transparent;
-    background: $border-color;
-    appearance: none;
-    -moz-appearance: none;
-    background-image: url("/../../../assets/images/select.png");
-    background-repeat: no-repeat;
-    background-position: calc(100% - 7px) 50%;
-    background-size: 10px;
-    padding-right: 20px;
-    @include transition(border 1s);
-    &:focus {
-        border: 1px solid $primary;
-    }
-    option {
-        background: $card-bg;
-        color: $fonts-color;
-        border: none;
-    }
+  border-radius: 0;
+  border: 1px solid transparent;
+  background: $border-color;
+  appearance: none;
+  -moz-appearance: none;
+  background-image: url("/../../../assets/images/select.png");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 7px) 50%;
+  background-size: 10px;
+  padding-right: 20px;
+  @include transition(border 1s);
+  &:focus {
+    border: 1px solid $primary;
+  }
+  option {
+    background: $card-bg;
+    color: $fonts-color;
+    border: none;
+  }
 }
 
 select.form-control[multiple] {
-    background: $border-color;
-    option {
-        background: transparent;
-        color: $fonts-color;
-        border: none;
-    }
+  background: $border-color;
+  option {
+    background: transparent;
+    color: $fonts-color;
+    border: none;
+  }
 }
 
 .form-control[type="color"] {
+  border: none;
+  cursor: pointer;
+  &:focus {
     border: none;
-    cursor: pointer;
-    &:focus {
-        border: none;
-    }
+  }
 }
 
 input.with-teal-addon {
-    &:focus {
-        border-bottom: 1px solid $teal-color;
-    }
+  &:focus {
+    border-bottom: 1px solid $teal-color;
+  }
 }
 
 input.with-primary-addon {
@@ -154,32 +154,32 @@ input.with-primary-addon {
 }
 
 input.with-success-addon {
-    &:focus {
-        border-bottom: 1px solid $success;
-    }
+  &:focus {
+    border-bottom: 1px solid $success;
+  }
 }
 
 input.with-warning-addon {
-    &:focus {
-        border-bottom: 1px solid $warning;
-    }
+  &:focus {
+    border-bottom: 1px solid $warning;
+  }
 }
 
 input.with-danger-addon {
-    &:focus {
-        border-bottom: 1px solid $danger;
-    }
+  &:focus {
+    border-bottom: 1px solid $danger;
+  }
 }
 
 input.with-info-addon {
-    &:focus {
-        border-bottom: 1px solid $info;
-    }
+  &:focus {
+    border-bottom: 1px solid $info;
+  }
 }
 
 .input-group-addon {
-    line-height: inherit;
-    color: $fonts-color;
+  line-height: inherit;
+  color: $fonts-color;
 }
 
 .input-group-addon-primary,
@@ -187,20 +187,20 @@ input.with-info-addon {
 .input-group-addon-warning,
 .input-group-addon-danger,
 .input-group-addon-info {
-    color: $white;
-    border: 0;
+  color: $white;
+  border: 0;
 }
 
 .input-group-addon-primary {
-    background: $primary;
+  background: $primary;
 }
 
 .input-group-addon-success {
-    background: $success;
+  background: $success;
 }
 
 .input-group-addon-warning {
-    background: $warning;
+  background: $warning;
 }
 
 .input-group-addon-teal {
@@ -213,16 +213,35 @@ input.with-info-addon {
   margin-bottom: 6px;
 }
 
+.input-group-addon-teal-right {
+  background: $teal-color;
+  color: $primary-color-text;
+  width: 5%;
+  text-align: center;
+  cursor: pointer;
+  padding: 0px 8px;
+  margin-bottom: 6px;
+}
+
+.itr-start {
+  border-radius: 0px !important;
+}
+.itr-end {
+  border-top-left-radius: 0px!important;;
+  border-bottom-left-radius: 0px!important;;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
 .input-group-addon-danger {
-    background: $danger;
+  background: $danger;
 }
 
 .input-group-addon-info {
-    background: $info;
+  background: $info;
 }
 
-
-/* 
+/*
 
 checkbox && radio 
 
@@ -230,152 +249,152 @@ checkbox && radio
 
 .checkbox,
 .radio {
-    display: none;
+  display: none;
 }
 
 .check-label,
 .radio-label {
-    display: block;
-    width: 14px;
-    height: 14px;
-    line-height: 0.9em;
-    text-indent: 19px;
-    border: 1px solid rgba($fonts-color, .5);
-    cursor: pointer;
-    position: relative;
-    white-space: nowrap;
+  display: block;
+  width: 14px;
+  height: 14px;
+  line-height: 0.9em;
+  text-indent: 19px;
+  border: 1px solid rgba($fonts-color, .5);
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
 }
 
 .check-label:after,
 .radio-label:after {
-    display: block;
-    content: '';
-    width: 0;
-    height: 0;
-    background-color: rgba($fonts-color, .5);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    @include transition(all 0.2s);
+  display: block;
+  content: '';
+  width: 0;
+  height: 0;
+  background-color: rgba($fonts-color, .5);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  @include transition(all 0.2s);
 }
 
-.checkbox:checked+.check-label:after,
-.radio:checked+.radio-label:after {
-    width: 10px;
-    height: 10px;
+.checkbox:checked + .check-label:after,
+.radio:checked + .radio-label:after {
+  width: 10px;
+  height: 10px;
 }
 
 .check-label,
 .check-label:after {
-    border-radius: 1px;
+  border-radius: 1px;
 }
 
 .radio-label,
 .radio-label:after {
-    border-radius: 50%;
+  border-radius: 50%;
 }
 
-.checkbox-primary+.check-label,
-.checkbox-primary+.radio-label {
-    border: 1px solid $primary;
+.checkbox-primary + .check-label,
+.checkbox-primary + .radio-label {
+  border: 1px solid $primary;
 }
 
-.checkbox-primary+.check-label:after,
-.checkbox-primary+.radio-label:after {
-    background-color: $primary;
+.checkbox-primary + .check-label:after,
+.checkbox-primary + .radio-label:after {
+  background-color: $primary;
 }
 
-.checkbox-success+.check-label,
-.checkbox-success+.radio-label {
-    border: 1px solid $success;
+.checkbox-success + .check-label,
+.checkbox-success + .radio-label {
+  border: 1px solid $success;
 }
 
-.checkbox-success+.check-label:after,
-.checkbox-success+.radio-label:after {
-    background-color: $success;
+.checkbox-success + .check-label:after,
+.checkbox-success + .radio-label:after {
+  background-color: $success;
 }
 
-.checkbox-warning+.check-label,
-.checkbox-warning+.radio-label {
-    border: 1px solid $warning;
+.checkbox-warning + .check-label,
+.checkbox-warning + .radio-label {
+  border: 1px solid $warning;
 }
 
-.checkbox-warning+.check-label:after,
-.checkbox-warning+.radio-label:after {
-    background-color: $warning;
+.checkbox-warning + .check-label:after,
+.checkbox-warning + .radio-label:after {
+  background-color: $warning;
 }
 
-.checkbox-danger+.check-label,
-.checkbox-danger+.radio-label {
-    border: 1px solid $danger;
+.checkbox-danger + .check-label,
+.checkbox-danger + .radio-label {
+  border: 1px solid $danger;
 }
 
-.checkbox-danger+.check-label:after,
-.checkbox-danger+.radio-label:after {
-    background-color: $danger;
+.checkbox-danger + .check-label:after,
+.checkbox-danger + .radio-label:after {
+  background-color: $danger;
 }
 
-.checkbox-info+.check-label,
-.checkbox-info+.radio-label {
-    border: 1px solid $info;
+.checkbox-info + .check-label,
+.checkbox-info + .radio-label {
+  border: 1px solid $info;
 }
 
-.checkbox-info+.check-label:after,
-.checkbox-info+.radio-label:after {
-    background-color: $info;
+.checkbox-info + .check-label:after,
+.checkbox-info + .radio-label:after {
+  background-color: $info;
 }
 
 .label {
-    padding: 1px 4px;
-    border-radius: 2px;
+  padding: 1px 4px;
+  border-radius: 2px;
 }
 
 .label-primary {
-    @extend .bg-primary;
+  @extend .bg-primary;
 }
 
 .label-warning {
-    @extend .bg-warning;
+  @extend .bg-warning;
 }
 
 .label-success {
-    @extend .bg-success;
+  @extend .bg-success;
 }
 
 .label-danger {
-    @extend .bg-danger;
+  @extend .bg-danger;
 }
 
 .label-info {
-    cursor: pointer;
-    @extend .bg-info;
+  cursor: pointer;
+  @extend .bg-info;
 }
 
 @mixin alert($alertType) {
-    border: 1px solid $alertType;
-    background: rgba($alertType, .2);
-    color: $fonts-color;
+  border: 1px solid $alertType;
+  background: rgba($alertType, .2);
+  color: $fonts-color;
 }
 
 .alert-success {
-    @include alert($success);
+  @include alert($success);
 }
 
 .alert-warning {
-    @include alert($warning);
+  @include alert($warning);
 }
 
 .alert-danger {
-    @include alert($danger);
+  @include alert($danger);
 }
 
 .alert-info {
-    @include alert($info);
+  @include alert($info);
 }
 
 .alert {
-    button.close {
-        color: $fonts-color;
-    }
+  button.close {
+    color: $fonts-color;
+  }
 }

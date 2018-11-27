@@ -9,6 +9,8 @@ public abstract class AppConstants {
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String HEADER_STRING = "Authorization";
 
+    public static final Integer FAKE_ID = -1;
+
     public static final int PROCEED = 1;
     public static final int PROCESSED = 0;
 
@@ -41,12 +43,17 @@ public abstract class AppConstants {
             put("</h3>","");
             put("<span>","");
             put("</span","");
+            put("</div","");
+            put("div","");
+            put("class","");
             put("&quot;","");
             put("&nbsp;"," ");
             put("руб.","");
             put("руб","");
             put("</","");
             put(">","");
+            put("<","");
+            put("=","");
         }
     };
 

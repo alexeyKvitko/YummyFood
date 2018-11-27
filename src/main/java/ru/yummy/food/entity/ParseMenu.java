@@ -27,6 +27,9 @@ public class ParseMenu implements Serializable {
     @Column( name = "parse_url" )
     private String parseUrl;
 
+    @Column( name = "prefix_url" )
+    private String prefixUrl;
+
     @Column( name = "tag_trash" )
     private String tagTrash;
 
@@ -119,6 +122,14 @@ public class ParseMenu implements Serializable {
 
     public void setParseUrl( String parseUrl ) {
         this.parseUrl = parseUrl;
+    }
+
+    public String getPrefixUrl() {
+        return prefixUrl;
+    }
+
+    public void setPrefixUrl(String prefixUrl) {
+        this.prefixUrl = prefixUrl;
     }
 
     public String getTagEndSection() {

@@ -1,7 +1,7 @@
 export class ApiResponse {
 
-  status: number;
-  message: number;
+  status: any;
+  message: any;
   result: any;
 
 }

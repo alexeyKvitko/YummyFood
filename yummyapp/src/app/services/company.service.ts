@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {CompanyModel} from '../model/company.model';
 import {CompanyInfoModel} from '../model/company-info.model';
 import {CompanyMenuModel} from "../model/company-menu.model";
+import {ApiResponse} from "../model/api.response";
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -18,7 +19,7 @@ export class CompanyService {
   }
 
   private companyUrl = '/api/company';
-  private testParseUrl = '/api/testParse';
+  private apiUrl = '/api';
 
   public getCompanies() {
     return this.http.get<CompanyModel[]>(this.companyUrl);
@@ -34,7 +35,11 @@ export class CompanyService {
   }
 
   public testMenuPage(parseMenuModel) {
-    return this.http.post<CompanyMenuModel>(this.testParseUrl, parseMenuModel);
+    return this.http.post<CompanyMenuModel>(this.apiUrl+'/testParse', parseMenuModel);
+  }
+
+  public saveParseModel(parseMenuModel) {
+    return this.http.post<ApiResponse>(this.apiUrl+'/saveParseModel', parseMenuModel);
   }
 
 }

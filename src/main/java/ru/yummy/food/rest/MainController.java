@@ -1,6 +1,5 @@
 package ru.yummy.food.rest;
 
-import org.pojomatic.annotations.AutoProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +14,7 @@ public class MainController {
 
 
     @Autowired
-    @Qualifier("parsePageService")
+    @Qualifier("parseServiceImpl")
     ParseService parseService;
 
     @GetMapping("/parsePage")

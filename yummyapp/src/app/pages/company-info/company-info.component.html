@@ -30,9 +30,9 @@
         </div>
         <!--TABLE-->
         <div class="entity-wrapper" *ngIf="menuEntities != null">
-          <div class="col-md-10" >
-            <card >
-              <table class="table table-hover" >
+          <div class="col-md-10">
+            <card>
+              <table class="table table-hover">
                 <tr
                   *ngFor="let menuEntity of menuEntities | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
                   <td class="hidden-cell">{{menuEntity.id}}</td>
@@ -80,130 +80,283 @@
         </div>
       </div>
     </tab-content>
-    <tab-content  for="company-info-tab" tabTitle="Настройка парсинга">
+    <tab-content for="company-info-tab" tabTitle="Настройка парсинга" *ngIf="menuEntities != null">
       <div class="row tab-parsing">
-      <div class="col-md-6" *ngIf="menuEntities != null">
-        <form [formGroup]="parseForm" (ngSubmit)="onSubmit()">
-          <div class="input-box">
-            <span class="input-group-addon-teal addon-left" id="parseUrl" (click)="inputControlClick('parseUrl')">
+        <div class="col-md-6">
+          <form [formGroup]="parseForm" (ngSubmit)="onSubmit()">
+            <div class="input-box">
+              <span class="input-group-addon-teal addon-left" id="parseUrl" (click)="inputControlClick('parseUrl')">
               <span [hidden]="isControlHidden('parseUrl')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('parseUrl')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Парсим</span>
-             <input  placeholder="" type="text" formControlName="parseUrl">
-          </div>
-          <div class="input-box">
-            <span class="input-group-addon-teal addon-left" id="tagTrash-id" (click)="inputControlClick('tagTrash')">
+              <input placeholder="" type="text" formControlName="parseUrl">
+              <span class="input-group-addon-teal-right itr-start" (click)="undoControl('parseUrl')" ><i class="fas fa-undo-alt"></i></span>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyControl('parseUrl')"><i class="far fa-copy"></i></span>
+            </div>
+            <div class="input-box">
+             <span class="input-group-addon-teal addon-left" id="prefixUrl" (click)="inputControlClick('prefixUrl')">
+              <span [hidden]="isControlHidden('prefixUrl')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('prefixUrl')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;URL изображения</span>
+              <input placeholder="" type="text" formControlName="prefixUrl">
+            </div>
+            <div class="input-box">
+              <span class="input-group-addon-teal addon-left" id="tagTrash-id" (click)="inputControlClick('tagTrash')">
               <span [hidden]="isControlHidden('tagTrash')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagTrash')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Лишний заголовок</span>
-            <input  placeholder="" type="text" formControlName="tagTrash">
-          </div>
-          <div class="input-box">
-            <span class="col-md-2 input-group-addon-teal addon-left" id="tagEndSection-id" (click)="inputControlClick('tagEndSection')">
+              <input placeholder="" type="text" formControlName="tagTrash">
+            </div>
+            <div class="input-box">
+             <span class="col-md-2 input-group-addon-teal addon-left" id="tagEndSection-id"
+                  (click)="inputControlClick('tagEndSection')">
               <span [hidden]="isControlHidden('tagEndSection')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagEndSection')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Конец блока</span>
-            <input  placeholder="" type="text" formControlName="tagEndSection">
-          </div>
-          <div class="input-box">
-            <span class="input-group-addon-teal addon-left" id="tagName-id" (click)="inputControlClick('tagName')">
-              <span [hidden]="isControlHidden('tagName')"><i class="fa fa-lock-open"></i></span>
-              <span [hidden]="!isControlHidden('tagName')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Имя</span>
-            <input  placeholder="" type="text" formControlName="tagName">
-          </div>
-          <div class="input-box">
-            <span class="input-group-addon-teal addon-left" id="tagDescription-id" (click)="inputControlClick('tagDescription')">
-              <span [hidden]="isControlHidden('tagDescription')"><i class="fa fa-lock-open"></i></span>
-              <span [hidden]="!isControlHidden('tagDescription')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Описание</span>
-            <input  placeholder="" type="text" formControlName="tagDescription">
-          </div>
-          <div class="input-box">
-            <span class="input-group-addon-teal addon-left" id="tagImageUrl-id" (click)="inputControlClick('tagImageUrl')">
-              <span [hidden]="isControlHidden('tagImageUrl')"><i class="fa fa-lock-open"></i></span>
-              <span [hidden]="!isControlHidden('tagImageUrl')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;URL изображения</span>
-            <input  placeholder="" type="text" formControlName="tagImageUrl">
-          </div>
-          <div class="input-box">
-            <span class="input-group-addon-teal addon-left" id="tagWeightOne-id" (click)="inputControlClick('tagWeightOne')">
-              <span [hidden]="isControlHidden('tagWeightOne')"><i class="fa fa-lock-open"></i></span>
-              <span [hidden]="!isControlHidden('tagWeightOne')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Вес </span>
-            <input  placeholder="" type="text" formControlName="tagWeightOne">
-          </div>
-          <div class="input-box">
-            <span class="input-group-addon-teal addon-left" id="tagSizeOne-id" (click)="inputControlClick('tagSizeOne')">
-              <span [hidden]="isControlHidden('tagSizeOne')"><i class="fa fa-lock-open"></i></span>
-              <span [hidden]="!isControlHidden('tagSizeOne')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Размер</span>
-            <input  placeholder="" type="text" formControlName="tagSizeOne">
-          </div>
-          <div class="input-box">
-            <span class="input-group-addon-teal addon-left" id="tagPriceOne-id" (click)="inputControlClick('tagPriceOne')">
-              <span [hidden]="isControlHidden('tagPriceOne')"><i class="fa fa-lock-open"></i></span>
-              <span [hidden]="!isControlHidden('tagPriceOne')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Цена</span>
-            <input  placeholder="" type="text" formControlName="tagPriceOne">
-          </div>
-          <div class="input-box">
-            <span class="input-group-addon-teal addon-left" id="tagWeightTwo-id" (click)="inputControlClick('tagWeightTwo')">
-              <span [hidden]="isControlHidden('tagWeightTwo')"><i class="fa fa-lock-open"></i></span>
-              <span [hidden]="!isControlHidden('tagWeightTwo')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Вес 2</span>
-            <input  placeholder="" type="text" formControlName="tagWeightTwo">
-          </div>
-          <div class="input-box">
-            <span class="input-group-addon-teal addon-left" id="tagSizeTwo-id" (click)="inputControlClick('tagSizeTwo')">
-              <span [hidden]="isControlHidden('tagSizeTwo')"><i class="fa fa-lock-open"></i></span>
-              <span [hidden]="!isControlHidden('tagSizeTwo')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Размер 2</span>
-            <input  placeholder="" type="text" formControlName="tagSizeTwo">
-          </div>
-          <div class="input-box">
-            <span class="input-group-addon-teal addon-left" id="tagPriceTwo-id" (click)="inputControlClick('tagPriceTwo')">
-              <span [hidden]="isControlHidden('tagPriceTwo')"><i class="fa fa-lock-open"></i></span>
-              <span [hidden]="!isControlHidden('tagPriceTwo')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Цена 2</span>
-            <input  placeholder="" type="text" formControlName="tagPriceTwo">
-          </div>
-          <div class="input-box">
-            <span class="input-group-addon-teal addon-left" id="tagWeightThree-id" (click)="inputControlClick('tagWeightThree')">
-              <span [hidden]="isControlHidden('tagWeightThree')"><i class="fa fa-lock-open"></i></span>
-              <span [hidden]="!isControlHidden('tagWeightThree')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Вес 3</span>
-            <input  placeholder="" type="text" formControlName="tagWeightThree">
-          </div>
-          <div class="input-box">
-            <span class="input-group-addon-teal addon-left" id="tagSizeThree-id" (click)="inputControlClick('tagSizeThree')">
-              <span [hidden]="isControlHidden('tagSizeThree')"><i class="fa fa-lock-open"></i></span>
-              <span [hidden]="!isControlHidden('tagSizeThree')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Размер 3</span>
-            <input  placeholder="" type="text" formControlName="tagSizeThree">
-          </div>
-          <div class="input-box">
-            <span class="input-group-addon-teal addon-left" id="tagPriceThree-id" (click)="inputControlClick('tagPriceThree')">
-              <span [hidden]="isControlHidden('tagPriceThree')"><i class="fa fa-lock-open"></i></span>
-              <span [hidden]="!isControlHidden('tagPriceThree')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Цена 3</span>
-            <input  placeholder="" type="text" formControlName="tagPriceThree">
-          </div>
-          <div class="input-box">
-            <span class="input-group-addon-teal addon-left" id="tagWeightFour-id" (click)="inputControlClick('tagWeightFour')">
-              <span [hidden]="isControlHidden('tagWeightFour')"><i class="fa fa-lock-open"></i></span>
-              <span [hidden]="!isControlHidden('tagWeightFour')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Вес 4</span>
-            <input  placeholder="" type="text" formControlName="tagWeightFour">
-          </div>
-          <div class="input-box">
-            <span class="input-group-addon-teal addon-left" id="tagSizeFour-id" (click)="inputControlClick('tagSizeFour')">
-              <span [hidden]="isControlHidden('tagSizeFour')"><i class="fa fa-lock-open"></i></span>
-              <span [hidden]="!isControlHidden('tagSizeFour')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Размер 4</span>
-            <input  placeholder="" type="text" formControlName="tagSizeFour">
-          </div>
-          <div class="input-box">
-            <span class="input-group-addon-teal addon-left" id="tagPriceFour-id" (click)="inputControlClick('tagPriceFour')">
-              <span [hidden]="isControlHidden('tagPriceFour')"><i class="fa fa-lock-open"></i></span>
-              <span [hidden]="!isControlHidden('tagPriceFour')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Цена 4</span>
-            <input  placeholder="" type="text" formControlName="tagPriceFour">
-          </div>
-          <div class="input-box"style="float: right">
-            <div class="btn-grp">
-              <button type="button" class="btn btn-success btn-with-icon">
-                <i class="fa fa-check fa-fw"></i>Запись</button>
+              <input placeholder="" type="text" formControlName="tagEndSection">
             </div>
-            <div class="btn-grp">
-              <button type="button" class="btn btn-info btn-with-icon" (click)="testParseModel()">
-                <i class="fa fa-forward fa-fw"></i>Тест</button>
+            <div class="input-box">
+              <span class="input-group-addon-teal addon-left" id="tagName-id" (click)="inputControlClick('tagName','split')">
+              <span [hidden]="isControlHidden('tagNameStart')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('tagNameStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Имя</span>
+              <input style="width: 85%" placeholder="" type="text" formControlName="tagNameStart">&nbsp;
+              <input style="width: 5%"placeholder="" type="text" formControlName="tagNameEnd">&nbsp;
+              <span [hidden]="isControlHidden('tagNameStart')" class="check-direction" (click)="changeDirection('tagNameDirection')">
+                <span class="forward" [hidden]="!isForwardDirection('tagNameDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
+                <span class="back" [hidden]="isForwardDirection('tagNameDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
+              </span>
             </div>
-          </div>
-        </form>
-      </div>
+            <div class="input-box">
+              <span class="input-group-addon-teal addon-left" id="tagDescription-id"
+                  (click)="inputControlClick('tagDesc','split')">
+              <span [hidden]="isControlHidden('tagDescStart')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('tagDescStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Описание</span>
+              <input style="width: 85%" placeholder="" type="text" formControlName="tagDescStart">&nbsp;
+              <input style="width: 5%"placeholder="" type="text" formControlName="tagDescEnd">&nbsp;
+              <span [hidden]="isControlHidden('tagDescStart')" class="check-direction" (click)="changeDirection('tagDescDirection')">
+                <span class="forward" [hidden]="!isForwardDirection('tagDescDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
+                <span class="back" [hidden]="isForwardDirection('tagDescDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
+              </span>
+            </div>
+            <div class="input-box">
+             <span class="input-group-addon-teal addon-left" id="tagImageUrl-id"
+                  (click)="inputControlClick('tagImgUrl','split')">
+              <span [hidden]="isControlHidden('tagImgUrlStart')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('tagImgUrlStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;URL изображения</span>
+              <input style="width: 85%" placeholder="" type="text" formControlName="tagImgUrlStart">&nbsp;
+              <input style="width: 5%"placeholder="" type="text" formControlName="tagImgUrlEnd">&nbsp;
+              <span [hidden]="isControlHidden('tagImgUrlStart')" class="check-direction" (click)="changeDirection('tagImgUrlDirection')">
+                <span class="forward" [hidden]="!isForwardDirection('tagImgUrlDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
+                <span class="back" [hidden]="isForwardDirection('tagImgUrlDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
+              </span>
+            </div>
+            <div class="input-box">
+             <span class="input-group-addon-teal addon-left" id="tagWeightOne-id"
+                  (click)="inputControlClick('tagWeightOne','split')">
+              <span [hidden]="isControlHidden('tagWeightOneStart')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('tagWeightOneStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Вес </span>
+              <input style="width: 85%" placeholder="" type="text" formControlName="tagWeightOneStart">&nbsp;
+              <input style="width: 5%"placeholder="" type="text" formControlName="tagWeightOneEnd">&nbsp;
+              <span [hidden]="isControlHidden('tagWeightOneStart')" class="check-direction" (click)="changeDirection('tagWeightOneDirection')">
+                <span class="forward" [hidden]="!isForwardDirection('tagWeightOneDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
+                <span class="back" [hidden]="isForwardDirection('tagWeightOneDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
+              </span>
+            </div>
+            <div class="input-box">
+              <span class="input-group-addon-teal addon-left" id="tagSizeOne-id"
+                  (click)="inputControlClick('tagSizeOne','split')">
+              <span [hidden]="isControlHidden('tagSizeOneStart')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('tagSizeOneStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Размер</span>
+              <input style="width: 85%" placeholder="" type="text" formControlName="tagSizeOneStart">&nbsp;
+              <input style="width: 5%"placeholder="" type="text" formControlName="tagSizeOneEnd">&nbsp;
+              <span [hidden]="isControlHidden('tagSizeOneStart')" class="check-direction" (click)="changeDirection('tagSizeOneDirection')">
+                <span class="forward" [hidden]="!isForwardDirection('tagSizeOneDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
+                <span class="back" [hidden]="isForwardDirection('tagSizeOneDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
+              </span>
+            </div>
+            <div class="input-box">
+              <span class="input-group-addon-teal addon-left" id="tagPriceOne-id"
+                  (click)="inputControlClick('tagPriceOne','split')">
+              <span [hidden]="isControlHidden('tagPriceOneStart')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('tagPriceOneStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Цена</span>
+              <input style="width: 85%" placeholder="" type="text" formControlName="tagPriceOneStart">&nbsp;
+              <input style="width: 5%"placeholder="" type="text" formControlName="tagPriceOneEnd">&nbsp;
+              <span [hidden]="isControlHidden('tagPriceOneStart')" class="check-direction" (click)="changeDirection('tagPriceOneDirection')">
+                <span class="forward" [hidden]="!isForwardDirection('tagPriceOneDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
+                <span class="back" [hidden]="isForwardDirection('tagPriceOneDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
+              </span>
+            </div>
+            <div class="input-box">
+              <span class="input-group-addon-teal addon-left" id="tagWeightTwo-id"
+                  (click)="inputControlClick('tagWeightTwo','split')">
+              <span [hidden]="isControlHidden('tagWeightTwoStart')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('tagWeightTwoStart')"><i
+                class="fa fa-lock"></i></span>&nbsp;&nbsp;Вес 2</span>
+              <input style="width: 85%" placeholder="" type="text" formControlName="tagWeightTwoStart">&nbsp;
+              <input style="width: 5%"placeholder="" type="text" formControlName="tagWeightTwoEnd">&nbsp;
+              <span [hidden]="isControlHidden('tagWeightTwoStart')" class="check-direction" (click)="changeDirection('tagWeightTwoDirection')">
+                <span class="forward" [hidden]="!isForwardDirection('tagWeightTwoDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
+                <span class="back" [hidden]="isForwardDirection('tagWeightTwoDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
+              </span>
+            </div>
+            <div class="input-box">
+              <span class="input-group-addon-teal addon-left" id="tagSizeTwo-id"
+                  (click)="inputControlClick('tagSizeTwo','split')">
+              <span [hidden]="isControlHidden('tagSizeTwoStart')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('tagSizeTwoStart')"><i
+                class="fa fa-lock"></i></span>&nbsp;&nbsp;Размер 2</span>
+              <input style="width: 85%" placeholder="" type="text" formControlName="tagSizeTwoStart">&nbsp;
+              <input style="width: 5%"placeholder="" type="text" formControlName="tagSizeTwoEnd">&nbsp;
+              <span [hidden]="isControlHidden('tagSizeTwoStart')" class="check-direction" (click)="changeDirection('tagSizeTwoDirection')">
+                <span class="forward" [hidden]="!isForwardDirection('tagSizeTwoDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
+                <span class="back" [hidden]="isForwardDirection('tagSizeTwoDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
+              </span>
+            </div>
+            <div class="input-box">
+              <span class="input-group-addon-teal addon-left" id="tagPriceTwo-id"
+                  (click)="inputControlClick('tagPriceTwo','split')">
+              <span [hidden]="isControlHidden('tagPriceTwoStart')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('tagPriceTwoStart')"><i
+                class="fa fa-lock"></i></span>&nbsp;&nbsp;Цена 2</span>
+              <input style="width: 85%" placeholder="" type="text" formControlName="tagPriceTwoStart">&nbsp;
+              <input style="width: 5%"placeholder="" type="text" formControlName="tagPriceTwoEnd">&nbsp;
+              <span [hidden]="isControlHidden('tagPriceTwoStart')" class="check-direction" (click)="changeDirection('tagPriceTwoDirection')">
+                <span class="forward" [hidden]="!isForwardDirection('tagPriceTwoDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
+                <span class="back" [hidden]="isForwardDirection('tagPriceTwoDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
+              </span>
+            </div>
+            <div class="input-box">
+              <span class="input-group-addon-teal addon-left" id="tagWeightThree-id"
+                  (click)="inputControlClick('tagWeightThree','split')">
+              <span [hidden]="isControlHidden('tagWeightThreeStart')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('tagWeightThreeStart')"><i
+                class="fa fa-lock"></i></span>&nbsp;&nbsp;Вес 3</span>
+              <input style="width: 85%" placeholder="" type="text" formControlName="tagWeightThreeStart">&nbsp;
+              <input style="width: 5%"placeholder="" type="text" formControlName="tagWeightThreeEnd">&nbsp;
+              <span [hidden]="isControlHidden('tagWeightThreeStart')" class="check-direction" (click)="changeDirection('tagWeightThreeDirection')">
+                <span class="forward" [hidden]="!isForwardDirection('tagWeightThreeDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
+                <span class="back" [hidden]="isForwardDirection('tagWeightThreeDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
+              </span>
+            </div>
+            <div class="input-box">
+              <span class="input-group-addon-teal addon-left" id="tagSizeThree-id"
+                  (click)="inputControlClick('tagSizeThree','split')">
+              <span [hidden]="isControlHidden('tagSizeThreeStart')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('tagSizeThreeStart')"><i
+                class="fa fa-lock"></i></span>&nbsp;&nbsp;Размер 3</span>
+              <input style="width: 85%" placeholder="" type="text" formControlName="tagSizeThreeStart">&nbsp;
+              <input style="width: 5%"placeholder="" type="text" formControlName="tagSizeThreeEnd">&nbsp;
+              <span [hidden]="isControlHidden('tagSizeThreeStart')" class="check-direction" (click)="changeDirection('tagSizeThreeDirection')">
+                <span class="forward" [hidden]="!isForwardDirection('tagSizeThreeDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
+                <span class="back" [hidden]="isForwardDirection('tagSizeThreeDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
+              </span>
+            </div>
+            <div class="input-box">
+              <span class="input-group-addon-teal addon-left" id="tagPriceThree-id"
+                  (click)="inputControlClick('tagPriceThree','split')">
+              <span [hidden]="isControlHidden('tagPriceThreeStart')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('tagPriceThreeStart')"><i
+                class="fa fa-lock"></i></span>&nbsp;&nbsp;Цена 3</span>
+              <input style="width: 85%" placeholder="" type="text" formControlName="tagPriceThreeStart">&nbsp;
+              <input style="width: 5%"placeholder="" type="text" formControlName="tagPriceThreeEnd">&nbsp;
+              <span [hidden]="isControlHidden('tagPriceThreeStart')" class="check-direction" (click)="changeDirection('tagPriceThreeDirection')">
+                <span class="forward" [hidden]="!isForwardDirection('tagPriceThreeDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
+                <span class="back" [hidden]="isForwardDirection('tagPriceThreeDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
+              </span>
+            </div>
+            <div class="input-box">
+              <span class="input-group-addon-teal addon-left" id="tagWeightFour-id"
+                  (click)="inputControlClick('tagWeightFour','split')">
+              <span [hidden]="isControlHidden('tagWeightFourStart')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('tagWeightFourStart')"><i
+                class="fa fa-lock"></i></span>&nbsp;&nbsp;Вес 4</span>
+              <input style="width: 85%" placeholder="" type="text" formControlName="tagWeightFourStart">&nbsp;
+              <input style="width: 5%"placeholder="" type="text" formControlName="tagWeightFourEnd">&nbsp;
+              <span [hidden]="isControlHidden('tagWeightFourStart')" class="check-direction" (click)="changeDirection('tagWeightFourDirection')">
+                <span class="forward" [hidden]="!isForwardDirection('tagWeightFourDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
+                <span class="back" [hidden]="isForwardDirection('tagWeightFourDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
+              </span>
+            </div>
+            <div class="input-box">
+              <span class="input-group-addon-teal addon-left" id="tagSizeFour-id"
+                  (click)="inputControlClick('tagSizeFour','split')">
+              <span [hidden]="isControlHidden('tagSizeFourStart')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('tagSizeFourStart')"><i
+                class="fa fa-lock"></i></span>&nbsp;&nbsp;Размер 4</span>
+              <input style="width: 85%" placeholder="" type="text" formControlName="tagSizeFourStart">&nbsp;
+              <input style="width: 5%"placeholder="" type="text" formControlName="tagSizeFourEnd">&nbsp;
+              <span [hidden]="isControlHidden('tagSizeFourStart')" class="check-direction" (click)="changeDirection('tagSizeFourDirection')">
+                <span class="forward" [hidden]="!isForwardDirection('tagSizeFourDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
+                <span class="back" [hidden]="isForwardDirection('tagSizeFourDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
+              </span>
+            </div>
+            <div class="input-box">
+              <span class="input-group-addon-teal addon-left" id="tagPriceFour-id"
+                  (click)="inputControlClick('tagPriceFour','split')">
+              <span [hidden]="isControlHidden('tagPriceFourStart')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('tagPriceFourStart')"><i
+                class="fa fa-lock"></i></span>&nbsp;&nbsp;Цена 4</span>
+              <input style="width: 85%" placeholder="" type="text" formControlName="tagPriceFourStart">&nbsp;
+              <input style="width: 5%"placeholder="" type="text" formControlName="tagPriceFourEnd">&nbsp;
+              <span [hidden]="isControlHidden('tagPriceFourStart')" class="check-direction" (click)="changeDirection('tagPriceFourDirection')">
+                <span class="forward" [hidden]="!isForwardDirection('tagPriceFourDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
+                <span class="back" [hidden]="isForwardDirection('tagPriceFourDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
+              </span>
+            </div>
+            <div class="input-box">
+              <span class="input-group-addon-teal addon-left" id="htmlResponse-id"
+                  (click)="inputControlClick('htmlResponse')">
+              <span [hidden]="isControlHidden('htmlResponse')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('htmlResponse')"><i
+                class="fa fa-lock"></i></span>&nbsp;&nbsp;HTML ответ</span>
+              <input placeholder="" type="text" formControlName="htmlResponse">
+            </div>
+            <div class="input-box" style="float: right">
+              <div class="btn-grp">
+                <button type="button" class="btn btn-success btn-with-icon" (click)="saveParseModel()">
+                  <i class="fa fa-check fa-fw"></i>Запись
+                </button>
+              </div>
+              <div class="btn-grp">
+                <button type="button" class="btn btn-info btn-with-icon" (click)="testParseModel()">
+                  <i class="fa fa-forward fa-fw"></i>Тест
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-6 test-parse">
+          <table class="table table-hover" *ngIf="testEntities != null">
+            <tr *ngFor="let testEntity of testEntities ;let index = index">
+              <td class="hidden-cell">{{testEntity.id}}</td>
+              <td class="col-md-6" style="border-top: 0px!important;">
+                <div class="test-img">
+                  <img src="{{testEntity.imageUrl}}" alt="{{testEntity.imageUrl}}">
+                  <div class="entity-title">{{testEntity.displayName}}</div>
+                </div>
+                <div class="description"><strong>{{testEntity.description}}</strong></div>
+                <div class="entity-wrapper wsp-td" style="flex-direction: column">
+                  <div class="wsp-wrap-center">
+                    <span *ngIf="testEntity.weightOne"><span class="wsp">Вес:</span><span class="weight-size">{{testEntity.weightOne}}</span></span>
+                    <span *ngIf="testEntity.sizeOne"><span class="wsp">Размер:</span><span class="weight-size">{{testEntity.sizeOne}}</span></span>
+                    <span *ngIf="testEntity.priceOne"><span class="wsp">Цена:</span><span class="price">{{testEntity.priceOne}}&nbsp;Р</span></span>
+                  </div>
+                  <div class="wsp-wrap-center">
+                    <span *ngIf="testEntity.weightTwo"><span class="wsp">Вес:</span><span class="weight-size">{{testEntity.weightTwo}}</span></span>
+                    <span *ngIf="testEntity.sizeTwo"><span class="wsp">Размер:</span><span class="weight-size">{{testEntity.sizeTwo}}</span></span>
+                    <span *ngIf="testEntity.priceTwo"><span class="wsp">Цена:</span><span class="price">{{testEntity.priceTwo}}&nbsp;Р</span></span>
+                  </div>
+                  <div class="wsp-wrap-center">
+                    <span *ngIf="testEntity.weightThree"><span class="wsp">Вес:</span><span class="weight-size">{{testEntity.weightThree}}</span></span>
+                    <span *ngIf="testEntity.sizeThree"><span class="wsp">Размер:</span><span class="weight-size">{{testEntity.sizeThree}}</span></span>
+                    <span *ngIf="testEntity.priceThree"><span class="wsp">Цена:</span><span class="price">{{testEntity.priceThree}}&nbsp;Р</span></span>
+                  </div>
+                  <div class="wsp-wrap-center">
+                    <span *ngIf="testEntity.weightFour"><span class="wsp">Вес:</span><span class="weight-size">{{testEntity.weightFour}}</span></span>
+                    <span *ngIf="testEntity.sizeFour"><span class="wsp">Размер:</span><span class="weight-size">{{testEntity.sizeFour}}</span></span>
+                    <span *ngIf="testEntity.priceFour"><span class="wsp">Цена:</span><span class="price">{{testEntity.priceFour}}&nbsp;Р</span></span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
     </tab-content>
   </tabset>

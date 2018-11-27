@@ -11,7 +11,9 @@ public class ParseMenuModel implements Serializable {
     private Integer companyId;
     private Integer typeId;
     private Integer categoryId;
+    private String htmlResponse;
     private String parseUrl;
+    private String prefixUrl;
     private String tagTrash;
     private String tagEndSection;
     private String tagName;
@@ -63,12 +65,28 @@ public class ParseMenuModel implements Serializable {
         this.categoryId = categoryId;
     }
 
+    public String getHtmlResponse() {
+        return htmlResponse;
+    }
+
+    public void setHtmlResponse(String htmlResponse) {
+        this.htmlResponse = htmlResponse;
+    }
+
     public String getParseUrl() {
         return parseUrl;
     }
 
     public void setParseUrl(String parseUrl) {
         this.parseUrl = parseUrl;
+    }
+
+    public String getPrefixUrl() {
+        return prefixUrl;
+    }
+
+    public void setPrefixUrl(String prefixUrl) {
+        this.prefixUrl = prefixUrl;
     }
 
     public String getTagTrash() {
