@@ -46,6 +46,10 @@ $info:#2cc3ff;
     @include linear-gradient(to top right, $success, #42e697);
 }
 
+.bg-gray {
+  @include linear-gradient(to top right, $secondary-text-color, $divider-color);
+}
+
 .bg-primary-light {
   @include linear-gradient(to top right, $primary-color-light, $primary-color);
 }

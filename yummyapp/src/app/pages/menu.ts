@@ -10,7 +10,7 @@ export let MENU_ITEM = [
     icon: 'hot-tub'
   },
   {
-    path: 'menu',
+    path: 'delivery-menu',
     title: 'Меню',
     icon: 'glasses  '
   }

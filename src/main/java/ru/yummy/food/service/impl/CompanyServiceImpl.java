@@ -30,6 +30,9 @@ public class CompanyServiceImpl {
     ParseMenuRepository parseRepo;
 
     @Autowired
+    CityRepository cityRepo;
+
+    @Autowired
     ConvertUtils convertUtils;
 
     public List<CompanyModel> getAllCompanies() {
@@ -60,6 +63,17 @@ public class CompanyServiceImpl {
         companyInfo.setCompanyModel(company);
         companyInfo.setMenuTypes(menuTypeModels);
         return companyInfo;
+    }
+
+    public CompanyEdit getCompanyEdit(Integer companyId) {
+        CompanyEdit companyEdit =  new CompanyEdit();
+        CompanyInfo companyInfo = getCompanyInfo( companyId );
+        companyEdit.setCompanyModel( companyInfo.getCompanyModel() );
+        companyEdit.setMenuTypes( companyInfo.getMenuTypes() );
+        companyEdit.setDeliveryMenuTypes( convertUtils.convertMenuTypesToModelList( (List<MenuType>) menuTypeRepo.findAll() ) );
+        companyEdit.setDeliveryMenuCategories( convertUtils.convertMenuCategoriesToModelList( (List<MenuCategory>) menuCategoryRepo.findAll() ) );
+        companyEdit.setCities( convertUtils.convertCitiesToModelList( cityRepo.findAllByRegionId( AppConstants.CRIMEA_REGION ) ) );
+        return companyEdit;
     }
 
     public CompanyMenu getCompanyMenu(int companyId, int typeId, int categoryId) {

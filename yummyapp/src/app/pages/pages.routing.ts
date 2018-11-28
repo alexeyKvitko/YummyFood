@@ -17,6 +17,8 @@ export const childRoutes: Routes = [
     children: [
       { path: '', redirectTo: 'index', pathMatch: 'full' },
       { path: 'company', loadChildren: './company/company.module#CompanyModule' },
+      { path: 'delivery-menu', loadChildren: './delivery-menu/delivery-menu.module#DeliveryMenuModule' },
+      { path: 'company-edit', loadChildren: './company-edit/company-edit.module#CompanyEditModule' },
       { path: 'company-info', loadChildren: './company-info/company-info.module#CompanyInfoModule' }
 
       // { path: 'index', loadChildren: './index/index.module#IndexModule' }

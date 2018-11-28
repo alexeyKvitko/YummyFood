@@ -8,6 +8,9 @@ import ru.yummy.food.entity.*;
 import ru.yummy.food.model.*;
 import ru.yummy.food.repo.CityRepository;
 
+import java.util.LinkedList;
+import java.util.List;
+
 @Component
 public class ConvertUtils {
 
@@ -38,6 +41,14 @@ public class ConvertUtils {
         return model;
     }
 
+    public MenuType convertMenuTypeModelToEntity(MenuTypeModel model){
+        MenuType menuType = new MenuType();
+        menuType.setId( model.getId() );
+        menuType.setName( model.getName() );
+        menuType.setDisplayName( model.getDisplayName() );
+        return menuType;
+    }
+
     public MenuCategoryModel convertMenuCategoryToModel(MenuCategory menuCategory, Integer typeId){
         MenuCategoryModel model = new MenuCategoryModel();
         model.setId( menuCategory.getId() );
@@ -45,6 +56,14 @@ public class ConvertUtils {
         model.setName( menuCategory.getName() );
         model.setDisplayName( menuCategory.getDisplayName() );
         return model;
+    }
+
+    public MenuCategory convertMenuCategoryModelToEntity(MenuCategoryModel model){
+        MenuCategory menuCategory = new MenuCategory();
+        menuCategory.setId( model.getId() );
+        menuCategory.setName( model.getName() );
+        menuCategory.setDisplayName( model.getDisplayName() );
+        return menuCategory;
     }
 
     public MenuEntityModel convertMenuEntityToModel( MenuEntity menuEntity, Integer companyId, Integer typeId,
@@ -124,5 +143,33 @@ public class ConvertUtils {
         parseMenu.setTagSizeFour(parseMenuModel.getTagSizeFour());
         parseMenu.setTagPriceFour(parseMenuModel.getTagPriceFour());
         parseMenu.setProcessed( AppConstants.PROCEED );
+    }
+
+    public List<MenuTypeModel> convertMenuTypesToModelList( List<MenuType> menuTypes ){
+        List<MenuTypeModel> menuTypeModels = new LinkedList<>();
+        for(MenuType menuType: menuTypes ){
+            menuTypeModels.add( convertMenuTypeToModel( menuType ) );
+        }
+        return menuTypeModels;
+    }
+
+    public List<MenuCategoryModel> convertMenuCategoriesToModelList( List<MenuCategory> menuCategories ){
+        List<MenuCategoryModel> menuCategoryModels = new LinkedList<>();
+        for(MenuCategory menuCategory: menuCategories ){
+            menuCategoryModels.add( convertMenuCategoryToModel( menuCategory,null ) );
+        }
+        return menuCategoryModels;
+    }
+
+    public List<DictionaryModel> convertCitiesToModelList( List<City> cities ){
+        List<DictionaryModel> cityModels = new LinkedList<>();
+        for(City city: cities ){
+            DictionaryModel model =  new DictionaryModel();
+            model.setId( city.getId() );
+            model.setName( city.getNameEn() );
+            model.setDisplayName( city.getName() );
+            cityModels.add( model );
+        }
+        return cityModels;
     }
 }

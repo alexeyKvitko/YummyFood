@@ -22,7 +22,9 @@
           <td>{{company.email}}</td>
           <td>{{company.city.name}}</td>
           <td>
-            <span class="label label-info" (click)="showCompanyDetails(company.id)">info</span>
+            <!--<span class="label label-info" (click)="showCompanyDetails(company.id)">info</span>-->
+            <span class="label label-icon" (click)="showCompanyDetails(company.id)"><i class="far fa-list-alt" ></i></span>
+            <span class="label label-icon" (click)="editCompany(company.id)"><i class="far fa-edit"></i></span>
           </td>
         </tr>
         </tbody>
@@ -49,6 +51,11 @@
           </div>
         </div>
       </form>
+      <div class="btn-grp">
+        <button type="button" class="btn btn-success btn-with-icon" (click)="createCompany()">
+          <i class="fa fa-check fa-fw"></i>Новая организация
+        </button>
+      </div>
     </card>
   </div>
 </div>

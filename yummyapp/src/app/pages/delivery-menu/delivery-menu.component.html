@@ -1,0 +1,34 @@
+<div class="row delivery-menu" [hidden]="loading">
+  <div class="col-md-4 delivery-wrap">
+    <div class="delivery-title">КУХНЯ</div>
+    <div class="delivery-content">
+      <div class="delivery-item" *ngFor="let menuType of menuTypes">
+        <span class="name">{{menuType.displayName}}</span> <span>[{{menuType.name}}]</span>
+        <span class="icon" (click)="deleteMenu(menuType,'type')"><i class="far fa-trash-alt icon" ></i></span>
+        <span class="icon" (click)="selectMenuType(menuType)"><i class="far fa-edit"></i></span>
+      </div>
+    </div>
+    <form class="delivery-form" [formGroup]="typeForm">
+      <input placeholder="Имя" type="text" formControlName="displayName" autocomplete="off" required>
+      <input placeholder="Код" type="text" formControlName="name" autocomplete="off" required>
+      <span class="frm-icon-save" (click)="saveType()"><i class="far fa-save" ></i></span>
+      <span class="frm-icon-undo" (click)="clearType()"><i class="fas fa-eraser" ></i></span>
+    </form>
+  </div>
+  <div class="col-md-4 delivery-wrap">
+    <div class="delivery-title info-title">МЕНЮ</div>
+    <div class="delivery-content info-content">
+      <div class="delivery-item info-item" *ngFor="let menuCategory of menuCategories">
+        <span class="name">{{menuCategory .displayName}}</span> <span>[{{menuCategory .name}}]</span>
+        <span class="icon" (click)="deleteMenu(menuCategory,'category')"><i class="far fa-trash-alt icon" ></i></span>
+        <span class="icon" (click)="selectMenuCategory(menuCategory)"><i class="far fa-edit"></i></span>
+      </div>
+    </div>
+    <form class="delivery-form" [formGroup]="categoryForm">
+      <input placeholder="Имя" type="text" formControlName="displayName" autocomplete="off" required>
+      <input placeholder="Код" type="text" formControlName="name" autocomplete="off" required>
+      <span class="frm-icon-save" (click)="saveCategory()"><i class="far fa-save" ></i></span>
+      <span class="frm-icon-undo" (click)="clearCategory()"><i class="fas fa-eraser" ></i></span>
+    </form>
+  </div>
+</div>

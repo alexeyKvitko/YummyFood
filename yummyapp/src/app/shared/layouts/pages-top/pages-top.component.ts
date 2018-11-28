@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { GlobalService } from '../../services/global.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'pages-top',
@@ -8,6 +9,7 @@ import { GlobalService } from '../../services/global.service';
 })
 export class PagesTopComponent {
   avatarImgSrc: string = 'assets/images/logo.png';
+  btnBackImgSrc: string = 'assets/images/buttons/back.png';
   sidebarToggle: boolean = true;
   headerTitle: string;
   showIcon: boolean = true;
@@ -17,7 +19,7 @@ export class PagesTopComponent {
 
   tip = { ring: true, email: true };
 
-  constructor(private _globalService: GlobalService) {
+  constructor(private _globalService: GlobalService,private router: Router) {
     this._globalService.data$.subscribe(data => {
       if (data.ev === 'headerTitle') {
         this.headerTitle = data.value;
@@ -37,6 +39,10 @@ export class PagesTopComponent {
     }, error => {
       console.log('Error: ' + error);
     });
+  }
+
+  public back() {
+    this.router.navigate(['pages/company']);
   }
 
   public _sidebarToggle() {

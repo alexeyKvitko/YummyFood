@@ -13,6 +13,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { ClipboardService } from 'ngx-clipboard'
 import swal from 'sweetalert2';
 import {NgxNotificationService} from "ngx-notification";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-company-info',
@@ -21,7 +22,6 @@ import {NgxNotificationService} from "ngx-notification";
 })
 export class CompanyInfoComponent implements OnInit {
   companyId: string;
-  btnBackImgSrc: string = 'assets/images/buttons/back.png';
   logoImgSrc: string = '';
   companyInfo: CompanyInfoModel = null;
   menuCategoryList: MenuCategoryModel[];
@@ -38,8 +38,9 @@ export class CompanyInfoComponent implements OnInit {
   pageNumber = 1;
 
   constructor(private router: Router, private formBuilder: FormBuilder,private _clipboardService: ClipboardService,
-              private _ngxNotificationService: NgxNotificationService,
+              private _ngxNotificationService: NgxNotificationService,private _authService: AuthService,
               private companyService: CompanyService, private _globalService: GlobalService) {
+    this._authService.isAuthenticated();
     this.companyId = window.localStorage.getItem('companyId');
     this._globalService.dataBusChanged('pageLoading', true);
     this.selMenuType.id = '-1';
@@ -183,10 +184,6 @@ export class CompanyInfoComponent implements OnInit {
     this.pageNumber = pN;
   }
 
-  public back() {
-    this.router.navigate(['pages/company']);
-  }
-
   isControlHidden(controlName) {
     return this.parseForm.get(controlName).status === 'DISABLED';
   }
@@ -204,9 +201,26 @@ export class CompanyInfoComponent implements OnInit {
     return this.parseForm.get(controlName).setValue( this.getByName( controlName) );
   }
 
+  undoTag( controlName ){
+    if ( this.getByName( controlName) == null || this.getByName( controlName) === ''){
+      return;
+    }
+    let undoValSplitted = (this.getByName( controlName) ).split('~');
+    this.parseForm.get(controlName+'Start').setValue( undoValSplitted[0] );
+    this.parseForm.get(controlName+'End').setValue( undoValSplitted[1] );
+    this.parseForm.get(controlName+'Direction').setValue( undoValSplitted[2] );
+  }
+
   copyControl(controlName){
-    this._clipboardService.copyFromContent(this.parseForm.get(controlName).value);
-    this._ngxNotificationService.sendMessage('Скоипровано.', 'success', 'top-right');
+    let txt = this.parseForm.get(controlName).value;
+    this._clipboardService.copyFromContent( txt );
+    this._ngxNotificationService.sendMessage('Скопировано( '+txt+' )', 'success', 'top-right');
+  }
+
+  copyTag(controlName){
+    let txt = this.concatTagValues(controlName);
+    this._clipboardService.copyFromContent( txt );
+    this._ngxNotificationService.sendMessage('Скопировано( '+txt+' )', 'success', 'top-right');
   }
 
   inputControlClick(controlName,isSplit) {

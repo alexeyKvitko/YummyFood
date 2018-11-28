@@ -7,18 +7,11 @@ import java.io.Serializable;
 import java.util.List;
 
 @AutoProperty
-public class CompanyInfo implements Serializable {
+public class DeliveryMenu implements Serializable {
 
-    protected CompanyModel companyModel;
-    protected List<MenuTypeModel> menuTypes;
+    List<MenuTypeModel> menuTypes;
+    List<MenuCategoryModel> menuCategories;
 
-    public CompanyModel getCompanyModel() {
-        return companyModel;
-    }
-
-    public void setCompanyModel(CompanyModel companyModel) {
-        this.companyModel = companyModel;
-    }
 
     public List<MenuTypeModel> getMenuTypes() {
         return menuTypes;
@@ -26,6 +19,14 @@ public class CompanyInfo implements Serializable {
 
     public void setMenuTypes(List<MenuTypeModel> menuTypes) {
         this.menuTypes = menuTypes;
+    }
+
+    public List<MenuCategoryModel> getMenuCategories() {
+        return menuCategories;
+    }
+
+    public void setMenuCategories(List<MenuCategoryModel> menuCategories) {
+        this.menuCategories = menuCategories;
     }
 
     @Override public boolean equals(Object o) {
@@ -39,5 +40,4 @@ public class CompanyInfo implements Serializable {
     @Override public String toString() {
         return Pojomatic.toString(this);
     }
-
 }

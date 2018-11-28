@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.yummy.food.exception.BusinessLogicException;
-import ru.yummy.food.model.ApiResponse;
-import ru.yummy.food.model.CompanyInfo;
-import ru.yummy.food.model.CompanyMenu;
-import ru.yummy.food.model.ParseMenuModel;
+import ru.yummy.food.model.*;
 import ru.yummy.food.service.ParseService;
 import ru.yummy.food.service.impl.CompanyServiceImpl;
 
@@ -17,7 +14,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping({"/api"})
-public class AdminController {
+public class AdminCompanyController {
 
 
     @Autowired
@@ -31,8 +28,13 @@ public class AdminController {
         return companyService.getAllCompanies();
     }
 
+    @GetMapping("/company/edit/{id}")
+    public CompanyEdit getCompanyEditById(@PathVariable int id) {
+        return companyService.getCompanyEdit(id);
+    }
+
     @GetMapping("/company/{id}")
-    public CompanyInfo getAllCompanies(@PathVariable int id) {
+    public CompanyInfo getCompanyInfoById(@PathVariable int id) {
         return companyService.getCompanyInfo(id);
     }
 

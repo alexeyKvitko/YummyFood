@@ -5,10 +5,7 @@ import {CompanyModel} from '../model/company.model';
 import {CompanyInfoModel} from '../model/company-info.model';
 import {CompanyMenuModel} from "../model/company-menu.model";
 import {ApiResponse} from "../model/api.response";
-
-const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json'})
-};
+import {CompanyEditModel} from "../model/company-edit.model";
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +24,10 @@ export class CompanyService {
 
   public getCompanyInfo(id) {
     return this.http.get<CompanyInfoModel>(this.companyUrl + '/' + id);
+  }
+
+  public getCompanyEdit(id) {
+    return this.http.get<CompanyEditModel>(this.companyUrl + '/edit/' + id);
   }
 
   public getCompanyMenu(companyId, typeId, categoryId) {

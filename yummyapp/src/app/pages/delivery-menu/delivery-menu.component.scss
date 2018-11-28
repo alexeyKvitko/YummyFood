@@ -1,0 +1,118 @@
+@import '../../shared/theme/conf';
+
+.delivery-menu{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  height: 420px;
+  max-height: 420px;
+  background-color: $card-bg;
+  padding: 10px;
+  .delivery-wrap{
+    width: 100%;
+    margin: 4px;
+  }
+  .delivery-form{
+    padding: 3px;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: row;
+    input{
+      border: 1px solid $primary-color;
+      border-radius: 3px;
+      min-height: 24px;
+      width: 44%;
+      padding: 3px;
+      margin-right: 6px;
+    }
+    .frm-icon{
+      width: 5%;
+      text-align: center;
+      padding-top: 4px;
+      padding-left: 2px;
+      font-size: 16px;
+      color: $primary-color-text;
+      &:hover{
+        cursor: pointer;
+        color: $primary;
+      }
+    }
+    .frm-icon-save{
+      @extend .frm-icon;
+      @extend .bg-success;
+      border-top-left-radius: 3px;
+      border-bottom-left-radius: 3px;
+    }
+    .frm-icon-undo{
+      @extend .frm-icon;
+      @extend .bg-gray;
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+    }
+  }
+  .delivery-content{
+    max-height: 314px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-bottom: 1px solid $divider-color;
+  }
+  .delivery-title{
+    background-color: $primary-color;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    color: $primary-color-text;
+    text-align: center;
+    height: 38px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .delivery-item{
+    margin-top: 3px;
+    margin-bottom: 6px;
+    margin-right: 6px;
+    border: 1px solid $primary-color;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 20px;
+    //padding-right: 6px;
+    min-height: 24px;
+    border-radius: 3px;
+    color: $secondary-text-color;
+    .icon{
+      float: right;
+      color: $primary-text-color;
+      margin-top: 2px;
+      margin-right: 6px;
+      &:hover{
+        cursor: pointer;
+        color: $primary;
+      }
+    }
+    .name{
+      font-size: 18px;
+      font-weight: bold;
+      margin-right: 10px;
+      color: $primary-text-color;
+    }
+    &:hover{
+      background-color: rgba($black, .1);
+    }
+  }
+  .info-title{
+    background-color: $info;
+  }
+  .info-item{
+    border: 1px solid $info;
+  }
+  .info-content{
+    border-bottom: 1px solid $divider-color;
+  }
+}
+
+@media (max-width:720px) {
+  .delivery-menu {
+    flex-direction: column;
+    height: 850px;
+    max-height: 850px;
+  }
+}

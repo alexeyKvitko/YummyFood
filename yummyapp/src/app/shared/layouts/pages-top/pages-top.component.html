@@ -1,19 +1,18 @@
 <div class="pages-top">
-  <div class="collapse-menu" (click)="_sidebarToggle()">
-    <div [hidden]="!sidebarToggle" ><i  class="fas fa-align-justify"></i></div>
-    <div [hidden]="sidebarToggle"><i  class="fas fa-times"></i></div>
-  </div>
-  <div class="avatar-wrap" >
-    <div class="avatar">
-      <img src="{{avatarImgSrc}}" alt="avatar">
+  <div class="logo">
+    <div class="collapse-menu" (click)="_sidebarToggle()">
+      <div [hidden]="!sidebarToggle"><i class="fas fa-align-justify"></i></div>
+      <div [hidden]="sidebarToggle"><i class="fas fa-times"></i></div>
+    </div>
+    <div class="avatar-wrap">
+      <div class="avatar">
+        <img src="{{avatarImgSrc}}" alt="avatar">
+      </div>
     </div>
   </div>
 
-
   <div class="company-info-header">
-  <!--<span class="btn-back-wrap" (click)="back()">-->
-    <!--<img src="{{btnBackImgSrc}}" alt="btnBack">-->
-  <!--</span>-->
+
     <table>
       <tr>
         <th>
@@ -33,6 +32,10 @@
       </tr>
     </table>
   </div>
-
+  <div class="back-content" [hidden]="companyUrl==null" >
+    <span class="btn-back-wrap" (click)="back()">
+      <img src="{{btnBackImgSrc}}" alt="btnBack">
+    </span>
+  </div>
 
 </div>

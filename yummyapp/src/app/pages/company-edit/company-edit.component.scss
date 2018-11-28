@@ -1,6 +1,4 @@
 @import '../../shared/theme/conf';
-@import '../../shared/theme/pagination';
-
 
 .menu-wrapper {
   position: relative;
@@ -11,7 +9,7 @@
   max-height: 650px;
   min-height: 650px;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: hidden;
   border-right: 1px solid $divider-color;
   padding: 10px 0;
   width: 100%;
@@ -21,6 +19,10 @@
     flex-direction: column;
     font-size: 16px;
     padding-left: 12px;
+    max-height: 400px;
+    min-height: 400px;
+    overflow-x: hidden;
+    overflow-y: auto;
     .menu-group {
       position: relative;
       width: 100%;
@@ -50,7 +52,7 @@
       .submenu-sel{
         cursor: pointer;
         &:hover{
-         color:$accent-color;
+          color:$accent-color;
         }
       }
       .submenu-item{
@@ -70,72 +72,10 @@
   }
 }
 
-.entity-wrapper {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  text-align: left;
-  img {
-    border: transparent;
-    border-radius: 10px;
-    height: 100px !important;
-  }
-
-  .description {
-    padding: 3px;
-    position: relative;
-    color: #212121;
-    font-size: 14px;
-    text-align: left;
-  }
-  .entity-title {
-    font-weight: bold;
-    color: $accent-color;
-  }
-  .wsp-wrap {
-    padding: 3px;
-    text-align: left;
-    margin-bottom: 4px;
-  }
-  .wsp-wrap-center{
-    padding: 3px;
-    text-align: center;
-    margin-bottom: 4px;
-  }
-  .wsp-td{
-    border-top: 0px!important;
-    vertical-align: top!important;
-    padding-left: 20px!important;
-    padding-top: 10px!important;
-  }
-  .wsp {
-    text-align: left;
-    font-size: 11px;
-    color: $secondary-text-color;
-    margin-right: 6px;
-  }
-  .weight-size {
-    text-align: left;
-    font-size: 14px;
-    font-weight: 600;
-    color: $primary-text-color;
-    padding: 4px;
-  }
-
-  .price {
-    font-size: 18px;
-    font-weight: bolder;
-    color: $primary-color-text;
-    @extend .bg-success;
-    border-radius: 4px;
-    padding: 4px;
-  }
-}
-
 .form-control {
   padding: 0 8px;
 }
-.tab-parsing {
+.company-input-content {
   position: relative;
   top:-10px;
   left:-10px;
@@ -194,24 +134,3 @@
 
   }
 }
-
-.test-parse{
-  border-left: 1px solid $divider-color;
-  height: 750px;
-  max-height: 750px;
-  margin-left: 6px;
-  padding: 4px;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-.test-img{
-  color: $accent-color;
-  font-size: 16px;
-  img{
-    max-height: 150px;
-    border: 1px solid $divider-color;
-    border-radius: 8px;
-  }
-}
-
-

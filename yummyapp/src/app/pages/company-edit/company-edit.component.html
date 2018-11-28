@@ -1,0 +1,46 @@
+<lib-ngx-notification></lib-ngx-notification>
+<div class="row" [hidden]="loading" *ngIf="companyEdit != null">
+  <div class="menu-wrapper">
+    <div id="type-menu" class="menu-content col-md-3">
+      <div class="menu-group">
+        <div *ngFor="let menuType of companyEdit.menuTypes">
+          <span class="menu-icon" *ngIf="!menuType.menuOpen">
+            <i class="far fa-folder"></i>
+          </span>
+          <span class="menu-icon" *ngIf="menuType.menuOpen">
+            <i class="far fa-folder-open"></i>
+          </span>
+          <span class="menu-item" (click)="menuTypeSelect(menuType)">
+            {{menuType.displayName}}
+          </span>
+          <div class="submenu-group" [hidden]="!menuType.menuOpen">
+            <div *ngFor="let menuCategory of menuType.menuCategories" class="submenu-sel"
+                 (click)="menuCategorySelect( menuType, menuCategory)">
+              <span class="submenu-icon">
+                <i class="far fa-file"></i>
+              </span>
+              <span [className]="menuCategory.id === selMenuCategory.id ? 'submenu-item sel-menu' : 'submenu-item'">
+                  {{menuCategory.displayName}}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--RIGHT SIDE-->
+    <div class="row company-input-content">
+      <div class="col-md-8">
+        <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+          <div class="input-box">
+              <span class="input-group-addon-teal addon-left" id="companyName" (click)="inputControlClick('companyName')">
+              <span [hidden]="isControlHidden('companyName')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('companyName')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Организация</span>
+            <input placeholder="" type="text" formControlName="companyName">
+            <span class="input-group-addon-teal-right itr-start" (click)="undoControl('companyName')" ><i class="fas fa-undo-alt"></i></span>
+            <span class="input-group-addon-teal-right itr-end" (click)="copyControl('companyName')"><i class="far fa-copy"></i></span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

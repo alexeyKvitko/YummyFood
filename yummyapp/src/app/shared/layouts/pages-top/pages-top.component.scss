@@ -1,29 +1,38 @@
 @import '../../theme/conf';
 .pages-top {
-    position: relative;
     width: 100%;
     height: 85px;
+    max-height: 85px;
     background: $top-panel-bg;
+    display: flex;
+    flex-direction: row;
     border: none;
       box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.16), 0 0 0 2px rgba(0, 0, 0, 0.08);
 }
 
+.logo{
+  padding-left: 20px;
+  display: flex;
+  flex-direction: row;
+}
+.back-content{
+  margin-right: 20px;
+  padding-top: 20px;
+  float: right;
+  &:hover{
+    cursor: pointer;
+    color: $primary;
+  }
+}
+
 .avatar-wrap {
-    position: absolute;
-    top: 50%;
-    left: 100px;
-    transform: translate(0, -50%);
-    padding: 0 0;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: row;
-    width: 75px;
+    margin-left: 20px;
+    margin-top: 3px;
+    width: 80px;
     height: auto;
-    min-height: 75px;
+    min-height: 80px;
     @include transition(all .4s);
     .avatar {
-        min-width: 75px;
-        height: 75px;
         overflow: hidden;
         @include transition(all .4s);
         img {
@@ -31,120 +40,12 @@
             width: 100%;
         }
     }
-    .user-info-wrap {
-        padding: 16px 24px;
-        width: 240px;
-        height: auto;
-        @include transition(all .4s);
-    }
-    .user-name,
-    .user-post {
-        display: block;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis
-    }
-    .user-name {
-        color: $page-top-fonts-color;
-        font-size: $lg-text;
-    }
-    .user-post {
-        color: $primary;
-        font-size: $sm-text;
-        margin-top: 5px;
-    }
+
 }
 
-
-.search-group {
-    position: absolute;
-    top: 50%;
-    right: 170px;
-    transform: translate(0, -50%);
-    width: 340px;
-    background: $border-color;
-    border: 1px solid $border-color;
-    border-radius: 2px;
-    overflow: hidden;
-    .search-input {
-        width: 300px;
-        height: 40px;
-        background: transparent;
-        border: none;
-        outline: none;
-        color: $page-top-fonts-color;
-        font-size: $sm-text;
-        text-indent: 1.5em;
-    }
-    .search-btn {
-        position: relative;
-        top: -1px;
-        right: 1px;
-        width: 30px;
-        height: 30px;
-        background: $primary;
-        border: 0;
-        border-radius: 50%;
-        outline: none;
-        line-height: 30px;
-        text-align: center;
-        color: $body-bg;
-        transform: scale(0);
-        transition: all .4s;
-        &:hover {
-            background: lighten($primary, 10%);
-            transform: scale(1);
-        }
-    }
-    .search-input:focus+.search-btn {
-        transform: scale(1);
-    }
-}
-
-.msg-tips-wrap {
-    display: flex;
-    flex-wrap: nowrap;
-    position: absolute;
-    top: 50%;
-    right: 60px;
-    transform: translate(0, -50%);
-    width: 100px;
-    height: 40px;
-    color: $page-top-fonts-color;
-    @include transition(all .4s);
-}
-
-.msg-entrance {
-    position: relative;
-    width: 50px;
-    height: 40px;
-    line-height: 40px;
-    text-align: center;
-    @include transition(all .4s);
-    color: $page-top-fonts-color;
-    &:hover {
-        cursor: pointer;
-        color: $primary;
-    }
-    span.badge {
-        padding: 0;
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        display: block;
-        width: 11px;
-        height: 11px;
-        background: $primary;
-        border: 2px solid $sidebar-bg;
-        border-radius: 50%;
-    }
-}
 
 .collapse-menu {
-  position: absolute;
-  top: 50%;
-  left: 20px;
-  transform: translate(0, -50%);
+  margin-top: 12px;
   color: $secondary-text-color;
   font-size: 24px;
   background: $primary-color;
@@ -167,12 +68,13 @@
 }
 
 .company-info-header {
-  position: absolute;
+  position: relative;
   width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  padding: 10px 200px;
+  padding: 10px ;
+  margin-left: 30px;
   .company-title {
     padding-left: 12px;
     font-size: 36px;
@@ -218,9 +120,7 @@
     .collapse-menu {
         left: 100px;
     }
-    .search-group {
-        display: none;
-    }
+
 }
 
 

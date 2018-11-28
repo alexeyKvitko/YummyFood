@@ -8,6 +8,7 @@ public abstract class AppConstants {
     public static final String SIGNING_KEY = "admin";
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String HEADER_STRING = "Authorization";
+    public static final int CRIMEA_REGION = 621550;
 
     public static final Integer FAKE_ID = -1;
 
