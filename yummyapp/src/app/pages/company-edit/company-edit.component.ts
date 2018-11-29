@@ -32,24 +32,17 @@ export class CompanyEditComponent implements OnInit {
     this.companyId = window.localStorage.getItem('companyId');
     this.selMenuType.id = '-1';
     this.selMenuCategory.id = '-1';
-    if (this.companyId != '-1') {
-      this._globalService.dataBusChanged('pageLoading', true);
-    }
+    this._globalService.dataBusChanged('pageLoading', true);
   }
 
   ngOnInit() {
-    if (this.companyId != '-1') {
-      this.companyService.getCompanyEdit(this.companyId).subscribe(data => {
-        this.updateCompanyEdit(data);
-        this.initForm();
-        this.logoImgSrc = 'assets/images/logos/' + this.companyEdit.companyModel.logo;
-        this._globalService.dataBusChanged('headerTitle', this.companyEdit.companyModel.displayName);
-        this._globalService.dataBusChanged('companyUrl', this.companyEdit.companyModel.url);
-      });
-    } else {
-      this.companyEdit = new CompanyEditModel();
+    this.companyService.getCompanyEdit(this.companyId).subscribe(data => {
+      this.updateCompanyEdit(data);
       this.initForm();
-    }
+      this.logoImgSrc = 'assets/images/logos/' + this.companyEdit.companyModel.logo;
+      this._globalService.dataBusChanged('headerTitle', this.companyEdit.companyModel.displayName);
+      this._globalService.dataBusChanged('companyUrl', this.companyEdit.companyModel.url);
+    });
   }
 
   initForm() {
