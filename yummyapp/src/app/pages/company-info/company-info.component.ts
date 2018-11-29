@@ -12,8 +12,8 @@ import {MenuTypeModel} from "../../model/menu-type.model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { ClipboardService } from 'ngx-clipboard'
 import swal from 'sweetalert2';
-import {NgxNotificationService} from "ngx-notification";
 import {AuthService} from "../../services/auth.service";
+import {NotificationsService} from "angular2-notifications";
 
 @Component({
   selector: 'app-company-info',
@@ -36,9 +36,15 @@ export class CompanyInfoComponent implements OnInit {
   /* pagination Info */
   pageSize = 4;
   pageNumber = 1;
+  notiOptions = {
+    position: ["top", "right"],
+    timeOut: 1500,
+    showProgressBar: false,
+    lastOnBottom: true
+  };
 
   constructor(private router: Router, private formBuilder: FormBuilder,private _clipboardService: ClipboardService,
-              private _ngxNotificationService: NgxNotificationService,private _authService: AuthService,
+              private _authService: AuthService,private _notificationsService: NotificationsService,
               private companyService: CompanyService, private _globalService: GlobalService) {
     this._authService.isAuthenticated();
     this.companyId = window.localStorage.getItem('companyId');
@@ -214,13 +220,13 @@ export class CompanyInfoComponent implements OnInit {
   copyControl(controlName){
     let txt = this.parseForm.get(controlName).value;
     this._clipboardService.copyFromContent( txt );
-    this._ngxNotificationService.sendMessage('Скопировано( '+txt+' )', 'success', 'top-right');
+    this._notificationsService.success('Скопировано( '+txt.substr(1,10)+'... )');
   }
 
   copyTag(controlName){
     let txt = this.concatTagValues(controlName);
     this._clipboardService.copyFromContent( txt );
-    this._ngxNotificationService.sendMessage('Скопировано( '+txt+' )', 'success', 'top-right');
+    this._notificationsService.success('Скопировано( '+txt.substr(1,10)+'... )');
   }
 
   inputControlClick(controlName,isSplit) {

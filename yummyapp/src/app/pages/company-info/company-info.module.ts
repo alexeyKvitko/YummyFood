@@ -6,7 +6,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CompanyInfoComponent } from './company-info.component';
 import { ClipboardModule } from 'ngx-clipboard';
-import { NgxNotificationComponent } from 'ngx-notification';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 @NgModule({
   imports: [
@@ -15,11 +15,11 @@ import { NgxNotificationComponent } from 'ngx-notification';
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
+    SimpleNotificationsModule.forRoot(),
     ClipboardModule,
     routing
   ],
   declarations: [
-    NgxNotificationComponent,
     CompanyInfoComponent
   ]
 })

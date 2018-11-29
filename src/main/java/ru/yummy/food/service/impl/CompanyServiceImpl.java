@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yummy.food.AppConstants;
 import ru.yummy.food.entity.*;
+import ru.yummy.food.exception.BusinessLogicException;
 import ru.yummy.food.model.*;
 import ru.yummy.food.repo.*;
 import ru.yummy.food.util.ConvertUtils;
@@ -25,6 +26,9 @@ public class CompanyServiceImpl {
 
     @Autowired
     MenuEntityRepository menuEntityRepo;
+
+    @Autowired
+    MenuItemRepository menuItemRepo;
 
     @Autowired
     ParseMenuRepository parseRepo;
@@ -91,5 +95,58 @@ public class CompanyServiceImpl {
         companyMenu.setMenuEntities(entityModels);
         return companyMenu;
     }
+
+    public void addCompanyMenu(int companyId, int typeId, int categoryId) throws BusinessLogicException {
+        ParseMenu parseMenu = parseRepo.findParseMenuByCompanyIdAndTypeIdAndCategoryId( companyId, typeId, categoryId );
+        if ( parseMenu != null ){
+            throw new BusinessLogicException( "Меню уже существует, добавление невозможно !" );
+        }
+        parseMenu = new ParseMenu();
+        parseMenu.setCompanyId( companyId );
+        parseMenu.setTypeId( typeId );
+        parseMenu.setCategoryId( categoryId );
+        MenuItem menuItem = new MenuItem();
+        menuItem.setCompanyId( companyId );
+        menuItem.setTypeId( typeId );
+        menuItem.setCategoryId( categoryId );
+        menuItem.setEntityId( AppConstants.FAKE_ID );
+        try {
+            parseRepo.save( parseMenu );
+            menuItemRepo.save( menuItem );
+        } catch (Exception e){
+            throw new BusinessLogicException( "Добавление невозможно, "+e.getMessage() );
+        }
+    }
+
+    public void deleteCompanyMenu(int companyId, int typeId, int categoryId) throws BusinessLogicException {
+        List<MenuItem> menuItems = menuItemRepo.findAllByCompanyIdAndTypeIdAndCategoryId( companyId, typeId, categoryId );
+        if ( (menuItems != null && menuItems.size() > 1) ||
+                ( menuItems != null && menuItems.size() == 1 && !AppConstants.FAKE_ID.equals( menuItems.get(0).getEntityId() ) ) ){
+            throw new BusinessLogicException( "Удаление невозможно, найдено: "+ menuItems.size()+" блюд");
+        }
+        ParseMenu parseMenu = parseRepo.findParseMenuByCompanyIdAndTypeIdAndCategoryId( companyId, typeId, categoryId );
+        try {
+            parseRepo.delete( parseMenu );
+            menuItemRepo.delete( menuItems.get(0) );
+        } catch (Exception e){
+            throw new BusinessLogicException( "Ошибка при попытке удаления, "+e.getMessage() );
+        }
+    }
+
+    public CompanyEdit saveCompanyModel(CompanyModel companyModel) throws BusinessLogicException {
+        CompanyEdit companyEdit = null;
+        Company company = convertUtils.convertCompanyModelToEntiry( companyModel );
+        try {
+            companyRepo.save( company );
+            if ( company.getId() != null ){
+              companyEdit = getCompanyEdit( company.getId() );
+            }
+        } catch (Exception e){
+            throw new BusinessLogicException( "Ошибка при попытке записи компании, "+e.getMessage() );
+        }
+        return companyEdit;
+    }
+
+
 
 }

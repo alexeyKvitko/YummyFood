@@ -61,7 +61,7 @@ export class CompanyComponent implements OnInit {
   }
 
   createCompany(){
-    window.localStorage.setItem('companyId',null);
+    window.localStorage.setItem('companyId','-1');
     this.router.navigate(['pages/company-edit']);
   }
 

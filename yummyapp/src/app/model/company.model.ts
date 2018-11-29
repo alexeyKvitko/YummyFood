@@ -1,9 +1,10 @@
-export class CompanyModel {
+import {DictionaryModel} from "./dictionary.model";
 
+export class CompanyModel {
   id: string;
   companyName: string;
   displayName: string;
-  cityId: string;
+  city: any;
   url: string;
   email: string;
   phoneOne: string;
@@ -11,4 +12,7 @@ export class CompanyModel {
   phoneThree: string;
   logo:string;
 
+  constructor(){
+    this.city = new DictionaryModel();
+  }
 }

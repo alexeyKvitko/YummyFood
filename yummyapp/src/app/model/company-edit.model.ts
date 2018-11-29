@@ -9,4 +9,8 @@ export class CompanyEditModel extends CompanyInfoModel{
   deliveryMenuCategories: MenuCategoryModel[];
   cities: DictionaryModel[];
 
+  // constructor(){
+  //   this.companyModel
+  // }
+
 }

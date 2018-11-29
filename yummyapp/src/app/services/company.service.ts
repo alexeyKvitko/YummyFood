@@ -30,8 +30,23 @@ export class CompanyService {
     return this.http.get<CompanyEditModel>(this.companyUrl + '/edit/' + id);
   }
 
+  public saveCompanyModel(companyModel) {
+    console.log(companyModel);
+    return this.http.post<ApiResponse>(this.apiUrl + '/saveCompany',companyModel);
+  }
+
   public getCompanyMenu(companyId, typeId, categoryId) {
     return this.http.get<CompanyMenuModel>(this.companyUrl + '/' + companyId
+      + '/' + typeId + '/' + categoryId);
+  }
+
+  public addCompanyMenu(companyId, typeId, categoryId) {
+    return this.http.get<ApiResponse>(this.companyUrl + '/addMenu/' + companyId
+      + '/' + typeId + '/' + categoryId);
+  }
+
+  public deleteCompanyMenu(companyId, typeId, categoryId) {
+    return this.http.get<ApiResponse>(this.companyUrl + '/deleteMenu/' + companyId
       + '/' + typeId + '/' + categoryId);
   }
 

@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CompanyEditComponent } from './company-edit.component';
-import { NgxNotificationComponent } from 'ngx-notification';
 
 @NgModule({
   imports: [
@@ -17,7 +16,6 @@ import { NgxNotificationComponent } from 'ngx-notification';
     routing
   ],
   declarations: [
-    NgxNotificationComponent,
     CompanyEditComponent
   ]
 })

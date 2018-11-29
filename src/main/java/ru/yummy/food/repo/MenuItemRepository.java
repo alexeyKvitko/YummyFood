@@ -27,5 +27,7 @@ public interface MenuItemRepository extends CrudRepository<MenuItem,Integer> {
     @Query(value=SELECT_COUNT_CATEGORY_SQL,nativeQuery = true)
     Integer getCountByCategoryId(@Param("categoryId") Integer categoryId);
 
+    List<MenuItem> findAllByCompanyIdAndTypeIdAndCategoryId(Integer companyId, Integer typeId, Integer categoryId);
+
 
 }

@@ -32,6 +32,20 @@ public class ConvertUtils {
         return companyModel;
     }
 
+    public Company convertCompanyModelToEntiry(CompanyModel model){
+        Company company = new Company();
+        company.setId( model.getId() );
+        company.setCompanyName( model.getCompanyName() );
+        company.setDisplayName( model.getDisplayName() );
+        company.setCityId( model.getCity().getId() );
+        company.setUrl( model.getUrl() );
+        company.setPhoneOne( model.getPhoneOne() );
+        company.setPhoneTwo( model.getPhoneTwo() );
+        company.setPhoneThree( model.getPhoneThree() );
+        company.setLogo( model.getLogo() );
+        return company;
+    }
+
 
     public MenuTypeModel convertMenuTypeToModel(MenuType menuType){
         MenuTypeModel model = new MenuTypeModel();

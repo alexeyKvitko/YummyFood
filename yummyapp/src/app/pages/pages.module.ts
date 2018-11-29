@@ -11,7 +11,6 @@ import { CustomMaterialModule } from '../shared/material.module';
 import { PagesComponent } from './pages.component';
 import { LoginComponent } from './login/login.component';
 
-
 @NgModule({
     imports: [
         CommonModule,
