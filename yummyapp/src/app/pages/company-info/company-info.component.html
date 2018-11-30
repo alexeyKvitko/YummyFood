@@ -96,7 +96,7 @@
             <div class="input-box">
              <span class="input-group-addon-teal addon-left" id="prefixUrl" (click)="inputControlClick('prefixUrl')">
               <span [hidden]="isControlHidden('prefixUrl')"><i class="fa fa-lock-open"></i></span>
-              <span [hidden]="!isControlHidden('prefixUrl')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;URL изображения</span>
+              <span [hidden]="!isControlHidden('prefixUrl')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Префикс изображения(URL)</span>
               <input placeholder="" type="text" formControlName="prefixUrl">
               <span class="input-group-addon-teal-right itr-start" (click)="undoControl('prefixUrl')" ><i class="fas fa-undo-alt"></i></span>
               <span class="input-group-addon-teal-right itr-end" (click)="copyControl('prefixUrl')"><i class="far fa-copy"></i></span>
@@ -113,7 +113,7 @@
              <span class="col-md-2 input-group-addon-teal addon-left" id="tagEndSection-id"
                   (click)="inputControlClick('tagEndSection')">
               <span [hidden]="isControlHidden('tagEndSection')"><i class="fa fa-lock-open"></i></span>
-              <span [hidden]="!isControlHidden('tagEndSection')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Конец блока</span>
+              <span [hidden]="!isControlHidden('tagEndSection')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Идентификация блока</span>
               <input placeholder="" type="text" formControlName="tagEndSection">
               <span class="input-group-addon-teal-right itr-start" (click)="undoControl('tagEndSection')" ><i class="fas fa-undo-alt"></i></span>
               <span class="input-group-addon-teal-right itr-end" (click)="copyControl('tagEndSection')"><i class="far fa-copy"></i></span>
@@ -123,11 +123,17 @@
               <span [hidden]="isControlHidden('tagNameStart')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagNameStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Имя</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagNameStart">&nbsp;
-              <input style="width: 5%"placeholder="" type="text" formControlName="tagNameEnd">&nbsp;
-              <span [hidden]="isControlHidden('tagNameStart')" class="check-direction" (click)="changeDirection('tagNameDirection')">
-                <span class="forward" [hidden]="!isForwardDirection('tagNameDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
-                <span class="back" [hidden]="isForwardDirection('tagNameDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
-              </span>
+              <input style="width: 5%" placeholder="" type="text" formControlName="tagNameEnd">&nbsp;
+              <div class="tag-select" [hidden]="isControlHidden('tagNameStart')">
+                <select class="form-control" id="sel-dname-id" formControlName="tagNameDirection">
+                  <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
+                </select>
+              </div>
+              <div class="tag-select" [hidden]="isControlHidden('tagNameStart')">
+                <select class="form-control" id="sel-ename-id" formControlName="tagNameEntry">
+                  <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
+                </select>
+              </div>
               <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagName')" ><i class="fas fa-undo-alt"></i></span>
               <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagName')"><i class="far fa-copy"></i></span>
             </div>
@@ -138,10 +144,16 @@
               <span [hidden]="!isControlHidden('tagDescStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Описание</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagDescStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagDescEnd">&nbsp;
-              <span [hidden]="isControlHidden('tagDescStart')" class="check-direction" (click)="changeDirection('tagDescDirection')">
-                <span class="forward" [hidden]="!isForwardDirection('tagDescDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
-                <span class="back" [hidden]="isForwardDirection('tagDescDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
-              </span>
+              <div class="tag-select" [hidden]="isControlHidden('tagDescStart')">
+                <select class="form-control"  formControlName="tagDescDirection">
+                  <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
+                </select>
+              </div>
+              <div class="tag-select" [hidden]="isControlHidden('tagDescStart')">
+                <select class="form-control" id="tagDescE-id" formControlName="tagDescEntry">
+                  <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
+                </select>
+              </div>
               <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagDesc')" ><i class="fas fa-undo-alt"></i></span>
               <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagDesc')"><i class="far fa-copy"></i></span>
             </div>
@@ -152,10 +164,16 @@
               <span [hidden]="!isControlHidden('tagImgUrlStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;URL изображения</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagImgUrlStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagImgUrlEnd">&nbsp;
-              <span [hidden]="isControlHidden('tagImgUrlStart')" class="check-direction" (click)="changeDirection('tagImgUrlDirection')">
-                <span class="forward" [hidden]="!isForwardDirection('tagImgUrlDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
-                <span class="back" [hidden]="isForwardDirection('tagImgUrlDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
-              </span>
+              <div class="tag-select" [hidden]="isControlHidden('tagImgUrlStart')">
+                <select class="form-control" id="tagImgUrlDir-id" formControlName="tagImgUrlDirection">
+                  <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
+                </select>
+              </div>
+              <div class="tag-select" [hidden]="isControlHidden('tagImgUrlStart')">
+                <select class="form-control" id="tagImgUrlE-id" formControlName="tagImgUrlEntry">
+                  <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
+                </select>
+              </div>
               <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagImgUrl')" ><i class="fas fa-undo-alt"></i></span>
               <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagImgUrl')"><i class="far fa-copy"></i></span>
             </div>
@@ -166,10 +184,16 @@
               <span [hidden]="!isControlHidden('tagWeightOneStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Вес </span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagWeightOneStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagWeightOneEnd">&nbsp;
-              <span [hidden]="isControlHidden('tagWeightOneStart')" class="check-direction" (click)="changeDirection('tagWeightOneDirection')">
-                <span class="forward" [hidden]="!isForwardDirection('tagWeightOneDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
-                <span class="back" [hidden]="isForwardDirection('tagWeightOneDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
-              </span>
+              <div class="tag-select" [hidden]="isControlHidden('tagWeightOneStart')">
+                <select class="form-control" id="tagWeightOneDir-id" formControlName="tagWeightOneDirection">
+                  <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
+                </select>
+              </div>
+              <div class="tag-select" [hidden]="isControlHidden('tagWeightOneStart')">
+                <select class="form-control" id="tagWeightOneE-id" formControlName="tagWeightOneEntry">
+                  <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
+                </select>
+              </div>
               <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagWeightOne')" ><i class="fas fa-undo-alt"></i></span>
               <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagWeightOne')"><i class="far fa-copy"></i></span>
             </div>
@@ -180,10 +204,16 @@
               <span [hidden]="!isControlHidden('tagSizeOneStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Размер</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagSizeOneStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagSizeOneEnd">&nbsp;
-              <span [hidden]="isControlHidden('tagSizeOneStart')" class="check-direction" (click)="changeDirection('tagSizeOneDirection')">
-                <span class="forward" [hidden]="!isForwardDirection('tagSizeOneDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
-                <span class="back" [hidden]="isForwardDirection('tagSizeOneDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
-              </span>
+              <div class="tag-select" [hidden]="isControlHidden('tagSizeOneStart')">
+                <select class="form-control" id="tagSizeOneDir-id" formControlName="tagSizeOneDirection">
+                  <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
+                </select>
+              </div>
+              <div class="tag-select" [hidden]="isControlHidden('tagSizeOneStart')">
+                <select class="form-control" id="tagSizeOneE-id" formControlName="tagSizeOneEntry">
+                  <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
+                </select>
+              </div>
               <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagSizeOne')" ><i class="fas fa-undo-alt"></i></span>
               <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagSizeOne')"><i class="far fa-copy"></i></span>
             </div>
@@ -194,10 +224,16 @@
               <span [hidden]="!isControlHidden('tagPriceOneStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Цена</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagPriceOneStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagPriceOneEnd">&nbsp;
-              <span [hidden]="isControlHidden('tagPriceOneStart')" class="check-direction" (click)="changeDirection('tagPriceOneDirection')">
-                <span class="forward" [hidden]="!isForwardDirection('tagPriceOneDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
-                <span class="back" [hidden]="isForwardDirection('tagPriceOneDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
-              </span>
+              <div class="tag-select" [hidden]="isControlHidden('tagPriceOneStart')">
+                <select class="form-control" formControlName="tagPriceOneDirection" id="tagPriceOneDir-id" formControlName="tagPriceOneDirection">
+                  <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
+                </select>
+              </div>
+              <div class="tag-select" [hidden]="isControlHidden('tagPriceOneStart')">
+                <select class="form-control" formControlName="tagPriceOneEntry" id="tagPriceOneE-id" formControlName="tagPriceOneEntry">
+                  <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
+                </select>
+              </div>
               <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagPriceOne')" ><i class="fas fa-undo-alt"></i></span>
               <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagPriceOne')"><i class="far fa-copy"></i></span>
             </div>
@@ -209,10 +245,16 @@
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Вес 2</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagWeightTwoStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagWeightTwoEnd">&nbsp;
-              <span [hidden]="isControlHidden('tagWeightTwoStart')" class="check-direction" (click)="changeDirection('tagWeightTwoDirection')">
-                <span class="forward" [hidden]="!isForwardDirection('tagWeightTwoDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
-                <span class="back" [hidden]="isForwardDirection('tagWeightTwoDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
-              </span>
+              <div class="tag-select" [hidden]="isControlHidden('tagWeightTwoStart')">
+                <select class="form-control" id="tagWeightTwoDir-id" formControlName="tagWeightTwoDirection">
+                  <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
+                </select>
+              </div>
+              <div class="tag-select" [hidden]="isControlHidden('tagWeightTwoStart')">
+                <select class="form-control" id="tagWeightTwoE-id" formControlName="tagWeightTwoEntry">
+                  <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
+                </select>
+              </div>
               <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagWeightTwo')" ><i class="fas fa-undo-alt"></i></span>
               <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagWeightTwo')"><i class="far fa-copy"></i></span>
             </div>
@@ -224,10 +266,16 @@
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Размер 2</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagSizeTwoStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagSizeTwoEnd">&nbsp;
-              <span [hidden]="isControlHidden('tagSizeTwoStart')" class="check-direction" (click)="changeDirection('tagSizeTwoDirection')">
-                <span class="forward" [hidden]="!isForwardDirection('tagSizeTwoDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
-                <span class="back" [hidden]="isForwardDirection('tagSizeTwoDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
-              </span>
+              <div class="tag-select" [hidden]="isControlHidden('tagSizeTwoStart')">
+                <select class="form-control" id="tagSizeTwoDir-id" formControlName="tagSizeTwoDirection">
+                  <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
+                </select>
+              </div>
+              <div class="tag-select" [hidden]="isControlHidden('tagSizeTwoStart')">
+                <select class="form-control" id="tagSizeTwoE-id" formControlName="tagSizeTwoEntry">
+                  <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
+                </select>
+              </div>
               <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagSizeTwo')" ><i class="fas fa-undo-alt"></i></span>
               <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagSizeTwo')"><i class="far fa-copy"></i></span>
             </div>
@@ -239,10 +287,16 @@
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Цена 2</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagPriceTwoStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagPriceTwoEnd">&nbsp;
-              <span [hidden]="isControlHidden('tagPriceTwoStart')" class="check-direction" (click)="changeDirection('tagPriceTwoDirection')">
-                <span class="forward" [hidden]="!isForwardDirection('tagPriceTwoDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
-                <span class="back" [hidden]="isForwardDirection('tagPriceTwoDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
-              </span>
+              <div class="tag-select" [hidden]="isControlHidden('tagPriceTwoStart')">
+                <select class="form-control" id="tagPriceTwoDir-id" formControlName="tagPriceTwoDirection">
+                  <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
+                </select>
+              </div>
+              <div class="tag-select" [hidden]="isControlHidden('tagPriceTwoStart')">
+                <select class="form-control" id="tagPriceTwoE-id" formControlName="tagPriceTwoEntry">
+                  <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
+                </select>
+              </div>
               <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagPriceTwo')" ><i class="fas fa-undo-alt"></i></span>
               <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagPriceTwo')"><i class="far fa-copy"></i></span>
             </div>
@@ -254,10 +308,16 @@
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Вес 3</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagWeightThreeStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagWeightThreeEnd">&nbsp;
-              <span [hidden]="isControlHidden('tagWeightThreeStart')" class="check-direction" (click)="changeDirection('tagWeightThreeDirection')">
-                <span class="forward" [hidden]="!isForwardDirection('tagWeightThreeDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
-                <span class="back" [hidden]="isForwardDirection('tagWeightThreeDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
-              </span>
+              <div class="tag-select" [hidden]="isControlHidden('tagWeightThreeStart')">
+                <select class="form-control" id="tagWeightThreeDir-id" formControlName="tagWeightThreeDirection">
+                  <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
+                </select>
+              </div>
+              <div class="tag-select" [hidden]="isControlHidden('tagWeightThreeStart')">
+                <select class="form-control" id="tagWeightThreeE-id" formControlName="tagWeightThreeEntry">
+                  <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
+                </select>
+              </div>
               <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagWeightThree')" ><i class="fas fa-undo-alt"></i></span>
               <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagWeightThree')"><i class="far fa-copy"></i></span>
             </div>
@@ -269,10 +329,16 @@
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Размер 3</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagSizeThreeStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagSizeThreeEnd">&nbsp;
-              <span [hidden]="isControlHidden('tagSizeThreeStart')" class="check-direction" (click)="changeDirection('tagSizeThreeDirection')">
-                <span class="forward" [hidden]="!isForwardDirection('tagSizeThreeDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
-                <span class="back" [hidden]="isForwardDirection('tagSizeThreeDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
-              </span>
+              <div class="tag-select" [hidden]="isControlHidden('tagSizeThreeStart')">
+                <select class="form-control" id="tagSizeThreeDir-id" formControlName="tagSizeThreeDirection">
+                  <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
+                </select>
+              </div>
+              <div class="tag-select" [hidden]="isControlHidden('tagSizeThreeStart')">
+                <select class="form-control" id="tagSizeThreeE-id" formControlName="tagSizeThreeEntry">
+                  <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
+                </select>
+              </div>
               <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagSizeThree')" ><i class="fas fa-undo-alt"></i></span>
               <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagSizeThree')"><i class="far fa-copy"></i></span>
             </div>
@@ -284,10 +350,16 @@
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Цена 3</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagPriceThreeStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagPriceThreeEnd">&nbsp;
-              <span [hidden]="isControlHidden('tagPriceThreeStart')" class="check-direction" (click)="changeDirection('tagPriceThreeDirection')">
-                <span class="forward" [hidden]="!isForwardDirection('tagPriceThreeDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
-                <span class="back" [hidden]="isForwardDirection('tagPriceThreeDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
-              </span>
+              <div class="tag-select" [hidden]="isControlHidden('tagPriceThreeStart')">
+                <select class="form-control" id="tagPriceThreeDir-id" formControlName="tagPriceThreeDirection">
+                  <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
+                </select>
+              </div>
+              <div class="tag-select" [hidden]="isControlHidden('tagPriceThreeStart')">
+                <select class="form-control" id="tagPriceThreeE-id" formControlName="tagPriceThreeEntry">
+                  <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
+                </select>
+              </div>
               <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagPriceThree')" ><i class="fas fa-undo-alt"></i></span>
               <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagPriceThree')"><i class="far fa-copy"></i></span>
             </div>
@@ -299,10 +371,16 @@
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Вес 4</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagWeightFourStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagWeightFourEnd">&nbsp;
-              <span [hidden]="isControlHidden('tagWeightFourStart')" class="check-direction" (click)="changeDirection('tagWeightFourDirection')">
-                <span class="forward" [hidden]="!isForwardDirection('tagWeightFourDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
-                <span class="back" [hidden]="isForwardDirection('tagWeightFourDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
-              </span>
+              <div class="tag-select" [hidden]="isControlHidden('tagWeightFourStart')">
+                <select class="form-control" id="tagWeightFourDir-id" formControlName="tagWeightFourDirection">
+                  <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
+                </select>
+              </div>
+              <div class="tag-select" [hidden]="isControlHidden('tagWeightFourStart')">
+                <select class="form-control" id="tagWeightFourE-id" formControlName="tagWeightFourEntry">
+                  <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
+                </select>
+              </div>
               <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagWeightFour')" ><i class="fas fa-undo-alt"></i></span>
               <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagWeightFour')"><i class="far fa-copy"></i></span>
             </div>
@@ -314,10 +392,16 @@
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Размер 4</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagSizeFourStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagSizeFourEnd">&nbsp;
-              <span [hidden]="isControlHidden('tagSizeFourStart')" class="check-direction" (click)="changeDirection('tagSizeFourDirection')">
-                <span class="forward" [hidden]="!isForwardDirection('tagSizeFourDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
-                <span class="back" [hidden]="isForwardDirection('tagSizeFourDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
-              </span>
+              <div class="tag-select" [hidden]="isControlHidden('tagSizeFourStart')">
+                <select class="form-control" id="tagSizeFourDir-id" formControlName="tagSizeFourDirection">
+                  <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
+                </select>
+              </div>
+              <div class="tag-select" [hidden]="isControlHidden('tagSizeFourStart')">
+                <select class="form-control" id="tagSizeFourE-id" formControlName="tagSizeFourEntry">
+                  <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
+                </select>
+              </div>
               <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagSizeFour')" ><i class="fas fa-undo-alt"></i></span>
               <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagSizeFour')"><i class="far fa-copy"></i></span>
             </div>
@@ -329,10 +413,16 @@
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Цена 4</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagPriceFourStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagPriceFourEnd">&nbsp;
-              <span [hidden]="isControlHidden('tagPriceFourStart')" class="check-direction" (click)="changeDirection('tagPriceFourDirection')">
-                <span class="forward" [hidden]="!isForwardDirection('tagPriceFourDirection')"><i class="far fa-arrow-alt-circle-right"></i></span>
-                <span class="back" [hidden]="isForwardDirection('tagPriceFourDirection')"><i class="far fa-arrow-alt-circle-left"></i></span>
-              </span>
+              <div class="tag-select" [hidden]="isControlHidden('tagPriceFourStart')">
+                <select class="form-control" id="tagPriceFourDir-id" formControlName="tagPriceFourDirection">
+                  <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
+                </select>
+              </div>
+              <div class="tag-select" [hidden]="isControlHidden('tagPriceFourStart')">
+                <select class="form-control" id="tagPriceFourE-id" formControlName="tagPriceFourEntry">
+                  <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
+                </select>
+              </div>
               <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagPriceFour')" ><i class="fas fa-undo-alt"></i></span>
               <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagPriceFour')"><i class="far fa-copy"></i></span>
             </div>

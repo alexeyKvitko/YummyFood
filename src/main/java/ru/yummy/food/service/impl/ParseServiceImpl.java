@@ -157,7 +157,7 @@ public class ParseServiceImpl implements ParseService {
 
 
     @Override
-    public synchronized CompanyMenu testPage(ParseMenuModel parseMenu) {
+    public synchronized CompanyMenu testPage(ParseMenuModel parseMenu) throws BusinessLogicException {
         HttpTransport httpTransport = new NetHttpTransport();
         HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
         String htmlResponse = null;
@@ -182,59 +182,69 @@ public class ParseServiceImpl implements ParseService {
         htmlResponse = AppUtils.polish(htmlResponse);
         parseMenu.setHtmlResponse( htmlResponse );
         boolean proceed = true;
+        int count = 0;
         List<MenuEntityModel> menuEntities = new LinkedList<>();
-        while (proceed) {
-            //Укорачиваем
-            int endSectionIdx = htmlResponse.indexOf(parseMenu.getTagEndSection());
-            String section = null;
-            if (endSectionIdx > -1) {
-                section = AppUtils.getSection(htmlResponse, parseMenu.getTagEndSection());
-                htmlResponse = htmlResponse.substring(section.length());
-            } else {
-                section = htmlResponse;
+        try {
+            while (proceed) {
+                //Укорачиваем
+                int endSectionIdx = htmlResponse.indexOf(parseMenu.getTagEndSection());
+                String section = null;
+                if (endSectionIdx > -1) {
+                    section = AppUtils.getSection(htmlResponse, parseMenu.getTagEndSection());
+                    htmlResponse = htmlResponse.substring(section.length());
+                } else {
+                    section = htmlResponse;
+                }
+                //Получаем данные
+                String entityName = AppUtils.getFieldValue(section, parseMenu.getTagName());
+                if (entityName == null) {
+                    proceed = false;
+                    if ( count == 0 ){
+                        throw new BusinessLogicException("Не найдено имя блюда, процесс завершен");
+                    } else {
+                        break;
+                    }
+                }
+                String uniqueName = entityName.toUpperCase().replace(" ", "_") + "_" + parseMenu.getCompanyId().toString();
+                MenuEntityModel menuEntity = new MenuEntityModel();
+                menuEntity.setStatus(EntityStatus.NEW.value());
+                menuEntity.setName(uniqueName);
+                menuEntity.setDisplayName(entityName);
+                menuEntity.setDescription(AppUtils.getFieldValue(section, parseMenu.getTagDescription()));
+                String imageUrl = AppUtils.getFieldValue(section, parseMenu.getTagImageUrl());
+                menuEntity.setImageUrl(parseMenu.getPrefixUrl() != null ? parseMenu.getPrefixUrl() + imageUrl : imageUrl);
+                // wsp One
+                WeightSizePrice wspOne = getWSP(section, parseMenu.getTagWeightOne(),
+                        parseMenu.getTagSizeOne(), parseMenu.getTagPriceOne());
+                menuEntity.setWeightOne(wspOne.getWeight());
+                menuEntity.setSizeOne(wspOne.getSize());
+                menuEntity.setPriceOne(wspOne.getPrice());
+
+                // wsp Two
+                WeightSizePrice wspTwo = getWSP(section, parseMenu.getTagWeightTwo(),
+                        parseMenu.getTagSizeTwo(), parseMenu.getTagPriceTwo());
+                menuEntity.setWeightTwo(wspTwo.getWeight());
+                menuEntity.setSizeTwo(wspTwo.getSize());
+                menuEntity.setPriceTwo(wspTwo.getPrice());
+
+                // wsp Three
+                WeightSizePrice wspThree = getWSP(section, parseMenu.getTagWeightThree(),
+                        parseMenu.getTagSizeThree(), parseMenu.getTagPriceThree());
+                menuEntity.setWeightThree(wspThree.getWeight());
+                menuEntity.setSizeThree(wspThree.getSize());
+                menuEntity.setPriceThree(wspThree.getPrice());
+
+                // wsp Four
+                WeightSizePrice wspFour = getWSP(section, parseMenu.getTagWeightFour(),
+                        parseMenu.getTagSizeFour(), parseMenu.getTagPriceFour());
+                menuEntity.setWeightFour(wspFour.getWeight());
+                menuEntity.setSizeFour(wspFour.getSize());
+                menuEntity.setPriceFour(wspFour.getPrice());
+                menuEntities.add(menuEntity);
+                count++;
             }
-            //Получаем данные
-            String entityName = AppUtils.getFieldValue(section, parseMenu.getTagName());
-            if (entityName == null) {
-                proceed = false;
-                break;
-            }
-            String uniqueName = entityName.toUpperCase().replace(" ", "_") + "_" + parseMenu.getCompanyId().toString();
-            MenuEntityModel menuEntity = new MenuEntityModel();
-            menuEntity.setStatus(EntityStatus.NEW.value());
-            menuEntity.setName(uniqueName);
-            menuEntity.setDisplayName(entityName);
-            menuEntity.setDescription(AppUtils.getFieldValue(section, parseMenu.getTagDescription()));
-            String imageUrl = AppUtils.getFieldValue(section, parseMenu.getTagImageUrl());
-            menuEntity.setImageUrl( parseMenu.getPrefixUrl() != null ? parseMenu.getPrefixUrl()+imageUrl : imageUrl );
-            // wsp One
-            WeightSizePrice wspOne = getWSP(section, parseMenu.getTagWeightOne(),
-                    parseMenu.getTagSizeOne(), parseMenu.getTagPriceOne());
-            menuEntity.setWeightOne(wspOne.getWeight());
-            menuEntity.setSizeOne(wspOne.getSize());
-            menuEntity.setPriceOne(wspOne.getPrice());
-
-            // wsp Two
-            WeightSizePrice wspTwo = getWSP(section, parseMenu.getTagWeightTwo(),
-                    parseMenu.getTagSizeTwo(), parseMenu.getTagPriceTwo());
-            menuEntity.setWeightTwo(wspTwo.getWeight());
-            menuEntity.setSizeTwo(wspTwo.getSize());
-            menuEntity.setPriceTwo(wspTwo.getPrice());
-
-            // wsp Three
-            WeightSizePrice wspThree = getWSP(section, parseMenu.getTagWeightThree(),
-                    parseMenu.getTagSizeThree(), parseMenu.getTagPriceThree());
-            menuEntity.setWeightThree(wspThree.getWeight());
-            menuEntity.setSizeThree(wspThree.getSize());
-            menuEntity.setPriceThree(wspThree.getPrice());
-
-            // wsp Four
-            WeightSizePrice wspFour = getWSP(section, parseMenu.getTagWeightFour(),
-                    parseMenu.getTagSizeFour(), parseMenu.getTagPriceFour());
-            menuEntity.setWeightFour(wspFour.getWeight());
-            menuEntity.setSizeFour(wspFour.getSize());
-            menuEntity.setPriceFour(wspFour.getPrice());
-            menuEntities.add( menuEntity);
+        } catch (Exception e ){
+            throw new BusinessLogicException("Ошибка: "+e.getMessage() );
         }
         CompanyMenu companyMenu = new CompanyMenu();
         companyMenu.setParseMenu( parseMenu );

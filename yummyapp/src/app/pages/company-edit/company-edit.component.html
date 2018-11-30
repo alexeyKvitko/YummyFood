@@ -42,7 +42,7 @@
                     (click)="inputControlClick('companyName')">
               <span [hidden]="isControlHidden('companyName')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('companyName')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Организация</span>
-            <input placeholder="" type="text" formControlName="companyName">
+            <input placeholder="Рабочее наименование" type="text" formControlName="companyName">
             <span class="input-group-addon-teal-right itr-end" (click)="undoControl('companyName')"><i
               class="fas fa-undo-alt"></i></span>
           </div>
@@ -51,7 +51,7 @@
                     (click)="inputControlClick('displayName')">
               <span [hidden]="isControlHidden('displayName')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('displayName')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Наименование</span>
-            <input placeholder="" type="text" formControlName="displayName">
+            <input placeholder="Отображаемое наименование" type="text" formControlName="displayName">
             <span class="input-group-addon-teal-right itr-end" (click)="undoControl('displayName')"><i
               class="fas fa-undo-alt"></i></span>
           </div>
@@ -59,7 +59,7 @@
               <span class="input-group-addon-teal addon-left" id="city" (click)="inputControlClick('city')">
               <span [hidden]="isControlHidden('city')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('city')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Город</span>
-            <input placeholder="" type="text" formControlName="city" [readonly]="true">
+            <input placeholder="Город" type="text" formControlName="city" [readonly]="true">
             <span class="input-group-addon-teal-right itr-end" (click)="undoControl('city')"><i
               class="fas fa-undo-alt"></i></span>
           </div>
@@ -72,7 +72,7 @@
               <span class="input-group-addon-teal addon-left" id="url" (click)="inputControlClick('url')">
               <span [hidden]="isControlHidden('url')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('url')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;URL</span>
-            <input placeholder="" type="text" formControlName="url">
+            <input placeholder="Основной адрес" type="text" formControlName="url">
             <span class="input-group-addon-teal-right itr-end" (click)="undoControl('url')"><i
               class="fas fa-undo-alt"></i></span>
           </div>
@@ -80,7 +80,7 @@
               <span class="input-group-addon-teal addon-left" id="email" (click)="inputControlClick('email')">
               <span [hidden]="isControlHidden('email')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('email')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;EMAIL</span>
-            <input placeholder="" type="text" formControlName="email">
+            <input placeholder="Почта" type="text" formControlName="email">
             <span class="input-group-addon-teal-right itr-end" (click)="undoControl('email')"><i
               class="fas fa-undo-alt"></i></span>
           </div>
@@ -88,7 +88,7 @@
               <span class="input-group-addon-teal addon-left" id="phoneOne" (click)="inputControlClick('phoneOne')">
               <span [hidden]="isControlHidden('phoneOne')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('phoneOne')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Телефон</span>
-            <input placeholder="" type="text" formControlName="phoneOne">
+            <input placeholder="Основной телефон" type="text" formControlName="phoneOne">
             <span class="input-group-addon-teal-right itr-end" (click)="undoControl('phoneOne')"><i
               class="fas fa-undo-alt"></i></span>
           </div>
@@ -96,7 +96,7 @@
               <span class="input-group-addon-teal addon-left" id="phoneTwo" (click)="inputControlClick('phoneTwo')">
               <span [hidden]="isControlHidden('phoneTwo')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('phoneTwo')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Телефон</span>
-            <input placeholder="" type="text" formControlName="phoneTwo">
+            <input placeholder="Дополнительный телефон" type="text" formControlName="phoneTwo">
             <span class="input-group-addon-teal-right itr-end" (click)="undoControl('phoneTwo')"><i
               class="fas fa-undo-alt"></i></span>
           </div>
@@ -105,7 +105,7 @@
               <span [hidden]="isControlHidden('phoneThree')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('phoneThree')"><i
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Телефон</span>
-            <input placeholder="" type="text" formControlName="phoneThree">
+            <input placeholder="Дополнительный телефон" type="text" formControlName="phoneThree">
             <span class="input-group-addon-teal-right itr-end" (click)="undoControl('phoneThree')"><i
               class="fas fa-undo-alt"></i></span>
           </div>
@@ -113,7 +113,7 @@
               <span class="input-group-addon-teal addon-left" id="logo" (click)="inputControlClick('logo')">
               <span [hidden]="isControlHidden('logo')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('logo')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Лого</span>
-            <input placeholder="" type="text" formControlName="logo">
+            <input placeholder="Лого" type="text" formControlName="logo">
             <span class="input-group-addon-teal-right itr-end" (click)="undoControl('logo')"><i
               class="fas fa-undo-alt"></i></span>
           </div>

@@ -23,6 +23,9 @@ public abstract class AppUtils {
     }
 
     public static synchronized String getValueFromHtml( String html, String start, String end ) {
+        if ( start == null || end == null || start.trim().length() == 0 || end.trim().length() == 0 ){
+            return null;
+        }
         StringBuilder sb = new StringBuilder( );
         int startIndex = html.indexOf( start ) > -1 ? html.indexOf( start ) + start.length( ) : -1;
         if ( startIndex == -1 ) {
@@ -38,6 +41,9 @@ public abstract class AppUtils {
     }
 
     public static synchronized String getBackValueFromHtml( String html, String end, String start ) {
+        if ( start == null || end == null || start.trim().length() == 0 || end.trim().length() == 0 ){
+            return null;
+        }
         StringBuilder sb = new StringBuilder( );
         int endIndex = html.indexOf( end ) - 1;
         if ( endIndex == -1 ) {
@@ -88,9 +94,18 @@ public abstract class AppUtils {
         if ( AppConstants.SPACE_SPLIT.equals( param.getEndTag( ) ) ) {
             param.setEndTag( " " );
         }
-        String value = AppConstants.DIRECT_FORWARD.equals( param.getDirection( ) ) ?
-                getValueFromHtml( html, param.getStartTag( ), param.getEndTag( ) ) :
+        String value = null;
+        switch( param.getDirection() ){
+            case AppConstants.DIRECT_FORWARD:
+                    getValueFromHtml( html, param.getStartTag( ), param.getEndTag( ) );
+                break;
+            case AppConstants.DIRECT_BACKWARD:
                 getBackValueFromHtml( html, param.getStartTag( ), param.getEndTag( ) );
+            case AppConstants.INLINE_VALUE:
+                value = param.getStartTag();
+                break;
+                default: break;
+        }
         if ( value != null ) {
             for ( String htmlTag : AppConstants.HTML_TAGS.keySet() ) {
                 value = value.replace( htmlTag, AppConstants.HTML_TAGS.get( htmlTag ) );

@@ -214,4 +214,17 @@
   }
 }
 
-
+.tag-select{
+  select{
+    width: 55px;
+    margin-top: -5px;
+    background-color: transparent;
+    border-bottom: 1px solid $primary-color-light;
+    font-size: 12px;
+    font-weight: bold;
+    &:focus{
+      border: 2px solid transparent;
+      border-bottom: 1px solid $primary-color;
+    }
+  }
+}

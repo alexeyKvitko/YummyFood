@@ -83,7 +83,7 @@ export class CompanyEditComponent implements OnInit {
   }
 
   menuTypeSelect(menuType) {
-    if( menuType.menuCategories == null ){
+    if (menuType.menuCategories == null) {
       return;
     }
     menuType.menuOpen = !menuType.menuOpen;
@@ -109,27 +109,28 @@ export class CompanyEditComponent implements OnInit {
     if (status === 'DISABLED') {
       this.companyForm.get(controlName).enable();
     }
+    this.logoImgSrc = 'assets/images/logos/' + this.companyForm.get('logo').value;
   }
 
-  isSaveBtnHidden():boolean {
+  isSaveBtnHidden(): boolean {
     let hidden = true;
     for (let field in this.companyForm.controls) {
-      hidden = hidden && this.companyForm.get(field).value === this.getByName(field );
+      hidden = hidden && this.companyForm.get(field).value === this.getByName(field);
     }
     return hidden;
   }
 
-  citySelect( val ){
+  citySelect(val) {
     this.companyEdit.cities.forEach(city => {
-      if( city.id.toString() === val ){
-        this.companyForm.get('city').setValue( city.displayName );
+      if (city.id.toString() === val) {
+        this.companyForm.get('city').setValue(city.displayName);
         this.companyForm.get('city').disable();
       }
     });
   }
 
-  showHttpActionMessage( data ){
-    if ( data.status === 200 ){
+  showHttpActionMessage(data) {
+    if (data.status === 200) {
       swal('Обновление данных, успешно');
     } else {
       swal({
@@ -139,15 +140,15 @@ export class CompanyEditComponent implements OnInit {
       });
     }
   }
-  
-  saveCompanyModel(){
-    let companyModel =  new CompanyModel();
+
+  saveCompanyModel() {
+    let companyModel = new CompanyModel();
     companyModel.id = this.companyForm.get('id').value;
     companyModel.companyName = this.companyForm.get('companyName').value;
     companyModel.displayName = this.companyForm.get('displayName').value;
     let cityVal = this.companyForm.get('city').value;
     this.companyEdit.cities.forEach(city => {
-      if( city.displayName === cityVal ){
+      if (city.displayName === cityVal) {
         companyModel.city = {
           id: city.id
         };
@@ -158,10 +159,10 @@ export class CompanyEditComponent implements OnInit {
     companyModel.phoneOne = this.companyForm.get('phoneOne').value;
     companyModel.phoneTwo = this.companyForm.get('phoneTwo').value;
     companyModel.phoneThree = this.companyForm.get('phoneThree').value;
-    companyModel.logo= this.companyForm.get('logo').value;
-    this.companyService.saveCompanyModel( companyModel ).subscribe(data => {
-      if ( data.status == 200 ){
-        this.updateCompanyEdit( data.result );
+    companyModel.logo = this.companyForm.get('logo').value;
+    this.companyService.saveCompanyModel(companyModel).subscribe(data => {
+      if (data.status == 200) {
+        this.updateCompanyEdit(data.result);
       }
       this.showHttpActionMessage(data);
     });
@@ -180,21 +181,21 @@ export class CompanyEditComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.companyService.deleteCompanyMenu(this.companyId, menuType.id, menuCategory.id).subscribe(data => {
-           let deleteResult = data;
-           if ( deleteResult.status == 200 ){
-             this.companyService.getCompanyEdit(this.companyId).subscribe(data => {
+          let deleteResult = data;
+          if (deleteResult.status == 200) {
+            this.companyService.getCompanyEdit(this.companyId).subscribe(data => {
               this.updateCompanyEdit(data);
-               this.selectedOptionType = null;
-               this.selectedOptionCategory = null;
-             });
-           }
-          this.showHttpActionMessage( deleteResult );
+              this.selectedOptionType = null;
+              this.selectedOptionCategory = null;
+            });
+          }
+          this.showHttpActionMessage(deleteResult);
         });
       }
     })
   }
 
-  updateCompanyEdit( data ){
+  updateCompanyEdit(data) {
     this.companyEdit = data;
     this.companyEdit.companyModel.city.displayName = this.companyEdit.companyModel.city.name;
     this.companyEdit.menuTypes.forEach(item => {
@@ -268,14 +269,15 @@ export class CompanyEditComponent implements OnInit {
       this.companyEdit.deliveryMenuTypes.forEach(item => {
         if (item.id.toString() === this.selectedOptionType) {
           item.menuOpen = false;
-          this.companyEdit.menuTypes.push( item );
+          this.companyEdit.menuTypes.push(item);
         }
       });
       this.selectedOptionCategory = null;
     }
   }
-  addMenuCategory(){
-    if ( this.selectedOptionType == null ){
+
+  addMenuCategory() {
+    if (this.selectedOptionType == null) {
       swal({
         type: 'error',
         title: 'Невозможно',
@@ -289,7 +291,7 @@ export class CompanyEditComponent implements OnInit {
         menuType = item;
       }
     });
-    if ( menuType == null ){
+    if (menuType == null) {
       swal({
         type: 'error',
         title: 'Невозможно',
@@ -298,7 +300,7 @@ export class CompanyEditComponent implements OnInit {
       return;
     }
     let exist = false;
-    if ( menuType.menuCategories == null ){
+    if (menuType.menuCategories == null) {
       menuType.menuCategories = new Array<MenuCategoryModel>();
     }
     menuType.menuCategories.forEach(item => {
@@ -311,16 +313,16 @@ export class CompanyEditComponent implements OnInit {
         });
       }
     });
-    if( !exist ){
+    if (!exist) {
       this.companyEdit.deliveryMenuCategories.forEach(item => {
         if (item.id.toString() === this.selectedOptionCategory) {
           this.companyService.addCompanyMenu(this.companyId,
-                    this.selectedOptionType,this.selectedOptionCategory).subscribe(data => {
-            if ( data.status == 200 ){
+            this.selectedOptionType, this.selectedOptionCategory).subscribe(data => {
+            if (data.status == 200) {
               menuType.menuOpen = true;
-              menuType.menuCategories.push( item );
+              menuType.menuCategories.push(item);
             }
-            this.showHttpActionMessage( data );
+            this.showHttpActionMessage(data);
           });
         }
       });

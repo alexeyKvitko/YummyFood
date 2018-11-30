@@ -50,9 +50,17 @@ public class CompanyServiceImpl {
 
     public CompanyInfo getCompanyInfo(Integer companyId) {
         CompanyInfo companyInfo = new CompanyInfo();
-        CompanyModel company = convertUtils.convertCompanyToModel(companyRepo.findById(companyId).get());
-        List<MenuType> menuTypes = menuTypeRepo.findTypesByCompanyId(Integer.valueOf(companyId));
+        CompanyModel company = null;
         List<MenuTypeModel> menuTypeModels = new ArrayList<>();
+        if ( AppConstants.FAKE_ID.equals( companyId ) ){
+            company = new CompanyModel();
+            company.setCity( cityRepo.findById( AppConstants.SIMFEROPOL_ID ).get() );
+            companyInfo.setCompanyModel(company);
+            companyInfo.setMenuTypes(menuTypeModels);
+            return companyInfo;
+        }
+        company = convertUtils.convertCompanyToModel(companyRepo.findById(companyId).get());
+        List<MenuType> menuTypes = menuTypeRepo.findTypesByCompanyId(Integer.valueOf(companyId));
         for (MenuType menuType : menuTypes) {
             MenuTypeModel menuTypeModel = convertUtils.convertMenuTypeToModel(menuType);
             List<MenuCategoryModel> menuCategoryModels = new ArrayList<>();
@@ -135,7 +143,8 @@ public class CompanyServiceImpl {
 
     public CompanyEdit saveCompanyModel(CompanyModel companyModel) throws BusinessLogicException {
         CompanyEdit companyEdit = null;
-        Company company = convertUtils.convertCompanyModelToEntiry( companyModel );
+        Company company = convertUtils.convertCompanyModelToEntiry( companyModel ); 
+
         try {
             companyRepo.save( company );
             if ( company.getId() != null ){

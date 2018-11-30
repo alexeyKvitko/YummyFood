@@ -25,6 +25,7 @@ public class ConvertUtils {
         City city = cityRepo.findById( company.getCityId() ).get();
         companyModel.setCity( city );
         companyModel.setUrl( company.getUrl() );
+        companyModel.setEmail( company.getEmail() );
         companyModel.setPhoneOne( company.getPhoneOne() );
         companyModel.setPhoneTwo( company.getPhoneTwo() );
         companyModel.setPhoneThree( company.getPhoneThree() );
@@ -34,11 +35,13 @@ public class ConvertUtils {
 
     public Company convertCompanyModelToEntiry(CompanyModel model){
         Company company = new Company();
-        company.setId( model.getId() );
-        company.setCompanyName( model.getCompanyName() );
+        Integer companyId = AppConstants.FAKE_ID.equals( model.getId() ) ? null : model.getId();
+        company.setId( companyId );
+        company.setCompanyName( model.getCompanyName().toUpperCase() );
         company.setDisplayName( model.getDisplayName() );
         company.setCityId( model.getCity().getId() );
         company.setUrl( model.getUrl() );
+        company.setEmail( model.getEmail() );
         company.setPhoneOne( model.getPhoneOne() );
         company.setPhoneTwo( model.getPhoneTwo() );
         company.setPhoneThree( model.getPhoneThree() );

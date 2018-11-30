@@ -42,6 +42,13 @@ export class CompanyInfoComponent implements OnInit {
     showProgressBar: false,
     lastOnBottom: true
   };
+   directions = [
+     { display:'ВПД', value:'f' },
+     { display:'НЗД', value:'b' },
+     { display:'ТЧН', value:'i' },
+   ];
+
+   entries = [1,2,3,4,5,6,7,8,9,10];
 
   constructor(private router: Router, private formBuilder: FormBuilder,private _clipboardService: ClipboardService,
               private _authService: AuthService,private _notificationsService: NotificationsService,
@@ -123,54 +130,69 @@ export class CompanyInfoComponent implements OnInit {
         tagNameStart: [{value: tagNameSplitted[0], disabled: true}, Validators.compose([Validators.required])],
         tagNameEnd:[{value: tagNameSplitted[1], disabled: true}, Validators.compose([Validators.required])],
         tagNameDirection:[{value: tagNameSplitted[2], disabled: true}],
+        tagNameEntry:[{value: tagNameSplitted[3], disabled: true}],
 
         tagDescStart: [{value: tagDescSplitted[0], disabled: true}, Validators.compose([Validators.required])],
         tagDescEnd:[{value: tagDescSplitted[1], disabled: true}, Validators.compose([Validators.required])],
         tagDescDirection:[{value: tagDescSplitted[2], disabled: true}],
+        tagDescEntry:[{value: tagDescSplitted[3], disabled: true}],
 
         tagImgUrlStart: [{value: tagImgUrlSplitted[0], disabled: true}, Validators.compose([Validators.required])],
         tagImgUrlEnd:[{value: tagImgUrlSplitted[1], disabled: true}, Validators.compose([Validators.required])],
         tagImgUrlDirection:[{value: tagImgUrlSplitted[2], disabled: true}],
+        tagImgUrlEntry:[{value: tagImgUrlSplitted[3], disabled: true}],
         
         tagWeightOneStart: [{value: tagWeightOneSplitted[0], disabled: true}, Validators.compose([Validators.required])],
         tagWeightOneEnd:[{value: tagWeightOneSplitted[1], disabled: true}, Validators.compose([Validators.required])],
         tagWeightOneDirection:[{value: tagWeightOneSplitted[2], disabled: true}],
+        tagWeightOneEntry:[{value: tagWeightOneSplitted[3], disabled: true}],
         tagSizeOneStart: [{value: tagSizeOneSplitted[0], disabled: true}, Validators.compose([Validators.required])],
         tagSizeOneEnd:[{value: tagSizeOneSplitted[1], disabled: true}, Validators.compose([Validators.required])],
         tagSizeOneDirection:[{value: tagSizeOneSplitted[2], disabled: true}],
+        tagSizeOneEntry:[{value: tagSizeOneSplitted[3], disabled: true}],
         tagPriceOneStart: [{value: tagPriceOneSplitted[0], disabled: true}, Validators.compose([Validators.required])],
         tagPriceOneEnd:[{value: tagPriceOneSplitted[1], disabled: true}, Validators.compose([Validators.required])],
         tagPriceOneDirection:[{value: tagPriceOneSplitted[2], disabled: true}],
+        tagPriceOneEntry:[{value: tagPriceOneSplitted[3], disabled: true}],
 
         tagWeightTwoStart: [{value: tagWeightTwoSplitted[0], disabled: true}],
         tagWeightTwoEnd:[{value: tagWeightTwoSplitted[1], disabled: true}],
         tagWeightTwoDirection:[{value: tagWeightTwoSplitted[2], disabled: true}],
+        tagWeightTwoEntry:[{value: tagWeightTwoSplitted[3], disabled: true}],
         tagSizeTwoStart: [{value: tagSizeTwoSplitted[0], disabled: true}],
         tagSizeTwoEnd:[{value: tagSizeTwoSplitted[1], disabled: true}],
         tagSizeTwoDirection:[{value: tagSizeTwoSplitted[2], disabled: true}],
+        tagSizeTwoEntry:[{value: tagSizeTwoSplitted[3], disabled: true}],
         tagPriceTwoStart: [{value: tagPriceTwoSplitted[0], disabled: true}],
         tagPriceTwoEnd:[{value: tagPriceTwoSplitted[1], disabled: true}],
         tagPriceTwoDirection:[{value: tagPriceTwoSplitted[2], disabled: true}],
+        tagPriceTwoEntry:[{value: tagPriceTwoSplitted[3], disabled: true}],
 
         tagWeightThreeStart: [{value: tagWeightThreeSplitted[0], disabled: true}],
         tagWeightThreeEnd:[{value: tagWeightThreeSplitted[1], disabled: true}],
         tagWeightThreeDirection:[{value: tagWeightThreeSplitted[2], disabled: true}],
+        tagWeightThreeEntry:[{value: tagWeightThreeSplitted[3], disabled: true}],
         tagSizeThreeStart: [{value: tagSizeThreeSplitted[0], disabled: true}],
         tagSizeThreeEnd:[{value: tagSizeThreeSplitted[1], disabled: true}],
         tagSizeThreeDirection:[{value: tagSizeThreeSplitted[2], disabled: true}],
+        tagSizeThreeEntry:[{value: tagSizeThreeSplitted[3], disabled: true}],
         tagPriceThreeStart: [{value: tagPriceThreeSplitted[0], disabled: true}],
         tagPriceThreeEnd:[{value: tagPriceThreeSplitted[1], disabled: true}],
         tagPriceThreeDirection:[{value: tagPriceThreeSplitted[2], disabled: true}],
+        tagPriceThreeEntry:[{value: tagPriceThreeSplitted[3], disabled: true}],
 
         tagWeightFourStart: [{value: tagWeightFourSplitted[0], disabled: true}],
         tagWeightFourEnd:[{value: tagWeightFourSplitted[1], disabled: true}],
         tagWeightFourDirection:[{value: tagWeightFourSplitted[2], disabled: true}],
+        tagWeightFourEntry:[{value: tagWeightFourSplitted[3], disabled: true}],
         tagSizeFourStart: [{value: tagSizeFourSplitted[0], disabled: true}],
         tagSizeFourEnd:[{value: tagSizeFourSplitted[1], disabled: true}],
         tagSizeFourDirection:[{value: tagSizeFourSplitted[2], disabled: true}],
+        tagSizeFourEntry:[{value: tagSizeFourSplitted[3], disabled: true}],
         tagPriceFourStart: [{value: tagPriceFourSplitted[0], disabled: true}],
         tagPriceFourEnd:[{value: tagPriceFourSplitted[1], disabled: true}],
         tagPriceFourDirection:[{value: tagPriceFourSplitted[2], disabled: true}],
+        tagPriceFourEntry:[{value: tagPriceFourSplitted[3], disabled: true}],
       });
 
     });
@@ -198,9 +220,8 @@ export class CompanyInfoComponent implements OnInit {
     return this.parseForm.get(controlName).value === 'f';
   }
 
-  changeDirection(controlName){
-    let val = this.parseForm.get(controlName).value;
-    this.parseForm.get(controlName).setValue( val === 'f' ? 'b' : 'f');
+  tagSelect(controlName,value){
+    this.parseForm.get(controlName).setValue( value );
   }
 
   undoControl( controlName ){
@@ -230,16 +251,23 @@ export class CompanyInfoComponent implements OnInit {
   }
 
   inputControlClick(controlName,isSplit) {
+    var status = null;
+    if ( isSplit === 'split' ){
+      status = this.parseForm.get( controlName+'Start' ).status;
+    } else {
+      status = this.parseForm.get( controlName ).status;
+    }
     for (let field in this.parseForm.controls) {
       this.parseForm.get(field).disable();
     }
-    if ( isSplit === 'split' ){
-      this.parseForm.get(controlName+'Start').enable();
-      this.parseForm.get(controlName+'End').enable();
-    } else {
-      this.parseForm.get(controlName).enable();
+    if (status === 'DISABLED') {
+      if ( isSplit === 'split' ){
+        this.parseForm.get(controlName+'Start').enable();
+        this.parseForm.get(controlName+'End').enable();
+      } else {
+        this.parseForm.get(controlName).enable();
+      }
     }
-
   }
 
   convertFormToModel(){
@@ -267,7 +295,8 @@ export class CompanyInfoComponent implements OnInit {
   concatTagValues( tag ){
     let val = this.parseForm.get( tag+'Start').value+"~"+
       this.parseForm.get( tag+'End').value+"~"+
-      this.parseForm.get(tag+'Direction').value;
+      this.parseForm.get(tag+'Direction').value+
+      this.parseForm.get(tag+'Entry').value;
     return val
   }
 
@@ -275,9 +304,19 @@ export class CompanyInfoComponent implements OnInit {
     this._globalService.dataBusChanged('pageLoading', true);
     this.convertFormToModel();
     this.companyService.testMenuPage(this.updateParseMenu).subscribe(data => {
-      this.parseForm.get('htmlResponse').setValue( data.parseMenu.htmlResponse );
-      this.testEntities = data.menuEntities;
       this._globalService.dataBusChanged('pageLoading', false);
+      if ( data.status === 200 ){
+        swal('Тестирование успешно');
+        this.parseForm.get('htmlResponse').setValue( data.result.parseMenu.htmlResponse );
+        this.testEntities = data.result.menuEntities;
+      } else {
+        swal({
+          type: 'error',
+          title: data.status,
+          text: data.message,
+        });
+      }
+
     });
   }
 

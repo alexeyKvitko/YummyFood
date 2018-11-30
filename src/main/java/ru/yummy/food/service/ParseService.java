@@ -8,7 +8,7 @@ public interface ParseService {
 
     void parsePage( );
 
-    CompanyMenu testPage(ParseMenuModel parseMenu);
+    CompanyMenu testPage(ParseMenuModel parseMenu) throws BusinessLogicException;
 
     void saveParseModel(ParseMenuModel parseMenu) throws BusinessLogicException;
 

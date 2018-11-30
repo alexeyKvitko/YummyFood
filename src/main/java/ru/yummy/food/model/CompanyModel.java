@@ -2,6 +2,7 @@ package ru.yummy.food.model;
 
 import org.pojomatic.Pojomatic;
 import org.pojomatic.annotations.AutoProperty;
+import ru.yummy.food.AppConstants;
 import ru.yummy.food.entity.City;
 import java.io.Serializable;
 
@@ -19,6 +20,19 @@ public class CompanyModel implements Serializable {
     private String phoneTwo;
     private String phoneThree;
     private String logo;
+
+    public CompanyModel() {
+        this.id = AppConstants.FAKE_ID;
+        this.companyName = "";
+        this.displayName = "";
+        this.city = new City();
+        this.url = "";
+        this.email = "";
+        this.phoneOne = "";
+        this.phoneTwo = "";
+        this.phoneThree = "";
+        this.logo = AppConstants.DEFAULT_LOGO;
+    }
 
     public Integer getId() {
         return id;

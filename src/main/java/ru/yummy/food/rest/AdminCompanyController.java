@@ -73,8 +73,17 @@ public class AdminCompanyController {
     }
 
     @RequestMapping(value = "/testParse", method = RequestMethod.POST)
-    public CompanyMenu testParseModel(@RequestBody ParseMenuModel parseMenuModel)  {
-        return parseService.testPage( parseMenuModel );
+    public ApiResponse testParseModel(@RequestBody ParseMenuModel parseMenuModel)  {
+        ApiResponse response = new ApiResponse();
+        response.setStatus( HttpStatus.OK.value() );
+        try {
+            CompanyMenu companyMenu = parseService.testPage( parseMenuModel );
+            response.setResult( companyMenu );
+        } catch (BusinessLogicException e){
+            response.setStatus( HttpStatus.INTERNAL_SERVER_ERROR.value() );
+            response.setMessage( e.getMessage() );
+        }
+        return response;
     }
 
     @RequestMapping(value = "/saveParseModel", method = RequestMethod.POST)

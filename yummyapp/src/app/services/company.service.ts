@@ -31,7 +31,6 @@ export class CompanyService {
   }
 
   public saveCompanyModel(companyModel) {
-    console.log(companyModel);
     return this.http.post<ApiResponse>(this.apiUrl + '/saveCompany',companyModel);
   }
 
@@ -51,7 +50,7 @@ export class CompanyService {
   }
 
   public testMenuPage(parseMenuModel) {
-    return this.http.post<CompanyMenuModel>(this.apiUrl+'/testParse', parseMenuModel);
+    return this.http.post<ApiResponse>(this.apiUrl+'/testParse', parseMenuModel);
   }
 
   public saveParseModel(parseMenuModel) {

@@ -9,6 +9,8 @@ public abstract class AppConstants {
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String HEADER_STRING = "Authorization";
     public static final int CRIMEA_REGION = 621550;
+    public static final int SIMFEROPOL_ID = 621565;
+    public static final String DEFAULT_LOGO = "default.png";
 
     public static final Integer FAKE_ID = -1;
 
@@ -27,6 +29,7 @@ public abstract class AppConstants {
     public static final String END_COMMENT= "-->";
 
     public static final String DIRECT_FORWARD = "f";
+    public static final String INLINE_VALUE = "i";
     public static final String DIRECT_BACKWARD = "b";
 
     public static final String LEFT_QUOT= "&#8220;";
@@ -55,6 +58,7 @@ public abstract class AppConstants {
             put(">","");
             put("<","");
             put("=","");
+            put("&#1088;","");
         }
     };
 
