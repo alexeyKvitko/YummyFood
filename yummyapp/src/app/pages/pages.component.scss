@@ -1,4 +1,5 @@
 @import '../shared/theme/conf';
+
 .page-bg-img {
   overflow: hidden;
   width: 100%;
@@ -7,27 +8,28 @@
 }
 
 .pages-wrap {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    background: $body-bg;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: $body-bg;
 }
 
 .pages-body {
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-    background-image: url("../../assets/images/rest.jpg");
-    overflow-x: hidden;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  //background-image: url("../../assets/images/rest.jpg");
+  background-color: $card-bg;
+  overflow-x: hidden;
 
-    .pages-content {
-      flex: 1;
-      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d1e395', endColorstr='#399600',GradientType=0 ); /* IE6-9 */
-        border-left: 1px solid $border-color;
-        border-top: 1px solid $border-color;
-        color: $fonts-color;
-        overflow-x: hidden;
-    }
+  .pages-content {
+    flex: 1;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#d1e395', endColorstr='#399600', GradientType=0); /* IE6-9 */
+    border-left: 1px solid $border-color;
+    border-top: 1px solid $border-color;
+    color: $fonts-color;
+    overflow-x: hidden;
+  }
 }

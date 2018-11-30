@@ -11,6 +11,7 @@ public class SearchParam implements Serializable{
     private String startTag;
     private String endTag;
     private String direction;
+    private int entry;
 
     public String getStartTag() {
         return startTag;
@@ -34,6 +35,14 @@ public class SearchParam implements Serializable{
 
     public void setDirection(String direction) {
         this.direction = direction;
+    }
+
+    public int getEntry() {
+        return entry;
+    }
+
+    public void setEntry(int entry) {
+        this.entry = entry;
     }
 
     @Override public boolean equals(Object o) {

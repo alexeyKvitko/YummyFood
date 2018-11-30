@@ -1,5 +1,6 @@
 package ru.yummy.food.util;
 
+import org.apache.commons.lang.StringUtils;
 import ru.yummy.food.AppConstants;
 import ru.yummy.food.model.SearchParam;
 
@@ -22,12 +23,13 @@ public abstract class AppUtils {
         return result;
     }
 
-    public static synchronized String getValueFromHtml( String html, String start, String end ) {
+    public static synchronized String getValueFromHtml( String html, String start, String end,int entry ) {
         if ( start == null || end == null || start.trim().length() == 0 || end.trim().length() == 0 ){
             return null;
         }
         StringBuilder sb = new StringBuilder( );
-        int startIndex = html.indexOf( start ) > -1 ? html.indexOf( start ) + start.length( ) : -1;
+        int entryIndex = StringUtils.ordinalIndexOf( html,start,entry);
+        int startIndex = entryIndex > -1 ? entryIndex + start.length( ) : -1;
         if ( startIndex == -1 ) {
             return null;
         }
@@ -97,10 +99,11 @@ public abstract class AppUtils {
         String value = null;
         switch( param.getDirection() ){
             case AppConstants.DIRECT_FORWARD:
-                    getValueFromHtml( html, param.getStartTag( ), param.getEndTag( ) );
+                value = getValueFromHtml( html, param.getStartTag(), param.getEndTag(), param.getEntry() );
                 break;
             case AppConstants.DIRECT_BACKWARD:
-                getBackValueFromHtml( html, param.getStartTag( ), param.getEndTag( ) );
+                value = getBackValueFromHtml( html, param.getStartTag(), param.getEndTag() );
+                break;
             case AppConstants.INLINE_VALUE:
                 value = param.getStartTag();
                 break;
@@ -151,6 +154,7 @@ public abstract class AppUtils {
         param.setStartTag( tags[0] );
         param.setEndTag( tags[1] );
         param.setDirection( tags[2] );
+        param.setEntry( Integer.valueOf( tags[3] ) );
         return param;
     }
 

@@ -264,6 +264,8 @@ export class CompanyInfoComponent implements OnInit {
       if ( isSplit === 'split' ){
         this.parseForm.get(controlName+'Start').enable();
         this.parseForm.get(controlName+'End').enable();
+        this.parseForm.get(controlName+'Direction').enable();
+        this.parseForm.get(controlName+'Entry').enable();
       } else {
         this.parseForm.get(controlName).enable();
       }
@@ -295,7 +297,7 @@ export class CompanyInfoComponent implements OnInit {
   concatTagValues( tag ){
     let val = this.parseForm.get( tag+'Start').value+"~"+
       this.parseForm.get( tag+'End').value+"~"+
-      this.parseForm.get(tag+'Direction').value+
+      this.parseForm.get(tag+'Direction').value+"~"+
       this.parseForm.get(tag+'Entry').value;
     return val
   }

@@ -31,9 +31,8 @@
         </div>
         <!--TABLE-->
         <div class="entity-wrapper" *ngIf="menuEntities != null">
-          <div class="col-md-10">
-            <card>
-              <table class="table table-hover">
+          <div class="col-md-10" >
+              <table class="table table-hover" >
                 <tr
                   *ngFor="let menuEntity of menuEntities | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
                   <td class="hidden-cell">{{menuEntity.id}}</td>
@@ -76,7 +75,6 @@
                   </pagination-controls>
                 </div>
               </form>
-            </card>
           </div>
         </div>
       </div>
@@ -96,7 +94,7 @@
             <div class="input-box">
              <span class="input-group-addon-teal addon-left" id="prefixUrl" (click)="inputControlClick('prefixUrl')">
               <span [hidden]="isControlHidden('prefixUrl')"><i class="fa fa-lock-open"></i></span>
-              <span [hidden]="!isControlHidden('prefixUrl')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Префикс изображения(URL)</span>
+              <span [hidden]="!isControlHidden('prefixUrl')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Префикс блюда (URL)</span>
               <input placeholder="" type="text" formControlName="prefixUrl">
               <span class="input-group-addon-teal-right itr-start" (click)="undoControl('prefixUrl')" ><i class="fas fa-undo-alt"></i></span>
               <span class="input-group-addon-teal-right itr-end" (click)="copyControl('prefixUrl')"><i class="far fa-copy"></i></span>
@@ -113,7 +111,7 @@
              <span class="col-md-2 input-group-addon-teal addon-left" id="tagEndSection-id"
                   (click)="inputControlClick('tagEndSection')">
               <span [hidden]="isControlHidden('tagEndSection')"><i class="fa fa-lock-open"></i></span>
-              <span [hidden]="!isControlHidden('tagEndSection')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Идентификация блока</span>
+              <span [hidden]="!isControlHidden('tagEndSection')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Границы блока</span>
               <input placeholder="" type="text" formControlName="tagEndSection">
               <span class="input-group-addon-teal-right itr-start" (click)="undoControl('tagEndSection')" ><i class="fas fa-undo-alt"></i></span>
               <span class="input-group-addon-teal-right itr-end" (click)="copyControl('tagEndSection')"><i class="far fa-copy"></i></span>
@@ -124,12 +122,12 @@
               <span [hidden]="!isControlHidden('tagNameStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Имя</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagNameStart">&nbsp;
               <input style="width: 5%" placeholder="" type="text" formControlName="tagNameEnd">&nbsp;
-              <div class="tag-select" [hidden]="isControlHidden('tagNameStart')">
+              <div class="tag-select">
                 <select class="form-control" id="sel-dname-id" formControlName="tagNameDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
                 </select>
               </div>
-              <div class="tag-select" [hidden]="isControlHidden('tagNameStart')">
+              <div class="tag-select">
                 <select class="form-control" id="sel-ename-id" formControlName="tagNameEntry">
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
@@ -144,12 +142,12 @@
               <span [hidden]="!isControlHidden('tagDescStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Описание</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagDescStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagDescEnd">&nbsp;
-              <div class="tag-select" [hidden]="isControlHidden('tagDescStart')">
+              <div class="tag-select">
                 <select class="form-control"  formControlName="tagDescDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
                 </select>
               </div>
-              <div class="tag-select" [hidden]="isControlHidden('tagDescStart')">
+              <div class="tag-select">
                 <select class="form-control" id="tagDescE-id" formControlName="tagDescEntry">
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
@@ -164,12 +162,12 @@
               <span [hidden]="!isControlHidden('tagImgUrlStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;URL изображения</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagImgUrlStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagImgUrlEnd">&nbsp;
-              <div class="tag-select" [hidden]="isControlHidden('tagImgUrlStart')">
+              <div class="tag-select" >
                 <select class="form-control" id="tagImgUrlDir-id" formControlName="tagImgUrlDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
                 </select>
               </div>
-              <div class="tag-select" [hidden]="isControlHidden('tagImgUrlStart')">
+              <div class="tag-select" >
                 <select class="form-control" id="tagImgUrlE-id" formControlName="tagImgUrlEntry">
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
@@ -184,12 +182,12 @@
               <span [hidden]="!isControlHidden('tagWeightOneStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Вес </span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagWeightOneStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagWeightOneEnd">&nbsp;
-              <div class="tag-select" [hidden]="isControlHidden('tagWeightOneStart')">
+              <div class="tag-select">
                 <select class="form-control" id="tagWeightOneDir-id" formControlName="tagWeightOneDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
                 </select>
               </div>
-              <div class="tag-select" [hidden]="isControlHidden('tagWeightOneStart')">
+              <div class="tag-select">
                 <select class="form-control" id="tagWeightOneE-id" formControlName="tagWeightOneEntry">
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
@@ -204,12 +202,12 @@
               <span [hidden]="!isControlHidden('tagSizeOneStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Размер</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagSizeOneStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagSizeOneEnd">&nbsp;
-              <div class="tag-select" [hidden]="isControlHidden('tagSizeOneStart')">
+              <div class="tag-select">
                 <select class="form-control" id="tagSizeOneDir-id" formControlName="tagSizeOneDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
                 </select>
               </div>
-              <div class="tag-select" [hidden]="isControlHidden('tagSizeOneStart')">
+              <div class="tag-select">
                 <select class="form-control" id="tagSizeOneE-id" formControlName="tagSizeOneEntry">
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
@@ -224,12 +222,12 @@
               <span [hidden]="!isControlHidden('tagPriceOneStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Цена</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagPriceOneStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagPriceOneEnd">&nbsp;
-              <div class="tag-select" [hidden]="isControlHidden('tagPriceOneStart')">
+              <div class="tag-select">
                 <select class="form-control" formControlName="tagPriceOneDirection" id="tagPriceOneDir-id" formControlName="tagPriceOneDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
                 </select>
               </div>
-              <div class="tag-select" [hidden]="isControlHidden('tagPriceOneStart')">
+              <div class="tag-select">
                 <select class="form-control" formControlName="tagPriceOneEntry" id="tagPriceOneE-id" formControlName="tagPriceOneEntry">
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
@@ -245,12 +243,12 @@
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Вес 2</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagWeightTwoStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagWeightTwoEnd">&nbsp;
-              <div class="tag-select" [hidden]="isControlHidden('tagWeightTwoStart')">
+              <div class="tag-select">
                 <select class="form-control" id="tagWeightTwoDir-id" formControlName="tagWeightTwoDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
                 </select>
               </div>
-              <div class="tag-select" [hidden]="isControlHidden('tagWeightTwoStart')">
+              <div class="tag-select">
                 <select class="form-control" id="tagWeightTwoE-id" formControlName="tagWeightTwoEntry">
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
@@ -266,12 +264,12 @@
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Размер 2</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagSizeTwoStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagSizeTwoEnd">&nbsp;
-              <div class="tag-select" [hidden]="isControlHidden('tagSizeTwoStart')">
+              <div class="tag-select">
                 <select class="form-control" id="tagSizeTwoDir-id" formControlName="tagSizeTwoDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
                 </select>
               </div>
-              <div class="tag-select" [hidden]="isControlHidden('tagSizeTwoStart')">
+              <div class="tag-select">
                 <select class="form-control" id="tagSizeTwoE-id" formControlName="tagSizeTwoEntry">
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
@@ -287,12 +285,12 @@
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Цена 2</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagPriceTwoStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagPriceTwoEnd">&nbsp;
-              <div class="tag-select" [hidden]="isControlHidden('tagPriceTwoStart')">
+              <div class="tag-select">
                 <select class="form-control" id="tagPriceTwoDir-id" formControlName="tagPriceTwoDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
                 </select>
               </div>
-              <div class="tag-select" [hidden]="isControlHidden('tagPriceTwoStart')">
+              <div class="tag-select">
                 <select class="form-control" id="tagPriceTwoE-id" formControlName="tagPriceTwoEntry">
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
@@ -308,12 +306,12 @@
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Вес 3</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagWeightThreeStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagWeightThreeEnd">&nbsp;
-              <div class="tag-select" [hidden]="isControlHidden('tagWeightThreeStart')">
+              <div class="tag-select">
                 <select class="form-control" id="tagWeightThreeDir-id" formControlName="tagWeightThreeDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
                 </select>
               </div>
-              <div class="tag-select" [hidden]="isControlHidden('tagWeightThreeStart')">
+              <div class="tag-select">
                 <select class="form-control" id="tagWeightThreeE-id" formControlName="tagWeightThreeEntry">
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
@@ -329,12 +327,12 @@
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Размер 3</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagSizeThreeStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagSizeThreeEnd">&nbsp;
-              <div class="tag-select" [hidden]="isControlHidden('tagSizeThreeStart')">
+              <div class="tag-select">
                 <select class="form-control" id="tagSizeThreeDir-id" formControlName="tagSizeThreeDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
                 </select>
               </div>
-              <div class="tag-select" [hidden]="isControlHidden('tagSizeThreeStart')">
+              <div class="tag-select">
                 <select class="form-control" id="tagSizeThreeE-id" formControlName="tagSizeThreeEntry">
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
@@ -350,12 +348,12 @@
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Цена 3</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagPriceThreeStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagPriceThreeEnd">&nbsp;
-              <div class="tag-select" [hidden]="isControlHidden('tagPriceThreeStart')">
+              <div class="tag-select">
                 <select class="form-control" id="tagPriceThreeDir-id" formControlName="tagPriceThreeDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
                 </select>
               </div>
-              <div class="tag-select" [hidden]="isControlHidden('tagPriceThreeStart')">
+              <div class="tag-select">
                 <select class="form-control" id="tagPriceThreeE-id" formControlName="tagPriceThreeEntry">
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
@@ -371,12 +369,12 @@
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Вес 4</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagWeightFourStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagWeightFourEnd">&nbsp;
-              <div class="tag-select" [hidden]="isControlHidden('tagWeightFourStart')">
+              <div class="tag-select">
                 <select class="form-control" id="tagWeightFourDir-id" formControlName="tagWeightFourDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
                 </select>
               </div>
-              <div class="tag-select" [hidden]="isControlHidden('tagWeightFourStart')">
+              <div class="tag-select">
                 <select class="form-control" id="tagWeightFourE-id" formControlName="tagWeightFourEntry">
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
@@ -392,12 +390,12 @@
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Размер 4</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagSizeFourStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagSizeFourEnd">&nbsp;
-              <div class="tag-select" [hidden]="isControlHidden('tagSizeFourStart')">
+              <div class="tag-select">
                 <select class="form-control" id="tagSizeFourDir-id" formControlName="tagSizeFourDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
                 </select>
               </div>
-              <div class="tag-select" [hidden]="isControlHidden('tagSizeFourStart')">
+              <div class="tag-select">
                 <select class="form-control" id="tagSizeFourE-id" formControlName="tagSizeFourEntry">
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
@@ -413,12 +411,12 @@
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Цена 4</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagPriceFourStart">&nbsp;
               <input style="width: 5%"placeholder="" type="text" formControlName="tagPriceFourEnd">&nbsp;
-              <div class="tag-select" [hidden]="isControlHidden('tagPriceFourStart')">
+              <div class="tag-select">
                 <select class="form-control" id="tagPriceFourDir-id" formControlName="tagPriceFourDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
                 </select>
               </div>
-              <div class="tag-select" [hidden]="isControlHidden('tagPriceFourStart')">
+              <div class="tag-select">
                 <select class="form-control" id="tagPriceFourE-id" formControlName="tagPriceFourEntry">
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>

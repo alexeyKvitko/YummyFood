@@ -1,18 +1,17 @@
 @import '../../shared/theme/conf';
 @import '../../shared/theme/pagination';
 
-
+.tbl-brd{
+  border: 2px solid red!important;
+}
 .menu-wrapper {
   position: relative;
-  top:-10px;
-  left:-10px;
   width: 100%;
   background-color: $card-bg;
-  max-height: 650px;
-  min-height: 650px;
+  max-height: 750px;
+  min-height: 750px;
   overflow-x: hidden;
   overflow-y: auto;
-  border-right: 1px solid $divider-color;
   padding: 10px 0;
   width: 100%;
   display: flex;
@@ -20,7 +19,7 @@
   .menu-content {
     flex-direction: column;
     font-size: 16px;
-    padding-left: 12px;
+    padding-left: 8px;
     .menu-group {
       position: relative;
       width: 100%;
@@ -166,10 +165,16 @@
     border-bottom-left-radius: 3px;
   }
   input{
-    border: 1px solid $divider-color;
+    border: 0px;
+    border-bottom: 1px solid $teal-color;
+    background-color: $card-bg;
     padding-left: 8px;
     width: 100%;
     height: 28px;
+    &:disabled{
+      color: $secondary-text-color;
+      border-bottom: 1px solid $primary-color-light;
+    }
   }
   .check-direction{
     margin-top: -5px;

@@ -107,7 +107,7 @@ public class ParseServiceImpl implements ParseService {
                 menuEntity.setDisplayName(entityName);
                 menuEntity.setDescription(AppUtils.getFieldValue(section, parseMenu.getTagDescription()));
                 String imageUrl = AppUtils.getFieldValue(section, parseMenu.getTagImageUrl());
-                menuEntity.setImageUrl( parseMenu.getPrefixUrl() != null ? parseMenu.getPrefixUrl()+imageUrl : imageUrl );
+                menuEntity.setImageUrl(parseMenu.getPrefixUrl() != null ? parseMenu.getPrefixUrl() + imageUrl : imageUrl);
                 // wsp One
                 WeightSizePrice wspOne = getWSP(section, parseMenu.getTagWeightOne(),
                         parseMenu.getTagSizeOne(), parseMenu.getTagPriceOne());
@@ -171,20 +171,20 @@ public class ParseServiceImpl implements ParseService {
                 return null;
             }
         }
-        htmlResponse = htmlResponse.replace("\n", "").replace("\r", "").replace("\t", "");
-        // Убираем заголовок
-        if (parseMenu.getTagTrash() != null) {
-            int trashIdx = htmlResponse.indexOf(parseMenu.getTagTrash()) + parseMenu.getTagTrash().length();
-            htmlResponse = htmlResponse.substring(trashIdx);
-        }
-        htmlResponse = htmlResponse.substring(htmlResponse.indexOf(parseMenu.getTagEndSection()));
-        // Убираем комментарии
-        htmlResponse = AppUtils.polish(htmlResponse);
-        parseMenu.setHtmlResponse( htmlResponse );
-        boolean proceed = true;
-        int count = 0;
         List<MenuEntityModel> menuEntities = new LinkedList<>();
         try {
+            htmlResponse = htmlResponse.replace("\n", "").replace("\r", "").replace("\t", "");
+            // Убираем заголовок
+            if (parseMenu.getTagTrash() != null) {
+                int trashIdx = htmlResponse.indexOf(parseMenu.getTagTrash()) + parseMenu.getTagTrash().length();
+                htmlResponse = htmlResponse.substring(trashIdx);
+            }
+            htmlResponse = htmlResponse.substring(htmlResponse.indexOf(parseMenu.getTagEndSection()));
+            // Убираем комментарии
+            htmlResponse = AppUtils.polish(htmlResponse);
+            parseMenu.setHtmlResponse(htmlResponse);
+            boolean proceed = true;
+            int count = 0;
             while (proceed) {
                 //Укорачиваем
                 int endSectionIdx = htmlResponse.indexOf(parseMenu.getTagEndSection());
@@ -199,7 +199,7 @@ public class ParseServiceImpl implements ParseService {
                 String entityName = AppUtils.getFieldValue(section, parseMenu.getTagName());
                 if (entityName == null) {
                     proceed = false;
-                    if ( count == 0 ){
+                    if (count == 0) {
                         throw new BusinessLogicException("Не найдено имя блюда, процесс завершен");
                     } else {
                         break;
@@ -243,12 +243,12 @@ public class ParseServiceImpl implements ParseService {
                 menuEntities.add(menuEntity);
                 count++;
             }
-        } catch (Exception e ){
-            throw new BusinessLogicException("Ошибка: "+e.getMessage() );
+        } catch (Exception e) {
+            throw new BusinessLogicException("Ошибка: " + e.getMessage());
         }
         CompanyMenu companyMenu = new CompanyMenu();
-        companyMenu.setParseMenu( parseMenu );
-        companyMenu.setMenuEntities( menuEntities );
+        companyMenu.setParseMenu(parseMenu);
+        companyMenu.setMenuEntities(menuEntities);
         return companyMenu;
     }
 
@@ -305,12 +305,12 @@ public class ParseServiceImpl implements ParseService {
     @Override
     public void saveParseModel(ParseMenuModel parseMenuModel) throws BusinessLogicException {
         try {
-            ParseMenu parseMenu = parseRepository.findById( parseMenuModel.getId() ).get();
-            convertUtils.convertParseMenuModelToEntity( parseMenu, parseMenuModel);
-            parseRepository.save( parseMenu );
+            ParseMenu parseMenu = parseRepository.findById(parseMenuModel.getId()).get();
+            convertUtils.convertParseMenuModelToEntity(parseMenu, parseMenuModel);
+            parseRepository.save(parseMenu);
             parsePage();
-        } catch ( Exception e ){
-            throw new BusinessLogicException( e.getMessage() );
+        } catch (Exception e) {
+            throw new BusinessLogicException(e.getMessage());
         }
     }
 }
