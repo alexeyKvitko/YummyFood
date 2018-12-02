@@ -204,8 +204,9 @@ input.with-info-addon {
 }
 
 .input-group-addon-teal {
-  background: $teal-color;
-  color: $primary-color-text;
+  //background: $teal-color;
+  border-bottom: 1px solid $primary-color-light;
+  color: $teal-color;
   width: 150px;
   text-align: left;
   cursor: pointer;
@@ -214,8 +215,9 @@ input.with-info-addon {
 }
 
 .input-group-addon-teal-right {
-  background: $teal-color;
-  color: $primary-color-text;
+  //background: $teal-color;
+  border-bottom: 1px solid $primary-color-light;
+  color: $teal-color;
   width: 5%;
   text-align: center;
   cursor: pointer;

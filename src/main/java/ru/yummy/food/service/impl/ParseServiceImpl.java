@@ -172,6 +172,7 @@ public class ParseServiceImpl implements ParseService {
             }
         }
         List<MenuEntityModel> menuEntities = new LinkedList<>();
+        StringBuilder sb = new StringBuilder();
         try {
             htmlResponse = htmlResponse.replace("\n", "").replace("\r", "").replace("\t", "");
             // Убираем заголовок
@@ -182,7 +183,6 @@ public class ParseServiceImpl implements ParseService {
             htmlResponse = htmlResponse.substring(htmlResponse.indexOf(parseMenu.getTagEndSection()));
             // Убираем комментарии
             htmlResponse = AppUtils.polish(htmlResponse);
-            parseMenu.setHtmlResponse(htmlResponse);
             boolean proceed = true;
             int count = 0;
             while (proceed) {
@@ -205,6 +205,7 @@ public class ParseServiceImpl implements ParseService {
                         break;
                     }
                 }
+                sb.append(AppConstants.SECTION).append((count+1)).append("]").append(section);
                 String uniqueName = entityName.toUpperCase().replace(" ", "_") + "_" + parseMenu.getCompanyId().toString();
                 MenuEntityModel menuEntity = new MenuEntityModel();
                 menuEntity.setStatus(EntityStatus.NEW.value());
@@ -247,6 +248,7 @@ public class ParseServiceImpl implements ParseService {
             throw new BusinessLogicException("Ошибка: " + e.getMessage());
         }
         CompanyMenu companyMenu = new CompanyMenu();
+        parseMenu.setHtmlResponse( sb.toString() );
         companyMenu.setParseMenu(parseMenu);
         companyMenu.setMenuEntities(menuEntities);
         return companyMenu;

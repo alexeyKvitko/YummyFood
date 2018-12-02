@@ -11,6 +11,7 @@ public abstract class AppConstants {
     public static final int CRIMEA_REGION = 621550;
     public static final int SIMFEROPOL_ID = 621565;
     public static final String DEFAULT_LOGO = "default.png";
+    public static final String SECTION = "SECTION [";
 
     public static final Integer FAKE_ID = -1;
 

@@ -213,6 +213,15 @@ export class CompanyInfoComponent implements OnInit {
   }
 
   isControlHidden(controlName) {
+    let exist = false;
+    for (let field in this.parseForm.controls) {
+      if( field === controlName ){
+        exist = true;
+      }
+    }
+    if (!exist){
+      controlName = controlName+'Start';
+    }
     return this.parseForm.get(controlName).status === 'DISABLED';
   }
 
@@ -284,6 +293,7 @@ export class CompanyInfoComponent implements OnInit {
     this.updateParseMenu.tagWeightOne = this.concatTagValues('tagWeightOne');
     this.updateParseMenu.tagSizeOne = this.concatTagValues('tagSizeOne');
     this.updateParseMenu.tagPriceOne = this.concatTagValues('tagPriceOne');
+    this.updateParseMenu.tagWeightTwo = this.concatTagValues('tagWeightTwo');
     this.updateParseMenu.tagSizeTwo = this.concatTagValues('tagSizeTwo');
     this.updateParseMenu.tagPriceTwo = this.concatTagValues('tagPriceTwo');
     this.updateParseMenu.tagWeightThree = this.concatTagValues('tagWeightThree');
@@ -311,6 +321,7 @@ export class CompanyInfoComponent implements OnInit {
         swal('Тестирование успешно');
         this.parseForm.get('htmlResponse').setValue( data.result.parseMenu.htmlResponse );
         this.testEntities = data.result.menuEntities;
+        console.log('test entities',this.testEntities);
       } else {
         swal({
           type: 'error',

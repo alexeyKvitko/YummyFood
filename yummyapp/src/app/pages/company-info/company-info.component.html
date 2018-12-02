@@ -43,24 +43,72 @@
                   <td class="wsp-td">
                     <div class="description"><strong>{{menuEntity.description}}</strong></div>
                     <div class="wsp-wrap">
-                      <span *ngIf="menuEntity.weightOne"><span class="wsp">Вес:</span><span class="weight-size">{{menuEntity.weightOne}}</span></span>
-                      <span *ngIf="menuEntity.sizeOne"><span class="wsp">Размер:</span><span class="weight-size">{{menuEntity.sizeOne}}</span></span>
-                      <span *ngIf="menuEntity.priceOne"><span class="wsp">Цена:</span><span class="price">{{menuEntity.priceOne}}&nbsp;Р</span></span>
+                      <div class="wsp-cont" *ngIf="menuEntity.weightOne">
+                        <span *ngIf="menuEntity.weightOne">
+                          <span class="wsp">Вес:</span><span class="weight-size">{{menuEntity.weightOne}}</span>
+                        </span>
+                      </div>
+                      <div class="wsp-cont">
+                        <span *ngIf="menuEntity.sizeOne">
+                          <span class="wsp">Размер:</span><span class="weight-size">{{menuEntity.sizeOne}}</span>
+                        </span>
+                      </div>
+                      <div class="wsp-cont">
+                        <span *ngIf="menuEntity.priceOne">
+                          <span class="wsp">Цена:</span><span class="price">{{menuEntity.priceOne}}&nbsp;Р</span>
+                        </span>
+                      </div>
                     </div>
                     <div class="wsp-wrap">
-                      <span *ngIf="menuEntity.weightTwo"><span class="wsp">Вес:</span><span class="weight-size">{{menuEntity.weightTwo}}</span></span>
-                      <span *ngIf="menuEntity.sizeTwo"><span class="wsp">Размер:</span><span class="weight-size">{{menuEntity.sizeTwo}}</span></span>
-                      <span *ngIf="menuEntity.priceTwo"><span class="wsp">Цена:</span><span class="price">{{menuEntity.priceTwo}}&nbsp;Р</span></span>
+                      <div class="wsp-cont" *ngIf="menuEntity.weightTwo">
+                        <span *ngIf="menuEntity.weightTwo">
+                          <span class="wsp">Вес:</span><span class="weight-size">{{menuEntity.weightTwo}}</span>
+                        </span>
+                      </div>
+                      <div class="wsp-cont">
+                        <span *ngIf="menuEntity.sizeTwo">
+                          <span class="wsp">Размер:</span><span class="weight-size">{{menuEntity.sizeTwo}}</span>
+                        </span>
+                      </div>
+                      <div class="wsp-cont">
+                        <span *ngIf="menuEntity.priceTwo">
+                          <span class="wsp">Цена:</span><span class="price">{{menuEntity.priceTwo}}&nbsp;Р</span>
+                        </span>
+                      </div>
                     </div>
                     <div class="wsp-wrap">
-                      <span *ngIf="menuEntity.weightThree"><span class="wsp">Вес:</span><span class="weight-size">{{menuEntity.weightThree}}</span></span>
-                      <span *ngIf="menuEntity.sizeThree"><span class="wsp">Размер:</span><span class="weight-size">{{menuEntity.sizeThree}}</span></span>
-                      <span *ngIf="menuEntity.priceThree"><span class="wsp">Цена:</span><span class="price">{{menuEntity.priceThree}}&nbsp;Р</span></span>
+                      <div class="wsp-cont" *ngIf="menuEntity.weightThree">
+                        <span *ngIf="menuEntity.weightThree">
+                          <span class="wsp">Вес:</span><span class="weight-size">{{menuEntity.weightThree}}</span>
+                        </span>
+                      </div>
+                      <div class="wsp-cont">
+                        <span *ngIf="menuEntity.sizeThree">
+                          <span class="wsp">Размер:</span><span class="weight-size">{{menuEntity.sizeThree}}</span>
+                        </span>
+                      </div>
+                      <div class="wsp-cont">
+                        <span *ngIf="menuEntity.priceThree">
+                          <span class="wsp">Цена:</span><span class="price">{{menuEntity.priceThree}}&nbsp;Р</span>
+                        </span>
+                      </div>
                     </div>
                     <div class="wsp-wrap">
-                      <span *ngIf="menuEntity.weightFour"><span class="wsp">Вес:</span><span class="weight-size">{{menuEntity.weightFour}}</span></span>
-                      <span *ngIf="menuEntity.sizeFour"><span class="wsp">Размер:</span><span class="weight-size">{{menuEntity.sizeFour}}</span></span>
-                      <span *ngIf="menuEntity.priceFour"><span class="wsp">Цена:</span><span class="price">{{menuEntity.priceFour}}&nbsp;Р</span></span>
+                      <div class="wsp-cont" *ngIf="menuEntity.weightFour">
+                        <span *ngIf="menuEntity.weightFour">
+                          <span class="wsp">Вес:</span><span class="weight-size">{{menuEntity.weightFour}}</span>
+                        </span>
+                      </div>
+                      <div class="wsp-cont">
+                        <span *ngIf="menuEntity.sizeFour">
+                          <span class="wsp">Размер:</span><span class="weight-size">{{menuEntity.sizeFour}}</span>
+                        </span>
+                      </div>
+                      <div class="wsp-cont">
+                        <span *ngIf="menuEntity.priceFour">
+                          <span class="wsp">Цена:</span><span class="price">{{menuEntity.priceFour}}&nbsp;Р</span>
+                        </span>
+                      </div>
                     </div>
                   </td>
                 </tr>
@@ -84,7 +132,8 @@
         <div class="col-md-6">
           <form [formGroup]="parseForm" (ngSubmit)="onSubmit()">
             <div class="input-box">
-              <span class="input-group-addon-teal addon-left" id="parseUrl" (click)="inputControlClick('parseUrl')">
+              <span class="input-group-addon-teal addon-left" [ngClass]="{'border-focus':!isControlHidden('parseUrl')}"
+                    id="parseUrl" (click)="inputControlClick('parseUrl')">
               <span [hidden]="isControlHidden('parseUrl')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('parseUrl')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Парсим</span>
               <input placeholder="" type="text" formControlName="parseUrl">
@@ -92,15 +141,17 @@
               <span class="input-group-addon-teal-right itr-end" (click)="copyControl('parseUrl')"><i class="far fa-copy"></i></span>
             </div>
             <div class="input-box">
-             <span class="input-group-addon-teal addon-left" id="prefixUrl" (click)="inputControlClick('prefixUrl')">
+             <span class="input-group-addon-teal addon-left" id="prefixUrl" [ngClass]="{'border-focus':!isControlHidden('prefixUrl')}"
+                   (click)="inputControlClick('prefixUrl')">
               <span [hidden]="isControlHidden('prefixUrl')"><i class="fa fa-lock-open"></i></span>
-              <span [hidden]="!isControlHidden('prefixUrl')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Префикс блюда (URL)</span>
+              <span [hidden]="!isControlHidden('prefixUrl')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Префикс (URL)</span>
               <input placeholder="" type="text" formControlName="prefixUrl">
               <span class="input-group-addon-teal-right itr-start" (click)="undoControl('prefixUrl')" ><i class="fas fa-undo-alt"></i></span>
               <span class="input-group-addon-teal-right itr-end" (click)="copyControl('prefixUrl')"><i class="far fa-copy"></i></span>
             </div>
             <div class="input-box">
-              <span class="input-group-addon-teal addon-left" id="tagTrash-id" (click)="inputControlClick('tagTrash')">
+              <span class="input-group-addon-teal addon-left" id="tagTrash-id" [ngClass]="{'border-focus':!isControlHidden('tagTrash')}"
+                    (click)="inputControlClick('tagTrash')">
               <span [hidden]="isControlHidden('tagTrash')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagTrash')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Лишний заголовок</span>
               <input placeholder="" type="text" formControlName="tagTrash">
@@ -109,7 +160,7 @@
             </div>
             <div class="input-box">
              <span class="col-md-2 input-group-addon-teal addon-left" id="tagEndSection-id"
-                  (click)="inputControlClick('tagEndSection')">
+                  [ngClass]="{'border-focus':!isControlHidden('tagEndSection')}" (click)="inputControlClick('tagEndSection')">
               <span [hidden]="isControlHidden('tagEndSection')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagEndSection')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Границы блока</span>
               <input placeholder="" type="text" formControlName="tagEndSection">
@@ -117,7 +168,8 @@
               <span class="input-group-addon-teal-right itr-end" (click)="copyControl('tagEndSection')"><i class="far fa-copy"></i></span>
             </div>
             <div class="input-box">
-              <span class="input-group-addon-teal addon-left" id="tagName-id" (click)="inputControlClick('tagName','split')">
+              <span class="input-group-addon-teal addon-left" id="tagName-id" [ngClass]="{'border-focus':!isControlHidden('tagName')}"
+                    (click)="inputControlClick('tagName','split')">
               <span [hidden]="isControlHidden('tagNameStart')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagNameStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Имя</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagNameStart">&nbsp;
@@ -137,7 +189,7 @@
             </div>
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="tagDescription-id"
-                  (click)="inputControlClick('tagDesc','split')">
+                  [ngClass]="{'border-focus':!isControlHidden('tagDesc')}" (click)="inputControlClick('tagDesc','split')">
               <span [hidden]="isControlHidden('tagDescStart')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagDescStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Описание</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagDescStart">&nbsp;
@@ -157,7 +209,7 @@
             </div>
             <div class="input-box">
              <span class="input-group-addon-teal addon-left" id="tagImageUrl-id"
-                  (click)="inputControlClick('tagImgUrl','split')">
+                  [ngClass]="{'border-focus':!isControlHidden('tagImgUrl')}" (click)="inputControlClick('tagImgUrl','split')">
               <span [hidden]="isControlHidden('tagImgUrlStart')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagImgUrlStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;URL изображения</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagImgUrlStart">&nbsp;
@@ -177,7 +229,7 @@
             </div>
             <div class="input-box">
              <span class="input-group-addon-teal addon-left" id="tagWeightOne-id"
-                  (click)="inputControlClick('tagWeightOne','split')">
+                  [ngClass]="{'border-focus':!isControlHidden('tagWeightOne')}" (click)="inputControlClick('tagWeightOne','split')">
               <span [hidden]="isControlHidden('tagWeightOneStart')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagWeightOneStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Вес </span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagWeightOneStart">&nbsp;
@@ -197,7 +249,7 @@
             </div>
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="tagSizeOne-id"
-                  (click)="inputControlClick('tagSizeOne','split')">
+                  [ngClass]="{'border-focus':!isControlHidden('tagSizeOne')}" (click)="inputControlClick('tagSizeOne','split')">
               <span [hidden]="isControlHidden('tagSizeOneStart')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagSizeOneStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Размер</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagSizeOneStart">&nbsp;
@@ -217,7 +269,7 @@
             </div>
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="tagPriceOne-id"
-                  (click)="inputControlClick('tagPriceOne','split')">
+                  [ngClass]="{'border-focus':!isControlHidden('tagPriceOne')}" (click)="inputControlClick('tagPriceOne','split')">
               <span [hidden]="isControlHidden('tagPriceOneStart')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagPriceOneStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Цена</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagPriceOneStart">&nbsp;
@@ -237,7 +289,7 @@
             </div>
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="tagWeightTwo-id"
-                  (click)="inputControlClick('tagWeightTwo','split')">
+                  [ngClass]="{'border-focus':!isControlHidden('tagWeightTwo')}" (click)="inputControlClick('tagWeightTwo','split')">
               <span [hidden]="isControlHidden('tagWeightTwoStart')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagWeightTwoStart')"><i
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Вес 2</span>
@@ -258,7 +310,7 @@
             </div>
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="tagSizeTwo-id"
-                  (click)="inputControlClick('tagSizeTwo','split')">
+                  [ngClass]="{'border-focus':!isControlHidden('tagSizeTwo')}" (click)="inputControlClick('tagSizeTwo','split')">
               <span [hidden]="isControlHidden('tagSizeTwoStart')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagSizeTwoStart')"><i
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Размер 2</span>
@@ -279,7 +331,7 @@
             </div>
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="tagPriceTwo-id"
-                  (click)="inputControlClick('tagPriceTwo','split')">
+                  [ngClass]="{'border-focus':!isControlHidden('tagPriceTwo')}" (click)="inputControlClick('tagPriceTwo','split')">
               <span [hidden]="isControlHidden('tagPriceTwoStart')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagPriceTwoStart')"><i
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Цена 2</span>
@@ -300,7 +352,7 @@
             </div>
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="tagWeightThree-id"
-                  (click)="inputControlClick('tagWeightThree','split')">
+                  [ngClass]="{'border-focus':!isControlHidden('tagWeightThree')}" (click)="inputControlClick('tagWeightThree','split')">
               <span [hidden]="isControlHidden('tagWeightThreeStart')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagWeightThreeStart')"><i
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Вес 3</span>
@@ -321,7 +373,7 @@
             </div>
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="tagSizeThree-id"
-                  (click)="inputControlClick('tagSizeThree','split')">
+                  [ngClass]="{'border-focus':!isControlHidden('tagSizeThree')}" (click)="inputControlClick('tagSizeThree','split')">
               <span [hidden]="isControlHidden('tagSizeThreeStart')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagSizeThreeStart')"><i
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Размер 3</span>
@@ -342,7 +394,7 @@
             </div>
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="tagPriceThree-id"
-                  (click)="inputControlClick('tagPriceThree','split')">
+                  [ngClass]="{'border-focus':!isControlHidden('tagPriceThree')}" (click)="inputControlClick('tagPriceThree','split')">
               <span [hidden]="isControlHidden('tagPriceThreeStart')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagPriceThreeStart')"><i
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Цена 3</span>
@@ -363,7 +415,7 @@
             </div>
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="tagWeightFour-id"
-                  (click)="inputControlClick('tagWeightFour','split')">
+                  [ngClass]="{'border-focus':!isControlHidden('tagWeightFour')}" (click)="inputControlClick('tagWeightFour','split')">
               <span [hidden]="isControlHidden('tagWeightFourStart')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagWeightFourStart')"><i
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Вес 4</span>
@@ -384,7 +436,7 @@
             </div>
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="tagSizeFour-id"
-                  (click)="inputControlClick('tagSizeFour','split')">
+                  [ngClass]="{'border-focus':!isControlHidden('tagSizeFour')}" (click)="inputControlClick('tagSizeFour','split')">
               <span [hidden]="isControlHidden('tagSizeFourStart')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagSizeFourStart')"><i
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Размер 4</span>
@@ -405,7 +457,7 @@
             </div>
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="tagPriceFour-id"
-                  (click)="inputControlClick('tagPriceFour','split')">
+                  [ngClass]="{'border-focus':!isControlHidden('tagPriceFour')}" (click)="inputControlClick('tagPriceFour','split')">
               <span [hidden]="isControlHidden('tagPriceFourStart')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagPriceFourStart')"><i
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Цена 4</span>
@@ -426,7 +478,7 @@
             </div>
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="htmlResponse-id"
-                  (click)="inputControlClick('htmlResponse')">
+                  [ngClass]="{'border-focus':!isControlHidden('htmlResponse')}" (click)="inputControlClick('htmlResponse')">
               <span [hidden]="isControlHidden('htmlResponse')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('htmlResponse')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;HTML ответ</span>
               <input placeholder="" type="text" formControlName="htmlResponse">
@@ -457,26 +509,74 @@
                   <div class="entity-title">{{testEntity.displayName}}</div>
                 </div>
                 <div class="description"><strong>{{testEntity.description}}</strong></div>
-                <div class="entity-wrapper wsp-td" style="flex-direction: column">
-                  <div class="wsp-wrap-center">
-                    <span *ngIf="testEntity.weightOne"><span class="wsp">Вес:</span><span class="weight-size">{{testEntity.weightOne}}</span></span>
-                    <span *ngIf="testEntity.sizeOne"><span class="wsp">Размер:</span><span class="weight-size">{{testEntity.sizeOne}}</span></span>
-                    <span *ngIf="testEntity.priceOne"><span class="wsp">Цена:</span><span class="price">{{testEntity.priceOne}}&nbsp;Р</span></span>
+                <div class="entity-wrapper" style="flex-direction: column;">
+                  <div class="wsp-wrap test-wsp" >
+                    <div class="wsp-cont">
+                        <span *ngIf="testEntity.weightOne">
+                          <span class="wsp">Вес:</span><span class="weight-size">{{testEntity.weightOne}}</span>
+                        </span>
+                    </div>
+                    <div class="wsp-cont">
+                        <span *ngIf="testEntity.sizeOne">
+                          <span class="wsp">Размер:</span><span class="weight-size">{{testEntity.sizeOne}}</span>
+                        </span>
+                    </div>
+                    <div class="wsp-cont">
+                        <span *ngIf="testEntity.priceOne">
+                          <span class="wsp">Цена:</span><span class="price">{{testEntity.priceOne}}&nbsp;Р</span>
+                        </span>
+                    </div>
                   </div>
-                  <div class="wsp-wrap-center">
-                    <span *ngIf="testEntity.weightTwo"><span class="wsp">Вес:</span><span class="weight-size">{{testEntity.weightTwo}}</span></span>
-                    <span *ngIf="testEntity.sizeTwo"><span class="wsp">Размер:</span><span class="weight-size">{{testEntity.sizeTwo}}</span></span>
-                    <span *ngIf="testEntity.priceTwo"><span class="wsp">Цена:</span><span class="price">{{testEntity.priceTwo}}&nbsp;Р</span></span>
+                  <div class="wsp-wrap test-wsp">
+                    <div class="wsp-cont">
+                        <span *ngIf="testEntity.weightTwo">
+                          <span class="wsp">Вес:</span><span class="weight-size">{{testEntity.weightTwo}}</span>
+                        </span>
+                    </div>
+                    <div class="wsp-cont">
+                        <span *ngIf="testEntity.sizeTwo">
+                          <span class="wsp">Размер:</span><span class="weight-size">{{testEntity.sizeTwo}}</span>
+                        </span>
+                    </div>
+                    <div class="wsp-cont">
+                        <span *ngIf="testEntity.priceTwo">
+                          <span class="wsp">Цена:</span><span class="price">{{testEntity.priceTwo}}&nbsp;Р</span>
+                        </span>
+                    </div>
                   </div>
-                  <div class="wsp-wrap-center">
-                    <span *ngIf="testEntity.weightThree"><span class="wsp">Вес:</span><span class="weight-size">{{testEntity.weightThree}}</span></span>
-                    <span *ngIf="testEntity.sizeThree"><span class="wsp">Размер:</span><span class="weight-size">{{testEntity.sizeThree}}</span></span>
-                    <span *ngIf="testEntity.priceThree"><span class="wsp">Цена:</span><span class="price">{{testEntity.priceThree}}&nbsp;Р</span></span>
+                  <div class="wsp-wrap test-wsp">
+                    <div class="wsp-cont">
+                        <span *ngIf="testEntity.weightThree">
+                          <span class="wsp">Вес:</span><span class="weight-size">{{testEntity.weightThree}}</span>
+                        </span>
+                    </div>
+                    <div class="wsp-cont">
+                        <span *ngIf="testEntity.sizeThree">
+                          <span class="wsp">Размер:</span><span class="weight-size">{{testEntity.sizeThree}}</span>
+                        </span>
+                    </div>
+                    <div class="wsp-cont">
+                        <span *ngIf="testEntity.priceThree">
+                          <span class="wsp">Цена:</span><span class="price">{{testEntity.priceThree}}&nbsp;Р</span>
+                        </span>
+                    </div>
                   </div>
-                  <div class="wsp-wrap-center">
-                    <span *ngIf="testEntity.weightFour"><span class="wsp">Вес:</span><span class="weight-size">{{testEntity.weightFour}}</span></span>
-                    <span *ngIf="testEntity.sizeFour"><span class="wsp">Размер:</span><span class="weight-size">{{testEntity.sizeFour}}</span></span>
-                    <span *ngIf="testEntity.priceFour"><span class="wsp">Цена:</span><span class="price">{{testEntity.priceFour}}&nbsp;Р</span></span>
+                  <div class="wsp-wrap test-wsp">
+                    <div class="wsp-cont">
+                        <span *ngIf="testEntity.weightFour">
+                          <span class="wsp">Вес:</span><span class="weight-size">{{testEntity.weightFour}}</span>
+                        </span>
+                    </div>
+                    <div class="wsp-cont">
+                        <span *ngIf="testEntity.sizeFour">
+                          <span class="wsp">Размер:</span><span class="weight-size">{{testEntity.sizeFour}}</span>
+                        </span>
+                    </div>
+                    <div class="wsp-cont">
+                        <span *ngIf="testEntity.priceFour">
+                          <span class="wsp">Цена:</span><span class="price">{{testEntity.priceFour}}&nbsp;Р</span>
+                        </span>
+                    </div>
                   </div>
                 </div>
               </td>
