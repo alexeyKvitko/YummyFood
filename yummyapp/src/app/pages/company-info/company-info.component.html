@@ -34,7 +34,7 @@
           <div class="col-md-10" >
               <table class="table table-hover" >
                 <tr
-                  *ngFor="let menuEntity of menuEntities | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
+                  *ngFor="let menuEntity of menuEntities;let index = index">
                   <td class="hidden-cell">{{menuEntity.id}}</td>
                   <td class="col-md-2" style="border-top: 0px!important;">
                     <img src="{{menuEntity.imageUrl}}" alt="{{menuEntity.imageUrl}}">
@@ -42,87 +42,69 @@
                   </td>
                   <td class="wsp-td">
                     <div class="description"><strong>{{menuEntity.description}}</strong></div>
-                    <div class="wsp-wrap">
-                      <div class="wsp-cont" *ngIf="menuEntity.weightOne">
-                        <span *ngIf="menuEntity.weightOne">
-                          <span class="wsp">Вес:</span><span class="weight-size">{{menuEntity.weightOne}}</span>
-                        </span>
-                      </div>
-                      <div class="wsp-cont">
-                        <span *ngIf="menuEntity.sizeOne">
-                          <span class="wsp">Размер:</span><span class="weight-size">{{menuEntity.sizeOne}}</span>
-                        </span>
-                      </div>
-                      <div class="wsp-cont">
-                        <span *ngIf="menuEntity.priceOne">
-                          <span class="wsp">Цена:</span><span class="price">{{menuEntity.priceOne}}&nbsp;Р</span>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="wsp-wrap">
-                      <div class="wsp-cont" *ngIf="menuEntity.weightTwo">
-                        <span *ngIf="menuEntity.weightTwo">
-                          <span class="wsp">Вес:</span><span class="weight-size">{{menuEntity.weightTwo}}</span>
-                        </span>
-                      </div>
-                      <div class="wsp-cont">
-                        <span *ngIf="menuEntity.sizeTwo">
-                          <span class="wsp">Размер:</span><span class="weight-size">{{menuEntity.sizeTwo}}</span>
-                        </span>
-                      </div>
-                      <div class="wsp-cont">
-                        <span *ngIf="menuEntity.priceTwo">
-                          <span class="wsp">Цена:</span><span class="price">{{menuEntity.priceTwo}}&nbsp;Р</span>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="wsp-wrap">
-                      <div class="wsp-cont" *ngIf="menuEntity.weightThree">
-                        <span *ngIf="menuEntity.weightThree">
-                          <span class="wsp">Вес:</span><span class="weight-size">{{menuEntity.weightThree}}</span>
-                        </span>
-                      </div>
-                      <div class="wsp-cont">
-                        <span *ngIf="menuEntity.sizeThree">
-                          <span class="wsp">Размер:</span><span class="weight-size">{{menuEntity.sizeThree}}</span>
-                        </span>
-                      </div>
-                      <div class="wsp-cont">
-                        <span *ngIf="menuEntity.priceThree">
-                          <span class="wsp">Цена:</span><span class="price">{{menuEntity.priceThree}}&nbsp;Р</span>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="wsp-wrap">
-                      <div class="wsp-cont" *ngIf="menuEntity.weightFour">
-                        <span *ngIf="menuEntity.weightFour">
-                          <span class="wsp">Вес:</span><span class="weight-size">{{menuEntity.weightFour}}</span>
-                        </span>
-                      </div>
-                      <div class="wsp-cont">
-                        <span *ngIf="menuEntity.sizeFour">
-                          <span class="wsp">Размер:</span><span class="weight-size">{{menuEntity.sizeFour}}</span>
-                        </span>
-                      </div>
-                      <div class="wsp-cont">
-                        <span *ngIf="menuEntity.priceFour">
-                          <span class="wsp">Цена:</span><span class="price">{{menuEntity.priceFour}}&nbsp;Р</span>
-                        </span>
-                      </div>
-                    </div>
+                    <table cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td class="col-md-2 wsp-wrap">
+                          <div class="wsp-cont" *ngIf="menuEntity.weightOne">
+                            <div class="wsp">Вес:</div>
+                            <div class="weight-size">{{menuEntity.weightOne}}</div>
+                          </div>
+                          <div class="wsp-cont" *ngIf="menuEntity.sizeOne">
+                            <div class="wsp">Размер:</div>
+                            <div class="weight-size">{{menuEntity.sizeOne}}</div>
+                          </div>
+                          <div class="wsp-cont" *ngIf="menuEntity.priceOne">
+                            <div class="wsp">Цена:</div>
+                            <div class="price">{{menuEntity.priceOne}}&nbsp;Р</div>
+                          </div>
+                        </td>
+                        <td class="col-md-2 wsp-wrap">
+                          <div class="wsp-cont" *ngIf="menuEntity.weightTwo">
+                            <div class="wsp">Вес:</div>
+                            <div class="weight-size">{{menuEntity.weightTwo}}</div>
+                          </div>
+                          <div class="wsp-cont" *ngIf="menuEntity.sizeTwo">
+                            <div class="wsp">Размер:</div>
+                            <div class="weight-size">{{menuEntity.sizeTwo}}</div>
+                          </div>
+                          <div class="wsp-cont" *ngIf="menuEntity.priceTwo">
+                            <div class="wsp">Цена:</div>
+                            <div class="price">{{menuEntity.priceTwo}}&nbsp;Р</div>
+                          </div>
+                        </td>
+                        <td class="col-md-2 wsp-wrap">
+                          <div class="wsp-cont" *ngIf="menuEntity.weightThree">
+                            <div class="wsp">Вес:</div>
+                            <div class="weight-size">{{menuEntity.weightThree}}</div>
+                          </div>
+                          <div class="wsp-cont" *ngIf="menuEntity.sizeThree">
+                            <div class="wsp">Размер:</div>
+                            <div class="weight-size">{{menuEntity.sizeThree}}</div>
+                          </div>
+                          <div class="wsp-cont" *ngIf="menuEntity.priceThree">
+                            <div class="wsp">Цена:</div>
+                            <div class="price">{{menuEntity.priceThree}}&nbsp;Р</div>
+                          </div>
+                        </td>
+                        <td class="col-md-2 wsp-wrap">
+                          <div class="wsp-cont" *ngIf="menuEntity.weightFour">
+                            <div class="wsp">Вес:</div>
+                            <div class="weight-size">{{menuEntity.weightFour}}</div>
+                          </div>
+                          <div class="wsp-cont" *ngIf="menuEntity.sizeFour">
+                            <div class="wsp">Размер:</div>
+                            <div class="weight-size">{{menuEntity.sizeFour}}</div>
+                          </div>
+                          <div class="wsp-cont" *ngIf="menuEntity.priceFour">
+                            <div class="wsp">Цена:</div>
+                            <div class="price">{{menuEntity.priceFour}}&nbsp;Р</div>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
                   </td>
                 </tr>
               </table>
-              <form class="pagination-wrapper">
-                <div class="form-group pages">
-                  <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)" maxSize="9"
-                                       directionLinks="true"
-                                       autoHide="false" previousLabel="Prev" nextLabel="Next"
-                                       screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
-                                       screenReaderCurrentLabel="You're on page">
-                  </pagination-controls>
-                </div>
-              </form>
           </div>
         </div>
       </div>
@@ -509,75 +491,67 @@
                   <div class="entity-title">{{testEntity.displayName}}</div>
                 </div>
                 <div class="description"><strong>{{testEntity.description}}</strong></div>
-                <div class="entity-wrapper" style="flex-direction: column;">
-                  <div class="wsp-wrap test-wsp" >
-                    <div class="wsp-cont">
-                        <span *ngIf="testEntity.weightOne">
-                          <span class="wsp">Вес:</span><span class="weight-size">{{testEntity.weightOne}}</span>
-                        </span>
-                    </div>
-                    <div class="wsp-cont">
-                        <span *ngIf="testEntity.sizeOne">
-                          <span class="wsp">Размер:</span><span class="weight-size">{{testEntity.sizeOne}}</span>
-                        </span>
-                    </div>
-                    <div class="wsp-cont">
-                        <span *ngIf="testEntity.priceOne">
-                          <span class="wsp">Цена:</span><span class="price">{{testEntity.priceOne}}&nbsp;Р</span>
-                        </span>
-                    </div>
-                  </div>
-                  <div class="wsp-wrap test-wsp">
-                    <div class="wsp-cont">
-                        <span *ngIf="testEntity.weightTwo">
-                          <span class="wsp">Вес:</span><span class="weight-size">{{testEntity.weightTwo}}</span>
-                        </span>
-                    </div>
-                    <div class="wsp-cont">
-                        <span *ngIf="testEntity.sizeTwo">
-                          <span class="wsp">Размер:</span><span class="weight-size">{{testEntity.sizeTwo}}</span>
-                        </span>
-                    </div>
-                    <div class="wsp-cont">
-                        <span *ngIf="testEntity.priceTwo">
-                          <span class="wsp">Цена:</span><span class="price">{{testEntity.priceTwo}}&nbsp;Р</span>
-                        </span>
-                    </div>
-                  </div>
-                  <div class="wsp-wrap test-wsp">
-                    <div class="wsp-cont">
-                        <span *ngIf="testEntity.weightThree">
-                          <span class="wsp">Вес:</span><span class="weight-size">{{testEntity.weightThree}}</span>
-                        </span>
-                    </div>
-                    <div class="wsp-cont">
-                        <span *ngIf="testEntity.sizeThree">
-                          <span class="wsp">Размер:</span><span class="weight-size">{{testEntity.sizeThree}}</span>
-                        </span>
-                    </div>
-                    <div class="wsp-cont">
-                        <span *ngIf="testEntity.priceThree">
-                          <span class="wsp">Цена:</span><span class="price">{{testEntity.priceThree}}&nbsp;Р</span>
-                        </span>
-                    </div>
-                  </div>
-                  <div class="wsp-wrap test-wsp">
-                    <div class="wsp-cont">
-                        <span *ngIf="testEntity.weightFour">
-                          <span class="wsp">Вес:</span><span class="weight-size">{{testEntity.weightFour}}</span>
-                        </span>
-                    </div>
-                    <div class="wsp-cont">
-                        <span *ngIf="testEntity.sizeFour">
-                          <span class="wsp">Размер:</span><span class="weight-size">{{testEntity.sizeFour}}</span>
-                        </span>
-                    </div>
-                    <div class="wsp-cont">
-                        <span *ngIf="testEntity.priceFour">
-                          <span class="wsp">Цена:</span><span class="price">{{testEntity.priceFour}}&nbsp;Р</span>
-                        </span>
-                    </div>
-                  </div>
+                <div class="entity-wrapper" >
+                  <table cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td class="col-md-2 wsp-wrap">
+                        <div class="wsp-cont" *ngIf="testEntity.weightOne">
+                          <div class="wsp">Вес:</div>
+                          <div class="weight-size">{{testEntity.weightOne}}</div>
+                        </div>
+                        <div class="wsp-cont" *ngIf="testEntity.sizeOne">
+                          <div class="wsp">Размер:</div>
+                          <div class="weight-size">{{testEntity.sizeOne}}</div>
+                        </div>
+                        <div class="wsp-cont" *ngIf="testEntity.priceOne">
+                          <div class="wsp">Цена:</div>
+                          <div class="price">{{testEntity.priceOne}}&nbsp;Р</div>
+                        </div>
+                      </td>
+                      <td class="col-md-2 wsp-wrap">
+                        <div class="wsp-cont" *ngIf="testEntity.weightTwo">
+                          <div class="wsp">Вес:</div>
+                          <div class="weight-size">{{testEntity.weightTwo}}</div>
+                        </div>
+                        <div class="wsp-cont" *ngIf="testEntity.sizeTwo">
+                          <div class="wsp">Размер:</div>
+                          <div class="weight-size">{{testEntity.sizeTwo}}</div>
+                        </div>
+                        <div class="wsp-cont" *ngIf="testEntity.priceTwo">
+                          <div class="wsp">Цена:</div>
+                          <div class="price">{{testEntity.priceTwo}}&nbsp;Р</div>
+                        </div>
+                      </td>
+                      <td class="col-md-2 wsp-wrap">
+                        <div class="wsp-cont" *ngIf="testEntity.weightThree">
+                          <div class="wsp">Вес:</div>
+                          <div class="weight-size">{{testEntity.weightThree}}</div>
+                        </div>
+                        <div class="wsp-cont" *ngIf="testEntity.sizeThree">
+                          <div class="wsp">Размер:</div>
+                          <div class="weight-size">{{testEntity.sizeThree}}</div>
+                        </div>
+                        <div class="wsp-cont" *ngIf="testEntity.priceThree">
+                          <div class="wsp">Цена:</div>
+                          <div class="price">{{testEntity.priceThree}}&nbsp;Р</div>
+                        </div>
+                      </td>
+                      <td class="col-md-2 wsp-wrap">
+                        <div class="wsp-cont" *ngIf="testEntity.weightFour">
+                          <div class="wsp">Вес:</div>
+                          <div class="weight-size">{{testEntity.weightFour}}</div>
+                        </div>
+                        <div class="wsp-cont" *ngIf="testEntity.sizeFour">
+                          <div class="wsp">Размер:</div>
+                          <div class="weight-size">{{testEntity.sizeFour}}</div>
+                        </div>
+                        <div class="wsp-cont" *ngIf="testEntity.priceFour">
+                          <div class="wsp">Цена:</div>
+                          <div class="price">{{testEntity.priceFour}}&nbsp;Р</div>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
                 </div>
               </td>
             </tr>

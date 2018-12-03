@@ -1,4 +1,9 @@
 @import '../../shared/theme/conf';
+.full-scr{
+  width: 100%;
+  height: 100%;
+  background-color: $card-bg;
+}
 .login-card {
   padding: 20px;
   position: absolute;
