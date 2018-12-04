@@ -1,6 +1,7 @@
 @import '../mixin';
+
 //Material
-$primary-color-dark:   #FBF6F2;
+$primary-color-dark:   #F8D0AF;
 $primary-color:        #F8D0AF;
 $primary-color-light:  #C8E6C9;
 $teal-color:  #3B6A75;
@@ -15,7 +16,8 @@ $card-border:#e4e3e3;
 $default-text:14px;
 $sm-text:12px;
 $lg-text:16px;
-$body-bg:transparent;
+$body-bg:#FBF6F2;
+
 $top-panel-bg: $primary-color-dark;
 $sidebar-bg: $primary-color;
 $sidebar-fonts-color: $teal-color;
@@ -24,7 +26,9 @@ $page-top-fonts-color: $primary-color-text;
 
 
 $black:#000;
-$card-bg:#F5ECDD;
+//$card-bg:#F8D0AF;
+$card-bg:#FBF6F2;
+
 $border-color:rgba($black, .1);
 $table-border-color:rgba($black, .2);
 $fonts-color:#26253c;

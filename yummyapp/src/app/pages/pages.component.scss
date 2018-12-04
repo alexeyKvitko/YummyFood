@@ -4,7 +4,9 @@
   overflow: hidden;
   width: 100%;
   @include transition(all .4s);
-  z-index: -999;
+  background-image: url("../../assets/images/back4.jpg");
+  z-index: 999;
+
 }
 
 .pages-wrap {
@@ -13,7 +15,6 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: $body-bg;
 }
 
 .pages-body {
@@ -21,15 +22,16 @@
   display: flex;
   flex-direction: row;
   //background-image: url("../../assets/images/rest.jpg");
-  background-color: $card-bg;
   overflow-x: hidden;
 
   .pages-content {
-    flex: 1;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#d1e395', endColorstr='#399600', GradientType=0); /* IE6-9 */
-    border-left: 1px solid $border-color;
-    border-top: 1px solid $border-color;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.16), 0 0 0 2px rgba(0, 0, 0, 0.08);
+    z-index: -999;
+    background-color: $card-bg;
     color: $fonts-color;
+    width: 65%;
+    height:100%;
+    margin: auto;
     overflow-x: hidden;
   }
 }
