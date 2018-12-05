@@ -67,6 +67,46 @@
     @include transition(all .5s);
   }
 }
+.page-top-menu-container{
+  margin-left: 40px;
+  color: $teal-color;
+  font-size: 18px;
+  font-weight: 600;
+  display: flex;
+  flex-direction: row;
+  .page-top-menu-company{
+    .txt{
+      padding-top: 120px;
+      text-decoration: underline;
+      text-align: center;
+    }
+    min-width:128px;
+    min-height: 128px;
+    background-repeat: no-repeat;
+    background-image: url("../../../../assets/images/coffe-shop.png") ;
+    &:hover{
+      cursor:pointer;
+      background-image: url("../../../../assets/images/coffe-shop-hover.png");
+    }
+  }
+  .page-top-menu-list{
+    .txt{
+      padding-top: 120px;
+      text-decoration: underline;
+      text-align: center;
+    }
+    margin-left: 40px;
+    min-width:128px;
+    min-height: 128px;
+    background-repeat: no-repeat;
+    background-image: url("../../../../assets/images/menu-list.png") ;
+    cursor: pointer;
+    &:hover{
+      cursor:pointer;
+      background-image: url("../../../../assets/images/menu-list-hover.png");
+    }
+  }
+}
 
 .company-info-header {
   position: relative;
