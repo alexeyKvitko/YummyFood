@@ -50,7 +50,8 @@ export class PagesTopComponent implements OnInit{
     this._menuService.selectItem(this.menuInfo);
   }
 
-  public back() {
+  public companyLink() {
+    alert("1");
     this.router.navigate(['pages/company']);
   }
 

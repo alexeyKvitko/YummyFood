@@ -8,7 +8,7 @@
   </div>
 
   <div class="page-top-menu-container">
-    <div class="page-top-menu-company">
+    <div class="page-top-menu-company" (click)="companyLink()">
       <div class="txt">Рестораны</div>
     </div>
     <div class="page-top-menu-list">
@@ -38,7 +38,7 @@
     </table>
   </div>
   <div class="back-content" [hidden]="companyUrl==null" >
-    <span class="btn-back-wrap" (click)="back()">
+    <span class="btn-back-wrap" (click)="companyLink()">
       <img src="{{btnBackImgSrc}}" alt="btnBack">
     </span>
   </div>
