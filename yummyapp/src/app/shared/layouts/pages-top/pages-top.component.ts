@@ -51,10 +51,13 @@ export class PagesTopComponent implements OnInit{
   }
 
   public companyLink() {
-    alert("1");
     this.router.navigate(['pages/company']);
   }
 
+
+  public menuLink() {
+    this.router.navigate(['pages/delivery-menu']);
+  }
   public _sidebarToggle() {
     this._globalService.data$.subscribe(data => {
       if (data.ev === 'sidebarToggle') {

@@ -1,3 +1,24 @@
+<div class="first_header">
+  <div class="col-md-4 container">
+      <a href="#" class="header-left"><i class="fa fa-phone icon"></i>+7 (978) 123 3456</a>
+      <a href="#" class="header-left"><i class="far fa-envelope icon"></i>delivery@yummyfood.ru</a>
+  </div>
+  <div class="col-md-4 container">
+    <div class="event-btn-container">
+      <div id="one" class="event_btn"><i class="fas fa-pencil-alt " aria-hidden="true"></i><span class="spn">Вход</span></div>
+      <div class="event_btn"><i class="fas fa-sign-in-alt" aria-hidden="true"></i><span class="spn">Регистрация</span></div>
+    </div>
+  </div>
+  <div class="col-md-4 container">
+    <div class="social">
+        <div class="item"><a class="it-facebook" href="#"><i class="fab fa-facebook-f icn"></i></a></div>
+        <div class="item"><a class="it-twitted" href="#"><i class="fab fa-twitter icn"></i></a></div>
+        <div class="item"><a class="it-linked" href="#"><i class="fab fa-linkedin-in icn"></i></a></div>
+        <div class="item"><a class="it-rss" href="#"><i class="fas fa-rss icn"></i></a></div>
+    </div>
+  </div>
+
+</div>
 <div class="pages-top">
   <div class="logo">
     <div class="avatar-wrap">
@@ -7,14 +28,22 @@
     </div>
   </div>
 
-  <div class="page-top-menu-container">
-    <div class="page-top-menu-company" (click)="companyLink()">
-      <div class="txt">Рестораны</div>
-    </div>
-    <div class="page-top-menu-list">
-      <div class="txt">Меню</div>
-    </div>
-  </div>
+  <!--<div class="logo">-->
+  <!--<div class="avatar-wrap">-->
+  <!--<div class="avatar">-->
+  <!--<img src="{{avatarImgSrc}}" alt="avatar">-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+
+  <!--<div class="page-top-menu-container">-->
+  <!--<div class="page-top-menu-company" (click)="companyLink()">-->
+  <!--<div class="txt">Рестораны</div>-->
+  <!--</div>-->
+  <!--<div class="page-top-menu-list" (click)="menuLink()">-->
+  <!--<div class="txt">Меню</div>-->
+  <!--</div>-->
+  <!--</div>-->
 
   <div class="company-info-header">
 
@@ -37,7 +66,7 @@
       </tr>
     </table>
   </div>
-  <div class="back-content" [hidden]="companyUrl==null" >
+  <div class="back-content" [hidden]="companyUrl==null">
     <span class="btn-back-wrap" (click)="companyLink()">
       <img src="{{btnBackImgSrc}}" alt="btnBack">
     </span>
