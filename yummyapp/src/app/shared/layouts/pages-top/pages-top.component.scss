@@ -26,9 +26,27 @@
       color: #b10400;
     }
   }
+  .map{
+    margin-right: 25px;
+    color: $bright-coral;
+    span{
+      padding-left: 6px;
+      color: $primary-text-color;
+      &:hover{
+        color: #b10400;
+      }
+    }
+    .down{
+      margin-left: 3px;
+      font-size: 14px;
+      color: $primary-text-color
+    }
+
+  }
   .icon {
-    color: $accent-color;
-    font-size: 14px;
+    color: $bright-coral;
+    font-size: 16px;
+    padding-top: 3px;
     padding-right: 6px;
   }
   .social {
@@ -108,7 +126,11 @@
 .logo {
   position: absolute;
   margin: auto;
-  left: 50%;
+  left: 15%;
+  top: 38px;
+  z-index: 10;
+  width: 130px;
+  height: 130px;
 }
 
 .back-content {
@@ -122,11 +144,6 @@
 }
 
 .avatar-wrap {
-  margin-left: 20px;
-  margin-top: 7px;
-  width: 130px;
-  height: auto;
-  min-height: 130px;
   @include transition(all .4s);
   .avatar {
     overflow: hidden;
@@ -138,103 +155,6 @@
   }
 }
 
-.collapse-menu {
-  margin-top: 12px;
-  color: $secondary-text-color;
-  font-size: 24px;
-  background: $primary-color;
-  border-radius: 30px;
-  border: $primary-color-dark;
-  cursor: pointer;
-  @include center(60px, 60px);
-  @include transition(all .2s);
-  &:hover {
-    color: $primary;
-  }
-  .toggle-on {
-    transform: rotate(0);
-    @include transition(all .5s);
-  }
-  .toggle-off {
-    transform: rotate(-270deg);
-    @include transition(all .5s);
-  }
-}
-
-.page-top-menu-container {
-  margin-left: 40px;
-  color: $teal-color;
-  font-size: 18px;
-  font-weight: 600;
-  display: flex;
-  flex-direction: row;
-  .page-top-menu-company {
-    .txt {
-      padding-top: 120px;
-      text-decoration: underline;
-      text-align: center;
-    }
-    min-width: 128px;
-    min-height: 128px;
-    background-repeat: no-repeat;
-    background-image: url("../../../../assets/images/coffe-shop.png");
-    &:hover {
-      cursor: pointer;
-      background-image: url("../../../../assets/images/coffe-shop-hover.png");
-    }
-  }
-  .page-top-menu-list {
-    .txt {
-      padding-top: 120px;
-      text-decoration: underline;
-      text-align: center;
-    }
-    margin-left: 40px;
-    min-width: 128px;
-    min-height: 128px;
-    background-repeat: no-repeat;
-    background-image: url("../../../../assets/images/menu-list.png");
-    cursor: pointer;
-    &:hover {
-      cursor: pointer;
-      background-image: url("../../../../assets/images/menu-list-hover.png");
-    }
-  }
-}
-
-.company-info-header {
-  position: relative;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  padding: 10px;
-  margin-left: 30px;
-  .company-title {
-    padding-left: 12px;
-    font-size: 36px;
-    color: $accent-color;
-  }
-  .menu-type-title {
-    padding-left: 12px;
-    font-size: 24px;
-    color: $primary;
-    i {
-      font-size: 24px;
-    }
-  }
-  .menu-category-title {
-    padding-left: 12px;
-    font-size: 26px;
-    color: $teal-color;
-    i {
-      font-size: 18px;
-    }
-  }
-  .company-url {
-    padding-left: 12px;
-  }
-}
 
 @media (max-width: 1440px) {
   .menu-wrap {
@@ -243,17 +163,17 @@
 }
 
 @media (max-width: 414px) {
-  .avatar-wrap {
-    width: auto;
-    .avatar {
-      border-radius: 24px;
-    }
-    .user-info-wrap {
-      display: none;
-    }
+  .logo {
+    width: 80px;
+    height: 80px;
+    left: 10%;
+    top: 50px;
   }
-  .collapse-menu {
-    left: 100px;
+  .main_menu_area {
+    .container{
+      height: 60px;
+      line-height: 70px;
+    }
   }
 
 }
@@ -267,31 +187,61 @@
   top: 24px;
   z-index: 8;
   box-shadow: 0px 2px 7px #000; /*rgb(139, 195, 74)*/
+  display: inline-flex;
+  .container{
+    font-family: "Roboto", serif;
+    font-size: 14px;
+    letter-spacing: .42px;
+    color: #5c9233;
+    text-transform: uppercase;
+    padding: 0px;
+    width: 100%;
+    height: 90px;
+    line-height: 900px;
+    display: flex;
+    flex-direction: row;
+    transition: all 400ms linear 0s;
+    position: relative;
+    .left-part{
+    }
+    .right-part{
+      display: flex;
+      flex-direction: row;
+      padding-left: 7%;
+      .head-menu-item{
+        text-align: center;
+        padding-top: 26px;
+        width:120px;
+        height: 100%;
+        line-height: 34px;
+        .head-menu-text{
+          padding: 14px;
+          transition: all 400ms linear 0s;
+          &:hover{
+            color: $primary-color-text;
+            transition: all 400ms linear 0s;
+            cursor: pointer;
+          }
+        }
+        .head-menu-icon{
+          color: $bright-coral;
+          background-color: $green-bg;
+          font-size: 18px;
+          border-radius: 50%;
+          padding: 14px 16px;
+          transition: all 400ms linear 0s;
+          &:hover{
+            cursor: pointer;
+            background-color: $bright-coral;
+            color: $primary-color-text;
+          }
+        }
+      }
+    }
+  }
 }
 
-.main_menu_area .navbar.navbar-default {
-  background: transparent;
-  border: none;
-  border-radius: 0px;
-  margin-bottom: 0px;
-}
 
-.main_menu_area .navbar.navbar-default .navbar-collapse .nav.navbar-nav li {
-  margin-right: 25px;
-}
-
-.main_menu_area .navbar.navbar-default .navbar-collapse .nav.navbar-nav li a {
-  background: transparent;
-  font-family: "Cantata One", serif;
-  font-size: 14px;
-  letter-spacing: .42px;
-  color: #5c9233;
-  text-transform: uppercase;
-  padding: 0px;
-  line-height: 100px;
-  display: block;
-  transition: all 400ms linear 0s;
-}
 
 .main_menu_area .navbar.navbar-default .navbar-collapse .nav.navbar-nav li a i {
   padding-left: 3px;
@@ -370,7 +320,7 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   background: rgba(0, 0, 0, 0.8);
   font-size: 14px;
-  font-family: "Cantata One", serif;
+  font-family: "Roboto", serif;
 }
 
 .main_menu_area .navbar.navbar-default .navbar-collapse .nav.navbar-nav li.submenu .dropdown-menu li a:before {
