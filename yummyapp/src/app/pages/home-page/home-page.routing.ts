@@ -1,10 +1,10 @@
 import { Routes, RouterModule } from '@angular/router';
-import { IndexComponent } from './index.component';
+import { HomePageComponent } from './home-page.component';
 
 const childRoutes: Routes = [
     {
-        path: 'index',
-        component: IndexComponent
+        path: '',
+        component: HomePageComponent
     }
 ];
 

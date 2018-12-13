@@ -15,13 +15,13 @@ export const childRoutes: Routes = [
     path: 'pages',
     component: PagesComponent,
     children: [
-      { path: '', redirectTo: 'index', pathMatch: 'full' },
+      { path: 'home-page', loadChildren: './home-page/home-page.module#HomePageModule' },
       { path: 'company', loadChildren: './company/company.module#CompanyModule' },
       { path: 'delivery-menu', loadChildren: './delivery-menu/delivery-menu.module#DeliveryMenuModule' },
       { path: 'company-edit', loadChildren: './company-edit/company-edit.module#CompanyEditModule' },
       { path: 'company-info', loadChildren: './company-info/company-info.module#CompanyInfoModule' }
 
-      // { path: 'index', loadChildren: './index/index.module#IndexModule' }
+      // { path: 'index', loadChildren: './index/index.module#HomePageModule' }
     ]
   }
 ];
