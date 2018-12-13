@@ -1,7 +1,7 @@
 @import '../../theme/conf';
 
 .first_header {
-  background: $primary-color-light;
+  background: rgba($primary-color-light,0.95);
   overflow: hidden;
   position: absolute;
   height: 24px;
@@ -180,7 +180,7 @@
 
 //MAIN MENU
 .main_menu_area {
-  background: $green-bg;
+  background: rgba($green-bg,0.95);
   position: absolute;
   width: 100%;
   left: 0;

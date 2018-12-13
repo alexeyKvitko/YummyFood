@@ -1,3 +1,3 @@
-<div class="home-scr">
-Привет
+<div class="home-scr" [@triggerBackgroundChange]='imageNum' (click)='changeBackground()'>
+  <img [src]="'assets/images/home-'+imageNum+'.jpg'"  >
 </div>
