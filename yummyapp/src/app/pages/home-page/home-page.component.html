@@ -1,3 +1,10 @@
-<div class="home-scr" [@triggerBackgroundChange]='imageNum' (click)='changeBackground()'>
-  <img [src]="'assets/images/home-'+imageNum+'.jpg'"  >
+<div class="home-scr" >
+  <!--<img [src]="'assets/images/home-'+imageNum+'.jpg'"  >-->
+  <slideshow [imageUrls]="imageUrlArray"
+             [height]="'925px'"
+             [minHeight]="'925px'"
+             [autoPlay]="true"
+             [showArrows]="false"
+             [autoPlayInterval] = "5000"
+  ></slideshow>
 </div>

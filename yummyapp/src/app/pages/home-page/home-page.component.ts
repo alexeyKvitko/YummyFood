@@ -1,40 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import {trigger, state, style, animate, transition, animation, query, stagger} from '@angular/animations';
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss'],
-  animations: [
-    trigger('triggerBackgroundChange', [
-      transition('* => 1', [
-        style({ opacity: 0.5 }),
-        animate(1000, style({ opacity: 1 }))
-      ]),
-      transition('* => 2',  [
-        animate(1000, style({ opacity: 0.5 })),
-        animate(1000, style({ opacity: 1 }))
-      ]),
-      transition('* => 3',  [
-        animate(1000, style({ opacity: 0.5 })),
-        animate(1000, style({ opacity: 1 }))
-      ]),
-      transition('* => 4',  [
-        animate(1000, style({ opacity: 0.5 })),
-        animate(1000, style({ opacity: 1 }))
-      ])
-    ])
-  ]
+  styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
   homeImgSrc: string;
   imageNum: number = 1;
+  imageUrlArray: string[] = ['assets/images/home-3.jpg',
+    'assets/images/home-2.jpg',
+    'assets/images/home-1.jpg',
+    'assets/images/home-4.jpg'];
+
 
   constructor() {
+
   }
 
   ngOnInit() {
-    this.changeBackground();
+
   }
 
   changeBackground(){
