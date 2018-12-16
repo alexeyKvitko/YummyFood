@@ -1,10 +1,76 @@
+
 <div class="home-scr" >
+  <div class="invite">
+    <div class="invite-container">
+      <div class="invite-title">
+        <h3>Сервис Заказа Еды</h3>
+      </div>
+      <div>
+        <img class="logo" src="{{logoImgSrc}}"/>
+      </div>
+      <div class="invite-footer"><h3>ВСЕГДА РАДЫ ВАМ</h3></div>
+    </div>
+
+  </div>
   <!--<img [src]="'assets/images/home-'+imageNum+'.jpg'"  >-->
   <slideshow [imageUrls]="imageUrlArray"
              [height]="'925px'"
              [minHeight]="'925px'"
              [autoPlay]="true"
              [showArrows]="false"
-             [autoPlayInterval] = "5000"
-  ></slideshow>
+             [autoPlayInterval] = "5000"></slideshow>
+
+  <!--================Service Area =================-->
+  <section class="service_area">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 col-sm-6" *ngFor="let item of catalogItems">
+          <div  class="service_item" >
+            <img src="{{item.imagePath}}" alt="">
+            <h3>{{item.title}}</h3>
+              <p>{{item.description}}</p>
+            <a class="read_mor_btn" href="#">Смотреть Меню</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--================End Service Area =================-->
+  <!--================Booking Table Area =================-->
+  <section class="booking_table_area">
+    <div class="container">
+      <div class="s_white_title">
+        <h3>Book a</h3>
+        <h2>Table</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="input-append date form_datetime">
+            <input size="16" type="text" value="" readonly placeholder="Date">
+            <span class="add-on"><i class="icon-th"></i></span>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="input-append date form_time">
+            <input size="16" type="text" value="" readonly placeholder="Dining Time">
+            <span class="add-on"><i class="icon-th"></i></span>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="party_size">
+            <select class="selectpicker">
+              <option>Party Size</option>
+              <option>Party Size 2</option>
+              <option>Party Size 3</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <button type="button" class="btn btn-default submit_btn">BOOK MY TABLE</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--================End Booking Table Area =================-->
 </div>

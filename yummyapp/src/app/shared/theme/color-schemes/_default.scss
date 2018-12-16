@@ -63,7 +63,7 @@ $info:#2cc3ff;
 }
 
 .bg-success {
-    @include linear-gradient(to top right, $success, #42e697);
+    @include linear-gradient(to top right,  rgba($dark-green,0.7), rgba($green-bg,0.9) );
 }
 
 .bg-gray {
@@ -85,3 +85,8 @@ $info:#2cc3ff;
 .bg-info {
     @include linear-gradient(to top right, $info, #15f8bf);
 }
+
+/*font Variables*/
+$can: 'Cantata One', serif;
+$op: 'Open Sans', sans-serif;
+$vib: 'Great Vibes', cursive;

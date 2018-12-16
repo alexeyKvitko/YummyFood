@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CATALOG } from '../../pages/home-page/catalog';
 
 @Component({
   selector: 'app-home-page',
@@ -6,8 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
-  homeImgSrc: string;
+  logoImgSrc: string = 'assets/images/logo.png';
   imageNum: number = 1;
+  catalogItems = CATALOG;
   imageUrlArray: string[] = ['assets/images/home-3.jpg',
     'assets/images/home-2.jpg',
     'assets/images/home-1.jpg',
@@ -15,20 +17,10 @@ export class HomePageComponent implements OnInit {
 
 
   constructor() {
-
   }
 
   ngOnInit() {
 
   }
-
-  changeBackground(){
-    this.imageNum ++;
-    this.homeImgSrc = 'assets/images/home-'+this.imageNum+'.jpg';
-    if( this.imageNum == 5 ){
-      this.imageNum = 1;
-    }
-  }
-
 
 }
