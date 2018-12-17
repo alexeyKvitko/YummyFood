@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { CATALOG } from '../../pages/home-page/catalog';
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {TrackScrollDirective} from "../../directives/track-scroll";
 
 @Component({
   selector: 'app-home-page',
@@ -24,6 +25,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
   ]
 })
 export class HomePageComponent implements OnInit {
+  @ViewChild(TrackScrollDirective) scroll: TrackScrollDirective;
   logoImgSrc: string = 'assets/images/logo.png';
   currentState = 'initial';
   catalogItems = CATALOG;
@@ -35,12 +37,21 @@ export class HomePageComponent implements OnInit {
  divClick(){
    this.currentState = this.currentState === 'initial' ? 'final' : 'initial';
  }
+  scrollPercent: number = 0;
 
   constructor() {
   }
 
-  ngOnInit() {
+  track(value: number): void {
+    this.scrollPercent = value;
+  }
 
+  isWelcomeHidden(){
+    if ( this.scrollPercent > 30 ) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }

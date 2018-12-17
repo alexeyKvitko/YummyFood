@@ -1,7 +1,7 @@
 <div class="anim-logo" [@changeDivSize]='currentState'>
   <img src="{{logoImgSrc}}"  />
 </div>
-<div class="home-scr" >
+<div class="home-scr" track-scroll (onScroll)="track($event)">
   <div class="invite" (click)="divClick()">
     <div class="invite-container">
       <div class="invite-title">
