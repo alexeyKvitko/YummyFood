@@ -1,6 +1,8 @@
-
+<div class="anim-logo" [@changeDivSize]='currentState'>
+  <img src="{{logoImgSrc}}"  />
+</div>
 <div class="home-scr" >
-  <div class="invite">
+  <div class="invite" (click)="divClick()">
     <div class="invite-container">
       <div class="invite-title">
         <h3>Сервис Заказа Еды</h3>

@@ -1,5 +1,17 @@
 @import "../../shared/theme/conf";
-.home-scr{
+
+.anim-logo {
+  position: absolute;
+  z-index: 12;
+  top: 0;
+  left: 50%;
+  img {
+    width: 130px;
+  }
+
+}
+
+.home-scr {
   position: absolute;
   background-repeat: no-repeat;
   overflow-x: hidden;
@@ -7,11 +19,11 @@
   z-index: 7;
   width: 100%;
   height: 100%;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
 }
 
-.invite{
+.invite {
   position: absolute;
   border-radius: 10px;
   @extend .bg-success;
@@ -19,84 +31,85 @@
   margin: 0 auto;
   margin-top: -200px;
   margin-left: -300px;
-  top:50%;
-  left:50%;
+  top: 50%;
+  left: 50%;
   width: 600px;
   height: 400px;
-  font-family: $vib!important;
-  .invite-container{
+  font-family: $vib !important;
+  .invite-container {
     margin: 10px;
     height: 380px;
     width: 580px;
     border: 1px solid $bright-coral;
-    .invite-title{
-      text-align:center;
+    .invite-title {
+      text-align: center;
       margin-top: 30px;
       color: $primary-color-text;
-      h3{
+      h3 {
         font-size: 46px;
         font-weight: 600;
       }
     }
-    .logo{
+    .logo {
       margin-left: 225px;
       width: 150px;
       padding-top: 20px;
     }
-    .invite-footer{
-      text-align:center;
+    .invite-footer {
+      text-align: center;
       margin-top: 30px;
       color: $primary-color-text;
-      h3{
+      h3 {
         font-size: 38px;
         font-weight: 400;
       }
     }
   }
 }
+
 /* Service css
 ============================================================================================ */
 .service_area {
   padding: 84px 0px;
-  .container{
+  .container {
     margin: 0 auto;
   }
 }
-.service_item{
-   border: 1px solid $bright-coral;
-   text-align: center;
-   position: relative;
-   padding-bottom: 30px;
-   height: 400px;
-   margin: 0 10px;
-  .desc{
-    height:20px;
+
+.service_item {
+  border: 1px solid $bright-coral;
+  text-align: center;
+  position: relative;
+  padding-bottom: 30px;
+  height: 400px;
+  margin: 0 10px;
+  .desc {
+    height: 20px;
     border: 1px solid blue;
   }
-   img{
-     max-width: 100%;
-     position: absolute;
-     left: 50%;
-     transform: translateX(-50%);
-     text-align: center;
-     top: -84px;
-   }
-   h3{
-     font-size: 20px;
-     font-family: $can!important;
-     color: $bright-coral;
-     text-transform: uppercase;
-     padding: 90px 0px 10px 0;
-   }
-   p{
-     font-size: 14px;
-     line-height: 26px;
-     color: $primary-text-color;
-     padding: 15px 8px 25px 8px;
-     height:230px;
-   }
- }
-
+  img {
+    max-width: 100%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    top: -84px;
+  }
+  h3 {
+    font-size: 20px;
+    font-family: $can !important;
+    color: $bright-coral;
+    text-transform: uppercase;
+    padding: 90px 0px 10px 0;
+  }
+  p {
+    font-size: 14px;
+    line-height: 26px;
+    color: $primary-text-color;
+    padding: 15px 8px 25px 8px;
+    height: 230px;
+  }
+}
 
 .booking_table_area {
   background: url("../../../assets/images/sudhi-bkg.jpg") no-repeat fixed center center;
