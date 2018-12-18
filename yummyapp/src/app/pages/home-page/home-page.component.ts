@@ -21,7 +21,7 @@ import {TrackScrollDirective} from "../../directives/track-scroll";
         width: '130px',
         left:'15%'
       })),
-      transition('initial=>final', animate('600ms')),
+      transition('initial=>final', animate('400ms')),
       transition('final=>initial', animate('200ms'))
     ]),
   ]
@@ -43,7 +43,7 @@ export class HomePageComponent {
   }
 
   track(value: number): void {
-    if( value > 65 ){
+    if( value > 45 ){
       this.currentState = 'final';
     } else {
       this.currentState = 'initial';
@@ -52,7 +52,7 @@ export class HomePageComponent {
   }
 
   isWelcomeHidden(){
-    if ( this.scrollPercent > 60 ) {
+    if ( this.scrollPercent > 45 ) {
       return true;
     } else {
       return false;
