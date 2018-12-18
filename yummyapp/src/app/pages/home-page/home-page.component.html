@@ -2,17 +2,8 @@
   <img src="{{logoImgSrc}}"  />
 </div>
 <div class="home-scr" track-scroll (onScroll)="track($event)">
-  <div class="invite" (click)="divClick()">
-    <div class="invite-container">
-      <div class="invite-title">
-        <h3>Сервис Заказа Еды</h3>
-      </div>
-      <div>
-        <img class="logo" src="{{logoImgSrc}}"/>
-      </div>
-      <div class="invite-footer"><h3>ВСЕГДА РАДЫ ВАМ</h3></div>
-    </div>
-
+  <div class="invite">
+        <img class="logo" src="{{inviteImgSrc}}"/>
   </div>
   <!--<img [src]="'assets/images/home-'+imageNum+'.jpg'"  >-->
   <slideshow [imageUrls]="imageUrlArray"

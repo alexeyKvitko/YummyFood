@@ -11,21 +11,24 @@ import {TrackScrollDirective} from "../../directives/track-scroll";
     trigger('changeDivSize', [
       state('initial', style({
         opacity:'0',
-        top:'0px',
-        left:'50%'
+        top:'-75px',
+        width: '250px',
+        left:'15%'
       })),
       state('final', style({
         opacity:'1',
         top:'38px',
+        width: '130px',
         left:'15%'
       })),
-      transition('initial=>final', animate('1000ms')),
+      transition('initial=>final', animate('600ms')),
       transition('final=>initial', animate('200ms'))
     ]),
   ]
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent {
   @ViewChild(TrackScrollDirective) scroll: TrackScrollDirective;
+  inviteImgSrc: string = 'assets/images/invite.png';
   logoImgSrc: string = 'assets/images/logo.png';
   currentState = 'initial';
   catalogItems = CATALOG;
@@ -34,20 +37,22 @@ export class HomePageComponent implements OnInit {
     'assets/images/home-1.jpg',
     'assets/images/home-4.jpg'];
 
- divClick(){
-   this.currentState = this.currentState === 'initial' ? 'final' : 'initial';
- }
-  scrollPercent: number = 0;
+   scrollPercent: number = 0;
 
   constructor() {
   }
 
   track(value: number): void {
+    if( value > 65 ){
+      this.currentState = 'final';
+    } else {
+      this.currentState = 'initial';
+    }
     this.scrollPercent = value;
   }
 
   isWelcomeHidden(){
-    if ( this.scrollPercent > 30 ) {
+    if ( this.scrollPercent > 60 ) {
       return true;
     } else {
       return false;

@@ -25,45 +25,21 @@
 
 .invite {
   position: absolute;
-  border-radius: 10px;
+  border: 1px solid $bright-coral;
+  padding: 5px;
   @extend .bg-success;
   z-index: 11;
   margin: 0 auto;
-  margin-top: -200px;
-  margin-left: -300px;
+  margin-top: -135px;
+  margin-left: -260px;
   top: 50%;
   left: 50%;
-  width: 600px;
-  height: 400px;
-  font-family: $vib !important;
-  .invite-container {
-    margin: 10px;
-    height: 380px;
-    width: 580px;
-    border: 1px solid $bright-coral;
-    .invite-title {
-      text-align: center;
-      margin-top: 30px;
-      color: $primary-color-text;
-      h3 {
-        font-size: 46px;
-        font-weight: 600;
-      }
-    }
-    .logo {
-      margin-left: 225px;
-      width: 150px;
-      padding-top: 20px;
-    }
-    .invite-footer {
-      text-align: center;
-      margin-top: 30px;
-      color: $primary-color-text;
-      h3 {
-        font-size: 38px;
-        font-weight: 400;
-      }
-    }
+  width: 520px;
+  height: 270px;
+  .logo {
+    margin-left: 10px;
+    width: 500px;
+    padding-top: 10px;
   }
 }
 
