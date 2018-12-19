@@ -32,10 +32,10 @@ export class HomePageComponent {
   logoImgSrc: string = 'assets/images/logo.png';
   currentState = 'initial';
   catalogItems = CATALOG;
-  imageUrlArray: string[] = ['assets/images/home-3.jpg',
-    'assets/images/home-2.jpg',
-    'assets/images/home-1.jpg',
-    'assets/images/home-4.jpg'];
+  imageUrlArray: string[] = ['assets/images/slide-1.jpg',
+    'assets/images/slide-2.jpg',
+    'assets/images/slide-3.jpg',
+    'assets/images/slide-4.jpg'];
 
    scrollPercent: number = 0;
 
