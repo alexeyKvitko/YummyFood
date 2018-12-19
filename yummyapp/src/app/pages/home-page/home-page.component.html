@@ -1,12 +1,11 @@
-<div class="anim-logo" [@changeDivSize]='currentState'>
+<div class="anim-logo" [@changeDivSize]='currentState' (click)="divClick()">
   <img src="{{logoImgSrc}}"  />
 </div>
 <div class="home-scr" track-scroll (onScroll)="track($event)">
-  <div class="invite">
+  <div class="invite" [@changeInvaitePosition]='invitePos'>
     <div class="invite-container">
-        Крымская Служба
-    <br>
-        Заказа Еды
+      <div class="invite-h">Крымская Служба</div>
+      <div class="invite-f">Заказа Еды</div>
     </div>
   </div>
   <!--<img [src]="'assets/images/home-'+imageNum+'.jpg'"  >-->
@@ -18,7 +17,7 @@
              [autoPlayInterval] = "5000"></slideshow>
 
   <!--================Service Area =================-->
-  <section class="service_area">
+  <section class="service_area" >
     <div class="container">
       <div class="row">
         <div class="col-md-3 col-sm-6" *ngFor="let item of catalogItems">

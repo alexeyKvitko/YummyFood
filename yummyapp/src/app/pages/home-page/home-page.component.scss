@@ -32,22 +32,26 @@
   margin-top: -145px;
   margin-left: -280px;
   top: 40%;
-  left: 20%;
-  width: 560px;
-  height: 290px;
+  left: 80%;
+  width: 600px;
+  height: 260px;
   .invite-container{
     margin: 10px;
-    color: white;
-    width: 530px;
+    color: $white;
+    width: 550px;
     height: 260px;
-    font-family: "Lobster" !important;
-    font-size: 52px;
     text-shadow: 1px 1px 1px $black;
-  }
-  .logo {
-    margin-left: 10px;
-    width: 500px;
-    padding-top: 10px;
+  .invite-h{
+    text-align: center;
+    font-family: "Lobster" !important;
+    font-size: 54px;
+    font-weight: 400;
+    }
+    .invite-f{
+      text-align: center;
+      font-family: "Lobster" !important;
+      font-size: 54px;
+    }
   }
 }
 
