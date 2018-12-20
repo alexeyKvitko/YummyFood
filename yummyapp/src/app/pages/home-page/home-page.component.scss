@@ -23,24 +23,36 @@
   left: 0;
 }
 
+.main-img{
+  background: rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+  position: absolute;
+  left: 0px;
+  top: 0;
+  width: 100%;
+  z-index: 8;
+}
+
 .invite {
   position: absolute;
   padding: 5px;
-  background: transparent;
+  background: rgba($white,0.8);
   z-index: 11;
   margin: 0 auto;
-  margin-top: -145px;
-  margin-left: -280px;
-  top: 40%;
-  left: 80%;
-  width: 600px;
-  height: 260px;
+  margin-top: -130px;
+  margin-left: -300px;
+  top: 50%;
+  left: 50%;
+  width: 550px;
+  height: 240px;
   .invite-container{
+    border: 1px solid $bright-coral;
     margin: 10px;
     color: $white;
-    width: 550px;
-    height: 260px;
+    width: 520px;
+    height: 210px;
     text-shadow: 1px 1px 1px $black;
+    padding-top: 30px;
   .invite-h{
     text-align: center;
     font-family: "Lobster" !important;
