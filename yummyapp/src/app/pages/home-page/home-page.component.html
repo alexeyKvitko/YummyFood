@@ -1,17 +1,19 @@
 <div class="anim-logo" [@changeDivSize]='currentState' (click)="divClick()">
   <img src="{{logoImgSrc}}"  />
 </div>
-<div class="invite" [style.opacity]="inviteOpacity">
-  <div class="invite-container">
-    <div class="invite-h">Крымская Служба</div>
-    <div class="invite-f">Заказа Еды</div>
-  </div>
-</div>
+
 <div class="home-scr" track-scroll (onScroll)="track($event)">
 
-  <!--<div class="main-img">-->
+  <div class="invite" [style.opacity]="inviteOpacity">
+    <div class="invite-container">
+      <div class="invite-h">Крымская Служба</div>
+      <div class="invite-f">Заказа Еды</div>
+    </div>
+  </div>
+
     <img src="{{mainScrImg}}"  >
-  <!--</div>-->
+
+
   <!--<slideshow [imageUrls]="imageUrlArray"-->
              <!--[height]="'925px'"-->
              <!--[minHeight]="'925px'"-->

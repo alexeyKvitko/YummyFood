@@ -36,7 +36,6 @@ export class HomePageComponent {
   currentState = 'initial';
   catalogItems = CATALOG;
   inviteOpacity: number = 1;
-
   scrollPercent: number = 0;
 
   constructor() {
@@ -44,6 +43,7 @@ export class HomePageComponent {
 
 
   track(value: number): void {
+    console.log("value",value);
     let calc = 1- value/25;
     if( calc < 0 ){
       calc = 0;
