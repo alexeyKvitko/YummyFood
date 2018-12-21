@@ -1,7 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {CATALOG} from '../../pages/home-page/catalog';
+import {ACTIONS} from "../../pages/home-page/actions";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {TrackScrollDirective} from "../../directives/track-scroll";
+
 
 @Component({
   selector: 'app-home-page',
@@ -33,8 +35,11 @@ export class HomePageComponent {
   invitePos: string = 'inviteOne';
   pos: number = 1;
   logoImgSrc: string = 'assets/images/logo.png';
+  cornerImgSrc: string = 'assets/images/buttons/corner.png';
+  aboutImgSrc: string = 'assets/images/about.jpg';
   currentState = 'initial';
   catalogItems = CATALOG;
+  actionItems = ACTIONS;
   inviteOpacity: number = 1;
   scrollPercent: number = 0;
 

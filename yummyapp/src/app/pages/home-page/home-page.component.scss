@@ -69,15 +69,20 @@
 
 /* Service css
 ============================================================================================ */
-.service_area {
-  padding: 84px 0px;
+.service-area {
+  padding-top: 30px;
+  padding-bottom: 50px;
+
   .container {
     margin: 0 auto;
+    padding-top: 60px;
   }
+
 }
 
 .service_item {
-  border: 1px solid $dark-green;
+  border: 1px solid $card-border;
+  @include box-shadow( 0 3px 10px 0 rgba($teal-color, .5));
   text-align: center;
   position: relative;
   padding-bottom: 30px;
@@ -111,16 +116,27 @@
   }
 }
 
+.about-us{
+  width:100%;
+  height: 500px;
+  background: $white;
+  img{
+    margin-left: 20px;
+    width: 800px;
+    height: 100%;
+  }
+}
+
 .discounts {
-  background: url("../../../assets/images/back4.jpg") no-repeat fixed center center;
+  background: url("../../../assets/images/back3.jpg") no-repeat fixed center center;
   background-size: cover;
   position: relative;
   z-index: 2;
-  padding: 70px 0px;
+  padding: 40px 0px;
   overflow: hidden;
   .container{
     width: 100%;
-    height: 150px;
+    height: 100px;
     text-align: center;
     span{
       font-weight: 500;
@@ -132,18 +148,51 @@
   }
   .discounts-wrapper{
     background-color: $card-bg;
+    text-align: center;
     width: 100%;
-    height:400px;
+    height:670px;
   }
   &:before{
     content: "";
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba($green-bg, 0.3);
     position: absolute;
     left: 0;
     top: 0;
     z-index: -1;
     width: 100%;
     height: 100%;
+  }
+}
+
+.discount-container{
+  display: table;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+.discount_item {
+  border: 1px solid $card-border;
+  @include box-shadow( 0 3px 10px 0 rgba($teal-color, .5));
+  width: 500px;
+  height: 250px;
+  margin: 30px 30px;
+  //.img-action{
+  //  width: 100%;
+  //}
+  .discount-text {
+    position: absolute;
+    top:190px;
+    left: 250px;
+    color: $bright-coral;
+    font-weight: 400;
+    font-size: 36px;
+    font-family: B52;
+  }
+  .img-corner {
+    height: 170px;
+    width: 500px;
+    position: absolute;
+    top:160px;
+    left: 30px;
   }
 }
 

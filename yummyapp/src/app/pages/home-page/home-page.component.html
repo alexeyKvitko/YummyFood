@@ -1,5 +1,5 @@
 <div class="anim-logo" [@changeDivSize]='currentState' (click)="divClick()">
-  <img src="{{logoImgSrc}}"  />
+  <img src="{{logoImgSrc}}"/>
 </div>
 
 <div class="home-scr" track-scroll (onScroll)="track($event)">
@@ -10,31 +10,36 @@
       <div class="invite-f">Заказа Еды</div>
     </div>
   </div>
-
-    <img src="{{mainScrImg}}"  >
-
+<div>
+  <img src="{{mainScrImg}}">
+</div>
 
   <!--<slideshow [imageUrls]="imageUrlArray"-->
-             <!--[height]="'925px'"-->
-             <!--[minHeight]="'925px'"-->
-             <!--[autoPlay]="true"-->
-             <!--[showArrows]="false"-->
-             <!--[autoPlayInterval] = "5000"></slideshow>-->
-
-  <!--================Service Area =================-->
-  <section class="service_area" >
+  <!--[height]="'925px'"-->
+  <!--[minHeight]="'925px'"-->
+  <!--[autoPlay]="true"-->
+  <!--[showArrows]="false"-->
+  <!--[autoPlayInterval] = "5000"></slideshow>-->
+<!--===========About US =======================-->
+  <div class="about-us">
     <div class="container">
-      <div class="row">
-        <div class="col-md-3 col-sm-6" *ngFor="let item of catalogItems">
-          <div  class="service_item" >
-            <img src="{{item.imagePath}}" alt="">
-            <h3>{{item.title}}</h3>
+      <img src="{{aboutImgSrc}}" alt="">
+    </div>
+  </div>
+  <!--================Service Area =================-->
+  <section class="service-area">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 col-sm-6" *ngFor="let item of catalogItems">
+            <div class="service_item">
+              <img src="{{item.imagePath}}" alt="">
+              <h3>{{item.title}}</h3>
               <p>{{item.description}}</p>
-            <a class="read_mor_btn" href="#">Смотреть Меню</a>
+              <a class="read_mor_btn" href="#">Смотреть Меню</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
   </section>
   <!--================End Service Area =================-->
   <!--================Booking Table Area =================-->
@@ -43,7 +48,36 @@
       <span>Акции и Скидки</span>
     </div>
     <div class="discounts-wrapper">
-      asdlakd;lka;lsdka;ldska;lksda;ls
+      <div class="discount-container">
+        <div class="row">
+          <div class="col-md-6">
+          <div class="discount_item" [style.background]="actionItems[0].actionImgPath" >
+            <img class="img-corner" src="{{cornerImgSrc}}" alt="">
+            <div class="discount-text">{{actionItems[0].company}}</div>
+          </div>
+          </div>
+          <div class="col-md-6">
+          <div class="discount_item" [style.background]="actionItems[1].actionImgPath" >
+            <img class="img-corner" src="{{cornerImgSrc}}" alt="">
+            <div class="discount-text">{{actionItems[1].company}}</div>
+          </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="discount_item" [style.background]="actionItems[2].actionImgPath" >
+              <img class="img-corner" src="{{cornerImgSrc}}" alt="">
+              <div class="discount-text">{{actionItems[2].company}}</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="discount_item" [style.background]="actionItems[3].actionImgPath" >
+              <img class="img-corner" src="{{cornerImgSrc}}" alt="">
+              <div class="discount-text">{{actionItems[3].company}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
   <!--================End Booking Table Area =================-->
