@@ -52,7 +52,7 @@
     width: 520px;
     height: 210px;
     text-shadow: 1px 1px 1px $black;
-    padding-top: 30px;
+    padding-top: 20px;
   .invite-h{
     text-align: center;
     font-family: "Lobster" !important;
@@ -101,7 +101,7 @@
     top: -84px;
   }
   h3 {
-    font-size: 20px;
+    font-size: 24px;
     font-family: $can !important;
     color: $bright-coral;
     text-transform: uppercase;
@@ -112,7 +112,7 @@
     line-height: 26px;
     color: $primary-text-color;
     padding: 15px 8px 25px 8px;
-    height: 230px;
+    height: 210px;
   }
 }
 
@@ -120,24 +120,42 @@
   width:100%;
   height: 500px;
   background: $white;
+  display: flex;
+  flex-direction: row;
   img{
     margin-left: 20px;
     width: 800px;
     height: 100%;
   }
+  .about-container{
+    margin-left: -15%;
+    margin-top: 40px;
+    .about-text{
+      h2{
+        font-size: 32px;
+        color: $primary-text-color;
+        font-family: 'Roboto-Condensed-Light'!important;
+      }
+      p{
+        font-size: 22px;
+        color: $secondary-text-color;
+        font-family: 'Roboto-Condensed-Light'!important;
+      }
+    }
+  }
 }
 
 .discounts {
-  background: url("../../../assets/images/back3.jpg") no-repeat fixed center center;
+  background: url("../../../assets/images/sudhi-bkg.jpg") no-repeat fixed top center;
   background-size: cover;
   position: relative;
   z-index: 2;
-  padding: 40px 0px;
   overflow: hidden;
-  .container{
+  .paralax-container{
     width: 100%;
-    height: 100px;
+    height: 150px;
     text-align: center;
+    padding-top: 40px;
     span{
       font-weight: 500;
       color: $primary-color-text;
@@ -152,6 +170,12 @@
     width: 100%;
     height:670px;
   }
+  .service-wrapper{
+    background-color: $card-bg;
+    padding-top: 60px;
+    width: 100%;
+    height:550px;
+  }
   &:before{
     content: "";
     background: rgba($green-bg, 0.3);
@@ -162,6 +186,11 @@
     width: 100%;
     height: 100%;
   }
+}
+
+.service-container{
+  margin: 0 15%;
+  padding-top: 20px;
 }
 
 .discount-container{
@@ -180,7 +209,7 @@
   //}
   .discount-text {
     position: absolute;
-    top:190px;
+    top:195px;
     left: 250px;
     color: $bright-coral;
     font-weight: 400;
@@ -196,3 +225,160 @@
   }
 }
 
+.down-icon{
+  position: absolute;
+  color: $white;
+  background-color: $green-bg;
+  font-size: 24px;
+  border-radius: 50%;
+  padding: 10px 20px;
+  top: 900px;
+  left: 70%;
+  transition: all 400ms linear 0s;
+  &:hover{
+    cursor: pointer;
+    background-color: $bright-coral;
+    color: $primary-color-text;
+  }
+}
+
+@media (max-width:1440px) {
+  .service-container{
+    margin: 0 8%;
+    padding-top: 20px;
+  }
+  .about-us{
+    width:100%;
+    height: 350px;
+    background: $white;
+    display: flex;
+    flex-direction: row;
+    img{
+      margin-left: 10px;
+      width: 560px;
+      height: 100%;
+    }
+    .about-container{
+      margin-left: -45%;
+      margin-top: 20px;
+      .about-text{
+        h2{
+          font-size: 22px;
+          color: $primary-text-color;
+          font-family: 'Roboto-Condensed-Light'!important;
+        }
+        p{
+          font-size: 16px;
+          color: $secondary-text-color;
+          font-family: 'Roboto-Condensed-Light'!important;
+        }
+      }
+    }
+  }
+}
+
+
+//.discount_item {
+//  border: 1px solid $card-border;
+//  @include box-shadow( 0 3px 10px 0 rgba($teal-color, .5));
+//  width: 500px;
+//  height: 250px;
+//  margin: 30px 30px;
+//  //.img-action{
+//  //  width: 100%;
+//  //}
+//  .discount-text {
+//    position: absolute;
+//    top:190px;
+//    left: 250px;
+//    color: $bright-coral;
+//    font-weight: 400;
+//    font-size: 36px;
+//    font-family: B52;
+//  }
+//  .img-corner {
+//    height: 170px;
+//    width: 500px;
+//    position: absolute;
+//    top:160px;
+//    left: 30px;
+//  }
+//}
+
+.discounts-one {
+  background: url("../../../assets/images/slide-2.jpg") no-repeat fixed top center;
+  background-size: cover;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  .paralax-container{
+    width: 100%;
+    height: 150px;
+    text-align: center;
+    padding-top: 40px;
+    span{
+      font-weight: 500;
+      color: $primary-color-text;
+      font-family: "Lobster" !important;
+      font-size: 52px;
+      text-shadow: 1px 1px 1px $black;
+    }
+  }
+  .mobile-wrapper{
+    background-color: $card-bg;
+    width: 100%;
+    height:350px;
+    display: flex;
+    flex-direction: row;
+    .mobile-container{
+      width:50%;
+      height: 100%;
+      text-align: right;
+      padding-top: 60px;
+      padding-right: 80px;
+      background-color: $green-bg;
+      .mobile-desc{
+        padding-top: 20px;
+      }
+      h2{
+        font-size: 64px;
+        font-weight: 400;
+        color: $white;
+        font-family: 'Roboto-Condensed-Light'!important;
+      }
+      p{
+        font-size: 22px;
+        color: #FEFEFE;
+        font-family: 'Roboto-Condensed-Light'!important;
+      }
+    }
+    .mobile-phone{
+      position: relative;
+      left: 20%;
+      top:-70px;
+      img{
+        height: 420px;
+      }
+    }
+  }
+  .mobile-footer{
+    width: 100%;
+    height: 150px;
+    padding-top: 60px;
+    background-color: rgba($dark-green,0.97);
+    text-align: center;
+    font-size: 18px;
+    color: #FEFEFE;
+    font-family: 'Roboto-Condensed-Light'!important;
+  }
+  &:before{
+    content: "";
+    background: rgba($green-bg, 0.3);
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+  }
+}

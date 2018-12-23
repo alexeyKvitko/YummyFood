@@ -158,7 +158,7 @@
   background: transparent;
   text-align: center;
   width: 120px;
-  font-family: $can;
+  font-family: Roboto-Condensed-Light;
   color: $teal-color;
   line-height: 40px;
   display: inline-block;
@@ -167,6 +167,7 @@
   position: relative;
   letter-spacing: .42px;
   text-transform: uppercase;
+
   i{
     padding-right: 5px;
   }

@@ -31,10 +31,10 @@ import {TrackScrollDirective} from "../../directives/track-scroll";
 export class HomePageComponent {
   @ViewChild(TrackScrollDirective) scroll: TrackScrollDirective;
   mainScrImg: string = 'assets/images/shahlyk-1.jpg';
-  animArr: string[] = ['inviteOne','inviteTwo','inviteThree','inviteFour'];
   invitePos: string = 'inviteOne';
   pos: number = 1;
   logoImgSrc: string = 'assets/images/logo.png';
+  phoneImgSrc: string = 'assets/images/mobile.png';
   cornerImgSrc: string = 'assets/images/buttons/corner.png';
   aboutImgSrc: string = 'assets/images/about.jpg';
   currentState = 'initial';
@@ -48,7 +48,6 @@ export class HomePageComponent {
 
 
   track(value: number): void {
-    console.log("value",value);
     let calc = 1- value/25;
     if( calc < 0 ){
       calc = 0;

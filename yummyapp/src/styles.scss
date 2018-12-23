@@ -38,7 +38,8 @@ HTML, body {
 }
 @font-face {
   font-family: 'Roboto';
-  src: url("assets/fonts/roboto/Roboto-Regular.ttf") format("truetype");
+  src: url("assets/fonts/roboto/Roboto-Regular.ttf"),
+       url("assets/fonts/roboto/Roboto-Thin.ttf") format("truetype");
 }
 
 @font-face {

@@ -3,16 +3,18 @@
 </div>
 
 <div class="home-scr" track-scroll (onScroll)="track($event)">
-
+  <div class="down-icon" [style.opacity]="inviteOpacity">
+    <i class="fas fa-angle-double-down" aria-hidden="true"></i>
+  </div>
   <div class="invite" [style.opacity]="inviteOpacity">
     <div class="invite-container">
       <div class="invite-h">Крымская Служба</div>
       <div class="invite-f">Заказа Еды</div>
     </div>
   </div>
-<div>
-  <img src="{{mainScrImg}}">
-</div>
+  <div>
+    <img src="{{mainScrImg}}">
+  </div>
 
   <!--<slideshow [imageUrls]="imageUrlArray"-->
   <!--[height]="'925px'"-->
@@ -20,17 +22,55 @@
   <!--[autoPlay]="true"-->
   <!--[showArrows]="false"-->
   <!--[autoPlayInterval] = "5000"></slideshow>-->
-<!--===========About US =======================-->
+  <!--===========About US =======================-->
   <div class="about-us">
     <div class="container">
       <img src="{{aboutImgSrc}}" alt="">
     </div>
+    <div class="about-container">
+      <div class="about-text">
+        <h2>КРЫМСКАЯ СЛУЖБА</h2>
+        <h2>ЗАКАЗА ЕДЫ С ДОСТАВКОЙ НА ДОМ</h2><br>
+        <p>Чем Вы побалуете себя на завтрак, обед, ужин? </p>
+        <p>Блинчики с творогом и изюмом,</p>
+        <p>вырезкой из говядины или пикантным палтусом в винном соусе?</p>
+        <p>Острой «Пеперони» или сочной «Карбонарой»? А может быть,</p>
+        <p>Вас порадует «Цезарь» с тигровыми креветками или вкуснейшие роллы.</p>
+        <p>«Гурме Маки» со сливочным сыром и спайси-соусом? Что бы Вы ни выбрали,</p>
+        <p>доставка еды на портале <strong>ЕдаНяма.рф</strong> поможет сэкономить Ваше время.</p><br>
+        <p><strong>ЕдаНяма.рф</strong> – это независимый бесплатный ресурс, собравший в своем каталоге </p>
+        <p>предложения от лучших ресторанов и кафе Крыма. Посетив наш сайт, Вы сможете заказать</p>
+        <p>еду и напитки в любое время суток и любом городе Крыма.</p>
+      </div>
+
+    </div>
   </div>
   <!--================Service Area =================-->
-  <section class="service-area">
-      <div class="container">
+  <!--<section class="service-area">-->
+    <!--<div class="container">-->
+      <!--<div class="row">-->
+        <!--<div class="col-md-3 col-sm-6" *ngFor="let item of catalogItems">-->
+          <!--<div class="service_item">-->
+            <!--<img src="{{item.imagePath}}" alt="">-->
+            <!--<h3>{{item.title}}</h3>-->
+            <!--<p>{{item.description}}</p>-->
+            <!--<a class="read_mor_btn" href="#">Смотреть Меню</a>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</section>-->
+  <!--================End Service Area =================-->
+  <!--================Booking Table Area =================-->
+  <section class="discounts" >
+    <div class="paralax-container"  >
+      <span>Популярные Блюда</span>
+    </div>
+    <!--================Service Area =================-->
+    <section class="service-wrapper" >
+      <div class="service-container" >
         <div class="row">
-          <div class="col-md-3 col-sm-6" *ngFor="let item of catalogItems">
+          <div class="col-6 col-sm-3" *ngFor="let item of catalogItems">
             <div class="service_item">
               <img src="{{item.imagePath}}" alt="">
               <h3>{{item.title}}</h3>
@@ -40,38 +80,36 @@
           </div>
         </div>
       </div>
-  </section>
-  <!--================End Service Area =================-->
-  <!--================Booking Table Area =================-->
-  <section class="discounts">
-    <div class="container">
+    </section>
+    <!--================End Service Area =================-->
+    <div class="paralax-container">
       <span>Акции и Скидки</span>
     </div>
     <div class="discounts-wrapper">
       <div class="discount-container">
         <div class="row">
           <div class="col-md-6">
-          <div class="discount_item" [style.background]="actionItems[0].actionImgPath" >
-            <img class="img-corner" src="{{cornerImgSrc}}" alt="">
-            <div class="discount-text">{{actionItems[0].company}}</div>
-          </div>
+            <div class="discount_item" [style.background]="actionItems[0].actionImgPath">
+              <img class="img-corner" src="{{cornerImgSrc}}" alt="">
+              <div class="discount-text">{{actionItems[0].company}}</div>
+            </div>
           </div>
           <div class="col-md-6">
-          <div class="discount_item" [style.background]="actionItems[1].actionImgPath" >
-            <img class="img-corner" src="{{cornerImgSrc}}" alt="">
-            <div class="discount-text">{{actionItems[1].company}}</div>
-          </div>
+            <div class="discount_item" [style.background]="actionItems[1].actionImgPath">
+              <img class="img-corner" src="{{cornerImgSrc}}" alt="">
+              <div class="discount-text">{{actionItems[1].company}}</div>
+            </div>
           </div>
         </div>
         <div class="row">
           <div class="col-md-6">
-            <div class="discount_item" [style.background]="actionItems[2].actionImgPath" >
+            <div class="discount_item" [style.background]="actionItems[2].actionImgPath">
               <img class="img-corner" src="{{cornerImgSrc}}" alt="">
               <div class="discount-text">{{actionItems[2].company}}</div>
             </div>
           </div>
           <div class="col-md-6">
-            <div class="discount_item" [style.background]="actionItems[3].actionImgPath" >
+            <div class="discount_item" [style.background]="actionItems[3].actionImgPath">
               <img class="img-corner" src="{{cornerImgSrc}}" alt="">
               <div class="discount-text">{{actionItems[3].company}}</div>
             </div>
@@ -80,5 +118,27 @@
       </div>
     </div>
   </section>
-  <!--================End Booking Table Area =================-->
+  <section class="discounts-one">
+    <!--================DOWNLOAD MOBILE AREA =================-->
+    <div class="paralax-container">
+      <span>Легко! Удобно!</span>
+    </div>
+    <!--================Service Area =================-->
+    <div class="mobile-wrapper" >
+      <div class="mobile-container" >
+        <h2>Заказ еды</h2>
+        <h2>всегда под рукой</h2>
+        <div class="mobile-desc">
+          <p>Заказать любимое блюдо или попробовать что-то новое?</p>
+          <p>Сравнивайте, выбирайте, заказывайте!</p>
+        </div>
+      </div>
+      <div class="mobile-phone" >
+        <img src="{{phoneImgSrc}}"/>
+      </div>
+    </div>
+    <div class="mobile-footer">
+      Еда из ресторана с доставкой к Вам домой. Проведите уютный вечер дома наслаждаясь лучшими блюдами!
+    </div>
+  </section>
 </div>
