@@ -1,5 +1,5 @@
 <div  class="anim-logo" [@changeDivSize]='currentState'>
-  <img src="{{logoImgSrc}}"/>
+  <img src="{{imagePaths.logoSrc}}"/>
 </div>
 
 <div class="home-scr" track-scroll (onScroll)="track($event)">
@@ -13,7 +13,7 @@
     </div>
   </div>
   <div id="top">
-    <img src="{{mainScrImg}}">
+    <img src="{{imagePaths.mainScr}}">
   </div>
 
   <!--<slideshow [imageUrls]="imageUrlArray"-->
@@ -25,7 +25,7 @@
   <!--===========About US =======================-->
   <div  class="about-us">
     <div class="container">
-      <img src="{{aboutImgSrc}}" alt="">
+      <img src="{{imagePaths.aboutSrc}}" alt="">
     </div>
     <div class="about-container">
       <div class="about-text">
@@ -45,33 +45,16 @@
 
     </div>
   </div>
-  <!--================Service Area =================-->
-  <!--<section class="service-area">-->
-    <!--<div class="container">-->
-      <!--<div class="row">-->
-        <!--<div class="col-md-3 col-sm-6" *ngFor="let item of catalogItems">-->
-          <!--<div class="service_item">-->
-            <!--<img src="{{item.imagePath}}" alt="">-->
-            <!--<h3>{{item.title}}</h3>-->
-            <!--<p>{{item.description}}</p>-->
-            <!--<a class="read_mor_btn" href="#">Смотреть Меню</a>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</section>-->
-  <!--================End Service Area =================-->
-  <!--================Booking Table Area =================-->
-  <section class="discounts" >
+  <!--================Proposal Area =================-->
+  <div class="proposal" >
     <div class="paralax-container"  >
-      <span>Популярные Блюда</span>
+      <span>Популярные Меню</span>
     </div>
-    <!--================Service Area =================-->
-    <section class="service-wrapper" >
-      <div class="service-container" >
+    <section class="proposal-wrapper" >
+      <div class="proposal-container" >
         <div class="row">
           <div class="col-6 col-sm-3" *ngFor="let item of catalogItems">
-            <div class="service_item">
+            <div class="proposal-item">
               <img src="{{item.imagePath}}" alt="">
               <h3>{{item.title}}</h3>
               <p>{{item.description}}</p>
@@ -81,7 +64,10 @@
         </div>
       </div>
     </section>
-    <!--================End Service Area =================-->
+   </div>
+    <!--================End Proposal Area =================-->
+    <!--================Discounts Area =================-->
+   <section class="discounts">
     <div class="paralax-container">
       <span>Акции и Скидки</span>
     </div>
@@ -90,13 +76,13 @@
         <div class="row">
           <div class="col-md-6">
             <div class="discount_item" [style.background]="actionItems[0].actionImgPath">
-              <img class="img-corner" src="{{cornerImgSrc}}" alt="">
+              <img class="img-corner" src="{{imagePaths.cornerSrc}}" alt="">
               <div class="discount-text">{{actionItems[0].company}}</div>
             </div>
           </div>
           <div class="col-md-6">
             <div class="discount_item" [style.background]="actionItems[1].actionImgPath">
-              <img class="img-corner" src="{{cornerImgSrc}}" alt="">
+              <img class="img-corner" src="{{imagePaths.cornerSrc}}" alt="">
               <div class="discount-text">{{actionItems[1].company}}</div>
             </div>
           </div>
@@ -104,13 +90,13 @@
         <div class="row">
           <div class="col-md-6">
             <div class="discount_item" [style.background]="actionItems[2].actionImgPath">
-              <img class="img-corner" src="{{cornerImgSrc}}" alt="">
+              <img class="img-corner" src="{{imagePaths.cornerSrc}}" alt="">
               <div class="discount-text">{{actionItems[2].company}}</div>
             </div>
           </div>
           <div class="col-md-6">
             <div class="discount_item" [style.background]="actionItems[3].actionImgPath">
-              <img class="img-corner" src="{{cornerImgSrc}}" alt="">
+              <img class="img-corner" src="{{imagePaths.cornerSrc}}" alt="">
               <div class="discount-text">{{actionItems[3].company}}</div>
             </div>
           </div>
@@ -118,8 +104,8 @@
       </div>
     </div>
   </section>
-  <section class="discounts-one">
-    <!--================DOWNLOAD MOBILE AREA =================-->
+   <!--================MOBILE AREA =================-->
+    <section class="mobile">
     <div class="paralax-container">
       <span>Легко! Удобно!</span>
     </div>
@@ -135,21 +121,21 @@
       </div>
       <div class="mobile-btn-grp">
         <div class="mobile-btn-item main-button" href="#">
-          <img src="{{appleImgSrc}}">
+          <img src="{{imagePaths.appleSrc}}">
           <div class="mobile-label">
             <p>Скачать</p>
             <p>в <b>APP STORE</b></p>
           </div>
         </div>
         <div class="mobile-btn-item main-button" href="#">
-          <img src="{{googleImgSrc}}">
+          <img src="{{imagePaths.googleSrc}}">
           <div class="mobile-label">
             <p>Скачать</p>
             <p>в <b>GOOGLE PLAY</b></p>
           </div>
         </div>
         <div class="mobile-btn-item main-button" href="#">
-          <img src="{{directImgSrc}}">
+          <img src="{{imagePaths.directSrc}}">
           <div class="mobile-label">
             <p>Прямое</p>
             <p>Скачивание</p>
@@ -157,12 +143,19 @@
         </div>
       </div>
       <div class="mobile-phone" >
-        <img src="{{phoneImgSrc}}"/>
+        <img src="{{imagePaths.phoneSrc}}"/>
       </div>
     </div>
     <div class="mobile-footer">
       <div class="up-icon"  (click)="moveTopBottom()">
         <i class="fas fa-angle-double-up" aria-hidden="true"></i>
+      </div>
+      <div class="mobile-social">
+        <div class="row">
+        <div class="col-md-2 mobile-social-icon" *ngFor="let socialIcon of socialIcons">
+          <img src="{{socialIcon.imagePath}}">
+        </div>
+        </div>
       </div>
       Еда из ресторана с доставкой к Вам домой. Проведите уютный вечер дома наслаждаясь лучшими блюдами!
     </div>

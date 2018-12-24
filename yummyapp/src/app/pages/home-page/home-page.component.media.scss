@@ -1,0 +1,57 @@
+@media (max-width:1700px) {
+  .about-us{
+    img{
+      width: 650px!important;
+      height: 100%!important;
+    }
+    .about-container{
+      position: absolute;
+      left: 50%!important;
+      margin-top: 40px;
+      .about-text{
+        h2{
+          font-size: 28px!important;
+        }
+        p{
+          font-size: 20px!important;
+        }
+      }
+    }
+  }
+}
+@media (max-width:1440px) {
+  .proposal-container{
+    margin: 0 5%!important;
+    padding-top: 20px;
+    p{
+      overflow-y: auto;
+      margin-bottom: 6px;
+    }
+  }
+  .about-us{
+    width:100%;
+    height: 350px;
+    background: $white;
+    display: flex;
+    flex-direction: row;
+    img{
+      display: none;
+      width: 560px!important;
+      height: 100%!important;
+    }
+    .about-container{
+      position: absolute;
+      left: 0%!important;
+      margin-left: 30px;
+      margin-top: 20px;
+      .about-text{
+        h2{
+          font-size: 34px!important;
+        }
+        p{
+          font-size: 18px!important;
+        }
+      }
+    }
+  }
+}

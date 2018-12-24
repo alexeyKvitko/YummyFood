@@ -1,8 +1,10 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
-import {CATALOG} from '../../pages/home-page/catalog';
-import {ACTIONS} from "../../pages/home-page/actions";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {TrackScrollDirective} from "../../directives/track-scroll";
+import {IMAGE_PATHS} from "./const-image-paths";
+import {CATALOG} from "./const-catalog";
+import {ACTIONS} from "./const-actions";
+import {SOCIAL} from "./const-social";
 
 
 @Component({
@@ -40,17 +42,11 @@ import {TrackScrollDirective} from "../../directives/track-scroll";
 })
 export class HomePageComponent {
   @ViewChild(TrackScrollDirective) scroll: TrackScrollDirective;
-  mainScrImg: string = 'assets/images/shahlyk-1.jpg';
   scrollPos: string = 'top';
-  logoImgSrc: string = 'assets/images/logo.png';
-  phoneImgSrc: string = 'assets/images/mobile.png';
-  cornerImgSrc: string = 'assets/images/buttons/corner.png';
-  aboutImgSrc: string = 'assets/images/about.jpg';
-  appleImgSrc: string = 'assets/images/buttons/apple.png';
-  googleImgSrc: string = 'assets/images/buttons/google.png';
-  directImgSrc: string = 'assets/images/buttons/direct.png';
   currentState = 'initial';
+  imagePaths = IMAGE_PATHS;
   catalogItems = CATALOG;
+  socialIcons = SOCIAL;
   actionItems = ACTIONS;
   inviteOpacity: number = 1;
   scrollPercent: number = 0;
@@ -59,7 +55,6 @@ export class HomePageComponent {
   }
 
   moveTopBottom(){
-    console.log(this.scrollPos);
     if( this.scrollPos === 'top' ){
       document.getElementById("bottom").scrollIntoView();
       this.scrollPos = 'bottom';
