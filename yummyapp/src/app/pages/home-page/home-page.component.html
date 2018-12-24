@@ -1,18 +1,18 @@
-<div class="anim-logo" [@changeDivSize]='currentState' (click)="divClick()">
+<div  class="anim-logo" [@changeDivSize]='currentState'>
   <img src="{{logoImgSrc}}"/>
 </div>
 
 <div class="home-scr" track-scroll (onScroll)="track($event)">
-  <div class="down-icon" [style.opacity]="inviteOpacity">
+  <div class="down-icon" [style.opacity]="inviteOpacity" (click)="moveTopBottom()">
     <i class="fas fa-angle-double-down" aria-hidden="true"></i>
   </div>
-  <div class="invite" [style.opacity]="inviteOpacity">
+  <div  class="invite" [style.opacity]="inviteOpacity">
     <div class="invite-container">
       <div class="invite-h">Крымская Служба</div>
       <div class="invite-f">Заказа Еды</div>
     </div>
   </div>
-  <div>
+  <div id="top">
     <img src="{{mainScrImg}}">
   </div>
 
@@ -23,7 +23,7 @@
   <!--[showArrows]="false"-->
   <!--[autoPlayInterval] = "5000"></slideshow>-->
   <!--===========About US =======================-->
-  <div class="about-us">
+  <div  class="about-us">
     <div class="container">
       <img src="{{aboutImgSrc}}" alt="">
     </div>
@@ -75,7 +75,7 @@
               <img src="{{item.imagePath}}" alt="">
               <h3>{{item.title}}</h3>
               <p>{{item.description}}</p>
-              <a class="read_mor_btn" href="#">Смотреть Меню</a>
+              <a class="main-button" href="#">Смотреть Меню</a>
             </div>
           </div>
         </div>
@@ -124,7 +124,7 @@
       <span>Легко! Удобно!</span>
     </div>
     <!--================Service Area =================-->
-    <div class="mobile-wrapper" >
+    <div id="bottom" class="mobile-wrapper" >
       <div class="mobile-container" >
         <h2>Заказ еды</h2>
         <h2>всегда под рукой</h2>
@@ -133,11 +133,37 @@
           <p>Сравнивайте, выбирайте, заказывайте!</p>
         </div>
       </div>
+      <div class="mobile-btn-grp">
+        <div class="mobile-btn-item main-button" href="#">
+          <img src="{{appleImgSrc}}">
+          <div class="mobile-label">
+            <p>Скачать</p>
+            <p>в <b>APP STORE</b></p>
+          </div>
+        </div>
+        <div class="mobile-btn-item main-button" href="#">
+          <img src="{{googleImgSrc}}">
+          <div class="mobile-label">
+            <p>Скачать</p>
+            <p>в <b>GOOGLE PLAY</b></p>
+          </div>
+        </div>
+        <div class="mobile-btn-item main-button" href="#">
+          <img src="{{directImgSrc}}">
+          <div class="mobile-label">
+            <p>Прямое</p>
+            <p>Скачивание</p>
+          </div>
+        </div>
+      </div>
       <div class="mobile-phone" >
         <img src="{{phoneImgSrc}}"/>
       </div>
     </div>
     <div class="mobile-footer">
+      <div class="up-icon"  (click)="moveTopBottom()">
+        <i class="fas fa-angle-double-up" aria-hidden="true"></i>
+      </div>
       Еда из ресторана с доставкой к Вам домой. Проведите уютный вечер дома наслаждаясь лучшими блюдами!
     </div>
   </section>

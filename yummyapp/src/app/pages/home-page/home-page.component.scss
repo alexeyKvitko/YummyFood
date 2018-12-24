@@ -128,7 +128,8 @@
     height: 100%;
   }
   .about-container{
-    margin-left: -15%;
+    position: absolute;
+    left: 45%;
     margin-top: 40px;
     .about-text{
       h2{
@@ -242,6 +243,23 @@
   }
 }
 
+.up-icon{
+  position: absolute;
+  color: $white;
+  background-color: $green-bg;
+  font-size: 24px;
+  border-radius: 50%;
+  padding: 10px 20px;
+  top: 475px;
+  left: 15%;
+  transition: all 400ms linear 0s;
+  &:hover{
+    cursor: pointer;
+    background-color: $bright-coral;
+    color: $primary-color-text;
+  }
+}
+
 @media (max-width:1440px) {
   .service-container{
     margin: 0 8%;
@@ -277,33 +295,6 @@
   }
 }
 
-
-//.discount_item {
-//  border: 1px solid $card-border;
-//  @include box-shadow( 0 3px 10px 0 rgba($teal-color, .5));
-//  width: 500px;
-//  height: 250px;
-//  margin: 30px 30px;
-//  //.img-action{
-//  //  width: 100%;
-//  //}
-//  .discount-text {
-//    position: absolute;
-//    top:190px;
-//    left: 250px;
-//    color: $bright-coral;
-//    font-weight: 400;
-//    font-size: 36px;
-//    font-family: B52;
-//  }
-//  .img-corner {
-//    height: 170px;
-//    width: 500px;
-//    position: absolute;
-//    top:160px;
-//    left: 30px;
-//  }
-//}
 
 .discounts-one {
   background: url("../../../assets/images/slide-2.jpg") no-repeat fixed top center;
@@ -354,11 +345,46 @@
     }
     .mobile-phone{
       position: relative;
-      left: 20%;
+      left: 10%;
       top:-70px;
       img{
         height: 420px;
       }
+    }
+    .mobile-btn-grp{
+      margin-left: 20px;
+      margin-top: 50px;
+      display: flex;
+      flex-direction: column;
+      .mobile-btn-item{
+        position: relative;
+        width: 220px;
+        height: 54px;
+        margin-top: 20px;
+        padding: 6px;
+        text-align: left;
+        display: flex;
+        flex-direction: row;
+        img{
+          width: 48px;
+        }
+        .mobile-label{
+          position: absolute;
+          height: 18px;
+          top: -2px;
+          left: 62px;
+        }
+        p{
+          height: 20px;
+          font-size: 18px;
+          color: $primary-text-color;
+          font-family: 'Roboto-Condensed-Light'!important;
+        }
+        &:hover{
+          cursor: pointer;
+        }
+      }
+
     }
   }
   .mobile-footer{

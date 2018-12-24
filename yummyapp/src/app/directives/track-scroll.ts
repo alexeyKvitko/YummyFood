@@ -2,7 +2,6 @@ import {Directive, EventEmitter, HostListener, Output} from "@angular/core";
 
 @Directive({
   selector: '[track-scroll]',
-  // host: {'(window:scroll)': 'track($event)'}
 })
 
 export class TrackScrollDirective {

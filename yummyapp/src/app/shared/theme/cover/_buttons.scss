@@ -154,8 +154,10 @@
     }
 }
 
-.read_mor_btn{
+.main-button{
   background: transparent;
+  border: 1px solid $green-bg;
+  border-radius: 3px;
   text-align: center;
   width: 120px;
   font-family: Roboto-Condensed-Light;
@@ -166,8 +168,6 @@
   z-index: 2;
   position: relative;
   letter-spacing: .42px;
-  text-transform: uppercase;
-
   i{
     padding-right: 5px;
   }
@@ -187,6 +187,8 @@
   &:after{
     content: '';
     position: absolute;
+    border: 1px solid $green-bg;
+    border-radius: 2px;
     top: 0;
     left: 0;
     width: 100%;
@@ -197,7 +199,7 @@
     -moz-transition: all 0.3s;
     -o-transition: all 0.3s;
     transition: all 0.3s;
-    background: $bright-coral;
+    background: $green-bg;
     -webkit-transform: scale(1.2,1.2);
     transform: scale(1.2,1.2);
   }

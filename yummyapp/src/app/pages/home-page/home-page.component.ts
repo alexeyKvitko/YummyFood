@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {CATALOG} from '../../pages/home-page/catalog';
 import {ACTIONS} from "../../pages/home-page/actions";
 import {animate, state, style, transition, trigger} from "@angular/animations";
@@ -25,18 +25,30 @@ import {TrackScrollDirective} from "../../directives/track-scroll";
       })),
       transition('initial=>final', animate('400ms')),
       transition('final=>initial', animate('200ms'))
+    ]),
+    trigger('scrollAnimation', [
+      state('top', style({
+        top: '0'
+      })),
+      state('bottom',   style({
+        top: '80%'
+      })),
+      transition('top => bottom', animate('700ms ease-out')),
+      transition('bottom => top', animate('700ms ease-in'))
     ])
   ]
 })
 export class HomePageComponent {
   @ViewChild(TrackScrollDirective) scroll: TrackScrollDirective;
   mainScrImg: string = 'assets/images/shahlyk-1.jpg';
-  invitePos: string = 'inviteOne';
-  pos: number = 1;
+  scrollPos: string = 'top';
   logoImgSrc: string = 'assets/images/logo.png';
   phoneImgSrc: string = 'assets/images/mobile.png';
   cornerImgSrc: string = 'assets/images/buttons/corner.png';
   aboutImgSrc: string = 'assets/images/about.jpg';
+  appleImgSrc: string = 'assets/images/buttons/apple.png';
+  googleImgSrc: string = 'assets/images/buttons/google.png';
+  directImgSrc: string = 'assets/images/buttons/direct.png';
   currentState = 'initial';
   catalogItems = CATALOG;
   actionItems = ACTIONS;
@@ -44,6 +56,18 @@ export class HomePageComponent {
   scrollPercent: number = 0;
 
   constructor() {
+  }
+
+  moveTopBottom(){
+    console.log(this.scrollPos);
+    if( this.scrollPos === 'top' ){
+      document.getElementById("bottom").scrollIntoView();
+      this.scrollPos = 'bottom';
+    } else {
+      document.getElementById("top").scrollIntoView();
+      this.scrollPos = 'top';
+    }
+
   }
 
 
