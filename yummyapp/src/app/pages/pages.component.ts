@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
 import { GlobalService } from '../shared/services/global.service';
+import {RouterOutlet} from "@angular/router";
+import {pageRouteAnimation} from "./page-animation";
 
 @Component({
   selector: 'app-pages',
   templateUrl: './pages.component.html',
-  styleUrls: ['./pages.component.scss']
+  styleUrls: ['./pages.component.scss'], animations: [
+    pageRouteAnimation
+  ]
 })
 
 export class PagesComponent {

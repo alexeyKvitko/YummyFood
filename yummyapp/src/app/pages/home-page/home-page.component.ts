@@ -40,7 +40,7 @@ import {SOCIAL} from "./const-social";
     ])
   ]
 })
-export class HomePageComponent {
+export class HomePageComponent implements OnInit{
   @ViewChild(TrackScrollDirective) scroll: TrackScrollDirective;
   scrollPos: string = 'top';
   currentState = 'initial';
@@ -79,6 +79,10 @@ export class HomePageComponent {
     }
     this.scrollPercent = value;
   }
+
+  ngOnInit(): void {
+  }
+
 
 
 }
