@@ -225,6 +225,34 @@ input.with-info-addon {
   margin-bottom: 6px;
 }
 
+.input-group-addon-search {
+  //background: $teal-color;
+  background-color: $bright-coral;
+  font-family: B52;
+  font-size: 18px;
+  font-weight: 400;
+  color: #ffffff;
+  width: 80px;
+  text-align: center;
+  padding: 8px 11px;
+  margin-bottom: 8px;
+  &:hover{
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+    &:before{
+      opacity: 0;
+      -webkit-transform: scale(0.5,0.5);
+      transform: scale(0.5,0.5);
+    }
+    &:after{
+      opacity: 1;
+      -webkit-transform: scale(1.2,1.2);
+      transform: scale(1.2,1.2);
+    }
+  }
+}
+
 .itr-start {
   border-radius: 0px !important;
 }

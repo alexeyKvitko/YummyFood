@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import { GlobalService } from '../../services/global.service';
 import {Router} from "@angular/router";
 import { menuService } from '../../services/menu.service';
+import {TOP_MENU} from "./top-menu";
 
 @Component({
   selector: 'pages-top',
@@ -18,56 +19,25 @@ export class PagesTopComponent implements OnInit{
   menuType: string;
   menuCategory: string;
   companyUrl: string;
-  public menuInfo: Array<any> = [];
+  topMenus: Array<any> = TOP_MENU;
+  selectedLink: string;
 
-  tip = { ring: true, email: true };
+  constructor( private _globalService: GlobalService,private router: Router ) {
 
-  constructor(private _globalService: GlobalService,private router: Router,
-              private _menuService: menuService) {
-    this._globalService.data$.subscribe(data => {
-      if (data.ev === 'headerTitle') {
-        this.headerTitle = data.value;
-      }
-      if (data.ev === 'companyUrl') {
-        this.companyUrl = data.value;
-      }
-      if (data.ev === 'showIcon') {
-        this.showIcon = data.value;
-      }
-      if (data.ev === 'menuType') {
-        this.menuType = data.value;
-      }
-      if (data.ev === 'menuCategory') {
-        this.menuCategory = data.value;
-      }
-    }, error => {
-      console.log('Error: ' + error);
-    });
   }
 
   ngOnInit() {
-    this.menuInfo = this._menuService.putSidebarJson();
-    this._menuService.selectItem(this.menuInfo);
+    this.selectedLink = null;
+    this.routeToLink( this.topMenus[0].link );
   }
 
-  public companyLink() {
-    this.router.navigate(['pages/company']);
+  public routeToLink(link) {
+      if( this.selectedLink != link ){
+      this.router.navigate([link]);
+      this.selectedLink = link;
+    }
   }
 
-
-  public menuLink() {
-    this.router.navigate(['pages/delivery-menu']);
-  }
-  public _sidebarToggle() {
-    this._globalService.data$.subscribe(data => {
-      if (data.ev === 'sidebarToggle') {
-        this.sidebarToggle = data.value;
-      }
-    }, error => {
-      console.log('Error: ' + error);
-    });
-    this._globalService.dataBusChanged('sidebarToggle', !this.sidebarToggle);
-  }
 
 
 }

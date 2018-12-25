@@ -192,7 +192,7 @@
     font-family: "Roboto", serif;
     font-size: 14px;
     letter-spacing: .42px;
-    color: #5c9233;
+    color: $menu-text;
     text-transform: uppercase;
     padding: 0px;
     width: 100%;
@@ -202,6 +202,10 @@
     flex-direction: row;
     transition: all 400ms linear 0s;
     position: relative;
+    .menu-active{
+      color:  $primary-color-light;
+      text-shadow: 1px 1px 1px $teal-color;
+    }
     .left-part{
     }
     .right-part{

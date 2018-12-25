@@ -31,26 +31,11 @@
 <div class="main_menu_area">
   <div class="container">
     <div class="col-6 col-md-4 left-part">
-
     </div>
     <div class="col-12 col-sm-6 col-md-8 right-part">
-      <div class="head-menu-item">
-        <span class="head-menu-text">Главная</span>
-      </div>
-      <div class="head-menu-item">
-        <span class="head-menu-text">Рестораны</span>
-      </div>
-      <div class="head-menu-item">
-        <span class="head-menu-text">Все меню</span>
-      </div>
-      <div class="head-menu-item">
-        <span class="head-menu-text">Акции</span>
-      </div>
-      <div class="head-menu-item">
-        <span class="head-menu-text">Новости</span>
-      </div>
-      <div class="head-menu-item">
-        <span class="head-menu-text">Блог</span>
+      <div class="head-menu-item" *ngFor="let menu of topMenus"
+           [ngClass]="{'menu-active':menu.link === selectedLink}" (click)="routeToLink(menu.link)">
+        <span class="head-menu-text">{{menu.label}}</span>
       </div>
       <div class="head-menu-item">
         <span class="head-menu-icon"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>

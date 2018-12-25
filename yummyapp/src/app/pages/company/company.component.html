@@ -1,63 +1,25 @@
-<div class="row" [hidden]="loading" >
-  <div class="col-md-12">
-    <card >
-      <table class="table table-bordered table-hover">
-        <thead>
-        <tr>
-          <th class="hidden-cell">Id</th>
-          <th>ОРГАНИЗАЦИЯ</th>
-          <th>НАИМЕНОВАНИЕ</th>
-          <th>URL</th>
-          <th>EMAIL</th>
-          <th>РЕГИОН</th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let company of companies | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
-          <td class="hidden-cell">{{company.id}}</td>
-          <td>{{company.companyName}}</td>
-          <td>{{company.displayName}}</td>
-          <td><a href="{{company.url}}" target="_blank">{{company.url}}</a></td>
-          <td>{{company.email}}</td>
-          <td>{{company.city.name}}</td>
-          <td>
-            <!--<span class="label label-info" (click)="showCompanyDetails(company.id)">info</span>-->
-            <span class="label label-icon" (click)="showCompanyDetails(company.id)"><i class="far fa-list-alt" ></i></span>
-            <span class="label label-icon" (click)="editCompany(company.id)"><i class="far fa-edit"></i></span>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-      <form class="pagination-wrapper">
-        <div class="form-group pages">
-          <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)" maxSize="9" directionLinks="true"
-                               autoHide="false" previousLabel="Prev" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
-                               screenReaderCurrentLabel="You're on page">
-          </pagination-controls>
+<div class="kabare-scr">
+  <section class="kabare">
+    <div id="top" class="kabare-wrapper">
+      <div class="kabare-header">
+        <div class="left-part">
+          <h2>КРЫМСКАЯ СЛУЖБА ЗАКАЗА ЕДЫ</h2>
         </div>
-        <div class="form-group options pages">
-          <div class="input-group input-group-sm">
-            <select class="form-control" name="pageChangedName" [(ngModel)]="pageSize" (ngModelChange)="loadData()">
-              <option>1</option>
-              <option>5</option>
-              <option>10</option>
-              <option>20</option>
-              <option>50</option>
-              <option>100</option>
-              <option>200</option>
-            </select>
-            <span class="input-group-addon addon-right">Per Page</span>
+        <div class="right-part">
+          <div class="input-box">
+            <input placeholder="Название Заведения" type="text" formControlName="tagEndSection">
+            <span class="input-group-addon-search ">ПОИСК</span>
+            <div class="kabare-btn-item main-button inactive">
+              <p>ОТКРЫТЫЕ</p>
+            </div>
+            <div class="kabare-btn-item main-button active">
+              <p>ВСЕ</p>
+            </div>
           </div>
         </div>
-      </form>
-      <div class="btn-grp">
-        <button type="button" class="btn btn-success btn-with-icon" (click)="createCompany()">
-          <i class="fa fa-check fa-fw"></i>Новая организация
-        </button>
       </div>
-    </card>
-  </div>
+    </div>
+  </section>
 </div>
 <!--<loading [loading]="loading"></loading>-->
 

@@ -18,16 +18,13 @@ export class CompanyComponent implements OnInit {
   loading: boolean = false;
 
 
-  /* pagination Info */
-  pageSize = 10;
-  pageNumber = 1;
 
 
   constructor(private router: Router,private _authService: AuthService,
               private companyService: CompanyService, private _globalService: GlobalService) {
     this._authService.isAuthenticated();
-    this.loading = true;
-    this._globalService.dataBusChanged('pageLoading', true);
+    // this.loading = true;
+    // this._globalService.dataBusChanged('pageLoading', true);
   }
 
   ngOnInit() {
@@ -36,17 +33,14 @@ export class CompanyComponent implements OnInit {
     this._globalService.dataBusChanged('menuType', null);
     this._globalService.dataBusChanged('menuCategory', null);
     this._globalService.dataBusChanged('showIcon', true);
-    this.companyService.getCompanies()
-      .subscribe( data => {
-        this.companies = data;
-        this._globalService.dataBusChanged('pageLoading', false);
-        this.loading = false;
-      });
+    // this.companyService.getCompanies()
+    //   .subscribe( data => {
+    //     this.companies = data;
+    //     this._globalService.dataBusChanged('pageLoading', false);
+    //     this.loading = false;
+    //   });
   };
 
-  pageChanged(pN: number): void {
-    this.pageNumber = pN;
-  }
 
   showCompanyDetails( companyId ){
     window.localStorage.setItem('companyId',companyId);
