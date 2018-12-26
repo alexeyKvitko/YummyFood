@@ -7,22 +7,30 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class SwitchComponent implements OnInit {
   @Input()
-  switchName: string;
+  switchW: string;
+
+  @Input()
+  switchH: string;
 
   @Input()
   switchId: string;
 
   @Input()
-  theme: string = 'default';
+  fromStr: string = 'default';
 
   @Input()
-  multiple;
+  toStr: string = 'default';
+
 
   @Input()
-  checked: boolean = false;
+  checked: boolean = true;
 
   constructor() { }
   ngOnInit() {
-    this.theme = `switch-wrap switch-wrap-${this.theme}`;
   }
+
+  switch(param){
+    this.checked = param;
+  }
+
 }

@@ -87,6 +87,10 @@ $info:#2cc3ff;
     @include linear-gradient(to top right, $info, #15f8bf);
 }
 
+.bg-open-close {
+  @include linear-gradient(to left right, $primary-color-light, $success);
+}
+
 /*font Variables*/
 $can: B52;
 $op: 'Open Sans', sans-serif;

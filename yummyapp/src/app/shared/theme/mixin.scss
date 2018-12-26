@@ -26,7 +26,7 @@
     -webkit-transition: $transition;
 }
 
-@mixin linear-gradient($color...) {
+@mixin  linear-gradient($color...) {
     background: linear-gradient($color);
     background: -o-linear-gradient($color);
     background: -moz-linear-gradient($color);

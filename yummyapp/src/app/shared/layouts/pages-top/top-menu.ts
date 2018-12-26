@@ -4,7 +4,7 @@ export let TOP_MENU = [
     link: 'pages/home-page'
   },
   {
-    label: 'КаБаРе',
+    label: 'Заведения',
     link: 'pages/company'
   },
   {

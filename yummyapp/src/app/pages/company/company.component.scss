@@ -1,4 +1,5 @@
 @import '../../shared/theme/conf';
+@import 'company.component.media';
 .kabare-scr {
   position: absolute;
   background-repeat: no-repeat;
@@ -24,71 +25,72 @@
     height:1400px!important;
     .kabare-header{
       width: 100%;
-      padding-top: 10px;
+      padding-top: 20px;
       line-height: 60px;
       display: flex;
       flex-direction: row;
-      align-items: center;
+      //align-items: center;
       .left-part{
-        width: 50%;
-        justify-items: flex-start;
-        text-align: center;
+        width: 55%;
+        text-align: left;
         h2{
           font-family: "Lobster" !important;
+          padding-left: 20px;
           font-size: 38px;
           font-weight: 400;
         }
       }
       .right-part{
-        width: 50%;
+        width: 45%;
         padding-right: 20px;
         .input-box{
-          background-color: rgba($green-bg,0.1);
+          //background-color: rgba($green-bg,0.1);
           border-radius: 6px;
-          padding: 0px 8px;
+          padding-top: -10px;
           float: right;
-          //display: flex;
-          //flex-direction: row;
+          display: flex;
+          flex-direction: column;
           margin-left: 20px;
-          span{
-            margin-right: 20px;
-          }
           input{
             border: 0px;
             border-bottom: 1px solid $primary-color-light;
             background-color: transparent;
             padding-left: 8px;
-            width: 200px;
+            text-align: right;
+            width: 250px;
             height: 32px;
             &:focus{
               border: none!important;
               background-color: $white;
             }
           }
-          .kabare-btn-item{
-            margin-left: 8px;
-            width: auto!important;
-            padding-left: 10px;
-            padding-right: 10px;
-            p{
-              font-size: 18px;
-              font-family: 'Roboto-Condensed-Light'!important;
-            }
-            &:hover{
-              cursor: pointer;
-              color: $white;
-            }
-          }
-          .active{
-            background-color: $green-bg;
+          .search-icon{
+            width: 30px;
             color: $teal-color;
-          }
-          .inactive{
-            background-color: $porcelain;
-            border: 1px solid $card-border!important;
-            color: $secondary-text-color;
+            cursor: pointer;
+            margin-left: 10px;
+            padding-top: 4px;
+            font-size: 22px;
           }
         }
+      }
+    }
+    .kabare-menu{
+      width: 270px;
+      height: 600px;
+      margin-left: 20px;
+      margin-top: -30px;
+      border: 1px solid rgba( $green-bg, 0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-radius: 3px;
+      //@include box-shadow( 0 3px 10px 0 rgba($teal-color, .5));
+      .kabere-dishes{
+        text-align: center;
+        width:250px;
+        height: 80px;
+        background-image: url("../../../assets/images/menu/frame.png");
       }
     }
   }

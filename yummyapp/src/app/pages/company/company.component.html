@@ -1,28 +1,30 @@
 <div class="row>">
-<div class="kabare-scr">
-  <section class="kabare">
-    <div id="top" class="kabare-wrapper">
-      <div class="kabare-header">
-        <div class="left-part">
-          <h2>КРЫМСКАЯ СЛУЖБА ЗАКАЗА ЕДЫ</h2>
-        </div>
-        <div class="right-part">
-          <div class="input-box">
-            <!--<input placeholder="Название Заведения" type="text" formControlName="tagEndSection">-->
-            <span class="input-group-addon-search ">ПОИСК</span>
-            <div class="kabare-btn-item main-button inactive">
-              <p>ОТКРЫТЫЕ</p>
-            </div>
-            <div class="kabare-btn-item main-button active">
-              <p>ВСЕ</p>
+  <div class="kabare-scr">
+    <section class="kabare">
+      <div id="top" class="kabare-wrapper">
+        <div class="kabare-header">
+          <div class="left-part">
+            <h2>КРЫМСКАЯ СЛУЖБА ЗАКАЗА ЕДЫ</h2>
+          </div>
+          <div class="right-part">
+            <div class="input-box">
+              <div class="row">
+                <input placeholder="Название Заведения" type="text">
+                <i class="fas fa-search-dollar search-icon"></i>
+              </div>
+              <switch switchId="single2" fromStr="ВСЕ" toStr="ОТКРЫТЫЕ" switchW="250px" switchH="40px"></switch>
             </div>
           </div>
         </div>
+        <div class="kabare-menu">
+          <div class="kabere-dishes">
+            БЛЮДА
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
-</div>
+    </section>
+  </div>
 </div>
 <!--<loading [loading]="loading"></loading>-->
-
+<!--formControlName="tagEndSection"-->
 
