@@ -20,15 +20,32 @@
             </div>
           </div>
         </div>
+        <!--Б Л Ю Д А-->
         <div class="kabare-menu">
           <div class="kabere-dishes">
             <p>БЛЮДА</p>
+          </div>
             <div class="dishes-item" *ngFor="let dish of deliveryMenu.menuCategories;let idx = index"
-                [hidden]="!showCategoryItem(idx)" >
-              <input class="checkbox checkbox-success" type="checkbox" id="dish-checkbox-{{idx}}" >
+                 [hidden]="!showCategoryItem(idx)">
+              <input class="checkbox checkbox-success" type="checkbox" id="dish-checkbox-{{idx}}">
               <label class="check-label" for="dish-checkbox-{{idx}}">{{dish.displayName}}</label>
             </div>
+          <div class="dishes-container">
             <span (click)="showAllCategories()">{{categoriesListView}}</span>
+          </div>
+        </div>
+        <!--К У Х Н И-->
+        <div class="kabare-menu">
+          <div class="kabere-dishes">
+            <p>КУХНИ</p>
+          </div>
+          <div class="dishes-item" *ngFor="let dish of deliveryMenu.menuTypes;let idx = index"
+               [hidden]="!showTypesItem(idx)">
+            <input class="checkbox checkbox-success" type="checkbox" id="kitchen-checkbox-{{idx}}">
+            <label class="check-label" for="kitchen-checkbox-{{idx}}">{{dish.displayName}}</label>
+          </div>
+          <div class="dishes-container">
+            <span (click)="showAllTypes()">{{typesListView}}</span>
           </div>
         </div>
       </div>

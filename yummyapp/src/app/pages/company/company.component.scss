@@ -18,7 +18,7 @@
   z-index: 2;
   overflow: hidden;
   width: 100%;
-  height: 100%;
+  height: auto;
   overflow-y: auto;
   .kabare-wrapper{
     background-color: $card-bg;
@@ -94,28 +94,21 @@
     }
     .kabare-menu{
       width: 270px;
-      height: 100%;
-      &:after {
-        content: "";
-        display: table;
-        clear: both;
-      }
+      height: auto;
       margin-left: 20px;
-      margin-bottom: 40px;
+      margin-bottom: 20px;
       border: 1px solid $card-border;
-      @include box-shadow( 0 1px 4px 0 rgba($teal-color, .5));
+      @include box-shadow( 0 1px 1px 0 rgba($teal-color, .8));
+      transition: 500ms;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
       border-radius: 3px;
-      //@include box-shadow( 0 3px 10px 0 rgba($teal-color, .5));
       .kabere-dishes{
         text-align: center;
         width:250px;
         height: 40px;
         background-image: url("../../../assets/images/menu/frame.png");
-        display: flex;
-        flex-direction: column;
         p{
           font-family: "Lobster" !important;
           margin-top: 8px;
@@ -123,22 +116,26 @@
           font-size: 18px;
           font-weight: 400;
         }
-        .dishes-item{
-          color: $teal-color;
-          padding: 6px 16px;
-          text-align: left;
-          label{
-            font-family: Roboto-Condensed;
-            font-weight: 200!important;
-            font-size: 16px;
-          }
+      }
+      .dishes-item{
+        color: $teal-color;
+        padding: 6px 16px;
+        text-align: left;
+        label{
+          font-family: Roboto-Condensed;
+          font-weight: 200!important;
+          font-size: 16px;
         }
+      }
+      .dishes-container{
+        text-align: left;
+        margin: 12px 0px;
         span{
           font-family: Roboto-Condensed;
           font-size: 14px;
           color: $accent-color;
           text-align: left;
-          padding: 6px 16px;
+          padding: 0px 16px;
           &:hover{
             cursor: pointer;
             color: $bright-coral;

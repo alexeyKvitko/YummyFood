@@ -20,6 +20,7 @@ export class CompanyComponent implements OnInit {
   deliveryMenu : DeliveryMenuModel;
   menuCategory: MenuCategoryModel[];
   categoriesListView: string = 'Показать Все Блюда';
+  typesListView: string = 'Показать Все Кухни';
   companies: CompanyModel[];
   loading: boolean = false;
 
@@ -54,8 +55,22 @@ export class CompanyComponent implements OnInit {
     return true;
   }
 
+  showTypesItem( idx: number){
+    if ( this.typesListView === 'Скрыть Все Кухни' ){
+      return true;
+    }
+    if ( this.typesListView === 'Показать Все Кухни' && idx > 2){
+      return false;
+    }
+    return true;
+  }
+
   showAllCategories(){
     this.categoriesListView = this.categoriesListView === 'Показать Все Блюда' ? 'Скрыть Все Блюда' : 'Показать Все Блюда';
+  }
+
+  showAllTypes(){
+    this.typesListView = this.typesListView === 'Показать Все Кухни' ? 'Скрыть Все Кухни' : 'Показать Все Кухни';
   }
 
 
