@@ -337,12 +337,12 @@ checkbox && radio
 
 .checkbox-success + .check-label,
 .checkbox-success + .radio-label {
-  border: 1px solid $success;
+  border: 1px solid $teal-color;
 }
 
 .checkbox-success + .check-label:after,
 .checkbox-success + .radio-label:after {
-  background-color: $success;
+  background-color: $dark-green;
 }
 
 .checkbox-warning + .check-label,

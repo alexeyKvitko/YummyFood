@@ -2,23 +2,33 @@
   <div class="kabare-scr">
     <section class="kabare">
       <div id="top" class="kabare-wrapper">
+        <div class="kabare-title">
+          <h2>Крымская Служба Заказа Еды</h2>
+        </div>
         <div class="kabare-header">
           <div class="left-part">
-            <h2>КРЫМСКАЯ СЛУЖБА ЗАКАЗА ЕДЫ</h2>
-          </div>
-          <div class="right-part">
             <div class="input-box">
               <div class="row">
-                <input placeholder="Название Заведения" type="text">
-                <i class="fas fa-search-dollar search-icon"></i>
+                <input placeholder="поиск" type="text">
+                <i class="fas fa-search search-icon"></i>
               </div>
+            </div>
+          </div>
+          <div class="right-part">
+            <div class="right-part-content">
               <switch switchId="single2" fromStr="ВСЕ" toStr="ОТКРЫТЫЕ" switchW="250px" switchH="40px"></switch>
             </div>
           </div>
         </div>
         <div class="kabare-menu">
           <div class="kabere-dishes">
-            БЛЮДА
+            <p>БЛЮДА</p>
+            <div class="dishes-item" *ngFor="let dish of deliveryMenu.menuCategories;let idx = index"
+                [hidden]="!showCategoryItem(idx)" >
+              <input class="checkbox checkbox-success" type="checkbox" id="dish-checkbox-{{idx}}" >
+              <label class="check-label" for="dish-checkbox-{{idx}}">{{dish.displayName}}</label>
+            </div>
+            <span (click)="showAllCategories()">{{categoriesListView}}</span>
           </div>
         </div>
       </div>

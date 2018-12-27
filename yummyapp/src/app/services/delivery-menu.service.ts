@@ -16,14 +16,26 @@ const httpOptions = {
 })
 export class DeliveryMenuService {
 
+  private deliveryMenu: DeliveryMenuModel = new DeliveryMenuModel();
+
   constructor(private http: HttpClient) {
   }
 
   private deliveryMenuUrl = '/api/menu';
 
 
-  public getDeliveryMenus() {
+  public initDeliveryMenus() {
+    this.http.get<DeliveryMenuModel>(this.deliveryMenuUrl+'/all').subscribe( data => {
+      this.deliveryMenu = data;
+    });
+  }
+
+  public loadDeliveryMenus() {
     return this.http.get<DeliveryMenuModel>(this.deliveryMenuUrl+'/all');
+  }
+
+  public getDeliveryMenus() {
+    return this.deliveryMenu;
   }
 
   public saveMenuType( menuType: MenuTypeModel ) {

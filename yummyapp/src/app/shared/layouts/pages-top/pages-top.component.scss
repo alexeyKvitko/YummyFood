@@ -180,7 +180,8 @@
 
 //MAIN MENU
 .main_menu_area {
-  background: rgba($green-bg,0.95);
+  //background: rgba($green-bg,0.95);
+  background: url("../../../../assets/images/header-bg-green.jpg") no-repeat fixed top center;
   position: absolute;
   width: 100%;
   left: 0;

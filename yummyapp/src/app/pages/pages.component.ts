@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { GlobalService } from '../shared/services/global.service';
-import {RouterOutlet} from "@angular/router";
 import {pageRouteAnimation} from "./page-animation";
+import {DeliveryMenuService} from "../services/delivery-menu.service";
 
 @Component({
   selector: 'app-pages',
@@ -15,7 +15,7 @@ export class PagesComponent {
 
   loading: boolean = false;
 
-  constructor(private _globalService: GlobalService) {
+  constructor(private _globalService: GlobalService,private deliveryMenuService : DeliveryMenuService,) {
     this.init();
   }
 
@@ -27,6 +27,7 @@ export class PagesComponent {
     }, error => {
       console.log('Error: ' + error);
     });
+    this.deliveryMenuService.initDeliveryMenus();
   }
 
 }

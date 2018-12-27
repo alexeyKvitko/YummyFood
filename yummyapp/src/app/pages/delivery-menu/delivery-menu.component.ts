@@ -22,8 +22,8 @@ export class DeliveryMenuComponent implements OnInit {
   constructor(private _authService: AuthService, private _globalService: GlobalService,
               private deliveryMenuService: DeliveryMenuService, private formBuilder: FormBuilder) {
     this._authService.isAuthenticated();
-    this.loading = true;
-    this._globalService.dataBusChanged('pageLoading', true);
+    this.loading = false;
+    this._globalService.dataBusChanged('pageLoading', false);
   }
 
   ngOnInit() {
@@ -38,7 +38,7 @@ export class DeliveryMenuComponent implements OnInit {
       displayName: ['', Validators.required],
       name: ['', Validators.required]
     });
-    this.loadDeliveryMenu();
+    this.getDeliveryMenu();
   }
 
   selectMenuType( menuType: MenuTypeModel ){
@@ -129,8 +129,14 @@ export class DeliveryMenuComponent implements OnInit {
     })
   }
 
+  getDeliveryMenu(){
+    let deliveryMenu = this.deliveryMenuService.getDeliveryMenus();
+    this.menuTypes = deliveryMenu.menuTypes;
+    this.menuCategories = deliveryMenu.menuCategories;
+  }
+
   loadDeliveryMenu(){
-    this.deliveryMenuService.getDeliveryMenus().subscribe( data => {
+    this.deliveryMenuService.loadDeliveryMenus().subscribe( data => {
       this.menuTypes = data.menuTypes;
       this.menuCategories = data.menuCategories;
       this._globalService.dataBusChanged('pageLoading', false);
