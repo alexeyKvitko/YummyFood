@@ -108,9 +108,11 @@
         text-align: center;
         width:250px;
         height: 40px;
-        background-image: url("../../../assets/images/menu/frame.png");
+        margin-left: 10px;
+        background-image: url("../../../assets/images/menu/frame-1.png");
         p{
           font-family: "Lobster" !important;
+          background-color: $card-bg;
           margin-top: 8px;
           color: $primary-text-color;
           font-size: 18px;
