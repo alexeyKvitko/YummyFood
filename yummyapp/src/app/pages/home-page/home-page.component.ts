@@ -6,7 +6,6 @@ import {CATALOG} from "./const-catalog";
 import {ACTIONS} from "./const-actions";
 import {SOCIAL} from "./const-social";
 
-
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',

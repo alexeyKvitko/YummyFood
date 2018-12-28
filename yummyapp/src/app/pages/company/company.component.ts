@@ -9,6 +9,7 @@ import { AuthService } from "../../services/auth.service";
 import {MenuCategoryModel} from "../../model/menu-category.model";
 import {DeliveryMenuService} from "../../services/delivery-menu.service";
 import {DeliveryMenuModel} from "../../model/delivery-menu.model";
+import {OTHER_PARAMS} from "./const-other-params";
 
 @Component({
   selector: 'app-company',
@@ -18,6 +19,7 @@ import {DeliveryMenuModel} from "../../model/delivery-menu.model";
 export class CompanyComponent implements OnInit {
 
   deliveryMenu : DeliveryMenuModel;
+  otherParams: OTHER_PARAMS;
   menuCategory: MenuCategoryModel[];
   categoriesListView: string = 'Показать Все Блюда';
   typesListView: string = 'Показать Все Кухни';
@@ -31,6 +33,8 @@ export class CompanyComponent implements OnInit {
               private companyService: CompanyService, private _globalService: GlobalService) {
     this._authService.isAuthenticated();
     this.deliveryMenu = new DeliveryMenuModel();
+    this.otherParams = OTHER_PARAMS;
+    console.log(this.otherParams, OTHER_PARAMS);
     // this.loading = true;
     // this._globalService.dataBusChanged('pageLoading', true);
   }
