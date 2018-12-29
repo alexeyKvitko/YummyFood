@@ -28,6 +28,11 @@ public class AdminCompanyController {
         return companyService.getAllCompanies();
     }
 
+    @GetMapping("/company/short")
+    public List getCompanyShortList() {
+        return companyService.getCompaniesShortList(null);
+    }
+
     @GetMapping("/company/edit/{id}")
     public CompanyEdit getCompanyEditById(@PathVariable int id) {
         return companyService.getCompanyEdit(id);

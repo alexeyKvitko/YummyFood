@@ -19,6 +19,9 @@ public class CompanyServiceImpl {
     CompanyRepository companyRepo;
 
     @Autowired
+    CompanyShortRepository companyShortRepo;
+
+    @Autowired
     MenuTypeRepository menuTypeRepo;
 
     @Autowired
@@ -46,6 +49,16 @@ public class CompanyServiceImpl {
             models.add(convertUtils.convertCompanyToModel(company));
         }
         return models;
+    }
+
+    public List<CompanyShort> getCompaniesShortList(Integer cityId) {
+        List<CompanyShort> companies = null;
+        if( cityId == null ){
+            companies = (List<CompanyShort>) companyShortRepo.findAll();
+        } else {
+            companies= companyShortRepo.findAllByCityId( cityId );
+        }
+        return companies;
     }
 
     public CompanyInfo getCompanyInfo(Integer companyId) {

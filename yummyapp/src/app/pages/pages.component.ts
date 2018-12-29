@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { GlobalService } from '../shared/services/global.service';
 import {pageRouteAnimation} from "./page-animation";
 import {DeliveryMenuService} from "../services/delivery-menu.service";
+import {CompanyService} from "../services/company.service";
 
 @Component({
   selector: 'app-pages',
@@ -15,7 +16,8 @@ export class PagesComponent {
 
   loading: boolean = false;
 
-  constructor(private _globalService: GlobalService,private deliveryMenuService : DeliveryMenuService,) {
+  constructor(private _globalService: GlobalService,private deliveryMenuService : DeliveryMenuService,
+              private companyService: CompanyService) {
     this.init();
   }
 
@@ -28,6 +30,7 @@ export class PagesComponent {
       console.log('Error: ' + error);
     });
     this.deliveryMenuService.initDeliveryMenus();
+    this.companyService.initCompaniesShort();
   }
 
 }

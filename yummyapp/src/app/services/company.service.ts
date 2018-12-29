@@ -6,17 +6,34 @@ import {CompanyInfoModel} from '../model/company-info.model';
 import {CompanyMenuModel} from "../model/company-menu.model";
 import {ApiResponse} from "../model/api.response";
 import {CompanyEditModel} from "../model/company-edit.model";
+import {CompanyShortModel} from "../model/company-short.model";
+import {DeliveryMenuModel} from "../model/delivery-menu.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CompanyService {
 
+  private companyUrl = '/api/company';
+  private apiUrl = '/api';
+  private companiesShort: CompanyShortModel[] = new Array<CompanyShortModel>();
+
   constructor(private http: HttpClient) {
   }
 
-  private companyUrl = '/api/company';
-  private apiUrl = '/api';
+  public initCompaniesShort() {
+    this.http.get<CompanyShortModel[]>(this.companyUrl+'/short').subscribe( data => {
+      this.companiesShort = data;
+    });
+  }
+
+  public loadCompaniesShort() {
+    return this.http.get<CompanyShortModel[]>(this.companyUrl+'/short');
+  }
+
+  public getCompaniesShort() {
+    return this.companiesShort;
+  }
 
   public getCompanies() {
     return this.http.get<CompanyModel[]>(this.companyUrl);

@@ -20,58 +20,67 @@
             </div>
           </div>
         </div>
-        <!--Б Л Ю Д А-->
-        <div class="kabare-menu">
-          <div class="kabere-dishes">
-            <p>БЛЮДА</p>
-          </div>
+        <div class="kabare-body">
+          <div class="kabare-body-left">
+          <!--Б Л Ю Д А-->
+          <div class="kabare-menu">
+            <div class="kabere-dishes frame-1">
+              <p>БЛЮДА</p>
+            </div>
             <div class="dishes-item" *ngFor="let dish of deliveryMenu.menuCategories;let idx = index"
                  [hidden]="!showCategoryItem(idx)">
               <input class="checkbox checkbox-success" type="checkbox" id="dish-checkbox-{{idx}}">
               <label class="check-label" for="dish-checkbox-{{idx}}">{{dish.displayName}}</label>
             </div>
-          <div class="dishes-container">
-            <span (click)="showAllCategories()">{{categoriesListView}}</span>
+            <div class="dishes-container">
+              <span (click)="showAllCategories()">{{categoriesListView}}</span>
+            </div>
           </div>
-        </div>
-        <!--К У Х Н И-->
-        <div class="kabare-menu">
-          <div class="kabere-dishes">
-            <p>КУХНИ</p>
+          <!--К У Х Н И-->
+          <div class="kabare-menu">
+            <div class="kabere-dishes frame-1">
+              <p>КУХНИ</p>
+            </div>
+            <div class="dishes-item" *ngFor="let kitchen of deliveryMenu.menuTypes;let idx = index"
+                 [hidden]="!showTypesItem(idx)">
+              <input class="checkbox checkbox-success" type="checkbox" id="kitchen-checkbox-{{idx}}">
+              <label class="check-label" for="kitchen-checkbox-{{idx}}">{{kitchen.displayName}}</label>
+            </div>
+            <div class="dishes-container">
+              <span (click)="showAllTypes()">{{typesListView}}</span>
+            </div>
           </div>
-          <div class="dishes-item" *ngFor="let kitchen of deliveryMenu.menuTypes;let idx = index"
-               [hidden]="!showTypesItem(idx)">
-            <input class="checkbox checkbox-success" type="checkbox" id="kitchen-checkbox-{{idx}}">
-            <label class="check-label" for="kitchen-checkbox-{{idx}}">{{kitchen.displayName}}</label>
+          <!--Д Р У Г И Е -->
+          <div class="kabare-menu">
+            <div class="kabere-dishes frame-3">
+              <p>ДРУГИЕ ПАРАМЕТРЫ</p>
+            </div>
+            <div class="dishes-item" *ngFor="let param of otherParams;let idx = index">
+              <input class="checkbox checkbox-success" type="checkbox" id="other-checkbox-{{idx}}">
+              <label class="check-label" for="other-checkbox-{{idx}}">{{param.label}}</label>
+            </div>
+            <br>
           </div>
-          <div class="dishes-container">
-            <span (click)="showAllTypes()">{{typesListView}}</span>
+          <!-- О П Л А Т А -->
+          <div class="kabare-menu">
+            <div class="kabere-dishes frame-2">
+              <p>СПОСОБЫ ОПЛАТЫ</p>
+            </div>
+            <div class="dishes-item">
+              <input class="checkbox checkbox-success" type="checkbox" id="pay-checkbox-1">
+              <label class="check-label" for="pay-checkbox-1">Наличными</label>
+            </div>
+            <div class="dishes-item">
+              <input class="checkbox checkbox-success" type="checkbox" id="pay-checkbox-2">
+              <label class="check-label" for="pay-checkbox-2">Банковской Картой</label>
+            </div>
+            <br>
           </div>
-        </div>
-        <!--Д Р У Г И Е -->
-        <div class="kabare-menu">
-          <div class="kabere-dishes">
-            <p>ДРУГИЕ ПАРАМЕТРЫ</p>
           </div>
-          <div class="dishes-item" *ngFor="let param of otherParams;let idx = index">
-            <input class="checkbox checkbox-success" type="checkbox" id="other-checkbox-{{idx}}">
-            <label class="check-label" for="other-checkbox-{{idx}}">{{param.label}}</label>
+          <div class="kabare-body-right">
+            <company-card *ngFor="let company of companies;let idx = index"
+              [company]="company"></company-card>
           </div>
-          <br>
-        </div>
-        <!-- О П Л А Т А -->
-        <div class="kabare-menu">
-          <div class="kabere-dishes">
-            <p>СПОСОБЫ ОПЛАТЫ</p>
-          </div>
-          <div class="dishes-item">
-            <input class="checkbox checkbox-success" type="checkbox" id="pay-checkbox-1">
-            <label class="check-label" for="pay-checkbox-1">Наличными</label>
-          </div>
-          <div class="dishes-item">
-            <input class="checkbox checkbox-success" type="checkbox" id="pay-checkbox-2">
-            <label class="check-label" for="pay-checkbox-2">Банковской Картой</label>
-          </div><br>
         </div>
       </div>
     </section>

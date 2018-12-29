@@ -1,0 +1,52 @@
+@import '../../theme/conf';
+.company-card{
+  width: 100%;
+  margin-bottom: 20px;
+  @include box-shadow( 0 1px 1px 1px rgba($teal-color, .3));
+  &:hover{
+    cursor: pointer;
+    border: 1px solid $bright-coral;
+
+  }
+  border-radius: 3px;
+  display: flex;
+  flex-direction: row;
+  .company-img{
+    flex-direction: column;
+  }
+  .company-logo{
+    padding: 12px 12px 6px 12px;
+    img{
+      width: 120px;
+      height: 120px;
+    }
+  }
+  .company-star{
+    display: inline-block;
+    padding: 6px 20px 12px 20px;
+    img{
+      width: 92px;
+      height: 20px;
+    }
+    span{
+      color: $teal-color;
+      font-size: 11px;
+    }
+  }
+  .company-title{
+    padding-top: 10px;
+    height: 40px;
+    h2{
+      color: $bright-coral;
+      font-size: 28px;
+      font-weight: 400;
+      font-family: B52;
+    }
+  }
+  .company-info{
+    width: 100%;
+    border: 1px solid blue;
+    flex-direction: column;
+  }
+
+}

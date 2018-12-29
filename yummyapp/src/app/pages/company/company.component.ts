@@ -10,6 +10,7 @@ import {MenuCategoryModel} from "../../model/menu-category.model";
 import {DeliveryMenuService} from "../../services/delivery-menu.service";
 import {DeliveryMenuModel} from "../../model/delivery-menu.model";
 import {OTHER_PARAMS} from "./const-other-params";
+import {CompanyShortModel} from "../../model/company-short.model";
 
 @Component({
   selector: 'app-company',
@@ -19,12 +20,11 @@ import {OTHER_PARAMS} from "./const-other-params";
 export class CompanyComponent implements OnInit {
 
   deliveryMenu : DeliveryMenuModel;
-  otherParams: OTHER_PARAMS;
+  otherParams = new Array<any>();
   menuCategory: MenuCategoryModel[];
   categoriesListView: string = 'Показать Все Блюда';
   typesListView: string = 'Показать Все Кухни';
-  companies: CompanyModel[];
-  loading: boolean = false;
+  companies: CompanyShortModel[];
 
 
 
@@ -33,20 +33,13 @@ export class CompanyComponent implements OnInit {
               private companyService: CompanyService, private _globalService: GlobalService) {
     this._authService.isAuthenticated();
     this.deliveryMenu = new DeliveryMenuModel();
+    this.companies =  new Array<CompanyShortModel>();
     this.otherParams = OTHER_PARAMS;
-    console.log(this.otherParams, OTHER_PARAMS);
-    // this.loading = true;
-    // this._globalService.dataBusChanged('pageLoading', true);
   }
 
   ngOnInit() {
     this.deliveryMenu =  this.deliveryMenuService.getDeliveryMenus();
-    // this.companyService.getCompanies()
-    //   .subscribe( data => {
-    //     this.companies = data;
-    //     this._globalService.dataBusChanged('pageLoading', false);
-    //     this.loading = false;
-    //   });
+    this.companies = this.companyService.getCompaniesShort();
   };
 
   showCategoryItem( idx: number){
@@ -81,7 +74,6 @@ export class CompanyComponent implements OnInit {
   showCompanyDetails( companyId ){
     window.localStorage.setItem('companyId',companyId);
     this.router.navigate(['pages/company-info']);
-
   }
 
   editCompany( companyId ){

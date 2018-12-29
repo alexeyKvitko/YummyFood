@@ -1,7 +1,10 @@
-@media (max-width:1650px) {
-  .left-part{
-    h2{
-      font-size: 32px!important;
-    }
+@media (max-width:1600px) {
+  .kabare-wrapper{
+    width: 70%!important;
   }
+}
+@media (max-width:1340px) {
+  .kabare-wrapper{
+    width: 75%!important;
+ }
 }

@@ -12,6 +12,7 @@ import { FileTreeComponent } from './components/file-tree/file-tree.component';
 import { SwitchComponent } from './components/switch/switch.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { CompanyCardComponent } from "./components/company-card/company-card.component";
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     TabContentComponent,
     ProgressBarComponent,
     SwitchComponent,
+    CompanyCardComponent,
     AlertComponent,
     ProfileComponent
   ],
@@ -36,6 +38,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     TabsetComponent,
     TabContentComponent,
     ProgressBarComponent,
+    CompanyCardComponent,
     SwitchComponent,
     AlertComponent,
     ProfileComponent
