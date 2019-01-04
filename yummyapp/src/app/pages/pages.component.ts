@@ -3,6 +3,8 @@ import { GlobalService } from '../shared/services/global.service';
 import {pageRouteAnimation} from "./page-animation";
 import {DeliveryMenuService} from "../services/delivery-menu.service";
 import {CompanyService} from "../services/company.service";
+import {LoginComponent} from "./login/login.component";
+import {LoginService} from "../services/login.service";
 
 @Component({
   selector: 'app-pages',
@@ -17,11 +19,14 @@ export class PagesComponent {
   loading: boolean = false;
 
   constructor(private _globalService: GlobalService,private deliveryMenuService : DeliveryMenuService,
-              private companyService: CompanyService) {
+              private companyService: CompanyService, private loginService: LoginService) {
     this.init();
   }
 
   public init(){
+    this.loginService.getIP().subscribe(data => {
+      this.companyService.initBootstrapApp( data.city );
+    });
     this._globalService.data$.subscribe(data => {
       if (data.ev === 'pageLoading') {
         this.loading = data.value;
@@ -29,8 +34,6 @@ export class PagesComponent {
     }, error => {
       console.log('Error: ' + error);
     });
-    this.deliveryMenuService.initDeliveryMenus();
-    this.companyService.initCompaniesShort();
   }
 
 }

@@ -11,22 +11,17 @@
       <a href="#" class="header-left"><i class="far fa-envelope icon"></i>delivery@yummyfood.ru</a>
   </div>
     <div class="col-md-4 container">
-      <a href="#" class="header-left map">
+      <a class="header-left map" (click)="openCityModal()">
           <i class="fas fa-map-marker-alt"></i>
-          <span>Симферополь</span>
+          <span>{{deliveryCity}}</span>
           <i class="fas fa-caret-down down"></i>
       </a>
+
+
+
       <a href="#" class="header-left"><i class="fas fa-pencil-alt icon"></i>Вход</a>
       <a href="#" class="header-left"><i class="fas fa-sign-in-alt icon"></i>Регистрация</a>
     </div>
-  <!--<div class="col-md-4 container">-->
-    <!--<div class="social">-->
-        <!--<div class="item"><a class="it-facebook" href="#"><i class="fab fa-facebook-f icn"></i></a></div>-->
-        <!--<div class="item"><a class="it-twitted" href="#"><i class="fab fa-twitter icn"></i></a></div>-->
-        <!--<div class="item"><a class="it-linked" href="#"><i class="fab fa-linkedin-in icn"></i></a></div>-->
-        <!--<div class="item"><a class="it-rss" href="#"><i class="fas fa-rss icn"></i></a></div>-->
-    <!--</div>-->
-  <!--</div>-->
 </div>
 <div class="main_menu_area">
   <div class="container">
@@ -43,92 +38,29 @@
     </div>
   </div>
 </div>
-  <!--<nav class="navbar navbar-default">-->
-    <!--<div class="container">-->
-
-      <!--&lt;!&ndash; Collect the nav links, forms, and other content for toggling &ndash;&gt;-->
-      <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="border:1px solid blue">-->
-        <!--<ul class="nav navbar-nav navbar-right">-->
-          <!--<li class="active"><a href="index.html">Home</a></li>-->
-          <!--<li class="dropdown submenu">-->
-            <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About US <i class="fa fa-angle-down" aria-hidden="true"></i></a>-->
-            <!--<ul class="dropdown-menu">-->
-              <!--<li><a href="about-us.html">About Us</a></li>-->
-              <!--<li><a href="about-us2.html">About Us2</a></li>-->
-            <!--</ul>-->
-          <!--</li>-->
-          <!--<li class="dropdown submenu">-->
-            <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <i class="fa fa-angle-down" aria-hidden="true"></i></a>-->
-            <!--<ul class="dropdown-menu">-->
-              <!--<li><a href="menu-grid.html">Menu Grid</a></li>-->
-              <!--<li><a href="menu-list.html">Menu List</a></li>-->
-            <!--</ul>-->
-          <!--</li>-->
-          <!--<li><a href="gallery.html">Gallery</a></li>-->
-          <!--<li class="dropdown submenu">-->
-            <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages <i class="fa fa-angle-down" aria-hidden="true"></i></a>-->
-            <!--<ul class="dropdown-menu">-->
-              <!--<li><a href="event.html">Event</a></li>-->
-              <!--<li><a href="table.html">Table</a></li>-->
-            <!--</ul>-->
-          <!--</li>-->
-          <!--<li class="dropdown submenu">-->
-            <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">News <i class="fa fa-angle-down" aria-hidden="true"></i></a>-->
-            <!--<ul class="dropdown-menu">-->
-              <!--<li><a href="blog.html">Blog</a></li>-->
-              <!--<li><a href="blog-gallery.html">Blog Gallery</a></li>-->
-              <!--<li><a href="blog-details.html">Blog Details</a></li>-->
-            <!--</ul>-->
-          <!--</li>-->
-          <!--<li><a href="contact.html">Contact US</a></li>-->
-          <!--<li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>-->
-        <!--</ul>-->
-      <!--</div>&lt;!&ndash; /.navbar-collapse &ndash;&gt;-->
-    <!--</div>&lt;!&ndash; /.container-fluid &ndash;&gt;-->
-  <!--</nav>-->
-
-
-  <!--<div class="logo">-->
-  <!--<div class="avatar-wrap">-->
-  <!--<div class="avatar">-->
-  <!--<img src="{{avatarImgSrc}}" alt="avatar">-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--</div>-->
-
-  <!--<div class="page-top-menu-container">-->
-  <!--<div class="page-top-menu-company" (click)="companyLink()">-->
-  <!--<div class="txt">Рестораны</div>-->
-  <!--</div>-->
-  <!--<div class="page-top-menu-list" (click)="menuLink()">-->
-  <!--<div class="txt">Меню</div>-->
-  <!--</div>-->
-  <!--</div>-->
-
-  <!--<div class="company-info-header">-->
-
-    <!--<table>-->
-      <!--<tr>-->
-        <!--<th>-->
-          <!--<span class="company-title">{{headerTitle}}</span>-->
-          <!--<span [hidden]="showIcon" class="menu-type-title"><i class="fas fa-angle-double-right"></i>-->
-            <!--{{menuType}}-->
-          <!--</span>-->
-          <!--<span [hidden]="showIcon" class="menu-category-title"><i class="fas fa-angle-double-right"></i>-->
-            <!--{{menuCategory}}-->
-          <!--</span>-->
-        <!--</th>-->
-      <!--</tr>-->
-      <!--<tr>-->
-        <!--<th class="company-url">-->
-          <!--<a href="{{companyUrl}}" target="_blank">{{companyUrl}}</a>-->
-        <!--</th>-->
-      <!--</tr>-->
-    <!--</table>-->
-  <!--</div>-->
-  <!--<div class="back-content" [hidden]="companyUrl==null">-->
-    <!--<span class="btn-back-wrap" (click)="companyLink()">-->
-      <!--<img src="{{btnBackImgSrc}}" alt="btnBack">-->
-    <!--</span>-->
-  <!--</div>-->
-
+<app-dialog [(visible)]="showDialog">
+  <div class="city-modal">
+    <h2>Выберите город</h2>
+    <p>Крымская Служба Доставки Еды</p>
+    <strong>Крымская Служба Доставки Еды</strong>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="city-label" *ngFor="let city of cities;let idx = index" [hidden]="idx > 9"
+        (click) = "selectCity(city)">
+          <i class="fas fa-check" [ngClass]="{'city-check': city.displayName === deliveryCity,
+            'city-uncheck': city.displayName != deliveryCity}"></i>
+          {{city.displayName}}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="city-label" *ngFor="let city of cities;let idx = index" [hidden]="idx < 10"
+             (click) = "selectCity(city)">
+          <i class="fas fa-check" [ngClass]="{'city-check': city.displayName === deliveryCity,
+            'city-uncheck': city.displayName != deliveryCity}"></i>
+          {{city.displayName}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--<button (click)="showDialog = !showDialog" class="btn">Close</button>-->
+</app-dialog>

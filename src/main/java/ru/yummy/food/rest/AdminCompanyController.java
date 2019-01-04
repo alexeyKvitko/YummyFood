@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.yummy.food.exception.BusinessLogicException;
 import ru.yummy.food.model.*;
 import ru.yummy.food.service.ParseService;
+import ru.yummy.food.service.impl.BootstrapServiceImpl;
 import ru.yummy.food.service.impl.CompanyServiceImpl;
 
 import java.util.List;
@@ -21,6 +22,9 @@ public class AdminCompanyController {
     CompanyServiceImpl companyService;
 
     @Autowired
+    BootstrapServiceImpl bootstrapService;
+
+    @Autowired
     ParseService parseService;
 
     @GetMapping("/company")
@@ -28,9 +32,9 @@ public class AdminCompanyController {
         return companyService.getAllCompanies();
     }
 
-    @GetMapping("/company/short")
-    public List getCompanyShortList() {
-        return companyService.getCompaniesShortList(null);
+    @GetMapping("/company/bootstrap/{ip}")
+    public BootstrapModel getBootsrapInfo(@PathVariable String ip) {
+        return bootstrapService.getBootstrapModel(ip);
     }
 
     @GetMapping("/company/edit/{id}")

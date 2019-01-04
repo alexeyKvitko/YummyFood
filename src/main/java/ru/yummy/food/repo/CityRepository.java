@@ -7,9 +7,11 @@ import java.util.List;
 
 public interface CityRepository extends CrudRepository<City,Integer> {
 
-    List<City> findAllByRegionId(Integer regionId);
+    List<City> findAllByRegionIdOrderByName(Integer regionId);
 
     City findByRegionIdAndUrl( Integer regionId, String url );
+
+    City findByNameEn( String nameEn );
 
     List<City> findAllByUrl( String url );
 

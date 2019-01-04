@@ -74,6 +74,12 @@ public class CompanyShort{
     @Column(name="action")
     private Integer action;
 
+    @Column(name="weekday_str")
+    private String weekdayWork;
+
+    @Column(name="dayoff_str")
+    private String dayoffWork;
+
 
     public Integer getId() {
         return id;
@@ -241,6 +247,22 @@ public class CompanyShort{
 
     public void setAction(Integer action) {
         this.action = action;
+    }
+
+    public String getWeekdayWork() {
+        return weekdayWork;
+    }
+
+    public void setWeekdayWork(String weekdayWork) {
+        this.weekdayWork = weekdayWork;
+    }
+
+    public String getDayoffWork() {
+        return dayoffWork;
+    }
+
+    public void setDayoffWork(String dayoffWork) {
+        this.dayoffWork = dayoffWork;
     }
 
     @Override public boolean equals(Object o) {

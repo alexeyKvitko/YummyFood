@@ -18,8 +18,6 @@ public class CompanyServiceImpl {
     @Autowired
     CompanyRepository companyRepo;
 
-    @Autowired
-    CompanyShortRepository companyShortRepo;
 
     @Autowired
     MenuTypeRepository menuTypeRepo;
@@ -49,16 +47,6 @@ public class CompanyServiceImpl {
             models.add(convertUtils.convertCompanyToModel(company));
         }
         return models;
-    }
-
-    public List<CompanyShort> getCompaniesShortList(Integer cityId) {
-        List<CompanyShort> companies = null;
-        if( cityId == null ){
-            companies = (List<CompanyShort>) companyShortRepo.findAll();
-        } else {
-            companies= companyShortRepo.findAllByCityId( cityId );
-        }
-        return companies;
     }
 
     public CompanyInfo getCompanyInfo(Integer companyId) {
@@ -97,7 +85,7 @@ public class CompanyServiceImpl {
         companyEdit.setMenuTypes( companyInfo.getMenuTypes() );
         companyEdit.setDeliveryMenuTypes( convertUtils.convertMenuTypesToModelList( (List<MenuType>) menuTypeRepo.findAll() ) );
         companyEdit.setDeliveryMenuCategories( convertUtils.convertMenuCategoriesToModelList( (List<MenuCategory>) menuCategoryRepo.findAll() ) );
-        companyEdit.setCities( convertUtils.convertCitiesToModelList( cityRepo.findAllByRegionId( AppConstants.CRIMEA_REGION ) ) );
+        companyEdit.setCities( convertUtils.convertCitiesToModelList( cityRepo.findAllByRegionIdOrderByName( AppConstants.CRIMEA_REGION ) ) );
         return companyEdit;
     }
 

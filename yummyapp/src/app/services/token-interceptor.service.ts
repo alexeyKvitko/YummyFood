@@ -7,7 +7,7 @@ export class TokenInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let token = window.localStorage.getItem('token');
     // debugger
-    if (token) {
+    if (token && req.url != 'https://ipinfo.io/json') {
       req = req.clone({
         setHeaders: {
           Authorization: 'Bearer ' + token

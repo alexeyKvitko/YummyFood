@@ -38,8 +38,17 @@ export class CompanyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.deliveryMenu =  this.deliveryMenuService.getDeliveryMenus();
-    this.companies = this.companyService.getCompaniesShort();
+    this._globalService.data$.subscribe(data => {
+      if (data.ev === 'data-loaded') {
+        if ( data.value ){
+          this.deliveryMenu =  this.companyService.getDeliveryMenus();
+          this.companies = this.companyService.getCompaniesShort();
+        }
+      }
+    }, error => {
+      console.log('Error: ' + error);
+    });
+    this._globalService.dataBusChanged('data-loaded',true);
   };
 
   showCategoryItem( idx: number){

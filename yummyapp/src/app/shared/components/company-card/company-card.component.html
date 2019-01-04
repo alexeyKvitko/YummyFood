@@ -10,12 +10,45 @@
       </div>
     </div>
     <div class="company-info">
-      <div class="company-title"><h2>{{company.companyName}}</h2></div>
+      <div class="company-title">
+        <h2>{{company.companyName}}</h2>
+      </div>
       <div class="row" style="width: 100%">
-        <div class="col-md-2" style="border: 1px solid red">1</div>
-        <div class="col-md-2" style="border: 1px solid red">2</div>
-        <div class="col-md-2" style="border: 1px solid red">3</div>
-        <div class="col-md-2" style="border: 1px solid red">4</div>
+        <div class="col-sm-3" >
+          <div class="company-condition">
+            <img src="assets/images/icons/menu-list.png">
+            <span>Мин. заказ</span>
+            <div class="condition-text">{{company.delivery}}</div>
+          </div>
+        </div>
+        <div class="col-sm-3" >
+          <div class="company-condition">
+            <img src="assets/images/icons/delivery.png">
+            <span>Доставка</span>
+            <div class="condition-text">
+              <span >Условия Доставки</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3" >
+          <div class="company-condition">
+            <img src="assets/images/icons/cash.png">
+            <span>Оплата</span>
+            <div class="row condition-text">
+              <img src="assets/images/icons/paper-money.png" title="Наличные">
+              <img src="assets/images/icons/credit-card.png" title="Банковская карта">
+              <img src="assets/images/icons/mobile-market.png" title="Электронные деньги">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3" >
+          <div class="company-condition">
+            <img src="assets/images/icons/open.png">
+            <span>Работаем</span>
+            <div class="condition-text">{{company.weekdayWork}}</div>
+            <div class="condition-text">{{company.dayoffWork}}</div>
+          </div>
+        </div>
       </div>
     </div>
 

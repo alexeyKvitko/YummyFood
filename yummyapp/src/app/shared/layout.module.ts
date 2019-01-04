@@ -11,6 +11,7 @@ import { MenuComponent } from './layouts/menu/menu.component';
 import { SidebarComponent } from './layouts/sidebar/sidebar.component';
 import { PagesTopComponent } from './layouts/pages-top/pages-top.component';
 import { RightConfigComponent } from './layouts/right-config/right-config.component';
+import {DialogComponent} from "./layouts/app-dialog/app-dialog.component";
 
 @NgModule({
     imports: [
@@ -27,7 +28,8 @@ import { RightConfigComponent } from './layouts/right-config/right-config.compon
         PagesTopComponent,
         NotificationComponent,
         RightConfigComponent,
-        LoadingComponent
+        LoadingComponent,
+        DialogComponent
     ],
     exports: [
         SidebarComponent,

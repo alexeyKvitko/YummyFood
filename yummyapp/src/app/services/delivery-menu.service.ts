@@ -4,7 +4,6 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {DeliveryMenuModel} from "../model/delivery-menu.model";
 import {MenuTypeModel} from "../model/menu-type.model";
 import {MenuCategoryModel} from "../model/menu-category.model";
-import {CompanyInfoModel} from "../model/company-info.model";
 import {ApiResponse} from "../model/api.response";
 
 const httpOptions = {

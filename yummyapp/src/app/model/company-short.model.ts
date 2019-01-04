@@ -20,5 +20,7 @@ export class CompanyShortModel {
   dayoffEnd: string;
   foodPoint: string;
   action: string;
+  weekdayWork: string;
+  dayoffWork: string;
 
 }

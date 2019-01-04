@@ -1,5 +1,9 @@
 @import '../../theme/conf';
-
+.city-menu{
+  position: fixed;
+  z-index: 9;
+  border: 1px solid red;
+}
 .first_header {
   background: rgba($primary-color-light,0.95);
   overflow: hidden;
@@ -22,6 +26,7 @@
     transition: all 400ms linear 0s;
     text-decoration: none;
     margin-right: 20px;
+
     &:hover{
       color: #b10400;
     }
@@ -29,9 +34,9 @@
   .map{
     margin-right: 25px;
     color: $bright-coral;
+    border-bottom: 1px dotted $bright-coral;
     span{
       padding-left: 6px;
-      color: $primary-text-color;
       &:hover{
         color: #b10400;
       }
@@ -41,7 +46,10 @@
       font-size: 14px;
       color: $primary-text-color
     }
-
+    &:hover{
+      cursor: pointer;
+      border-bottom: none;
+    }
   }
   .icon {
     color: $bright-coral;
@@ -346,6 +354,37 @@
     top: 100%;
     opacity: 1;
     visibility: visible;
+  }
+}
+.city-modal{
+  h2{
+    font-size: 22px;
+    font-family: Roboto-Condensed;
+    font-weight: 600;
+    color: $primary-text-color;
+    border-bottom: 1px solid $divider-color;
+  }
+  p{
+    font-size: 11px;
+    font-family: Roboto-Condensed;
+    font-weight: 100;
+    color: $teal-color;
+    margin-bottom: 10px;
+  }
+  strong{
+    display: none;
+  }
+  .city-label{
+    .city-check{
+      color: $secondary-text-color;
+    }
+    .city-uncheck{
+      color: $card-bg;
+    }
+    &:hover{
+      cursor: pointer;
+      color: $bright-coral;
+    }
   }
 }
 

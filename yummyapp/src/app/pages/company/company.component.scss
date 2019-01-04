@@ -41,9 +41,12 @@
       }
     }
     .kabare-header{
-      width: 100%;
+      margin: 20px 0px 20px 20px;
+      width: 97%;
       height: 60px;
       line-height: 60px;
+      background-color: $card-content-bg;
+      @include box-shadow( 0 1px 1px 1px rgba($teal-color, .3));
       display: flex;
       flex-direction: row;
       //align-items: center;
@@ -61,7 +64,6 @@
       .left-part{
         width: 50%;
         .input-box{
-          //background-color: rgba($green-bg,0.1);
           border-radius: 6px;
           float: left;
           display: flex;
@@ -111,6 +113,7 @@
       margin-left: 20px;
       margin-bottom: 20px;
       //border: 1px solid $card-border;
+      background-color: $card-content-bg;
       @include box-shadow( 0 1px 1px 1px rgba($teal-color, .3));
       transition: 500ms;
       display: flex;

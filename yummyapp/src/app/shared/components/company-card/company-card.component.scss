@@ -3,11 +3,12 @@
   width: 100%;
   margin-bottom: 20px;
   @include box-shadow( 0 1px 1px 1px rgba($teal-color, .3));
-  &:hover{
-    cursor: pointer;
-    border: 1px solid $bright-coral;
-
-  }
+  background-color: $card-content-bg;
+  //&:hover{
+  //  cursor: pointer;
+  //  border: 1px solid $bright-coral;
+  //
+  //}
   border-radius: 3px;
   display: flex;
   flex-direction: row;
@@ -22,7 +23,8 @@
     }
   }
   .company-star{
-    display: inline-block;
+    display: flex;
+    flex-direction: row;
     padding: 6px 20px 12px 20px;
     img{
       width: 92px;
@@ -35,18 +37,60 @@
   }
   .company-title{
     padding-top: 10px;
+    display: flex;
+    flex-direction: row;
     height: 40px;
     h2{
       color: $bright-coral;
+      width: fit-content;
       font-size: 28px;
       font-weight: 400;
       font-family: B52;
+      border-bottom: 1px dotted $bright-coral;
+      &:hover{
+        cursor: pointer;
+        border-bottom: 1px dotted $white;
+      }
     }
   }
   .company-info{
     width: 100%;
-    border: 1px solid blue;
     flex-direction: column;
+  }
+  .company-condition{
+    width:100%;
+    margin-top: 8px;
+    min-height: 100px;
+    img{
+      width: 36px;
+      height: 36px;
+    }
+    span{
+      font-family: Roboto-Condensed;
+      color:$divider-color;
+      font-size: 14px;
+      padding-left: 12px;
+    }
+    .condition-text{
+      text-align: left;
+      margin-top: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      span{
+        color: $bright-coral;
+        font-weight: 100;
+        text-decoration: underline;
+        &:hover{
+          cursor: pointer;
+          text-decoration: none;
+        }
+      }
+      img{
+        margin-right: 12px;
+        width: 36px;
+        height: 36px;
+      }
+    }
   }
 
 }

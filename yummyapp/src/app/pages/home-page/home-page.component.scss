@@ -136,6 +136,7 @@
 }
 .proposal-item {
   border: 1px solid $card-border;
+  background-color: $card-content-bg;
   @include box-shadow( 0 3px 10px 0 rgba($teal-color, .5));
   text-align: center;
   position: relative;
@@ -315,6 +316,7 @@
       flex-direction: column;
       .mobile-btn-item{
         position: relative;
+        background-color: $card-content-bg;
         width: 220px;
         height: 60px;
         margin-top: 20px;

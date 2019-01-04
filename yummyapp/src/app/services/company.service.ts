@@ -7,7 +7,8 @@ import {CompanyMenuModel} from "../model/company-menu.model";
 import {ApiResponse} from "../model/api.response";
 import {CompanyEditModel} from "../model/company-edit.model";
 import {CompanyShortModel} from "../model/company-short.model";
-import {DeliveryMenuModel} from "../model/delivery-menu.model";
+import {BootstrapAppModel} from "../model/bootstrap-app.model";
+import {GlobalService} from "../shared/services/global.service";
 
 @Injectable({
   providedIn: 'root'
@@ -16,23 +17,36 @@ export class CompanyService {
 
   private companyUrl = '/api/company';
   private apiUrl = '/api';
-  private companiesShort: CompanyShortModel[] = new Array<CompanyShortModel>();
+  private bootstrapApp: BootstrapAppModel = new BootstrapAppModel();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private _globalService: GlobalService) {
   }
 
-  public initCompaniesShort() {
-    this.http.get<CompanyShortModel[]>(this.companyUrl+'/short').subscribe( data => {
-      this.companiesShort = data;
+  public initBootstrapApp( ip: string) {
+    this.http.get<BootstrapAppModel>(this.companyUrl+'/bootstrap/'+ip).subscribe( data => {
+      this.bootstrapApp = data;
+      this._globalService.dataBusChanged('data-loaded', true);
     });
   }
 
-  public loadCompaniesShort() {
+  public loadBootstrapApp() {
     return this.http.get<CompanyShortModel[]>(this.companyUrl+'/short');
   }
 
   public getCompaniesShort() {
-    return this.companiesShort;
+    return this.bootstrapApp.companyShorts;
+  }
+
+  public getDeliveryMenus() {
+    return this.bootstrapApp.deliveryMenu;
+  }
+
+  public getAllCities() {
+    return this.bootstrapApp.cities;
+  }
+
+  public getDeliveryCity(){
+    return this.bootstrapApp.deliveryCity;
   }
 
   public getCompanies() {

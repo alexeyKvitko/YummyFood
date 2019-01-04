@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {User} from "../model/user.model";
 import {Observable} from "rxjs/index";
 import {ApiResponse} from "../model/api.response";
+import {Data} from "@angular/router";
+import { map, filter, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -36,4 +38,20 @@ export class LoginService {
   deleteUser(id: number): Observable<ApiResponse> {
     return this.http.delete<ApiResponse>(this.loginUrl + id);
   }
+
+
+  getIP(): Observable<any> {
+    // jQuery.getJSON("https://jsonip.com?callback=?", function(data) {
+    //   alert("Your IP address is :- " + data.ip);
+    // });
+    return this.http.get('https://ipinfo.io/json',{ responseType: 'json' });
+      // .subscribe(data => {
+      //   console.log("DATA",data);
+      // }, error => {
+      //   console.log('Error: ',  error);
+      // });
+      // .catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
+  }
+
+
 }
