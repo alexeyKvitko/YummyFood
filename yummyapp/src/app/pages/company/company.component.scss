@@ -12,7 +12,7 @@
   left: 0;
 }
 .kabare {
-  background: url("../../../assets/images/back4.jpg") no-repeat fixed top center;
+  background: url("../../../assets/images/back6.jpg") no-repeat fixed top center;
   background-size: cover;
   position: relative;
   z-index: 2;
@@ -20,28 +20,28 @@
   width: 100%;
   height: auto;
   overflow-y: auto;
+  .kabare-title{
+    text-align: center;
+    width: 100%;
+    height: 250px;
+    background: url("../../../assets/images/logos/pizza.jpg") no-repeat fixed top center;
+    padding-top: 125px;
+    p{
+      color: $white;
+      text-shadow: 1px 1px 1px $black;
+      font-family: "Lobster" !important;
+      font-size: 42px;
+      font-weight: 500;
+    }
+  }
   .kabare-wrapper{
-    background-color: $card-bg;
+    background-color: transparent;
     width: 60%;
     height: 120%;
     margin: 0 auto;
-
-    .kabare-title{
-      text-align: center;
-      width: 100%;
-      height: 200px;
-      background: url("../../../assets/images/comapany-header.jpg") no-repeat fixed top center;
-      h2{
-        padding-top: 138px;
-        color: $white;
-        text-shadow: 1px 1px 1px $black;
-        font-family: "Lobster" !important;
-        font-size: 38px;
-        font-weight: 400;
-      }
-    }
+    padding-top: 20px;
     .kabare-header{
-      margin: 20px 0px 20px 20px;
+      margin: 0px 0px 20px 20px;
       width: 97%;
       height: 60px;
       line-height: 60px;
@@ -63,35 +63,6 @@
       }
       .left-part{
         width: 50%;
-        .input-box{
-          border-radius: 6px;
-          float: left;
-          display: flex;
-          flex-direction: column;
-          margin-left: 20px;
-          input{
-            border: 0px;
-            border-bottom: 1px solid $primary-color-light;
-            background-color: transparent;
-            padding-left: 8px;
-            text-align: right;
-            width: 240px;
-            height: 32px;
-            &:focus{
-              border: none!important;
-              background-color: $white;
-            }
-          }
-          .search-icon{
-            width: 30px;
-            color: $teal-color;
-            font-weight: 400;
-            cursor: pointer;
-            margin-left: 6px;
-            padding-top: 4px;
-            font-size: 22px;
-          }
-        }
       }
     }
     .kabare-body{
@@ -172,7 +143,7 @@
   }
   &:before{
     content: "";
-    background: rgba($green-bg, 0.3);
+    //background: rgba($green-bg, 0.1);
     position: absolute;
     left: 0;
     top: 0;

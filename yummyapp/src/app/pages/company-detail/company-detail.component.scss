@@ -1,0 +1,106 @@
+@import '../../shared/theme/conf';
+.compdet-scr {
+  position: absolute;
+  background-repeat: no-repeat;
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 7;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.compdet {
+  background: url("../../../assets/images/back6.jpg") no-repeat fixed top center;
+  background-size: cover;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+  overflow-y: auto;
+  .compdet-wrapper{
+    background-color: transparent;
+    width: 60%;
+    height: 120%;
+    margin: 0 auto;
+    padding-top: 120px;
+    .compdet-body{
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      .compdet-body-left{
+        flex-direction: column;
+        .add-info{
+          width: 270px;
+          height: 270px;
+          margin-left: 20px;
+          margin-bottom: 20px;
+          background-color: $card-content-bg;
+          @include box-shadow( 0 1px 1px 1px rgba($teal-color, .3));
+        }
+      }
+      .compdet-body-right{
+        width: 100%;
+        flex-direction: column;
+        padding: 0px 10px 10px 25px;
+      }
+    }
+    .compdet-menu{
+      width: 270px;
+      height: auto;
+      margin-left: 20px;
+      margin-bottom: 20px;
+      //border: 1px solid $card-border;
+      background-color: $card-content-bg;
+      @include box-shadow( 0 1px 1px 1px rgba($teal-color, .3));
+      transition: 500ms;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      border-radius: 2px;
+      .compdet-dishes{
+        text-align: center;
+        width:250px;
+        height: 40px;
+        margin-left: 10px;
+        background-image: url("../../../assets/images/menu/frame.png");
+        p{
+          margin-top: 8px;
+          color: $primary-text-color;
+          font-size: 18px;
+          font-weight: 400;
+        }
+      }
+
+      .menutype-item{
+        color: $bright-coral;
+        padding: 6px 16px;
+        text-align: left;
+        label{
+          font-family: Roboto-Condensed;
+          font-weight: 400;
+          font-size: 18px;
+        }
+      }
+      .menucategory-item{
+        color: $teal-color;
+        padding: 0px 6px;
+        text-align: left;
+        label{
+          font-family: Roboto-Condensed;
+          font-weight: 300;
+          font-size: 16px;
+          border-bottom: 1px dotted $teal-color;
+          &:hover{
+            cursor:pointer;
+            color: $primary-text-color;
+            border-bottom: 1px solid transparent;
+            font-weight: 400;
+          }
+        }
+      }
+    }
+  }
+}

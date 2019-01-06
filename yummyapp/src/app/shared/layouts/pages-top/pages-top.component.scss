@@ -26,7 +26,6 @@
     transition: all 400ms linear 0s;
     text-decoration: none;
     margin-right: 20px;
-
     &:hover{
       color: #b10400;
     }
@@ -109,14 +108,7 @@
     .spn {
       margin-left: 8px;
     }
-
-    //.bt-icon{
-    //  font-size: 24px;
-    //  padding: 0 4px;
-    //  border: 1px solid #ffffff;
-    //}
   }
-
 }
 
 .pages-top {
@@ -132,9 +124,8 @@
 
 .logo {
   position: absolute;
-  opacity: 0;
   margin: auto;
-  left: 15%;
+  left: 20%;
   top: 38px;
   z-index: 10;
   width: 130px;

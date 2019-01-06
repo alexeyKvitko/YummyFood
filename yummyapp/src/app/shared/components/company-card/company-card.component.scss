@@ -1,96 +1,111 @@
 @import '../../theme/conf';
-.company-card{
-  width: 100%;
-  margin-bottom: 20px;
-  @include box-shadow( 0 1px 1px 1px rgba($teal-color, .3));
-  background-color: $card-content-bg;
-  //&:hover{
-  //  cursor: pointer;
-  //  border: 1px solid $bright-coral;
-  //
-  //}
-  border-radius: 3px;
-  display: flex;
-  flex-direction: row;
-  .company-img{
-    flex-direction: column;
-  }
-  .company-logo{
-    padding: 12px 12px 6px 12px;
-    img{
-      width: 120px;
-      height: 120px;
-    }
-  }
-  .company-star{
+.company-card-wrapper {
+  .company-card {
+    width: 100%;
+    //margin-bottom: 20px;
+    @include box-shadow(0 1px 1px 1px rgba($teal-color, .3));
+    background-color: $card-content-bg;
+    //&:hover{
+    //  cursor: pointer;
+    //  border: 1px solid $bright-coral;
+    //
+    //}
+    border-radius: 3px;
     display: flex;
     flex-direction: row;
-    padding: 6px 20px 12px 20px;
-    img{
-      width: 92px;
-      height: 20px;
+    .company-img {
+      flex-direction: column;
     }
-    span{
-      color: $teal-color;
-      font-size: 11px;
-    }
-  }
-  .company-title{
-    padding-top: 10px;
-    display: flex;
-    flex-direction: row;
-    height: 40px;
-    h2{
-      color: $bright-coral;
-      width: fit-content;
-      font-size: 28px;
-      font-weight: 400;
-      font-family: B52;
-      border-bottom: 1px dotted $bright-coral;
-      &:hover{
-        cursor: pointer;
-        border-bottom: 1px dotted $white;
+    .company-logo {
+      padding: 12px 12px 6px 12px;
+      img {
+        width: 120px;
+        height: 120px;
       }
     }
-  }
-  .company-info{
-    width: 100%;
-    flex-direction: column;
-  }
-  .company-condition{
-    width:100%;
-    margin-top: 8px;
-    min-height: 100px;
-    img{
-      width: 36px;
-      height: 36px;
+    .company-star {
+      display: flex;
+      flex-direction: row;
+      padding: 6px 20px 12px 20px;
+      img {
+        width: 92px;
+        height: 20px;
+      }
+      span {
+        color: $teal-color;
+        font-size: 11px;
+      }
     }
-    span{
-      font-family: Roboto-Condensed;
-      color:$divider-color;
-      font-size: 14px;
-      padding-left: 12px;
-    }
-    .condition-text{
-      text-align: left;
-      margin-top: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      span{
+    .company-title {
+      padding-top: 10px;
+      display: flex;
+      flex-direction: row;
+      height: 40px;
+      h2 {
         color: $bright-coral;
-        font-weight: 100;
-        text-decoration: underline;
-        &:hover{
+        width: fit-content;
+        font-size: 28px;
+        font-weight: 400;
+        font-family: B52;
+        border-bottom: 1px dotted $bright-coral;
+        &:hover {
           cursor: pointer;
-          text-decoration: none;
+          border-bottom: 1px dotted $white;
         }
       }
-      img{
-        margin-right: 12px;
-        width: 36px;
-        height: 36px;
+    }
+    .company-info {
+      width: 100%;
+      flex-direction: column;
+    }
+    .company-condition {
+      width: 100%;
+      margin-top: 8px;
+      min-height: 100px;
+      img {
+        width: 24px;
+        height: 24px;
+      }
+      span {
+        font-family: Roboto-Condensed;
+        color: $secondary-text-color;
+        font-size: 14px;
+        padding-left: 12px;
+      }
+      .condition-text {
+        text-align: left;
+        margin-top: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        span {
+          color: $bright-coral;
+          font-weight: 100;
+          text-decoration: underline;
+          &:hover {
+            cursor: pointer;
+            text-decoration: none;
+          }
+        }
+        img {
+          margin-right: 12px;
+          width: 36px;
+          height: 36px;
+        }
       }
     }
   }
-
+  .card-footer{
+    position: relative;
+    float: right;
+    text-decoration: underline;
+    font-family: Roboto-Condensed;
+    color: $bright-coral;
+    font-size: 12px;
+    top: -30px;
+    right: 45px;
+    &:hover {
+      cursor: pointer;
+      text-decoration: none;
+    }
+  }
 }

@@ -33,8 +33,7 @@ export class CompanyInfoComponent implements OnInit {
   parseForm: FormGroup;
   menuEntities: MenuEntityModel[];
   testEntities: MenuEntityModel[];
-  /* pagination Info */
-  pageSize = 4;
+
   pageNumber = 1;
   notiOptions = {
     position: ["top", "right"],

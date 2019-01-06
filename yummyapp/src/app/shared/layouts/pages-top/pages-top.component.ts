@@ -14,7 +14,7 @@ import {CompanyService} from "../../../services/company.service";
 })
 export class PagesTopComponent implements OnInit{
   avatarImgSrc: string = 'assets/images/logo.png';
-  sidebarToggle: boolean = true;
+  logoOpacity: number = 0;
   headerTitle: string;
   showIcon: boolean = true;
   menuType: string;
@@ -35,6 +35,13 @@ export class PagesTopComponent implements OnInit{
           this.deliveryCity = this.companyService.getDeliveryCity();
         }
       }
+      if (data.ev === 'logo-opacity') {
+        this.logoOpacity = data.value;
+      }
+      if (data.ev === 'selected-link') {
+        this.selectedLink = data.value;
+      }
+
     }, error => {
       console.log('Error: ' + error);
     });

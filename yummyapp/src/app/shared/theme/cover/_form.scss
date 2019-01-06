@@ -32,6 +32,38 @@
   font-size: $sm-text;
 }
 
+.search-input-box{
+  border-radius: 6px;
+  float: left;
+  display: flex;
+  flex-direction: row;
+  margin-left: 10px;
+  border: 1px solid $primary-color-light;
+  margin-top: 12px;
+  transition: border-color .5s ease-out;
+  input{
+    border: 0px!important;
+    background-color: transparent;
+    padding-left: 8px;
+    text-align: left;
+    width: 210px;
+    height: 32px;
+    &:focus{
+      border: 1px solid blue;
+      outline: none;
+    }
+  }
+  .search-icon{
+    width: 30px;
+    color: $teal-color;
+    font-weight: 300;
+    cursor: pointer;
+    margin-right: 3px;
+    margin-top: 6px;
+    font-size: 20px;
+  }
+}
+
 .form-control {
   display: block;
   width: 100%;
@@ -227,7 +259,6 @@ input.with-info-addon {
 
 .input-group-addon-search {
   //background: $teal-color;
-  background-color: $bright-coral;
   font-family: B52;
   font-size: 18px;
   font-weight: 400;
@@ -345,25 +376,6 @@ checkbox && radio
   background-color: $dark-green;
 }
 
-.checkbox-warning + .check-label,
-.checkbox-warning + .radio-label {
-  border: 1px solid $warning;
-}
-
-.checkbox-warning + .check-label:after,
-.checkbox-warning + .radio-label:after {
-  background-color: $warning;
-}
-
-.checkbox-danger + .check-label,
-.checkbox-danger + .radio-label {
-  border: 1px solid $danger;
-}
-
-.checkbox-danger + .check-label:after,
-.checkbox-danger + .radio-label:after {
-  background-color: $danger;
-}
 
 .checkbox-info + .check-label,
 .checkbox-info + .radio-label {

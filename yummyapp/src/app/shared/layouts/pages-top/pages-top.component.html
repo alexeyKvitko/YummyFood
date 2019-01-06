@@ -1,4 +1,4 @@
-<div class="logo">
+<div class="logo" [style.opacity]="logoOpacity" >
   <div class="avatar-wrap">
     <div class="avatar">
       <img src="{{avatarImgSrc}}" alt="avatar">
@@ -16,9 +16,6 @@
           <span>{{deliveryCity}}</span>
           <i class="fas fa-caret-down down"></i>
       </a>
-
-
-
       <a href="#" class="header-left"><i class="fas fa-pencil-alt icon"></i>Вход</a>
       <a href="#" class="header-left"><i class="fas fa-sign-in-alt icon"></i>Регистрация</a>
     </div>

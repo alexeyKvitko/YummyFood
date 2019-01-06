@@ -3,7 +3,6 @@ import { GlobalService } from '../shared/services/global.service';
 import {pageRouteAnimation} from "./page-animation";
 import {DeliveryMenuService} from "../services/delivery-menu.service";
 import {CompanyService} from "../services/company.service";
-import {LoginComponent} from "./login/login.component";
 import {LoginService} from "../services/login.service";
 
 @Component({

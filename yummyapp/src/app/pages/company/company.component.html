@@ -1,17 +1,16 @@
 <div class="row>">
   <div class="kabare-scr">
     <section class="kabare">
+      <div class="kabare-title">
+        <p>Крымская Служба Заказа Еды</p>
+        <p>{{deliveryCity}}</p>
+      </div>
       <div id="top" class="kabare-wrapper">
-        <div class="kabare-title">
-          <h2>Крымская Служба Заказа Еды</h2>
-        </div>
         <div class="kabare-header">
           <div class="left-part">
-            <div class="input-box">
-              <div class="row">
-                <input placeholder="поиск" type="text">
+            <div class="search-input-box">
+                <input placeholder="Поиск заведений" type="text">
                 <i class="fas fa-search search-icon"></i>
-              </div>
             </div>
           </div>
           <div class="right-part">
@@ -83,7 +82,7 @@
           </div>
           <div class="kabare-body-right">
             <company-card *ngFor="let company of companies;let idx = index"
-              [company]="company"></company-card>
+              [company]="company" (selectCompany)="showCompanyDetail($event)"></company-card>
           </div>
         </div>
       </div>

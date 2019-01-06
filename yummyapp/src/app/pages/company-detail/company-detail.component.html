@@ -1,0 +1,41 @@
+<div class="row>" [hidden]="loading">
+  <div class="compdet-scr">
+    <section class="compdet">
+      <div id="top" class="compdet-wrapper">
+        <h2>Крымская Служба Заказа Еды</h2>
+        <div class="compdet-body">
+          <div class="compdet-body-left">
+            <div class="add-info">
+
+            </div>
+            <!--Б Л Ю Д А-->
+            <div class="compdet-menu">
+              <div class="success-btn-item main-button" (click)="returnToChoice()">
+                <img src="assets/images/icons/restaurant-white.png">
+                <div class="mobile-label">
+                  <p>ВЫБОР ЗАВЕДЕНИЯ</p>
+                </div>
+              </div>
+              <div class="search-input-box">
+                  <input placeholder="Поиск по меню" type="text">
+                  <i class="fas fa-search search-icon"></i>
+              </div>
+              <div class="compdet-dishes">
+                <p>МЕНЮ ЗАВЕДЕНИЯ</p>
+              </div>
+              <div class="menutype-item" *ngFor="let menuType of menuTypes">
+                <label>{{menuType.displayName}}</label>
+                <div class="menucategory-item" *ngFor="let menuCategory of menuType.menuCategories">
+                  <label>{{menuCategory.displayName}}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="compdet-body-right">
+            <company-card [company]="companyShort"></company-card>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

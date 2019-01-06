@@ -5,12 +5,51 @@
     outline: none;
 }
 
+
+.success-btn-item{
+  position: relative;
+  background-color: $accent-color!important;
+  border: 1px solid $accent-color!important;
+  width: 250px!important;
+  height: 40px;
+  margin-top: 10px;
+  margin-left: 10px;
+  padding: 6px;
+  text-align: left;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  img{
+    float: left;
+    margin-top: -5px ;
+    width: 36px;
+    height: 36px;
+  }
+  .mobile-label{
+    position: absolute;
+    height: 18px;
+    top: 0px;
+    left: 52px;
+    color: $white;
+  }
+  p{
+    height: 20px;
+    font-size: 16px;
+    color: $white!important;
+    font-weight: 600;
+    font-family: 'Roboto'!important;
+  }
+  &:hover{
+    cursor: pointer;
+    border: 1px solid $green-bg!important;
+  }
+}
+
 .btn {
     padding: .3em .8em;
     border: none;
     border-radius: 1.5px;
     @include transition(all 0.2s);
-    color: $white;
 }
 
 .btn-link {

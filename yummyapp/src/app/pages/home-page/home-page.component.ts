@@ -5,6 +5,8 @@ import {IMAGE_PATHS} from "./const-image-paths";
 import {CATALOG} from "./const-catalog";
 import {ACTIONS} from "./const-actions";
 import {SOCIAL} from "./const-social";
+import {CompanyService} from "../../services/company.service";
+import {GlobalService} from "../../shared/services/global.service";
 
 @Component({
   selector: 'app-home-page',
@@ -50,7 +52,7 @@ export class HomePageComponent implements OnInit{
   inviteOpacity: number = 1;
   scrollPercent: number = 0;
 
-  constructor() {
+  constructor(private _globalService: GlobalService) {
   }
 
   moveTopBottom(){
@@ -80,6 +82,7 @@ export class HomePageComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this._globalService.dataBusChanged('logo-opacity',0);
   }
 
 

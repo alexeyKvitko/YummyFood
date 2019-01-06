@@ -25,9 +25,7 @@ export class CompanyComponent implements OnInit {
   categoriesListView: string = 'Показать Все Блюда';
   typesListView: string = 'Показать Все Кухни';
   companies: CompanyShortModel[];
-
-
-
+  deliveryCity: string = "";
 
   constructor(private router: Router,private _authService: AuthService, private deliveryMenuService : DeliveryMenuService,
               private companyService: CompanyService, private _globalService: GlobalService) {
@@ -43,12 +41,14 @@ export class CompanyComponent implements OnInit {
         if ( data.value ){
           this.deliveryMenu =  this.companyService.getDeliveryMenus();
           this.companies = this.companyService.getCompaniesShort();
+          this.deliveryCity = this.companyService.getDeliveryCity();
         }
       }
     }, error => {
       console.log('Error: ' + error);
     });
     this._globalService.dataBusChanged('data-loaded',true);
+    this._globalService.dataBusChanged('logo-opacity',1);
   };
 
   showCategoryItem( idx: number){
@@ -94,6 +94,11 @@ export class CompanyComponent implements OnInit {
   createCompany(){
     window.localStorage.setItem('companyId','-1');
     this.router.navigate(['pages/company-edit']);
+  }
+
+  showCompanyDetail(companyId){
+    window.localStorage.setItem('companyId',companyId);
+    this.router.navigate(['pages/company-detail']);
   }
 
 }

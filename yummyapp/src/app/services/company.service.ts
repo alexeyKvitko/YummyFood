@@ -37,6 +37,16 @@ export class CompanyService {
     return this.bootstrapApp.companyShorts;
   }
 
+  public getCompanyShortById( companyId ): CompanyShortModel {
+    let companyShort = null;
+    this.bootstrapApp.companyShorts.forEach(company => {
+       if ( companyId == company.id ){
+         companyShort = company;
+       }
+    });
+    return companyShort;
+  }
+
   public getDeliveryMenus() {
     return this.bootstrapApp.deliveryMenu;
   }
