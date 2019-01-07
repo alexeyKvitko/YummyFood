@@ -20,12 +20,26 @@
   width: 100%;
   height: auto;
   overflow-y: auto;
+  .compdet-title{
+    text-align: center;
+    width: 100%;
+    height: 250px;
+    background: url("../../../assets/images/pizza.jpg") no-repeat fixed top center;
+    padding-top: 125px;
+    p{
+      color: $white;
+      text-shadow: 1px 1px 1px $black;
+      font-family: "Lobster" !important;
+      font-size: 42px;
+      font-weight: 500;
+    }
+  }
   .compdet-wrapper{
     background-color: transparent;
     width: 60%;
     height: 120%;
     margin: 0 auto;
-    padding-top: 120px;
+    padding-top: 20px;
     .compdet-body{
       width: 100%;
       display: flex;
@@ -34,11 +48,33 @@
         flex-direction: column;
         .add-info{
           width: 270px;
-          height: 270px;
+          height: 175px;
           margin-left: 20px;
           margin-bottom: 20px;
+          border-radius: 3px;
+          padding: 10px;
           background-color: $card-content-bg;
           @include box-shadow( 0 1px 1px 1px rgba($teal-color, .3));
+          .add-info-container{
+            width: 250px;
+            height: 155px;
+            padding: 6px;
+            background-color: $gray-bkg-color;
+            p{
+              color: $gray-text-color;
+              font-family: Roboto;
+              font-size: 12px;
+              span{
+                color: $bright-coral;
+                text-decoration: underline;
+                &:hover{
+                  cursor: pointer;
+                  text-decoration: none;
+                }
+              }
+
+            }
+          }
         }
       }
       .compdet-body-right{

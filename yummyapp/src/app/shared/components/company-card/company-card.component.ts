@@ -10,6 +10,9 @@ export class CompanyCardComponent implements OnInit {
   @Input()
   company: CompanyShortModel;
 
+  @Input()
+  isDetailInfo: boolean = false ;
+
   @Output()
   selectCompany: EventEmitter<number> = new EventEmitter<number>();
 

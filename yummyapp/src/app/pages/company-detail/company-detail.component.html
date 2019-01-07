@@ -1,12 +1,24 @@
 <div class="row>" [hidden]="loading">
   <div class="compdet-scr">
     <section class="compdet">
+      <div class="compdet-title">
+        <p>Крымская Служба Заказа Еды</p>
+        <p>{{companyShort.companyName}}</p>
+      </div>
       <div id="top" class="compdet-wrapper">
-        <h2>Крымская Служба Заказа Еды</h2>
         <div class="compdet-body">
           <div class="compdet-body-left">
             <div class="add-info">
-
+              <div class="add-info-container">
+                <p>
+                  Оформить заказ можно ежедневно без выходных:<br>
+                  <b>{{companyShort.weekdayWork}}, {{companyShort.dayoffWork}}</b><br>
+                  Минимальный заказ - <b>{{companyShort.delivery}}</b><br>
+                  Доставка - БЕСПЛАТНО.<br>
+                  Не нашли то, что искали?
+                  Попробуйте <span (click)="returnToChoice()">заказать доставку еды в <b>{{deliveryCity}}</b> </span> в других заведениях.
+                </p>
+              </div>
             </div>
             <!--Б Л Ю Д А-->
             <div class="compdet-menu">
@@ -16,12 +28,12 @@
                   <p>ВЫБОР ЗАВЕДЕНИЯ</p>
                 </div>
               </div>
-              <div class="search-input-box">
-                  <input placeholder="Поиск по меню" type="text">
-                  <i class="fas fa-search search-icon"></i>
-              </div>
               <div class="compdet-dishes">
                 <p>МЕНЮ ЗАВЕДЕНИЯ</p>
+              </div>
+              <div class="search-input-box">
+                <input placeholder="Поиск по меню" type="text">
+                <i class="fas fa-search search-icon"></i>
               </div>
               <div class="menutype-item" *ngFor="let menuType of menuTypes">
                 <label>{{menuType.displayName}}</label>
@@ -32,7 +44,7 @@
             </div>
           </div>
           <div class="compdet-body-right">
-            <company-card [company]="companyShort"></company-card>
+            <company-card [company]="companyShort" [isDetailInfo]=true></company-card>
           </div>
         </div>
       </div>

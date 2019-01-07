@@ -2,7 +2,10 @@
   <div class="company-card-wrapper">
     <div class="company-card">
       <div class="company-img">
-        <div class="company-logo">
+        <div class="company-logo company-logo-hover" (click)="showMenu(company)" *ngIf="!isDetailInfo">
+          <img src="{{logoSrc}}">
+        </div>
+        <div class="company-logo"  *ngIf="isDetailInfo">
           <img src="{{logoSrc}}">
         </div>
         <div class="company-star">
@@ -11,7 +14,10 @@
         </div>
       </div>
       <div class="company-info">
-        <div class="company-title">
+        <div class="company-title company-title-hover" (click)="showMenu(company)" *ngIf="!isDetailInfo">
+          <h2>{{company.companyName}}</h2>
+        </div>
+        <div class="company-title"  *ngIf="isDetailInfo">
           <h2>{{company.companyName}}</h2>
         </div>
         <div class="row" style="width: 100%">
@@ -29,7 +35,7 @@
               <img src="assets/images/icons/delivery.png">
               <span>Доставка</span>
               <div class="condition-text">
-                <span>Условия</span>
+                <span>Условия Доставки</span>
               </div>
             </div>
           </div>
@@ -55,7 +61,11 @@
         </div>
       </div>
     </div>
-    <div class="card-footer" (click)="showMenu(company)">Показать полное меню ></div>
+    <div class="company-card-footer" (click)="showMenu(company)" *ngIf="!isDetailInfo">
+      <span>Показать полное меню ></span></div>
+    <div class="company-card-footer" *ngIf="isDetailInfo">
+      <span>Добавить в избранное&nbsp;<i class="far fa-heart"></i></span>
+    </div>
   </div>
 
 </ng-container>

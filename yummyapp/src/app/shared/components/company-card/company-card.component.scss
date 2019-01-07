@@ -23,6 +23,11 @@
         height: 120px;
       }
     }
+    .company-logo-hover{
+      &:hover{
+        cursor: pointer;
+      }
+    }
     .company-star {
       display: flex;
       flex-direction: row;
@@ -47,6 +52,10 @@
         font-size: 28px;
         font-weight: 400;
         font-family: B52;
+      }
+    }
+    .company-title-hover{
+      h2{
         border-bottom: 1px dotted $bright-coral;
         &:hover {
           cursor: pointer;
@@ -54,6 +63,7 @@
         }
       }
     }
+
     .company-info {
       width: 100%;
       flex-direction: column;
@@ -94,18 +104,20 @@
       }
     }
   }
-  .card-footer{
+  .company-card-footer{
     position: relative;
     float: right;
-    text-decoration: underline;
-    font-family: Roboto-Condensed;
-    color: $bright-coral;
-    font-size: 12px;
     top: -30px;
     right: 45px;
-    &:hover {
-      cursor: pointer;
-      text-decoration: none;
+    span{
+      border-bottom: 1px dotted $bright-coral;
+      font-family: Roboto-Condensed;
+      color: $bright-coral;
+      font-size: 12px;
+      &:hover {
+        cursor: pointer;
+        border-bottom: none;
+      }
     }
   }
 }

@@ -20,6 +20,9 @@ public class MenuCategory {
     @Column(name="display_name")
     private String displayName;
 
+    @Column(name="display_order")
+    private String displayOrder;
+
     public Integer getId() {
         return id;
     }
@@ -44,7 +47,15 @@ public class MenuCategory {
         this.displayName = displayName;
     }
 
-    @Override public boolean equals( Object o) {
+    public String getDisplayOrder() {
+        return displayOrder;
+    }
+
+    public void setDisplayOrder(String displayOrder) {
+        this.displayOrder = displayOrder;
+    }
+
+    @Override public boolean equals(Object o) {
         return Pojomatic.equals(this, o);
     }
 

@@ -25,12 +25,14 @@ export class CompanyDetailComponent implements OnInit {
   menuEntities: MenuEntityModel[];
   menuTypes: MenuTypeModel[] = new Array<MenuTypeModel>();
   companyShort: CompanyShortModel =  new CompanyShortModel();
+  deliveryCity: string;
 
   constructor(private router: Router,
               private companyService: CompanyService, private _globalService: GlobalService) {
 
     this.companyId = window.localStorage.getItem('companyId');
     this.companyShort = this.companyService.getCompanyShortById( this.companyId );
+    this.deliveryCity = this.companyService.getDeliveryCity();
     this._globalService.dataBusChanged('pageLoading', true);
     this.selMenuType.id = '-1';
     this.selMenuCategory.id = '-1';

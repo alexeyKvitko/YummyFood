@@ -23,6 +23,9 @@ export class CompanyService {
   }
 
   public initBootstrapApp( ip: string) {
+    if ( ip == null || ip.length == 0 ){
+      ip = "undefined";
+    }
     this.http.get<BootstrapAppModel>(this.companyUrl+'/bootstrap/'+ip).subscribe( data => {
       this.bootstrapApp = data;
       this._globalService.dataBusChanged('data-loaded', true);
