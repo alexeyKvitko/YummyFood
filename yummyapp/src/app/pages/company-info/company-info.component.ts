@@ -103,7 +103,6 @@ export class CompanyInfoComponent implements OnInit {
       this.updateParseMenu.typeId = this.parseMenu.typeId;
       this.updateParseMenu.categoryId = this.parseMenu.categoryId;
       this.menuEntities = data.menuEntities;
-      console.log("MENU",this.menuEntities);
       let tagNameSplitted = this.splitValue( this.parseMenu.tagName );
       let tagDescSplitted = this.splitValue( this.parseMenu.tagDescription );
       let tagImgUrlSplitted = this.splitValue( this.parseMenu.tagImageUrl );

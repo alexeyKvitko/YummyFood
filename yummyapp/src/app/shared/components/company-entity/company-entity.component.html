@@ -1,0 +1,82 @@
+<div class="company-entity">
+  <img [src]="menuEntity.imageUrl">
+  <div class="company-entity-header">
+    <h2>{{menuEntity.displayName}}</h2>
+    <p>{{menuEntity.description}}</p>
+  </div>
+  <div class="company-entity-footer">
+    <div class="entity-footer-price">
+      <div class="wsp-small">
+        <p>{{selWeight}}&nbsp;гр.</p>
+      </div>
+      <div class="wsp-small">
+        <p>{{selSize}}</p>
+      </div>
+      <div class="wsp-medium">
+        <span>
+        {{selPrice}}
+          <i class="fas fa-ruble-sign icon"></i>
+       </span>
+      </div>
+    </div><br>
+    <!--WSP ONE-->
+    <div class="entity-footer-price entity-selecting" (click)="selectPrice('One')"
+          [ngClass]="{'entity-select':menuEntity.priceOne == selPrice}">
+      <div class="wsp-small">
+        <p>{{menuEntity.weightOne}}&nbsp;гр.</p>
+      </div>
+      <div class="wsp-small">
+        <p>{{menuEntity.sizeOne}}</p>
+      </div>
+      <div class="wsp-medium">
+        <h1>{{menuEntity.priceOne}}<i class="fas fa-ruble-sign icon"></i></h1>
+      </div>
+    </div>
+    <!--WSP TWO-->
+    <div class="entity-footer-price entity-selecting" (click)="selectPrice('Two')"
+         [ngClass]="{'entity-select':menuEntity.priceTwo == selPrice}"
+            *ngIf="isHidden(menuEntity.priceTwo)">
+      <div class="wsp-small">
+        <p>{{menuEntity.weightTwo}}&nbsp;гр.</p>
+      </div>
+      <div class="wsp-small">
+        <p>{{menuEntity.sizeTwo}}</p>
+      </div>
+      <div class="wsp-medium">
+        <h1>{{menuEntity.priceTwo}}<i class="fas fa-ruble-sign  icon"></i></h1>
+      </div>
+    </div>
+    <!--WSP THREE-->
+    <div class="entity-footer-price entity-selecting" (click)="selectPrice('Three')"
+         [ngClass]="{'entity-select':menuEntity.priceThree == selPrice}"
+            *ngIf="isHidden(menuEntity.priceThree)">
+      <div class="wsp-small">
+        <p>{{menuEntity.weightThree}}&nbsp;гр.</p>
+      </div>
+      <div class="wsp-small">
+        <p>{{menuEntity.sizeThree}}</p>
+      </div>
+      <div class="wsp-medium">
+        <h1>{{menuEntity.priceThree}}<i class="fas fa-ruble-sign icon"></i></h1>
+      </div>
+    </div>
+    <!--WSP FOUR-->
+    <div class="entity-footer-price entity-selecting" (click)="selectPrice('Four')"
+         [ngClass]="{'entity-select':menuEntity.priceFour == selPrice}"
+            *ngIf="isHidden(menuEntity.priceFour)">
+      <div class="wsp-small">
+        <p>{{menuEntity.weightFour}}&nbsp;гр.</p>
+      </div>
+      <div class="wsp-small">
+        <p>{{menuEntity.sizeFour}}</p>
+      </div>
+      <div class="wsp-medium">
+        <h1>{{menuEntity.priceFour}}<i class="fas fa-ruble-sign  icon"></i></h1>
+      </div>
+    </div>
+    <div class="company-entity-button">
+      <i class="fas fa-shopping-basket"></i>
+      <span>ЗАКАЗАТЬ</span>
+    </div>
+  </div>
+</div>

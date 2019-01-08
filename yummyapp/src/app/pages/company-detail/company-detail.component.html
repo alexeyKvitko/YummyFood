@@ -16,11 +16,11 @@
                   Минимальный заказ - <b>{{companyShort.delivery}}</b><br>
                   Доставка - БЕСПЛАТНО.<br>
                   Не нашли то, что искали?
-                  Попробуйте <span (click)="returnToChoice()">заказать доставку еды в <b>{{deliveryCity}}</b> </span> в других заведениях.
+                  Попробуйте <span (click)="returnToChoice()">заказать доставку еды в г.<b>{{deliveryCity}}</b> </span> в других заведениях.
                 </p>
               </div>
             </div>
-            <!--Б Л Ю Д А-->
+            <!--М Е Н Ю-->
             <div class="compdet-menu">
               <div class="success-btn-item main-button" (click)="returnToChoice()">
                 <img src="assets/images/icons/restaurant-white.png">
@@ -45,6 +45,20 @@
           </div>
           <div class="compdet-body-right">
             <company-card [company]="companyShort" [isDetailInfo]=true></company-card>
+            <div class="company-row-content" *ngFor="let triple of tripleEntities">
+              <div class="square-box">
+                <company-entity [menuEntity]="triple.entityOne">
+                </company-entity>
+              </div>
+              <div class="square-box">
+                <company-entity [menuEntity]="triple.entityTwo">
+                </company-entity>
+              </div>
+              <div class="square-box">
+                <company-entity [menuEntity]="triple.entityThree">
+                </company-entity>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -53,6 +53,7 @@ public class CompanyServiceImpl {
         CompanyInfo companyInfo = new CompanyInfo();
         CompanyModel company = null;
         List<MenuTypeModel> menuTypeModels = new ArrayList<>();
+        List<MenuEntityModel> menuEntityModels = new ArrayList<>();
         if ( AppConstants.FAKE_ID.equals( companyId ) ){
             company = new CompanyModel();
             company.setCity( cityRepo.findById( AppConstants.SIMFEROPOL_ID ).get() );
@@ -69,12 +70,14 @@ public class CompanyServiceImpl {
                     menuType.getId());
             for (MenuCategory category : categories) {
                 menuCategoryModels.add(convertUtils.convertMenuCategoryToModel(category, menuType.getId()));
+                menuEntityModels.addAll( getCompanyMenuModels( companyId, menuType.getId(), category.getId()) );
             }
             menuTypeModel.setMenuCategories(menuCategoryModels);
             menuTypeModels.add(menuTypeModel);
         }
         companyInfo.setCompanyModel(company);
         companyInfo.setMenuTypes(menuTypeModels);
+        companyInfo.setMenuEntities( menuEntityModels);
         return companyInfo;
     }
 
@@ -87,6 +90,18 @@ public class CompanyServiceImpl {
         companyEdit.setDeliveryMenuCategories( convertUtils.convertMenuCategoriesToModelList( (List<MenuCategory>) menuCategoryRepo.findAll() ) );
         companyEdit.setCities( convertUtils.convertCitiesToModelList( cityRepo.findAllByRegionIdOrderByName( AppConstants.CRIMEA_REGION ) ) );
         return companyEdit;
+    }
+
+    private List<MenuEntityModel> getCompanyMenuModels(int companyId, int typeId, int categoryId) {
+        List<MenuEntity> menuEntities = menuEntityRepo.findMenuEntity(companyId, typeId, categoryId);
+        List<MenuEntityModel> entityModels = new ArrayList<>();
+        for (MenuEntity menuEntity : menuEntities) {
+            if (AppConstants.FAKE_ID.equals(menuEntity.getId())) {
+                continue;
+            }
+            entityModels.add(convertUtils.convertMenuEntityToModel(menuEntity, companyId, typeId, categoryId));
+        }
+        return entityModels;
     }
 
     public CompanyMenu getCompanyMenu(int companyId, int typeId, int categoryId) {

@@ -11,6 +11,7 @@ public class CompanyInfo implements Serializable {
 
     protected CompanyModel companyModel;
     protected List<MenuTypeModel> menuTypes;
+    protected List<MenuEntityModel> menuEntities;
 
     public CompanyModel getCompanyModel() {
         return companyModel;
@@ -26,6 +27,14 @@ public class CompanyInfo implements Serializable {
 
     public void setMenuTypes(List<MenuTypeModel> menuTypes) {
         this.menuTypes = menuTypes;
+    }
+
+    public List<MenuEntityModel> getMenuEntities() {
+        return menuEntities;
+    }
+
+    public void setMenuEntities(List<MenuEntityModel> menuEntities) {
+        this.menuEntities = menuEntities;
     }
 
     @Override public boolean equals(Object o) {

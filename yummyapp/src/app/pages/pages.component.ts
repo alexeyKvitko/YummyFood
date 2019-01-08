@@ -8,9 +8,7 @@ import {LoginService} from "../services/login.service";
 @Component({
   selector: 'app-pages',
   templateUrl: './pages.component.html',
-  styleUrls: ['./pages.component.scss'], animations: [
-    pageRouteAnimation
-  ]
+  styleUrls: ['./pages.component.scss']
 })
 
 export class PagesComponent {

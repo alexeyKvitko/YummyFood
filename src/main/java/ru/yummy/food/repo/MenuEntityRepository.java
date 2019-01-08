@@ -28,4 +28,8 @@ public interface MenuEntityRepository extends CrudRepository<MenuEntity,Integer>
     List<MenuEntity> findMenuEntity(@Param("companyId") Integer companyId,@Param("typeId") Integer typeId,
                                     @Param("categoryId") Integer categoryId);
 
+    @Query("FROM MenuEntity me WHERE me.id IN (SELECT mi.entityId from MenuItem mi WHERE " +
+                                                                                "mi.companyId = :companyId)")
+    List<MenuEntity> findMenuEntity( @Param("companyId") Integer companyId );
+
 }

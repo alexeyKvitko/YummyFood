@@ -11,6 +11,7 @@ $primary-color-text:   #FFFFFF;
 $accent-color:         #FF5722;
 $primary-text-color:   #212121;
 $secondary-text-color: #959595;
+$light-gray-text:      #fafafe;
 $divider-color:        #BDBDBD;
 $menu-text:            #5c9233;
 
@@ -62,7 +63,7 @@ $info:#2cc3ff;
 }
 
 .bg-primary {
-    @include linear-gradient(to top right, $primary-color-dark, $primary-color);
+    @include linear-gradient(to top right, $bright-coral, $accent-color);
 }
 
 .bg-success {

@@ -13,6 +13,7 @@ import { SwitchComponent } from './components/switch/switch.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CompanyCardComponent } from "./components/company-card/company-card.component";
+import {CompanyEntityComponent} from "./components/company-entity/company-entity.component";
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { CompanyCardComponent } from "./components/company-card/company-card.com
     ProgressBarComponent,
     SwitchComponent,
     CompanyCardComponent,
+    CompanyEntityComponent,
     AlertComponent,
     ProfileComponent
   ],
@@ -39,6 +41,7 @@ import { CompanyCardComponent } from "./components/company-card/company-card.com
     TabContentComponent,
     ProgressBarComponent,
     CompanyCardComponent,
+    CompanyEntityComponent,
     SwitchComponent,
     AlertComponent,
     ProfileComponent

@@ -7,6 +7,7 @@ import {Router} from "@angular/router";
 import {CompanyService} from "../../services/company.service";
 import {GlobalService} from "../../shared/services/global.service";
 import {CompanyShortModel} from "../../model/company-short.model";
+import {TripleEntityModel} from "../../model/triple-entity.model";
 
 @Component({
   selector: 'app-company-detail',
@@ -18,13 +19,14 @@ export class CompanyDetailComponent implements OnInit {
   companyId: string;
   logoImgSrc: string = '';
   companyInfo: CompanyInfoModel = null;
-  menuCategoryList: MenuCategoryModel[];
   selMenuType: MenuTypeModel = new MenuTypeModel();
   selMenuCategory: MenuCategoryModel = new MenuCategoryModel();
   loading: boolean = true;
-  menuEntities: MenuEntityModel[];
+  menuEntities: MenuEntityModel[] = new Array<MenuEntityModel>();
   menuTypes: MenuTypeModel[] = new Array<MenuTypeModel>();
   companyShort: CompanyShortModel =  new CompanyShortModel();
+  tripleEntities: TripleEntityModel[] = new Array<TripleEntityModel>();
+
   deliveryCity: string;
 
   constructor(private router: Router,
@@ -50,6 +52,14 @@ export class CompanyDetailComponent implements OnInit {
       .subscribe(data => {
         this.companyInfo = data;
         this.menuTypes = data.menuTypes;
+        this.menuEntities = data.menuEntities;
+        for( let idx = 0; idx < this.menuEntities.length; idx +=3){
+          let tripleEntity = new TripleEntityModel();
+          tripleEntity.entityOne = this.menuEntities[idx] != undefined ? this.menuEntities[idx] : new MenuEntityModel();
+          tripleEntity.entityTwo = this.menuEntities[idx+1] != undefined ? this.menuEntities[idx+1] : new MenuEntityModel();
+          tripleEntity.entityThree = this.menuEntities[idx+2] != undefined ? this.menuEntities[idx+2] : new MenuEntityModel();
+          this.tripleEntities.push( tripleEntity );
+        }
         this.logoImgSrc = 'assets/images/logos/' + this.companyInfo.companyModel.logo;
         this._globalService.dataBusChanged('selected-link', null);
         this._globalService.dataBusChanged('pageLoading', false);

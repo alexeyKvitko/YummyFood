@@ -1,4 +1,5 @@
 @import '../../shared/theme/conf';
+@import 'company-detail.component.media';
 .compdet-scr {
   position: absolute;
   background-repeat: no-repeat;
@@ -80,14 +81,30 @@
       .compdet-body-right{
         width: 100%;
         flex-direction: column;
-        padding: 0px 10px 10px 25px;
+        padding: 0px 10px 0px 25px;
+        .company-row-content{
+          margin-bottom: 20px;
+          display: flex;
+          flex-direction: row;
+          width: 100%;
+          .square-box{
+            position: relative;
+            width: 34%;
+            overflow: hidden;
+          }
+          .square-box:before{
+            content: "";
+            display: block;
+            padding-top: 100%;
+          }
+        }
       }
     }
     .compdet-menu{
       width: 270px;
       height: auto;
       margin-left: 20px;
-      margin-bottom: 20px;
+      padding-bottom: 20px;
       //border: 1px solid $card-border;
       background-color: $card-content-bg;
       @include box-shadow( 0 1px 1px 1px rgba($teal-color, .3));
@@ -101,9 +118,11 @@
         width:250px;
         height: 40px;
         margin-left: 10px;
+        margin-top: 10px;
         background-image: url("../../../assets/images/menu/frame.png");
         p{
           margin-top: 8px;
+          font-family: Taurus;
           color: $primary-text-color;
           font-size: 18px;
           font-weight: 400;

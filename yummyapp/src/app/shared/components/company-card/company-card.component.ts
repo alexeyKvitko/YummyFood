@@ -23,9 +23,7 @@ export class CompanyCardComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    console.log("on inin this.logoSrc",this.company);
     this.logoSrc = "assets/images/logos/"+this.company.companyLogo;
-    console.log("this.logoSrc",this.logoSrc);
   }
 
   showMenu( company ){
