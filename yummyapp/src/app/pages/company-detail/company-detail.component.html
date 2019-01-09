@@ -1,5 +1,8 @@
 <div class="row" [hidden]="loading">
-  <div class="compdet-scr">
+  <div class="up-icon up-icon-top"  (click)="moveTopBottom()" >
+    <i class="fas fa-angle-double-up" aria-hidden="true"></i>
+  </div>
+  <div class="compdet-scr" track-scroll (onScroll)="track($event)">
     <section class="compdet">
       <div class="compdet-title">
         <p>Крымская Служба Заказа Еды</p>

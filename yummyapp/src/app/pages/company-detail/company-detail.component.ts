@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {CompanyInfoModel} from "../../model/company-info.model";
 import {MenuCategoryModel} from "../../model/menu-category.model";
 import {MenuTypeModel} from "../../model/menu-type.model";
@@ -8,6 +8,7 @@ import {CompanyService} from "../../services/company.service";
 import {GlobalService} from "../../shared/services/global.service";
 import {CompanyShortModel} from "../../model/company-short.model";
 import {TripleEntityModel} from "../../model/triple-entity.model";
+import {TrackScrollDirective} from "../../directives/track-scroll";
 
 @Component({
   selector: 'app-company-detail',
@@ -15,6 +16,7 @@ import {TripleEntityModel} from "../../model/triple-entity.model";
   styleUrls: ['./company-detail.component.scss']
 })
 export class CompanyDetailComponent implements OnInit {
+  @ViewChild(TrackScrollDirective) scroll: TrackScrollDirective;
 
   companyId: string;
   logoImgSrc: string = '';
@@ -86,12 +88,17 @@ export class CompanyDetailComponent implements OnInit {
       this.tripleEntities.push( tripleEntity );
     }
   }
+
   isMenuActive( id ){
     let active = false;
     if( this.selMenuCategory.id == id ){
       active = true;
     }
     return active;
+  }
+
+  track(value: number): void {
+    console.log('NEW VAL',value);
   }
 
 }

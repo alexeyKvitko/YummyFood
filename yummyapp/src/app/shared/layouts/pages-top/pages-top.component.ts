@@ -25,7 +25,7 @@ export class PagesTopComponent implements OnInit{
   cities: DictionaryModel[] = new Array<DictionaryModel>();
   deliveryCity: string;
   showDialog: boolean = false;
-  basketItemCount: number = 99;
+  basketItemCount: string = '0 р.';
 
   constructor( private _globalService: GlobalService,
                 private router: Router, private companyService : CompanyService ) {

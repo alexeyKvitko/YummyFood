@@ -5,7 +5,6 @@ import {IMAGE_PATHS} from "./const-image-paths";
 import {CATALOG} from "./const-catalog";
 import {ACTIONS} from "./const-actions";
 import {SOCIAL} from "./const-social";
-import {CompanyService} from "../../services/company.service";
 import {GlobalService} from "../../shared/services/global.service";
 
 @Component({
@@ -57,15 +56,14 @@ export class HomePageComponent implements OnInit{
 
   moveTopBottom(){
     if( this.scrollPos === 'top' ){
-      document.getElementById("bottom").scrollIntoView();
+      document.getElementById("bottom").scrollIntoView({behavior: "smooth", block: "start"});
       this.scrollPos = 'bottom';
     } else {
-      document.getElementById("top").scrollIntoView();
+      document.getElementById("top").scrollIntoView({behavior: "smooth", block: "start"});
       this.scrollPos = 'top';
     }
 
   }
-
 
   track(value: number): void {
     let calc = 1- value/25;
@@ -77,6 +75,11 @@ export class HomePageComponent implements OnInit{
       this.currentState = 'final';
     } else {
       this.currentState = 'initial';
+    }
+    if ( value > 50 ){
+      this.scrollPos = 'bottom';
+    } else {
+      this.scrollPos = 'top';
     }
     this.scrollPercent = value;
   }
