@@ -25,6 +25,7 @@ export class PagesTopComponent implements OnInit{
   cities: DictionaryModel[] = new Array<DictionaryModel>();
   deliveryCity: string;
   showDialog: boolean = false;
+  basketItemCount: number = 99;
 
   constructor( private _globalService: GlobalService,
                 private router: Router, private companyService : CompanyService ) {
@@ -40,6 +41,9 @@ export class PagesTopComponent implements OnInit{
       }
       if (data.ev === 'selected-link') {
         this.selectedLink = data.value;
+      }
+      if (data.ev === 'add-to-basket' && data.value === 'update') {
+        this.updateBasket();
       }
 
     }, error => {
@@ -66,6 +70,10 @@ export class PagesTopComponent implements OnInit{
 
   openCityModal(){
     this.showDialog = true;
+  }
+
+  updateBasket(){
+    this.basketItemCount = this._globalService.getBasketItemCount();
   }
 
 

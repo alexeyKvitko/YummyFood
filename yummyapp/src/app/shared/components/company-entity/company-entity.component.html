@@ -1,5 +1,9 @@
 <div class="company-entity">
-  <img [src]="menuEntity.imageUrl">
+  <img [src]="menuEntity.imageUrl" >
+  <div class="entity-in-basket" *ngIf="menuEntity.count > 0">
+    <img src="assets/images/icons/in-basket.png" >
+    <p>{{menuEntity.count}}</p>
+  </div>
   <div class="company-entity-header">
     <h2>{{menuEntity.displayName}}</h2>
     <p>{{menuEntity.description}}</p>
@@ -74,7 +78,7 @@
         <h1>{{menuEntity.priceFour}}<i class="fas fa-ruble-sign  icon"></i></h1>
       </div>
     </div>
-    <div class="company-entity-button">
+    <div class="company-entity-button" (click)="addToBasket()">
       <i class="fas fa-shopping-basket"></i>
       <span>ЗАКАЗАТЬ</span>
     </div>

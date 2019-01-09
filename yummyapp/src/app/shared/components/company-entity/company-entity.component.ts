@@ -1,5 +1,6 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
 import {MenuEntityModel} from "../../../model/menu-entity.model";
+import {GlobalService} from "../../services/global.service";
 
 @Component({
   selector: 'company-entity',
@@ -7,20 +8,26 @@ import {MenuEntityModel} from "../../../model/menu-entity.model";
   styleUrls: ['./company-entity.component.scss']
 })
 export class CompanyEntityComponent implements OnInit {
+
   @Input()
   menuEntity: MenuEntityModel = new MenuEntityModel();
 
   private selWeight: string;
   private selSize: string;
   private selPrice: string;
+  defaultImg: string = "assets/images/no-photo.png";
+  wspType : string = "One";
 
-  constructor() {
+  constructor(private  globalService : GlobalService) {
   }
 
   ngOnInit() {
     this.selWeight = this.menuEntity.weightOne;
     this.selSize = this.menuEntity.sizeOne;
     this.selPrice = this.menuEntity.priceOne;
+    if( this.menuEntity.imageUrl == null ){
+      this.menuEntity.imageUrl = this.defaultImg;
+    }
   }
 
   isHidden(obj){
@@ -32,6 +39,7 @@ export class CompanyEntityComponent implements OnInit {
   }
 
   selectPrice( sel: string ){
+    this.wspType = sel;
     switch (sel) {
       case 'One': {
         this.selWeight = this.menuEntity.weightOne;
@@ -61,6 +69,13 @@ export class CompanyEntityComponent implements OnInit {
         break;
       }
     }
+  }
+
+  addToBasket(){
+    this.menuEntity.wspType = this.wspType;
+    this.menuEntity.count ++;
+    this.globalService.addEntityToBasket( this.menuEntity );
+    this.globalService.dataBusChanged("add-to-basket","update");
   }
 
 }

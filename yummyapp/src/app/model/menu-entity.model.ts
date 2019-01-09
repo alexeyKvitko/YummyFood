@@ -20,4 +20,6 @@ export class MenuEntityModel {
   sizeFour: string;
   priceFour: string;
   status: string;
+  count: number = 0;
+  wspType: string;
 }

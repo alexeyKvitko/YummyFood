@@ -1,4 +1,4 @@
-<div class="row>" [hidden]="loading">
+<div class="row" [hidden]="loading">
   <div class="compdet-scr">
     <section class="compdet">
       <div class="compdet-title">
@@ -37,7 +37,9 @@
               </div>
               <div class="menutype-item" *ngFor="let menuType of menuTypes">
                 <label>{{menuType.displayName}}</label>
-                <div class="menucategory-item" *ngFor="let menuCategory of menuType.menuCategories">
+                <div class="menucategory-item" [ngClass]="{'menucategory-item-selected': isMenuActive( menuCategory.id )}"
+                     *ngFor="let menuCategory of menuType.menuCategories"
+                                      (click)="selectMenuCategory(menuType,menuCategory)">
                   <label>{{menuCategory.displayName}}</label>
                 </div>
               </div>
@@ -45,16 +47,17 @@
           </div>
           <div class="compdet-body-right">
             <company-card [company]="companyShort" [isDetailInfo]=true></company-card>
+            <div class="compdet-menu-title">{{selMenuCategory.displayName}}&nbsp;от&nbsp;{{companyShort.companyName}}</div>
             <div class="company-row-content" *ngFor="let triple of tripleEntities">
-              <div class="square-box">
+              <div class="square-box" *ngIf="triple.entityOne.priceOne != null">
                 <company-entity [menuEntity]="triple.entityOne">
                 </company-entity>
               </div>
-              <div class="square-box">
+              <div class="square-box" *ngIf="triple.entityTwo.priceOne != null">
                 <company-entity [menuEntity]="triple.entityTwo">
                 </company-entity>
               </div>
-              <div class="square-box">
+              <div class="square-box" *ngIf="triple.entityThree.priceOne != null">
                 <company-entity [menuEntity]="triple.entityThree">
                 </company-entity>
               </div>

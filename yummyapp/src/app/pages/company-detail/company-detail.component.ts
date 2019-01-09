@@ -38,7 +38,7 @@ export class CompanyDetailComponent implements OnInit {
     this._globalService.dataBusChanged('pageLoading', true);
     this.selMenuType.id = '-1';
     this.selMenuCategory.id = '-1';
-
+    this.selMenuCategory.displayName = 'Основное меню';
   }
 
   returnToChoice(){
@@ -53,6 +53,7 @@ export class CompanyDetailComponent implements OnInit {
         this.companyInfo = data;
         this.menuTypes = data.menuTypes;
         this.menuEntities = data.menuEntities;
+        this.menuEntities.forEach( entity =>{ entity.count = 0 } );
         for( let idx = 0; idx < this.menuEntities.length; idx +=3){
           let tripleEntity = new TripleEntityModel();
           tripleEntity.entityOne = this.menuEntities[idx] != undefined ? this.menuEntities[idx] : new MenuEntityModel();
@@ -65,6 +66,32 @@ export class CompanyDetailComponent implements OnInit {
         this._globalService.dataBusChanged('pageLoading', false);
         this.loading = false;
       });
+  }
+
+  selectMenuCategory( menuType: MenuTypeModel, menuCategory: MenuCategoryModel ){
+    this.selMenuType = menuType;
+    this.selMenuCategory = menuCategory;
+    this.tripleEntities = new Array<TripleEntityModel>();
+    let selectedEntities = new Array<MenuEntityModel>();
+    this.menuEntities.forEach( entity =>{
+      if( entity.typeId == menuType.id && entity.categoryId == menuCategory.id ){
+        selectedEntities.push( entity );
+      }
+    });
+    for( let idx = 0; idx < selectedEntities.length; idx +=3){
+      let tripleEntity = new TripleEntityModel();
+      tripleEntity.entityOne = selectedEntities[idx] != undefined ? selectedEntities[idx] : new MenuEntityModel();
+      tripleEntity.entityTwo = selectedEntities[idx+1] != undefined ? selectedEntities[idx+1] : new MenuEntityModel();
+      tripleEntity.entityThree = selectedEntities[idx+2] != undefined ? selectedEntities[idx+2] : new MenuEntityModel();
+      this.tripleEntities.push( tripleEntity );
+    }
+  }
+  isMenuActive( id ){
+    let active = false;
+    if( this.selMenuCategory.id == id ){
+      active = true;
+    }
+    return active;
   }
 
 }

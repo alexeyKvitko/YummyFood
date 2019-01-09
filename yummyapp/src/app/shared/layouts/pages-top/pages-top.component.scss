@@ -213,13 +213,14 @@
       flex-direction: row;
       padding-left: 7%;
       .head-menu-item{
-        text-align: center;
-        padding-top: 26px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
         width:120px;
         height: 100%;
-        line-height: 34px;
+        line-height: 48px;
         .head-menu-text{
-          padding: 14px;
           transition: all 400ms linear 0s;
           &:hover{
             color: $primary-color-text;
@@ -228,16 +229,26 @@
           }
         }
         .head-menu-icon{
-          color: $bright-coral;
-          background-color: $green-bg;
-          font-size: 18px;
-          border-radius: 50%;
-          padding: 14px 16px;
+          position: relative;
+          text-align: center;
           transition: all 400ms linear 0s;
+          color: $bright-coral;
+          img{
+            width: 48px;
+            height: 48px;
+          }
+          .centered{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: 600;
+            font-family: Roboto-Condensed;
+            font-size: 12px;
+          }
           &:hover{
             cursor: pointer;
-            background-color: $bright-coral;
-            color: $primary-color-text;
+            color: $white;
           }
         }
       }

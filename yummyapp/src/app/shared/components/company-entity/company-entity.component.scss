@@ -16,6 +16,24 @@
     width: 100%;
     height: auto;
   }
+  .entity-in-basket{
+    position: absolute;
+    top:80%;
+    margin-top: -48px;
+    margin-left: -6px;
+    img{
+      width: 48px;
+      height: 48px;
+    }
+    p{
+      position: relative;
+      color: $white;
+      margin-left: 34px;
+      margin-top: -38px;
+      font-size: 10px;
+      font-weight: 600;
+    }
+  }
   .company-entity-header{
     position: absolute;
     top:0px;
@@ -38,7 +56,7 @@
     }
     h2{
       padding: 0px 8px;
-      margin-top: 10px;
+      margin-top: 4px;
       font-family: Taurus;
       color: $primary-text-color;
       font-size: 20px;
@@ -182,8 +200,8 @@
     span{
       font-family: Sandora;
       color: $bright-coral;
-      font-size: 26px;
-      font-weight: 600;
+      font-size: 24px;
+      font-weight: 500;
       .icon{
         font-size: 20px;
         margin-left: 3px;

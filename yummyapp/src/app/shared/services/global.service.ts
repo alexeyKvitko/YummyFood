@@ -1,39 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/internal/Subject';
+import {MenuEntityModel} from "../../model/menu-entity.model";
 /* models */
 /* import { TabMenuModel } from '../models/tabs-model';
 import { NotificationModel } from '../models/notification-model'; */
 
 @Injectable()
 export class GlobalService {
-    /*private sidebarToggleSource = new Subject<boolean>();
-    sidebarToggle$ = this.sidebarToggleSource.asObservable();
-    _sidebarToggleState(sidebarToggle: boolean) {
-        this.sidebarToggleSource.next(sidebarToggle);
-    }*/
 
-    /* private tabsMenuSource = new Subject<TabMenuModel>();
-    tabsMenu$ = this.tabsMenuSource.asObservable();
-    _tabsMenu(tabsMenu: TabMenuModel) {
-        this.tabsMenuSource.next(tabsMenu);
-    }
-    private tabsOrderSource = new Subject<Array<any>>();
-    tabsOrder$ = this.tabsOrderSource.asObservable();
-    _tabsOrder(tabsOrder: Array<any>) {
-        this.tabsOrderSource.next(tabsOrder);
-    }*/
-    
-    /* private notificationSource = new Subject<NotificationModel>();
-    notification$ = this.notificationSource.asObservable();
-    _notification(notification: NotificationModel) {
-        this.notificationSource.next(notification);
-    } */
-
-    /* private isActivedSource = new Subject<any>();
-    isActived$ = this.isActivedSource.asObservable();
-    _isActived(isActived) {
-        this.isActivedSource.next(isActived);
-    }*/
+    private customerBasket: MenuEntityModel[] = new Array<MenuEntityModel>();
 
     private dataSource = new Subject<DataSourceClass>();
 
@@ -44,6 +19,28 @@ export class GlobalService {
             ev: ev,
             value: value
         })
+    }
+
+    public addEntityToBasket( menuEntity : MenuEntityModel){
+      let exist = false;
+      this.customerBasket.forEach( entity =>{
+        if ( entity.id == menuEntity.id
+                && entity.wspType == menuEntity.wspType ){
+          entity.count = menuEntity.count;
+          exist = true;
+        }
+      });
+      if ( !exist ){
+        this.customerBasket.push( menuEntity );
+      }
+    }
+
+    public getBasketItemCount(): number{
+      let enityCount = 0;
+      this.customerBasket.forEach( menuEntity =>{
+        enityCount += menuEntity.count;
+      });
+      return enityCount;
     }
 
 }

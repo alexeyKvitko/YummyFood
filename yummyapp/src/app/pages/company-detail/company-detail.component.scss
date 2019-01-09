@@ -99,6 +99,12 @@
           }
         }
       }
+      .compdet-menu-title{
+        margin: 20px 0px 8px 8px;
+        font-family: Sandora;
+        font-size: 24px;
+        font-weight: 600;
+      }
     }
     .compdet-menu{
       width: 270px;
@@ -141,8 +147,9 @@
       }
       .menucategory-item{
         color: $teal-color;
-        padding: 0px 6px;
+        padding: 1px 6px;
         text-align: left;
+        border-left: 3px solid transparent;
         label{
           font-family: Roboto-Condensed;
           font-weight: 300;
@@ -154,6 +161,12 @@
             border-bottom: 1px solid transparent;
             font-weight: 400;
           }
+        }
+      }
+      .menucategory-item-selected{
+        border-left: 3px solid $bright-coral;
+        label{
+          font-weight: 600;
         }
       }
     }
