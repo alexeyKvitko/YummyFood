@@ -13,17 +13,18 @@ import {TrackScrollDirective} from "../../directives/track-scroll";
 @Component({
   selector: 'app-company-detail',
   templateUrl: './company-detail.component.html',
-  styleUrls: ['./company-detail.component.scss']
+  styleUrls: ['./company-detail.component.scss'],
 })
 export class CompanyDetailComponent implements OnInit {
   @ViewChild(TrackScrollDirective) scroll: TrackScrollDirective;
 
-  companyId: string;
+  companyId: string = null;
   logoImgSrc: string = '';
   companyInfo: CompanyInfoModel = null;
   selMenuType: MenuTypeModel = new MenuTypeModel();
   selMenuCategory: MenuCategoryModel = new MenuCategoryModel();
   loading: boolean = true;
+  percentValue: number;
   menuEntities: MenuEntityModel[] = new Array<MenuEntityModel>();
   menuTypes: MenuTypeModel[] = new Array<MenuTypeModel>();
   companyShort: CompanyShortModel =  new CompanyShortModel();
@@ -31,17 +32,19 @@ export class CompanyDetailComponent implements OnInit {
 
   deliveryCity: string;
 
-  constructor(private router: Router,
-              private companyService: CompanyService, private _globalService: GlobalService) {
+  constructor(private router: Router, private companyService: CompanyService, private _globalService: GlobalService) {
 
     this.companyId = window.localStorage.getItem('companyId');
-    this.companyShort = this.companyService.getCompanyShortById( this.companyId );
+    if ( this.companyId != null ){
+      this.companyShort = this.companyService.getCompanyShortById( this.companyId );
+    }
     this.deliveryCity = this.companyService.getDeliveryCity();
     this._globalService.dataBusChanged('pageLoading', true);
     this.selMenuType.id = '-1';
     this.selMenuCategory.id = '-1';
     this.selMenuCategory.displayName = 'Основное меню';
   }
+
 
   returnToChoice(){
     let link = 'pages/company';
@@ -55,7 +58,17 @@ export class CompanyDetailComponent implements OnInit {
         this.companyInfo = data;
         this.menuTypes = data.menuTypes;
         this.menuEntities = data.menuEntities;
-        this.menuEntities.forEach( entity =>{ entity.count = 0 } );
+        let basket = this._globalService.getBasket();
+        this.menuEntities.forEach( entity =>{
+          entity.count = 0
+          basket.forEach( basketEntity =>{
+            if ( this.companyId == basketEntity.companyId &&
+                   basketEntity.id == entity.id ){
+                entity.count = basketEntity.count;
+                entity.wspType = basketEntity.wspType;
+            }
+          });
+        } );
         for( let idx = 0; idx < this.menuEntities.length; idx +=3){
           let tripleEntity = new TripleEntityModel();
           tripleEntity.entityOne = this.menuEntities[idx] != undefined ? this.menuEntities[idx] : new MenuEntityModel();
@@ -97,8 +110,36 @@ export class CompanyDetailComponent implements OnInit {
     return active;
   }
 
+  isMenuInBasket( categoryId ){
+    let inBasket = false;
+    let basket = this._globalService.getBasket();
+    basket.forEach( entity =>{
+      if( !inBasket && this.companyId == entity.companyId &&
+          entity.categoryId == categoryId ){
+        inBasket = true;
+      }
+    });
+    return inBasket;
+  }
+
   track(value: number): void {
-    console.log('NEW VAL',value);
+    console.log('IT WORKS',value);
+    // let calc = 1- value/25;
+    // if( calc < 0 ){
+    //   calc = 0;
+    // }
+    // this.inviteOpacity = calc;
+    // if (value > 20) {
+    //   this.currentState = 'final';
+    // } else {
+    //   this.currentState = 'initial';
+    // }
+    // if ( value > 50 ){
+    //   this.scrollPos = 'bottom';
+    // } else {
+    //   this.scrollPos = 'top';
+    // }
+    // this.scrollPercent = value;
   }
 
 }

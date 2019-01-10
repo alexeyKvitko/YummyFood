@@ -29,10 +29,12 @@
            [ngClass]="{'menu-active':menu.link === selectedLink}" (click)="routeToLink(menu.link)">
         <span class="head-menu-text">{{menu.label}}</span>
       </div>
-      <div class="head-menu-item">
-        <div class="head-menu-icon">
-           <img src="assets/images/icons/in-basket-rur.png" >
-           <div class="centered">{{basketItemCount}}</div>
+      <div class="head-menu-item" >
+        <div class="head-menu-icon" *ngIf="basketPrice > 0">
+           <img src="assets/images/icons/in-basket-rub.png" >
+           <div class="centered">{{basketPrice}}
+             <i class="fas fa-ruble-sign icon"></i>
+           </div>
         </div>
       </div>
     </div>

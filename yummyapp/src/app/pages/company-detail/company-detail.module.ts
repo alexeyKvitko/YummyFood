@@ -4,6 +4,7 @@ import { routing } from './company-detail.routing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import {CompanyDetailComponent} from "./company-detail.component";
+import {TrackScrollDirective} from "../../directives/track-scroll";
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {CompanyDetailComponent} from "./company-detail.component";
     routing
   ],
   declarations: [
-    CompanyDetailComponent
+    CompanyDetailComponent,
+    TrackScrollDirective
   ]
 })
 export class CompanyDetailModule { }

@@ -82,7 +82,8 @@
           </div>
           <div class="kabare-body-right">
             <company-card *ngFor="let company of companies;let idx = index"
-                          [company]="company" (selectCompany)="showCompanyDetail($event)"></company-card>
+                          [company]="company"
+                          (selectCompany)="showCompanyDetail($event)"></company-card>
           </div>
         </div>
       </div>

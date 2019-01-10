@@ -26,22 +26,45 @@ export class GlobalService {
       this.customerBasket.forEach( entity =>{
         if ( entity.id == menuEntity.id
                 && entity.wspType == menuEntity.wspType ){
-          entity.count = menuEntity.count;
+          entity.count ++;
           exist = true;
         }
       });
       if ( !exist ){
-        this.customerBasket.push( menuEntity );
+        let newInstance = Object.assign({}, menuEntity);
+        newInstance.count = 1;
+        this.customerBasket.push( newInstance );
       }
     }
 
-    public getBasketItemCount(): number{
-      let enityCount = 0;
+    public getBasketPrice(): number{
+      let entityPrice = 0;
       this.customerBasket.forEach( menuEntity =>{
-        enityCount += menuEntity.count;
+        switch( menuEntity.wspType ){
+          case 'One' :
+            entityPrice = entityPrice + (+menuEntity.priceOne)*menuEntity.count;
+          break;
+          case 'Two' :
+            entityPrice = entityPrice + (+menuEntity.priceTwo)*menuEntity.count;
+            break;
+          case 'Three' :
+            entityPrice = entityPrice + (+menuEntity.priceThree)*menuEntity.count;
+            break;
+          case 'Four' :
+            entityPrice = entityPrice + (+menuEntity.priceFour)*menuEntity.count;
+            break;
+          default:
+          break;
+            
+        }
       });
-      return enityCount;
+      return entityPrice;
     }
+
+    public getBasket(){
+      return this.customerBasket;
+    }
+
 
 }
 

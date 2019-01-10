@@ -14,7 +14,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PagesModule } from './pages/pages.module';
 import { DeliveryMenuService } from "./services/delivery-menu.service";
 
-
 @NgModule({
   declarations: [
     AppComponent

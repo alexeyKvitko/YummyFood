@@ -1,15 +1,15 @@
-<div class="row" [hidden]="loading">
+<div class="row" [hidden]="loading" track-scroll (onScroll)="track($event)">
   <div class="up-icon up-icon-top"  (click)="moveTopBottom()" >
     <i class="fas fa-angle-double-up" aria-hidden="true"></i>
   </div>
-  <div class="compdet-scr" track-scroll (onScroll)="track($event)">
+  <div class="compdet-scr" >
     <section class="compdet">
       <div class="compdet-title">
         <p>Крымская Служба Заказа Еды</p>
         <p>{{companyShort.companyName}}</p>
       </div>
-      <div id="top" class="compdet-wrapper">
-        <div class="compdet-body">
+      <div id="top" class="compdet-wrapper" >
+        <div class="compdet-body" >
           <div class="compdet-body-left">
             <div class="add-info">
               <div class="add-info-container">
@@ -44,6 +44,7 @@
                      *ngFor="let menuCategory of menuType.menuCategories"
                                       (click)="selectMenuCategory(menuType,menuCategory)">
                   <label>{{menuCategory.displayName}}</label>
+                  <img src="assets/images/icons/in-basket.png" *ngIf="isMenuInBasket( menuCategory.id )">
                 </div>
               </div>
             </div>

@@ -25,7 +25,7 @@ export class PagesTopComponent implements OnInit{
   cities: DictionaryModel[] = new Array<DictionaryModel>();
   deliveryCity: string;
   showDialog: boolean = false;
-  basketItemCount: string = '0 р.';
+  basketPrice: number = 0;
 
   constructor( private _globalService: GlobalService,
                 private router: Router, private companyService : CompanyService ) {
@@ -44,6 +44,9 @@ export class PagesTopComponent implements OnInit{
       }
       if (data.ev === 'add-to-basket' && data.value === 'update') {
         this.updateBasket();
+      }
+      if (data.ev === 'pageLoading') {
+        this.logoOpacity = data.value ? 0 : 1;
       }
 
     }, error => {
@@ -73,7 +76,7 @@ export class PagesTopComponent implements OnInit{
   }
 
   updateBasket(){
-    this.basketItemCount = this._globalService.getBasketItemCount();
+    this.basketPrice = this._globalService.getBasketPrice();
   }
 
 

@@ -232,9 +232,9 @@
           position: relative;
           text-align: center;
           transition: all 400ms linear 0s;
-          color: $bright-coral;
+          color: $white;
           img{
-            width: 90px;
+            width: 100px;
             height: 48px;
           }
           .centered{
@@ -243,12 +243,15 @@
             left: 50%;
             transform: translate(-50%, -50%);
             font-weight: 600;
-            font-family: Roboto-Condensed;
+            font-family: Roboto;
             font-size: 12px;
+            .icon{
+              font-size: 12px;
+            }
           }
           &:hover{
             cursor: pointer;
-            color: $white;
+            box-shadow: 0px 2px 7px #000;
           }
         }
       }

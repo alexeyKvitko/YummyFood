@@ -22,5 +22,6 @@ export class CompanyShortModel {
   action: string;
   weekdayWork: string;
   dayoffWork: string;
+  isPresentInBasket: boolean;
 
 }

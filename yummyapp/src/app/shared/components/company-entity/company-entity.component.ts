@@ -1,6 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
 import {MenuEntityModel} from "../../../model/menu-entity.model";
 import {GlobalService} from "../../services/global.service";
+import {CompanyService} from "../../../services/company.service";
 
 @Component({
   selector: 'company-entity',
@@ -18,7 +19,7 @@ export class CompanyEntityComponent implements OnInit {
   defaultImg: string = "assets/images/no-photo.png";
   wspType : string = "One";
 
-  constructor(private  globalService : GlobalService) {
+  constructor(private  globalService : GlobalService, private companyService: CompanyService) {
   }
 
   ngOnInit() {
@@ -76,6 +77,7 @@ export class CompanyEntityComponent implements OnInit {
     this.menuEntity.count ++;
     this.globalService.addEntityToBasket( this.menuEntity );
     this.globalService.dataBusChanged("add-to-basket","update");
+    this.companyService.addCompanyShortToBasket( this.menuEntity.companyId );
   }
 
 }

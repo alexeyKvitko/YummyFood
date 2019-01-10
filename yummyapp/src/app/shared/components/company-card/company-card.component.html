@@ -16,6 +16,7 @@
       <div class="company-info">
         <div class="company-title company-title-hover" (click)="showMenu(company)" *ngIf="!isDetailInfo">
           <h2>{{company.companyName}}</h2>
+          <img src="assets/images/icons/in-basket.png" *ngIf="company.isPresentInBasket">
         </div>
         <div class="company-title"  *ngIf="isDetailInfo">
           <h2>{{company.companyName}}</h2>

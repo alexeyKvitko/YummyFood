@@ -11,6 +11,7 @@ import {DeliveryMenuService} from "../../services/delivery-menu.service";
 import {DeliveryMenuModel} from "../../model/delivery-menu.model";
 import {OTHER_PARAMS} from "./const-other-params";
 import {CompanyShortModel} from "../../model/company-short.model";
+import {MenuEntityModel} from "../../model/menu-entity.model";
 
 @Component({
   selector: 'app-company',
@@ -26,6 +27,7 @@ export class CompanyComponent implements OnInit {
   typesListView: string = 'Показать Все Кухни';
   companies: CompanyShortModel[];
   deliveryCity: string = "";
+  basket: MenuEntityModel[] = new Array<MenuEntityModel>();
 
   constructor(private router: Router,private _authService: AuthService, private deliveryMenuService : DeliveryMenuService,
               private companyService: CompanyService, private _globalService: GlobalService) {
@@ -43,6 +45,9 @@ export class CompanyComponent implements OnInit {
           this.companies = this.companyService.getCompaniesShort();
           this.deliveryCity = this.companyService.getDeliveryCity();
         }
+      }
+      if (data.ev === 'add-to-basket' && data.value === 'update') {
+        this.basket = this._globalService.getBasket();
       }
     }, error => {
       console.log('Error: ' + error);

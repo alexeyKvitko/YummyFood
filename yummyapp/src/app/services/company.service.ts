@@ -28,6 +28,9 @@ export class CompanyService {
     }
     this.http.get<BootstrapAppModel>(this.companyUrl+'/bootstrap/'+ip).subscribe( data => {
       this.bootstrapApp = data;
+      this.bootstrapApp.companyShorts.forEach( company =>{
+        company.isPresentInBasket = false;
+      });
       this._globalService.dataBusChanged('data-loaded', true);
     });
   }
@@ -38,6 +41,14 @@ export class CompanyService {
 
   public getCompaniesShort() {
     return this.bootstrapApp.companyShorts;
+  }
+
+  public addCompanyShortToBasket( companyId ){
+    this.bootstrapApp.companyShorts.forEach( company =>{
+      if ( company.companyId == companyId ){
+        company.isPresentInBasket = true;
+      }
+    });
   }
 
   public getCompanyShortById( companyId ): CompanyShortModel {
