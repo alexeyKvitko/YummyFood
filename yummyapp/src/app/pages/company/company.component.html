@@ -1,16 +1,26 @@
 <div class="row>">
-  <div class="kabare-scr">
+  <div class="up-icon up-icon-top"  (click)="moveToTop()" [style.opacity]="toUpIconOpacity">
+    <i class="fas fa-angle-double-up" aria-hidden="true"></i>
+  </div>
+  <div class="kabare-scr" (scroll)="onScrollDiv($event)">
     <section class="kabare">
-      <div class="kabare-title">
+      <div id="top" class="kabare-title">
         <p>Крымская Служба Заказа Еды</p>
         <p>{{deliveryCity}}</p>
       </div>
-      <div id="top" class="kabare-wrapper">
+      <div class="kabare-wrapper">
         <div class="kabare-header">
           <div class="left-part">
             <div class="search-input-box">
               <input placeholder="Поиск заведений" type="text">
               <i class="fas fa-search search-icon"></i>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="success-btn-item main-button" (click)="createCompany()" *ngIf="isRoleAdmin()">
+              <img src="assets/images/icons/restaurants-poi.png">
+              <div class="mobile-label">
+                <p>ДОБАВИТЬ ЗАВЕДЕНИЕ</p>
+              </div>
             </div>
           </div>
           <div class="right-part">

@@ -6,8 +6,11 @@ import {GlobalService} from "../../shared/services/global.service";
 import {CompanyEditModel} from "../../model/company-edit.model";
 import {MenuTypeModel} from "../../model/menu-type.model";
 import {MenuCategoryModel} from "../../model/menu-category.model";
-import swal from "sweetalert2";
 import {CompanyModel} from "../../model/company.model";
+import {CompanyShortModel} from "../../model/company-short.model";
+import {WORK_DAY_START} from "./const-workdaystart";
+import {WORK_DAY_END} from "./const-workdayend";
+import swal from "sweetalert2";
 
 @Component({
   selector: 'app-company-edit',
@@ -20,11 +23,15 @@ export class CompanyEditComponent implements OnInit {
   logoImgSrc: string = '';
   companyId: string;
   companyEdit: CompanyEditModel = null;
+  companyShort: CompanyShortModel = new CompanyShortModel();
   selMenuType: MenuTypeModel = new MenuTypeModel();
   selMenuCategory: MenuCategoryModel = new MenuCategoryModel();
   companyForm: FormGroup;
   selectedOptionType: string = null;
   selectedOptionCategory: string = null;
+  workDayStartValues = WORK_DAY_START;
+  workDayEndValues = WORK_DAY_END;
+
 
   constructor(private formBuilder: FormBuilder, private _authService: AuthService,
               private companyService: CompanyService, private _globalService: GlobalService) {
@@ -68,7 +75,19 @@ export class CompanyEditComponent implements OnInit {
       }, Validators.compose([Validators.required])],
       phoneTwo: [{value: this.companyEdit.companyModel.phoneTwo, disabled: true}],
       phoneThree: [{value: this.companyEdit.companyModel.phoneThree, disabled: true}],
-      logo: [{value: this.companyEdit.companyModel.logo, disabled: true}, Validators.compose([Validators.required])]
+      logo: [{value: this.companyEdit.companyModel.logo, disabled: true}],
+      minOrder: [{value: this.companyShort.delivery, disabled: true}],
+      reviewNum: [{value: this.companyShort.commentCount, disabled: true}],
+      workDayStart: [{value: this.companyShort.weekdayStart,disabled: true}],
+      workDayEnd: [{value: this.companyShort.weekdayEnd,disabled: true}],
+      workDayByStr: [{value: this.companyShort.weekdayWork,disabled: true}],
+      dayOffStart: [{value: this.companyShort.dayoffStart,disabled: true}],
+      dayOffEnd: [{value: this.companyShort.dayoffEnd,disabled: true}],
+      dayOffByStr: [{value: this.companyShort.dayoffWork,disabled: true}],
+      payCash: [{value: this.companyShort.payTypeCash,disabled: true}],
+      payCard: [{value: this.companyShort.payTypeMir,disabled: true}],
+      payWallet: [{value: this.companyShort.payTypeQiwi,disabled: true}]
+
     });
     this._globalService.dataBusChanged('pageLoading', false);
     this.loading = false;
@@ -127,6 +146,26 @@ export class CompanyEditComponent implements OnInit {
         this.companyForm.get('city').disable();
       }
     });
+  }
+
+  workDayStartSelect( workStart ){
+    this.companyForm.get('workDayStart').setValue( workStart );
+    this.companyForm.get('workDayStart').disable();
+  }
+
+  workDayEndSelect( workEnd ){
+    this.companyForm.get('workDayEnd').setValue( workEnd );
+    this.companyForm.get('workDayEnd').disable();
+  }
+
+  dayOffStartSelect( workStart ){
+    this.companyForm.get('dayOffStart').setValue( workStart );
+    this.companyForm.get('dayOffStart').disable();
+  }
+
+  dayOffEndSelect( workEnd ){
+    this.companyForm.get('dayOffEnd').setValue( workEnd );
+    this.companyForm.get('dayOffEnd').disable();
   }
 
   showHttpActionMessage(data) {
@@ -197,6 +236,7 @@ export class CompanyEditComponent implements OnInit {
 
   updateCompanyEdit(data) {
     this.companyEdit = data;
+    this.companyShort = data.companyShort;
     this.companyEdit.companyModel.city.displayName = this.companyEdit.companyModel.city.name;
     this.companyEdit.menuTypes.forEach(item => {
       item.menuOpen = true;
@@ -277,6 +317,14 @@ export class CompanyEditComponent implements OnInit {
   }
 
   addMenuCategory() {
+    if (this.companyId == '-1') {
+      swal({
+        type: 'error',
+        title: 'Невозможно',
+        text: 'Необходимо записать оргнизацию!',
+      });
+      return;
+    }
     if (this.selectedOptionType == null) {
       swal({
         type: 'error',

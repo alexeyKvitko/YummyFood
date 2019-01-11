@@ -8,7 +8,7 @@ export let TOP_MENU = [
     link: 'pages/company'
   },
   {
-    label: 'Меню',
+    label: 'Блюда',
     link: 'pages/delivery-menu'
   },
   {

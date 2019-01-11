@@ -36,7 +36,11 @@ public class AuthenticationController {
         }
         final User user = userService.findOne(loginUser.getUsername());
         final String token = jwtTokenUtil.generateToken(user);
-        return new ApiResponse<>(200, "success", new AuthToken(token, user.getLastName()+" "+user.getFirstName()+" "+user.getSecondName()));
+        AuthToken authToken = new AuthToken();
+        authToken.setToken( token );
+        authToken.setUsername( user.getLastName()+" "+user.getFirstName()+" "+user.getSecondName() );
+        authToken.setUserRole( user.getRole() );
+        return new ApiResponse<>(200, "success", authToken);
     }
 
 }

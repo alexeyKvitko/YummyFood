@@ -79,5 +79,4 @@ export class PagesTopComponent implements OnInit{
     this.basketPrice = this._globalService.getBasketPrice();
   }
 
-
 }

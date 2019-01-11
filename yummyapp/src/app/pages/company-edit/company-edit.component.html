@@ -1,6 +1,7 @@
-<div class="row" [hidden]="loading" *ngIf="companyEdit != null">
+<div class="company-edit-content" [hidden]="loading" *ngIf="companyEdit != null">
   <div class="menu-wrapper">
-    <div id="type-menu" class="menu-content col-md-3">
+    <h2>МЕНЮ ЗАВЕДЕНИЯ:</h2>
+    <div id="type-menu" class="menu-content">
       <div class="menu-group">
         <div *ngFor="let menuType of companyEdit.menuTypes">
           <span class="menu-icon" *ngIf="!menuType.menuOpen">
@@ -28,124 +29,227 @@
         </div>
       </div>
     </div>
-    <!--RIGHT SIDE-->
-    <div class="row company-input-content">
-      <div class="col-md-8">
-        <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
-          <div class="input-box">
-            <div class="logo">
-              <img src="{{logoImgSrc}}" alt="avatar">
-            </div>
+    <div class="control-wrapper">
+      <div class="control-content">
+        <label for="menu-type" class="control-label">Кухня</label>
+        <span [hidden]="selectedOptionType==null" class="add-icon" (click)="addMenuType()"><i
+          class="far fa-plus-square"></i></span>
+        <select [(ngModel)]="selectedOptionType" class="form-control" id="menu-type">
+          <option *ngFor="let menuType of companyEdit.deliveryMenuTypes" value="{{menuType.id}}">
+            {{menuType.displayName}}
+          </option>
+        </select>
+        <label for="menu-category" class="control-label">Блюда</label>
+        <span [hidden]="selectedOptionCategory==null" class="add-icon" (click)="addMenuCategory()"><i
+          class="far fa-plus-square"></i></span>
+        <select [(ngModel)]="selectedOptionCategory" class="form-control" id="menu-category">
+          <option *ngFor="let menuCategory of companyEdit.deliveryMenuCategories" value="{{menuCategory.id}}">
+            {{menuCategory.displayName}}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <!--RIGHT SIDE-->
+  <div class="company-input-content">
+    <div class="col-md-offset-10">
+      <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+        <div class="input-box">
+          <div class="logo">
+            <img src="{{logoImgSrc}}" alt="avatar">
           </div>
-          <div class="input-box">
+        </div>
+        <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="companyName"
                     (click)="inputControlClick('companyName')">
               <span [hidden]="isControlHidden('companyName')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('companyName')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Организация</span>
-            <input placeholder="Рабочее наименование" type="text" formControlName="companyName">
-            <span class="input-group-addon-teal-right itr-end" (click)="undoControl('companyName')"><i
-              class="fas fa-undo-alt"></i></span>
-          </div>
-          <div class="input-box">
+          <input placeholder="Рабочее наименование" type="text" formControlName="companyName">
+          <span class="input-group-addon-teal-right itr-end" (click)="undoControl('companyName')"><i
+            class="fas fa-undo-alt"></i></span>
+        </div>
+        <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="displayName"
                     (click)="inputControlClick('displayName')">
               <span [hidden]="isControlHidden('displayName')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('displayName')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Наименование</span>
-            <input placeholder="Отображаемое наименование" type="text" formControlName="displayName">
-            <span class="input-group-addon-teal-right itr-end" (click)="undoControl('displayName')"><i
-              class="fas fa-undo-alt"></i></span>
-          </div>
-          <div class="input-box">
+          <input placeholder="Отображаемое наименование" type="text" formControlName="displayName">
+          <span class="input-group-addon-teal-right itr-end" (click)="undoControl('displayName')"><i
+            class="fas fa-undo-alt"></i></span>
+        </div>
+        <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="city" (click)="inputControlClick('city')">
               <span [hidden]="isControlHidden('city')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('city')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Город</span>
-            <input placeholder="Город" type="text" formControlName="city" [readonly]="true">
-            <span class="input-group-addon-teal-right itr-end" (click)="undoControl('city')"><i
-              class="fas fa-undo-alt"></i></span>
-          </div>
-          <div class="city-select" [hidden]="isControlHidden('city')">
-            <select class="form-control" id="city-id" (change)="citySelect($event.target.value)">
-              <option *ngFor="let city of companyEdit.cities" value="{{city.id}}">{{city.displayName}}</option>
-            </select>
-          </div>
-          <div class="input-box">
+          <input placeholder="Город" type="text" formControlName="city" [readonly]="true">
+          <span class="input-group-addon-teal-right itr-end" (click)="undoControl('city')"><i
+            class="fas fa-undo-alt"></i></span>
+        </div>
+        <div class="city-select" [hidden]="isControlHidden('city')">
+          <select class="form-control" id="city-id" (change)="citySelect($event.target.value)">
+            <option *ngFor="let city of companyEdit.cities" value="{{city.id}}">{{city.displayName}}</option>
+          </select>
+        </div>
+        <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="url" (click)="inputControlClick('url')">
               <span [hidden]="isControlHidden('url')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('url')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;URL</span>
-            <input placeholder="Основной адрес" type="text" formControlName="url">
-            <span class="input-group-addon-teal-right itr-end" (click)="undoControl('url')"><i
-              class="fas fa-undo-alt"></i></span>
-          </div>
-          <div class="input-box">
+          <input placeholder="Основной адрес" type="text" formControlName="url">
+          <span class="input-group-addon-teal-right itr-end" (click)="undoControl('url')"><i
+            class="fas fa-undo-alt"></i></span>
+        </div>
+        <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="email" (click)="inputControlClick('email')">
               <span [hidden]="isControlHidden('email')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('email')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;EMAIL</span>
-            <input placeholder="Почта" type="text" formControlName="email">
-            <span class="input-group-addon-teal-right itr-end" (click)="undoControl('email')"><i
-              class="fas fa-undo-alt"></i></span>
-          </div>
-          <div class="input-box">
+          <input placeholder="Почта" type="text" formControlName="email">
+          <span class="input-group-addon-teal-right itr-end" (click)="undoControl('email')"><i
+            class="fas fa-undo-alt"></i></span>
+        </div>
+        <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="phoneOne" (click)="inputControlClick('phoneOne')">
               <span [hidden]="isControlHidden('phoneOne')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('phoneOne')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Телефон</span>
-            <input placeholder="Основной телефон" type="text" formControlName="phoneOne">
-            <span class="input-group-addon-teal-right itr-end" (click)="undoControl('phoneOne')"><i
-              class="fas fa-undo-alt"></i></span>
-          </div>
-          <div class="input-box">
+          <input placeholder="Основной телефон" type="text" formControlName="phoneOne">
+          <span class="input-group-addon-teal-right itr-end" (click)="undoControl('phoneOne')"><i
+            class="fas fa-undo-alt"></i></span>
+        </div>
+        <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="phoneTwo" (click)="inputControlClick('phoneTwo')">
               <span [hidden]="isControlHidden('phoneTwo')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('phoneTwo')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Телефон</span>
-            <input placeholder="Дополнительный телефон" type="text" formControlName="phoneTwo">
-            <span class="input-group-addon-teal-right itr-end" (click)="undoControl('phoneTwo')"><i
-              class="fas fa-undo-alt"></i></span>
-          </div>
-          <div class="input-box">
+          <input placeholder="Дополнительный телефон" type="text" formControlName="phoneTwo">
+          <span class="input-group-addon-teal-right itr-end" (click)="undoControl('phoneTwo')"><i
+            class="fas fa-undo-alt"></i></span>
+        </div>
+        <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="phoneThree" (click)="inputControlClick('phoneThree')">
               <span [hidden]="isControlHidden('phoneThree')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('phoneThree')"><i
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Телефон</span>
-            <input placeholder="Дополнительный телефон" type="text" formControlName="phoneThree">
-            <span class="input-group-addon-teal-right itr-end" (click)="undoControl('phoneThree')"><i
-              class="fas fa-undo-alt"></i></span>
-          </div>
-          <div class="input-box">
+          <input placeholder="Дополнительный телефон" type="text" formControlName="phoneThree">
+          <span class="input-group-addon-teal-right itr-end" (click)="undoControl('phoneThree')"><i
+            class="fas fa-undo-alt"></i></span>
+        </div>
+        <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="logo" (click)="inputControlClick('logo')">
               <span [hidden]="isControlHidden('logo')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('logo')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Лого</span>
-            <input placeholder="Лого" type="text" formControlName="logo">
-            <span class="input-group-addon-teal-right itr-end" (click)="undoControl('logo')"><i
-              class="fas fa-undo-alt"></i></span>
-          </div>
-        </form>
-      </div>
+          <input placeholder="Лого" type="text" formControlName="logo">
+          <span class="input-group-addon-teal-right itr-end" (click)="undoControl('logo')"><i
+            class="fas fa-undo-alt"></i></span>
+        </div>
+        <div class="input-box">
+              <span class="input-group-addon-teal addon-left" id="minOrder" (click)="inputControlClick('minOrder')">
+              <span [hidden]="isControlHidden('minOrder')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('minOrder')"><i
+                class="fa fa-lock"></i></span>&nbsp;&nbsp;Мин. заказ</span>
+          <input placeholder="Минимальный заказ" type="text" formControlName="minOrder">
+          <span class="input-group-addon-teal-right itr-end" (click)="undoControl('minOrder')"><i
+            class="fas fa-undo-alt"></i></span>
+        </div>
+        <div class="input-box">
+              <span class="input-group-addon-teal addon-left" id="reviewNum" (click)="inputControlClick('reviewNum')">
+              <span [hidden]="isControlHidden('reviewNum')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('reviewNum')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Кол-во отзывов</span>
+          <input placeholder="Начальное количество отзывов" type="text" formControlName="reviewNum">
+          <span class="input-group-addon-teal-right itr-end" (click)="undoControl('reviewNum')"><i
+            class="fas fa-undo-alt"></i></span>
+        </div>
+        <!--начало блока работа будни -->
+        <div class="input-box">
+              <span class="input-group-addon-teal addon-left" id="workDayStart" (click)="inputControlClick('workDayStart')">
+              <span [hidden]="isControlHidden('workDayStart')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('workDayStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Начало в будни</span>
+              <input placeholder="Начало "style="max-width:60px" type="text" formControlName="workDayStart" [readonly]="true">
+
+              <span class="input-group-addon-teal addon-left" style="margin-left: 50px" id="workDayEnd" (click)="inputControlClick('workDayEnd')">
+              <span [hidden]="isControlHidden('workDayEnd')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('workDayEnd')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Завершение</span>
+              <input placeholder="Конец "style="max-width:60px" type="text" formControlName="workDayEnd" [readonly]="true">
+        </div>
+        <div class="dayStart-select" [hidden]="isControlHidden('workDayStart')">
+          <select class="form-control" id="workDayStart-id" (change)="workDayStartSelect($event.target.value)">
+            <option *ngFor="let workDayStart of workDayStartValues" value="{{workDayStart.display}}">
+              {{workDayStart.display}}
+            </option>
+          </select>
+        </div>
+        <div class="dayEnd-select" [hidden]="isControlHidden('workDayEnd')">
+          <select class="form-control" id="workDayEnd-id" (change)="workDayEndSelect($event.target.value)">
+            <option *ngFor="let workDayEnd of workDayEndValues" value="{{workDayEnd.display}}">
+              {{workDayEnd.display}}
+            </option>
+          </select>
+        </div>
+        <div class="input-box">
+              <span class="input-group-addon-teal addon-left" id="workDayByStr" (click)="inputControlClick('workDayByStr')">
+              <span [hidden]="isControlHidden('workDayByStr')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('workDayByStr')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Строкой</span>
+          <input placeholder="Например: Пн-Чт с 09.00 - 00.50" type="text" formControlName="workDayByStr">
+          <span class="input-group-addon-teal-right itr-end" (click)="undoControl('workDayByStr')"><i
+            class="fas fa-undo-alt"></i></span>
+        </div>
+        <!--конец блока работа будни-->
+        <!--начало блока работа выходные -->
+        <div class="input-box">
+              <span class="input-group-addon-teal addon-left" id="dayOffStart" (click)="inputControlClick('dayOffStart')">
+              <span [hidden]="isControlHidden('dayOffStart')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('dayOffStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Выходные</span>
+          <input placeholder="Начало "style="max-width:60px" type="text" formControlName="dayOffStart" [readonly]="true">
+
+          <span class="input-group-addon-teal addon-left" style="margin-left: 50px" id="dayOffEnd" (click)="inputControlClick('dayOffEnd')">
+              <span [hidden]="isControlHidden('dayOffEnd')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('dayOffEnd')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Завершение</span>
+          <input placeholder="Конец "style="max-width:60px" type="text" formControlName="dayOffEnd" [readonly]="true">
+        </div>
+        <div class="dayStart-select" [hidden]="isControlHidden('dayOffStart')">
+          <select class="form-control" id="dayOffStart-id" (change)="dayOffStartSelect($event.target.value)">
+            <option *ngFor="let dayOffStart of workDayStartValues" value="{{dayOffStart.display}}">
+              {{dayOffStart.display}}
+            </option>
+          </select>
+        </div>
+        <div class="dayEnd-select" [hidden]="isControlHidden('dayOffEnd')">
+          <select class="form-control" id="dayOffEnd-id" (change)="dayOffEndSelect($event.target.value)">
+            <option *ngFor="let dayOffEnd of workDayEndValues" value="{{dayOffEnd.display}}">
+              {{dayOffEnd.display}}
+            </option>
+          </select>
+        </div>
+        <div class="input-box">
+              <span class="input-group-addon-teal addon-left" id="dayOffByStr" (click)="inputControlClick('dayOffByStr')">
+              <span [hidden]="isControlHidden('dayOffByStr')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('dayOffByStr')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Строкой</span>
+          <input placeholder="Например: Пт-Вс с 09.00 - 01.50" type="text" formControlName="dayOffByStr">
+          <span class="input-group-addon-teal-right itr-end" (click)="undoControl('dayOffByStr')"><i
+            class="fas fa-undo-alt"></i></span>
+        </div>
+        <!--конец блока работа выходные-->
+        <div class="input-box">
+          <span class="input-group-addon-teal addon-left">
+          <span><i class="fa fa-lock-open"></i></span>&nbsp;&nbsp;Опл. наличными</span>
+          <input style="display: none" type="text" formControlName="payCash">
+          <switch switchId="cash-pay" fromStr="НЕТ" toStr="ДА" switchW="250px" switchH="40px"></switch>
+        </div>
+        <div class="input-box">
+          <span class="input-group-addon-teal addon-left">
+          <span><i class="fa fa-lock-open"></i></span>&nbsp;&nbsp;Оплата картой</span>
+          <input style="display: none" type="text" formControlName="payCard">
+          <switch switchId="cash-pay" fromStr="НЕТ" toStr="ДА" switchW="250px" switchH="40px"></switch>
+        </div>
+        <div class="input-box">
+          <span class="input-group-addon-teal addon-left">
+          <span><i class="fa fa-lock-open"></i></span>&nbsp;&nbsp;Электронные деньги</span>
+          <input style="display: none" type="text" formControlName="payWallet">
+          <switch switchId="cash-pay" fromStr="НЕТ" toStr="ДА" switchW="250px" switchH="40px"></switch>
+        </div>
+      </form>
     </div>
-  </div>
-  <div class="control-wrapper">
-    <div class="col-md-3 control-content">
-      <label for="menu-type" class="control-label">Кухня</label>
-      <span [hidden]="selectedOptionType==null" class="add-icon" (click)="addMenuType()"><i
-        class="far fa-plus-square"></i></span>
-      <select [(ngModel)]="selectedOptionType" class="form-control" id="menu-type">
-        <option *ngFor="let menuType of companyEdit.deliveryMenuTypes" value="{{menuType.id}}">
-          {{menuType.displayName}}
-        </option>
-      </select>
-      <label for="menu-category" class="control-label">Меню</label>
-      <span [hidden]="selectedOptionCategory==null" class="add-icon" (click)="addMenuCategory()"><i
-        class="far fa-plus-square"></i></span>
-      <select [(ngModel)]="selectedOptionCategory" class="form-control" id="menu-category">
-        <option *ngFor="let menuCategory of companyEdit.deliveryMenuCategories" value="{{menuCategory.id}}">
-          {{menuCategory.displayName}}
-        </option>
-      </select>
-    </div>
-    <div class="input-box">
-      <div class="btn-grp">
-        <button [disabled]="isSaveBtnHidden()" type="button" class="btn btn-success btn-with-icon" (click)="saveCompanyModel()">
-          <i class="fa fa-check fa-fw"></i>Записать организацию
-        </button>
-      </div>
+    <div>
+      <button [disabled]="isSaveBtnHidden()" type="button" class="btn btn-success btn-with-icon" (click)="saveCompanyModel()">
+        <i class="fa fa-check fa-fw"></i>Записать организацию
+      </button>
     </div>
   </div>
 </div>

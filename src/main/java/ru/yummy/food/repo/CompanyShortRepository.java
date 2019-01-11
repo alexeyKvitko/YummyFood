@@ -8,4 +8,6 @@ import java.util.List;
 public interface CompanyShortRepository extends CrudRepository<CompanyShort,Integer> {
 
     List<CompanyShort> findAllByCityId(Integer cityId);
+
+    CompanyShort getCompanyShortByCompanyId( Integer companyId );
 }

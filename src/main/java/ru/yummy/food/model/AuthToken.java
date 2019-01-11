@@ -4,6 +4,7 @@ public class AuthToken {
 
     private String token;
     private String username;
+    private String userRole;
 
     public AuthToken(){
 
@@ -28,6 +29,14 @@ public class AuthToken {
 
     public String getUsername() {
         return username;
+    }
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 
     public void setUsername(String username) {

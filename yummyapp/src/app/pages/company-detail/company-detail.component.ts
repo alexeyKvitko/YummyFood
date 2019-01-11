@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, NgModule, OnInit, ViewChild} from '@angular/core';
 import {CompanyInfoModel} from "../../model/company-info.model";
 import {MenuCategoryModel} from "../../model/menu-category.model";
 import {MenuTypeModel} from "../../model/menu-type.model";
@@ -15,16 +15,17 @@ import {TrackScrollDirective} from "../../directives/track-scroll";
   templateUrl: './company-detail.component.html',
   styleUrls: ['./company-detail.component.scss'],
 })
+
 export class CompanyDetailComponent implements OnInit {
   @ViewChild(TrackScrollDirective) scroll: TrackScrollDirective;
 
   companyId: string = null;
   logoImgSrc: string = '';
+  toUpIconOpacity: number = 0;
   companyInfo: CompanyInfoModel = null;
   selMenuType: MenuTypeModel = new MenuTypeModel();
   selMenuCategory: MenuCategoryModel = new MenuCategoryModel();
   loading: boolean = true;
-  percentValue: number;
   menuEntities: MenuEntityModel[] = new Array<MenuEntityModel>();
   menuTypes: MenuTypeModel[] = new Array<MenuTypeModel>();
   companyShort: CompanyShortModel =  new CompanyShortModel();
@@ -45,8 +46,7 @@ export class CompanyDetailComponent implements OnInit {
     this.selMenuCategory.displayName = 'Основное меню';
   }
 
-
-  returnToChoice(){
+    returnToChoice(){
     let link = 'pages/company';
     this._globalService.dataBusChanged('selected-link', link);
     this.router.navigate([link]);
@@ -122,24 +122,16 @@ export class CompanyDetailComponent implements OnInit {
     return inBasket;
   }
 
-  track(value: number): void {
-    console.log('IT WORKS',value);
-    // let calc = 1- value/25;
-    // if( calc < 0 ){
-    //   calc = 0;
-    // }
-    // this.inviteOpacity = calc;
-    // if (value > 20) {
-    //   this.currentState = 'final';
-    // } else {
-    //   this.currentState = 'initial';
-    // }
-    // if ( value > 50 ){
-    //   this.scrollPos = 'bottom';
-    // } else {
-    //   this.scrollPos = 'top';
-    // }
-    // this.scrollPercent = value;
+  onScrollDiv(event: UIEvent): void {
+    if ( event.srcElement.scrollTop > 800 ){
+      this.toUpIconOpacity = 1;
+    } else {
+      this.toUpIconOpacity = 0;
+    }
+  }
+
+  moveToTop(){
+    document.getElementById("top").scrollIntoView({behavior: "smooth", block: "start"});
   }
 
 }

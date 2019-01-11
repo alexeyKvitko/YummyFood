@@ -13,6 +13,7 @@ import ru.yummy.food.model.UserModel;
 import ru.yummy.food.repo.UserRepository;
 import ru.yummy.food.service.UserService;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,11 +33,11 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         if(user == null){
             throw new UsernameNotFoundException("Invalid username or password.");
         }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthority());
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthority( user.getRole() ));
     }
 
-    private List<SimpleGrantedAuthority> getAuthority() {
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
+    private List<SimpleGrantedAuthority> getAuthority(String role) {
+        return Arrays.asList(new SimpleGrantedAuthority(role));
     }
 
     public List<User> findAll() {
@@ -73,7 +74,8 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Override
     public User save(UserModel user) {
-          String ps = bcryptEncoder.encode("admin");
+          String admin_ps = bcryptEncoder.encode("admin_pswd");
+          String user_ps = bcryptEncoder.encode("1111");
 //        User newUser = new User();
 //        newUser.setUsername(user.getUsername());
 //        newUser.setFirstName(user.getFirstName());
@@ -81,7 +83,15 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 //        newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 //        newUser.setRole(user.getRole());
 //        return userRepo.save(newUser);
-        System.out.println( ps );
+        System.out.println( "PASSWORD FOR admin_pswd is: "+admin_ps );
+        System.out.println( "PASSWORD FOR user_ps is: "+user_ps );
         return null;
     }
+
+//    @PostConstruct
+//    public void showPassword(){
+//        save(null);
+//    }
+
+
 }

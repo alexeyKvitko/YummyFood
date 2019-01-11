@@ -1,14 +1,14 @@
-<div class="row" [hidden]="loading" track-scroll (onScroll)="track($event)">
-  <div class="up-icon up-icon-top"  (click)="moveTopBottom()" >
+<div class="row" [hidden]="loading">
+  <div class="up-icon up-icon-top"  (click)="moveToTop()" [style.opacity]="toUpIconOpacity">
     <i class="fas fa-angle-double-up" aria-hidden="true"></i>
   </div>
-  <div class="compdet-scr" >
+  <div class="compdet-scr" (scroll)="onScrollDiv($event)">
     <section class="compdet">
-      <div class="compdet-title">
+      <div class="compdet-title" id="top" >
         <p>Крымская Служба Заказа Еды</p>
         <p>{{companyShort.companyName}}</p>
       </div>
-      <div id="top" class="compdet-wrapper" >
+      <div class="compdet-wrapper" >
         <div class="compdet-body" >
           <div class="compdet-body-left">
             <div class="add-info">

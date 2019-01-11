@@ -212,6 +212,10 @@
       display: flex;
       flex-direction: row;
       padding-left: 7%;
+      .menu-hidden{
+        visibility: hidden;
+        width: 0px!important;
+      }
       .head-menu-item{
         display: flex;
         flex-direction: row;
@@ -220,6 +224,7 @@
         width:120px;
         height: 100%;
         line-height: 48px;
+
         .head-menu-text{
           transition: all 400ms linear 0s;
           &:hover{

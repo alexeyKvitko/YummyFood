@@ -18,6 +18,9 @@ public class CompanyServiceImpl {
     @Autowired
     CompanyRepository companyRepo;
 
+    @Autowired
+    CompanyShortRepository companyShortRepo;
+
 
     @Autowired
     MenuTypeRepository menuTypeRepo;
@@ -84,6 +87,8 @@ public class CompanyServiceImpl {
     public CompanyEdit getCompanyEdit(Integer companyId) {
         CompanyEdit companyEdit =  new CompanyEdit();
         CompanyInfo companyInfo = getCompanyInfo( companyId );
+        CompanyShort companyShort = companyShortRepo.getCompanyShortByCompanyId( companyId );
+        companyEdit.setCompanyShort( companyShort != null ? companyShort : new CompanyShort() );
         companyEdit.setCompanyModel( companyInfo.getCompanyModel() );
         companyEdit.setMenuTypes( companyInfo.getMenuTypes() );
         companyEdit.setDeliveryMenuTypes( convertUtils.convertMenuTypesToModelList( (List<MenuType>) menuTypeRepo.findAll() ) );

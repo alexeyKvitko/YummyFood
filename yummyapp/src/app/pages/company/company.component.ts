@@ -21,6 +21,7 @@ import {MenuEntityModel} from "../../model/menu-entity.model";
 export class CompanyComponent implements OnInit {
 
   deliveryMenu : DeliveryMenuModel;
+  userRole: string = null;
   otherParams = new Array<any>();
   menuCategory: MenuCategoryModel[];
   categoriesListView: string = 'Показать Все Блюда';
@@ -28,9 +29,11 @@ export class CompanyComponent implements OnInit {
   companies: CompanyShortModel[];
   deliveryCity: string = "";
   basket: MenuEntityModel[] = new Array<MenuEntityModel>();
+  toUpIconOpacity: number = 0;
 
   constructor(private router: Router,private _authService: AuthService, private deliveryMenuService : DeliveryMenuService,
               private companyService: CompanyService, private _globalService: GlobalService) {
+    this.userRole = window.localStorage.getItem('userrole');
     this._authService.isAuthenticated();
     this.deliveryMenu = new DeliveryMenuModel();
     this.companies =  new Array<CompanyShortModel>();
@@ -104,6 +107,21 @@ export class CompanyComponent implements OnInit {
   showCompanyDetail(companyId){
     window.localStorage.setItem('companyId',companyId);
     this.router.navigate(['pages/company-detail']);
+  }
+
+  onScrollDiv(event: UIEvent): void {
+    if ( event.srcElement.scrollTop > 800 ){
+      this.toUpIconOpacity = 1;
+    } else {
+      this.toUpIconOpacity = 0;
+    }
+  }
+  moveToTop(){
+    document.getElementById("top").scrollIntoView({behavior: "smooth", block: "start"});
+  }
+
+  isRoleAdmin(){
+    return this.userRole == 'ROLE_ADMIN';
   }
 
 }

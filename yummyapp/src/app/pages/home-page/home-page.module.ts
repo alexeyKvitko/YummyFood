@@ -4,6 +4,7 @@ import {HomePageComponent} from './home-page.component';
 import {routing} from './home-page.routing';
 import {SharedModule} from '../../shared/shared.module';
 import {SlideshowModule} from 'ng-simple-slideshow';
+import {TrackScrollDirective} from "../../directives/track-scroll";
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import {SlideshowModule} from 'ng-simple-slideshow';
   ],
   declarations: [
     HomePageComponent
+    ,TrackScrollDirective
   ]
 })
 export class HomePageModule {

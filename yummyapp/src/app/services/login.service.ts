@@ -3,8 +3,6 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {User} from "../model/user.model";
 import {Observable} from "rxjs/index";
 import {ApiResponse} from "../model/api.response";
-import {Data} from "@angular/router";
-import { map, filter, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

@@ -1,18 +1,25 @@
 @import '../../shared/theme/conf';
 
-.menu-wrapper {
-  position: relative;
+.company-edit-content{
   width: 100%;
-  padding-top: 20px;
-  background-color: $card-bg;
-  max-height: 420px;
-  min-height: 420px;
+  position: absolute;
+  padding: 160px 20% 120px 20%;
+  background-color: $card-content-bg;
   overflow-x: hidden;
-  overflow-y: hidden;
-  border-right: 1px solid $divider-color;
-  padding: 10px 0;
+  overflow-y: auto;
   display: flex;
   flex-direction: row;
+}
+.menu-wrapper {
+  width: 30%;
+  border-right: 1px solid $divider-color;
+
+  h2{
+    font-family: Sandora;
+    font-size: 18px;
+    color: $bright-coral;
+    font-weight: 400;
+  }
   .menu-content {
     flex-direction: column;
     font-size: 16px;
@@ -92,14 +99,42 @@
   }
 }
 
+.dayStart-select{
+  padding-left: 150px;
+  margin-bottom: 18px;
+  select{
+    width: 80px;
+    background-color: transparent;
+    border-bottom: 1px solid $primary-color-light;
+    &:focus{
+      border: 2px solid transparent;
+      border-bottom: 1px solid $primary-color;
+    }
+  }
+}
+
+.dayEnd-select{
+  padding-left: 400px;
+  margin-bottom: 18px;
+  select{
+    width: 80px;
+    background-color: transparent;
+    border-bottom: 1px solid $primary-color-light;
+    &:focus{
+      border: 2px solid transparent;
+      border-bottom: 1px solid $primary-color;
+    }
+  }
+}
+
 .form-control {
   padding: 0 8px;
 }
 .company-input-content {
   position: relative;
-  width: 100%;
+  width: 60%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: nowrap;
   margin-left: 20px;
 }
@@ -121,7 +156,7 @@
     padding: 6px;
   }
   .addon-left{
-    min-width: 150px;
+    min-width: 190px;
   }
   span{
     padding-top: 3px;
@@ -131,16 +166,19 @@
   input{
     border: 0px;
     border-bottom: 1px solid $primary;
-    background-color: $card-bg;
+    background-color: $card-content-bg;;
     padding-left: 8px;
     width: 100%;
     height: 28px;
+    &::placeholder{
+      color: $primary-color-light;
+    }
     &:disabled{
-      color: $secondary-text-color;
+      color: $gray-text-color;
       border-bottom: 1px solid $primary-color-light;
     }
     &:focus{
-      border: none!important;
+      outline: 0px;
       background-color: $white;
     }
   }
@@ -180,14 +218,12 @@
 }
 .control-wrapper {
   width: 100%;
-  padding-left: 10px;
+  padding-left: 20px;
   padding-bottom: 18px;
-  display: flex;
-  flex-direction: row;
-  background-color: $card-bg;
-  border-top: 1px solid $divider-color ;
+  background-color: $card-content-bg;;
+  border-top: 1px dotted $divider-color ;
   .control-content{
-    flex-direction: column;
+    margin-bottom: 20px;
     label{
       margin-top: 12px;
       font-size: 16px;
