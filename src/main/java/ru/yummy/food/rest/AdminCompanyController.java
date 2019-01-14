@@ -1,9 +1,9 @@
 package ru.yummy.food.rest;
 
-import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.yummy.food.entity.CompanyShort;
 import ru.yummy.food.exception.BusinessLogicException;
 import ru.yummy.food.model.*;
 import ru.yummy.food.service.ParseService;
@@ -109,11 +109,12 @@ public class AdminCompanyController {
     }
 
     @RequestMapping(value = "/saveCompany", method = RequestMethod.POST)
-    public ApiResponse saveCompanyModel(@RequestBody CompanyModel companyModel)  {
+    public ApiResponse saveCompanyModel(@RequestParam(value="companyModel") CompanyModel companyModel,
+                                                @RequestParam(value="companyInfo") CompanyShort companyInfo)  {
         ApiResponse response = new ApiResponse();
         response.setStatus( HttpStatus.OK.value() );
         try {
-            CompanyEdit companyEdit = companyService.saveCompanyModel( companyModel );
+            CompanyEdit companyEdit = companyService.saveCompany( companyModel, companyInfo );
             response.setResult( companyEdit );
         } catch (BusinessLogicException e){
             response.setStatus( HttpStatus.INTERNAL_SERVER_ERROR.value() );

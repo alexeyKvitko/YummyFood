@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'switch',
@@ -21,9 +21,11 @@ export class SwitchComponent implements OnInit {
   @Input()
   toStr: string = 'default';
 
-
   @Input()
   checked: boolean = true;
+
+  @Output()
+  selectValue: EventEmitter<number> = new EventEmitter<number>();
 
   constructor() { }
   ngOnInit() {
@@ -31,6 +33,8 @@ export class SwitchComponent implements OnInit {
 
   switch(param){
     this.checked = param;
+    let val = param ? 1 : 0;
+    this.selectValue.emit( val );
   }
 
 }

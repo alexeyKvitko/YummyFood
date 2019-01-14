@@ -38,23 +38,11 @@ public class CompanyShort{
     @Column(name="pay_type_cash")
     private Integer payTypeCash;
 
-    @Column(name="pay_type_visa")
-    private Integer payTypeVisa;
+    @Column(name="pay_type_card")
+    private Integer payTypeCard;
 
-    @Column(name="pay_type_mastercard")
-    private Integer payTypeMastercard;
-
-    @Column(name="pay_type_mir")
-    private Integer payTypeMir;
-
-    @Column(name="pay_type_webmoney")
-    private Integer payTypeWebmoney;
-
-    @Column(name="pay_type_yandex")
-    private Integer payTypeYandex;
-
-    @Column(name="pay_type_qiwi")
-    private Integer payTypeQiwi;
+    @Column(name="pay_type_wallet")
+    private Integer payTypeWallet;
 
     @Column(name="weekday_start")
     private Integer weekdayStart;
@@ -79,7 +67,6 @@ public class CompanyShort{
 
     @Column(name="dayoff_str")
     private String dayoffWork;
-
 
     public Integer getId() {
         return id;
@@ -153,52 +140,20 @@ public class CompanyShort{
         this.payTypeCash = payTypeCash;
     }
 
-    public Integer getPayTypeVisa() {
-        return payTypeVisa;
+    public Integer getPayTypeCard() {
+        return payTypeCard;
     }
 
-    public void setPayTypeVisa(Integer payTypeVisa) {
-        this.payTypeVisa = payTypeVisa;
+    public void setPayTypeCard(Integer payTypeCard) {
+        this.payTypeCard = payTypeCard;
     }
 
-    public Integer getPayTypeMastercard() {
-        return payTypeMastercard;
+    public Integer getPayTypeWallet() {
+        return payTypeWallet;
     }
 
-    public void setPayTypeMastercard(Integer payTypeMastercard) {
-        this.payTypeMastercard = payTypeMastercard;
-    }
-
-    public Integer getPayTypeMir() {
-        return payTypeMir;
-    }
-
-    public void setPayTypeMir(Integer payTypeMir) {
-        this.payTypeMir = payTypeMir;
-    }
-
-    public Integer getPayTypeWebmoney() {
-        return payTypeWebmoney;
-    }
-
-    public void setPayTypeWebmoney(Integer payTypeWebmoney) {
-        this.payTypeWebmoney = payTypeWebmoney;
-    }
-
-    public Integer getPayTypeYandex() {
-        return payTypeYandex;
-    }
-
-    public void setPayTypeYandex(Integer payTypeYandex) {
-        this.payTypeYandex = payTypeYandex;
-    }
-
-    public Integer getPayTypeQiwi() {
-        return payTypeQiwi;
-    }
-
-    public void setPayTypeQiwi(Integer payTypeQiwi) {
-        this.payTypeQiwi = payTypeQiwi;
+    public void setPayTypeWallet(Integer payTypeWallet) {
+        this.payTypeWallet = payTypeWallet;
     }
 
     public Integer getWeekdayStart() {

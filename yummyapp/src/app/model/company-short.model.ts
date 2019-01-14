@@ -8,12 +8,8 @@ export class CompanyShortModel {
   commentCount: string;
   deliveryCondition: string;
   payTypeCash: string;
-  payTypeVisa: string;
-  payTypeMastercard: string;
-  payTypeMir: string;
-  payTypeWebmoney: string;
-  payTypeYandex: string;
-  payTypeQiwi: string;
+  payTypeCard: string;
+  payTypeWallet: string;
   weekdayStart: string;
   weekdayEnd: string;
   dayoffStart: string;

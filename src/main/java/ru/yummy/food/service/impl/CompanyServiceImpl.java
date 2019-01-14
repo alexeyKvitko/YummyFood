@@ -162,12 +162,16 @@ public class CompanyServiceImpl {
         }
     }
 
-    public CompanyEdit saveCompanyModel(CompanyModel companyModel) throws BusinessLogicException {
+    public CompanyEdit saveCompany(CompanyModel companyModel, CompanyShort companyShort) throws BusinessLogicException {
         CompanyEdit companyEdit = null;
         Company company = convertUtils.convertCompanyModelToEntiry( companyModel ); 
-
         try {
             companyRepo.save( company );
+            companyShort.setCompanyId( company.getId() );
+            companyShort.setCityId( company.getCityId() );
+            companyShort.setCompanyLogo( company.getLogo() );
+            companyShort.setCompanyName( company.getDisplayName() );
+            companyShortRepo.save( companyShort );
             if ( company.getId() != null ){
               companyEdit = getCompanyEdit( company.getId() );
             }

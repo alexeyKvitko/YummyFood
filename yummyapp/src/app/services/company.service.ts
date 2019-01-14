@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 import {CompanyModel} from '../model/company.model';
 import {CompanyInfoModel} from '../model/company-info.model';
@@ -85,8 +85,9 @@ export class CompanyService {
     return this.http.get<CompanyEditModel>(this.companyUrl + '/edit/' + id);
   }
 
-  public saveCompanyModel(companyModel) {
-    return this.http.post<ApiResponse>(this.apiUrl + '/saveCompany',companyModel);
+  public saveCompanyModelAndInfo(companyModel : CompanyModel, companyInfo: CompanyShortModel) {
+
+    return this.http.post<ApiResponse>(this.apiUrl + '/saveCompany',{companyModel: companyModel,companyInfo: companyInfo});
   }
 
   public getCompanyMenu(companyId, typeId, categoryId) {

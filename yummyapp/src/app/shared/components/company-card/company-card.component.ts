@@ -1,6 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {CompanyShortModel} from "../../../model/company-short.model";
-import {GlobalService} from "../../services/global.service";
 
 @Component({
   selector: 'company-card',

@@ -75,18 +75,18 @@ export class CompanyEditComponent implements OnInit {
       }, Validators.compose([Validators.required])],
       phoneTwo: [{value: this.companyEdit.companyModel.phoneTwo, disabled: true}],
       phoneThree: [{value: this.companyEdit.companyModel.phoneThree, disabled: true}],
-      logo: [{value: this.companyEdit.companyModel.logo, disabled: true}],
-      minOrder: [{value: this.companyShort.delivery, disabled: true}],
-      reviewNum: [{value: this.companyShort.commentCount, disabled: true}],
-      workDayStart: [{value: this.companyShort.weekdayStart,disabled: true}],
-      workDayEnd: [{value: this.companyShort.weekdayEnd,disabled: true}],
-      workDayByStr: [{value: this.companyShort.weekdayWork,disabled: true}],
-      dayOffStart: [{value: this.companyShort.dayoffStart,disabled: true}],
-      dayOffEnd: [{value: this.companyShort.dayoffEnd,disabled: true}],
-      dayOffByStr: [{value: this.companyShort.dayoffWork,disabled: true}],
-      payCash: [{value: this.companyShort.payTypeCash,disabled: true}],
-      payCard: [{value: this.companyShort.payTypeMir,disabled: true}],
-      payWallet: [{value: this.companyShort.payTypeQiwi,disabled: true}]
+      logo: [{value: this.companyEdit.companyModel.logo, disabled: true}, Validators.compose([Validators.required])],
+      minOrder: [{value: this.companyShort.delivery, disabled: true}, Validators.compose([Validators.required])],
+      reviewNum: [{value: this.companyShort.commentCount, disabled: true}, Validators.compose([Validators.required])],
+      workDayStart: [{value: this.companyShort.weekdayStart,disabled: true}, Validators.compose([Validators.required])],
+      workDayEnd: [{value: this.companyShort.weekdayEnd,disabled: true}, Validators.compose([Validators.required])],
+      workDayByStr: [{value: this.companyShort.weekdayWork,disabled: true}, Validators.compose([Validators.required])],
+      dayOffStart: [{value: this.companyShort.dayoffStart,disabled: true}, Validators.compose([Validators.required])],
+      dayOffEnd: [{value: this.companyShort.dayoffEnd,disabled: true}, Validators.compose([Validators.required])],
+      dayOffByStr: [{value: this.companyShort.dayoffWork,disabled: true}, Validators.compose([Validators.required])],
+      payCash: [{value: this.companyShort.payTypeCash,disabled: true}, Validators.compose([Validators.required])],
+      payCard: [{value: this.companyShort.payTypeCard,disabled: true}, Validators.compose([Validators.required])],
+      payWallet: [{value: this.companyShort.payTypeWallet,disabled: true}, Validators.compose([Validators.required])]
 
     });
     this._globalService.dataBusChanged('pageLoading', false);
@@ -168,6 +168,11 @@ export class CompanyEditComponent implements OnInit {
     this.companyForm.get('dayOffEnd').disable();
   }
 
+  switchValue( el, val ){
+    console.log( el,val );
+    this.companyForm.get(el).setValue( val);
+  }
+
   showHttpActionMessage(data) {
     if (data.status === 200) {
       swal('Обновление данных, успешно');
@@ -182,6 +187,7 @@ export class CompanyEditComponent implements OnInit {
 
   saveCompanyModel() {
     let companyModel = new CompanyModel();
+    let companyShort = new CompanyShortModel();
     companyModel.id = this.companyForm.get('id').value;
     companyModel.companyName = this.companyForm.get('companyName').value;
     companyModel.displayName = this.companyForm.get('displayName').value;
@@ -199,7 +205,21 @@ export class CompanyEditComponent implements OnInit {
     companyModel.phoneTwo = this.companyForm.get('phoneTwo').value;
     companyModel.phoneThree = this.companyForm.get('phoneThree').value;
     companyModel.logo = this.companyForm.get('logo').value;
-    this.companyService.saveCompanyModel(companyModel).subscribe(data => {
+
+    companyShort.companyId = this.companyForm.get('id').value;
+    companyShort.delivery = this.companyForm.get('minOrder').value;
+    companyShort.commentCount = this.companyForm.get('reviewNum').value;
+    companyShort.payTypeCash = this.companyForm.get('payCash').value;
+    companyShort.payTypeCard = this.companyForm.get('payCard').value;
+    companyShort.payTypeWallet = this.companyForm.get('payWallet').value;
+    companyShort.weekdayStart = this.getWorkStartValueByDisplayVal( this.companyForm.get('workDayStart').value );
+    companyShort.weekdayEnd = this.getWorkEndValueByDisplayVal( this.companyForm.get('workDayEnd').value );
+    companyShort.weekdayWork = this.companyForm.get('workDayByStr').value;
+    companyShort.dayoffStart = this.getWorkStartValueByDisplayVal(this.companyForm.get('dayOffStart').value );
+    companyShort.dayoffEnd = this.getWorkEndValueByDisplayVal( this.companyForm.get('dayOffEnd').value );
+    companyShort.dayoffWork = this.companyForm.get('dayOffByStr').value;
+    debugger
+    this.companyService.saveCompanyModelAndInfo(companyModel, companyShort).subscribe(data => {
       if (data.status == 200) {
         this.updateCompanyEdit(data.result);
       }
@@ -375,7 +395,26 @@ export class CompanyEditComponent implements OnInit {
         }
       });
     }
+  }
 
+  getWorkStartValueByDisplayVal( displayVal ){
+    let val = null;
+    this.workDayStartValues.forEach( workStart => {
+      if( workStart.display == displayVal ){
+        val = workStart.value;
+      }
+    });
+    return val;
+  }
+
+  getWorkEndValueByDisplayVal( displayVal ){
+    let val = null;
+    this.workDayEndValues.forEach( workEnd => {
+      if( workEnd.display == displayVal ){
+        val = workEnd.value;
+      }
+    });
+    return val;
   }
 
 }
