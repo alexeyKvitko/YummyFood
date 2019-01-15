@@ -2,7 +2,6 @@ package ru.yummy.food.model;
 
 import org.pojomatic.Pojomatic;
 import org.pojomatic.annotations.AutoProperty;
-import ru.yummy.food.entity.CompanyShort;
 
 import java.util.List;
 
@@ -12,7 +11,6 @@ public class CompanyEdit extends CompanyInfo {
     private List<MenuTypeModel> deliveryMenuTypes;
     private List<MenuCategoryModel> deliveryMenuCategories;
     private List<DictionaryModel> cities;
-    private CompanyShort companyShort;
 
     public List<MenuTypeModel> getDeliveryMenuTypes() {
         return deliveryMenuTypes;
@@ -38,13 +36,6 @@ public class CompanyEdit extends CompanyInfo {
         this.cities = cities;
     }
 
-    public CompanyShort getCompanyShort() {
-        return companyShort;
-    }
-
-    public void setCompanyShort(CompanyShort companyShort) {
-        this.companyShort = companyShort;
-    }
 
     @Override public boolean equals(Object o) {
         return Pojomatic.equals(this, o);

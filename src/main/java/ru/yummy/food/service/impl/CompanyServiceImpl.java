@@ -1,5 +1,7 @@
 package ru.yummy.food.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yummy.food.AppConstants;
@@ -15,12 +17,10 @@ import java.util.List;
 @Service("companyService")
 public class CompanyServiceImpl {
 
+    private static final Logger LOG = LoggerFactory.getLogger(CompanyServiceImpl.class);
+
     @Autowired
     CompanyRepository companyRepo;
-
-    @Autowired
-    CompanyShortRepository companyShortRepo;
-
 
     @Autowired
     MenuTypeRepository menuTypeRepo;
@@ -87,8 +87,6 @@ public class CompanyServiceImpl {
     public CompanyEdit getCompanyEdit(Integer companyId) {
         CompanyEdit companyEdit =  new CompanyEdit();
         CompanyInfo companyInfo = getCompanyInfo( companyId );
-        CompanyShort companyShort = companyShortRepo.getCompanyShortByCompanyId( companyId );
-        companyEdit.setCompanyShort( companyShort != null ? companyShort : new CompanyShort() );
         companyEdit.setCompanyModel( companyInfo.getCompanyModel() );
         companyEdit.setMenuTypes( companyInfo.getMenuTypes() );
         companyEdit.setDeliveryMenuTypes( convertUtils.convertMenuTypesToModelList( (List<MenuType>) menuTypeRepo.findAll() ) );
@@ -162,20 +160,16 @@ public class CompanyServiceImpl {
         }
     }
 
-    public CompanyEdit saveCompany(CompanyModel companyModel, CompanyShort companyShort) throws BusinessLogicException {
+    public CompanyEdit saveCompany(CompanyModel companyModel ) throws BusinessLogicException {
         CompanyEdit companyEdit = null;
-        Company company = convertUtils.convertCompanyModelToEntiry( companyModel ); 
+        Company company = convertUtils.convertCompanyModelToEntity( companyModel );
         try {
             companyRepo.save( company );
-            companyShort.setCompanyId( company.getId() );
-            companyShort.setCityId( company.getCityId() );
-            companyShort.setCompanyLogo( company.getLogo() );
-            companyShort.setCompanyName( company.getDisplayName() );
-            companyShortRepo.save( companyShort );
             if ( company.getId() != null ){
               companyEdit = getCompanyEdit( company.getId() );
             }
         } catch (Exception e){
+            LOG.error("Ошибка при попытке записи компании, "+e.getMessage());
             throw new BusinessLogicException( "Ошибка при попытке записи компании, "+e.getMessage() );
         }
         return companyEdit;

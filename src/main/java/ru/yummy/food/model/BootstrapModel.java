@@ -3,7 +3,6 @@ package ru.yummy.food.model;
 import org.pojomatic.Pojomatic;
 import org.pojomatic.annotations.AutoProperty;
 import ru.yummy.food.entity.City;
-import ru.yummy.food.entity.CompanyShort;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,18 +10,18 @@ import java.util.List;
 @AutoProperty
 public class BootstrapModel implements Serializable {
 
-    private List<CompanyShort> companyShorts;
+    private List<CompanyModel> companies;
     private List<DictionaryModel> cities;
     private DeliveryMenu deliveryMenu;
     private String deliveryCity;
     private boolean isDefault;
 
-    public List<CompanyShort> getCompanyShorts() {
-        return companyShorts;
+    public List<CompanyModel> getCompanies() {
+        return companies;
     }
 
-    public void setCompanyShorts(List<CompanyShort> companyShorts) {
-        this.companyShorts = companyShorts;
+    public void setCompanies(List<CompanyModel> companies) {
+        this.companies = companies;
     }
 
     public List<DictionaryModel> getCities() {

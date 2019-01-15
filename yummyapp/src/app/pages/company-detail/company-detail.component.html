@@ -6,7 +6,7 @@
     <section class="compdet">
       <div class="compdet-title" id="top" >
         <p>Крымская Служба Заказа Еды</p>
-        <p>{{companyShort.companyName}}</p>
+        <p>{{companyDetail.displayName}}</p>
       </div>
       <div class="compdet-wrapper" >
         <div class="compdet-body" >
@@ -15,8 +15,8 @@
               <div class="add-info-container">
                 <p>
                   Оформить заказ можно ежедневно без выходных:<br>
-                  <b>{{companyShort.weekdayWork}}, {{companyShort.dayoffWork}}</b><br>
-                  Минимальный заказ - <b>{{companyShort.delivery}}</b><br>
+                  <b>{{companyDetail.weekdayWork}}, {{companyDetail.dayoffWork}}</b><br>
+                  Минимальный заказ - <b>{{companyDetail.delivery}}</b><br>
                   Доставка - БЕСПЛАТНО.<br>
                   Не нашли то, что искали?
                   Попробуйте <span (click)="returnToChoice()">заказать доставку еды в г.<b>{{deliveryCity}}</b> </span> в других заведениях.
@@ -29,6 +29,12 @@
                 <img src="assets/images/icons/restaurant-white.png">
                 <div class="mobile-label">
                   <p>ВЫБОР ЗАВЕДЕНИЯ</p>
+                </div>
+              </div>
+              <div class="success-btn-item main-button" (click)="editCompany()" *ngIf="isRoleAdmin()">
+                <img src="assets/images/icons/restaurant-white.png">
+                <div class="mobile-label">
+                  <p>РЕДАКТИРОВАНИЕ</p>
                 </div>
               </div>
               <div class="compdet-dishes">
@@ -50,8 +56,8 @@
             </div>
           </div>
           <div class="compdet-body-right">
-            <company-card [company]="companyShort" [isDetailInfo]=true></company-card>
-            <div class="compdet-menu-title">{{selMenuCategory.displayName}}&nbsp;от&nbsp;{{companyShort.companyName}}</div>
+            <company-card [company]="companyDetail" [isDetailInfo]=true></company-card>
+            <div class="compdet-menu-title">{{selMenuCategory.displayName}}&nbsp;от&nbsp;{{companyDetail.displayName}}</div>
             <div class="company-row-content" *ngFor="let triple of tripleEntities">
               <div class="square-box" *ngIf="triple.entityOne.priceOne != null">
                 <company-entity [menuEntity]="triple.entityOne">

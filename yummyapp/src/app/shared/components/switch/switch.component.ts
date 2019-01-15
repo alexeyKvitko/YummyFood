@@ -22,13 +22,14 @@ export class SwitchComponent implements OnInit {
   toStr: string = 'default';
 
   @Input()
-  checked: boolean = true;
+  checked: boolean = false;
 
   @Output()
   selectValue: EventEmitter<number> = new EventEmitter<number>();
 
   constructor() { }
   ngOnInit() {
+     console.log('checked',this.checked);
   }
 
   switch(param){

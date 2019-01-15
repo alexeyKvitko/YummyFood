@@ -6,7 +6,6 @@ import {CompanyInfoModel} from '../model/company-info.model';
 import {CompanyMenuModel} from "../model/company-menu.model";
 import {ApiResponse} from "../model/api.response";
 import {CompanyEditModel} from "../model/company-edit.model";
-import {CompanyShortModel} from "../model/company-short.model";
 import {BootstrapAppModel} from "../model/bootstrap-app.model";
 import {GlobalService} from "../shared/services/global.service";
 
@@ -28,7 +27,7 @@ export class CompanyService {
     }
     this.http.get<BootstrapAppModel>(this.companyUrl+'/bootstrap/'+ip).subscribe( data => {
       this.bootstrapApp = data;
-      this.bootstrapApp.companyShorts.forEach( company =>{
+      this.bootstrapApp.companies.forEach( company =>{
         company.isPresentInBasket = false;
       });
       this._globalService.dataBusChanged('data-loaded', true);
@@ -36,24 +35,24 @@ export class CompanyService {
   }
 
   public loadBootstrapApp() {
-    return this.http.get<CompanyShortModel[]>(this.companyUrl+'/short');
+    return this.http.get<CompanyModel[]>(this.companyUrl+'/short');
   }
 
-  public getCompaniesShort() {
-    return this.bootstrapApp.companyShorts;
+  public getCompaniesModel() {
+    return this.bootstrapApp.companies;
   }
 
-  public addCompanyShortToBasket( companyId ){
-    this.bootstrapApp.companyShorts.forEach( company =>{
-      if ( company.companyId == companyId ){
+  public addCompanyToBasket( companyId ){
+    this.bootstrapApp.companies.forEach( company =>{
+      if ( company.id == companyId ){
         company.isPresentInBasket = true;
       }
     });
   }
 
-  public getCompanyShortById( companyId ): CompanyShortModel {
+  public getCompanyById( companyId ): CompanyModel {
     let companyShort = null;
-    this.bootstrapApp.companyShorts.forEach(company => {
+    this.bootstrapApp.companies.forEach(company => {
        if ( companyId == company.id ){
          companyShort = company;
        }
@@ -85,9 +84,9 @@ export class CompanyService {
     return this.http.get<CompanyEditModel>(this.companyUrl + '/edit/' + id);
   }
 
-  public saveCompanyModelAndInfo(companyModel : CompanyModel, companyInfo: CompanyShortModel) {
+  public saveCompanyModelAndInfo( companyModel : CompanyModel ) {
 
-    return this.http.post<ApiResponse>(this.apiUrl + '/saveCompany',{companyModel: companyModel,companyInfo: companyInfo});
+    return this.http.post<ApiResponse>(this.apiUrl + '/saveCompany',companyModel);
   }
 
   public getCompanyMenu(companyId, typeId, categoryId) {

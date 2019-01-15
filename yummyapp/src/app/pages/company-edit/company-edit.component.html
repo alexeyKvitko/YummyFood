@@ -230,21 +230,21 @@
           <span class="input-group-addon-teal addon-left">
           <span><i class="fa fa-lock-open"></i></span>&nbsp;&nbsp;Опл. наличными</span>
           <input style="display: none" type="text" formControlName="payCash">
-          <switch switchId="cash-pay" fromStr="НЕТ" toStr="ДА" switchW="250px" switchH="40px"
+          <switch switchId="cash-pay" fromStr="НЕТ" toStr="ДА" switchW="250px" switchH="40px" checked=true
                   (selectValue)="switchValue('payCash',$event)"></switch>
         </div>
         <div class="input-box">
           <span class="input-group-addon-teal addon-left">
           <span><i class="fa fa-lock-open"></i></span>&nbsp;&nbsp;Оплата картой</span>
           <input style="display: none" type="text" formControlName="payCard">
-          <switch switchId="cash-pay" fromStr="НЕТ" toStr="ДА" switchW="250px" switchH="40px"
+          <switch switchId="cash-pay" fromStr="НЕТ" toStr="ДА" switchW="250px" switchH="40px" checked=false
                   (selectValue)="switchValue('payCard',$event)"></switch>
         </div>
         <div class="input-box">
           <span class="input-group-addon-teal addon-left">
           <span><i class="fa fa-lock-open"></i></span>&nbsp;&nbsp;Электронные деньги</span>
           <input style="display: none" type="text" formControlName="payWallet">
-          <switch switchId="cash-pay" fromStr="НЕТ" toStr="ДА" switchW="250px" switchH="40px"
+          <switch switchId="cash-pay" fromStr="НЕТ" toStr="ДА" switchW="250px" switchH="40px" checked=false
                   (selectValue)="switchValue('payWallet',$event)"></switch>
         </div>
       </form>

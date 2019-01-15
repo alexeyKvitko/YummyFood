@@ -1,16 +1,16 @@
-import {CompanyShortModel} from "./company-short.model";
 import {DeliveryMenuModel} from "./delivery-menu.model";
 import {DictionaryModel} from "./dictionary.model";
+import {CompanyModel} from "./company.model";
 
 export class BootstrapAppModel {
-  companyShorts: CompanyShortModel[];
+  companies: CompanyModel[];
   deliveryMenu: DeliveryMenuModel;
   cities: DictionaryModel[];
   deliveryCity: string;
   isDefault: boolean;
 
   constructor() {
-    this.companyShorts = new Array<CompanyShortModel>();
+    this.companies = new Array<CompanyModel>();
     this.deliveryMenu = new DeliveryMenuModel();
     this.cities = new Array<DictionaryModel>();
   }

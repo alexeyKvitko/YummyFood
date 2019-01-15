@@ -1,6 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {CompanyShortModel} from "../../../model/company-short.model";
-
+import {CompanyModel} from "../../../model/company.model";
 @Component({
   selector: 'company-card',
   templateUrl: './company-card.component.html',
@@ -8,7 +7,7 @@ import {CompanyShortModel} from "../../../model/company-short.model";
 })
 export class CompanyCardComponent implements OnInit {
   @Input()
-  company: CompanyShortModel;
+  company: CompanyModel;
 
   @Input()
   isDetailInfo: boolean = false ;
@@ -24,7 +23,7 @@ export class CompanyCardComponent implements OnInit {
 
   ngOnInit() {
     if ( this.company != null ){
-      this.logoSrc = "assets/images/logos/"+this.company.companyLogo;
+      this.logoSrc = "assets/images/logos/"+this.company.logo;
     }
   }
 

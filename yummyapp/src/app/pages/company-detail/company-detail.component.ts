@@ -6,9 +6,9 @@ import {MenuEntityModel} from "../../model/menu-entity.model";
 import {Router} from "@angular/router";
 import {CompanyService} from "../../services/company.service";
 import {GlobalService} from "../../shared/services/global.service";
-import {CompanyShortModel} from "../../model/company-short.model";
 import {TripleEntityModel} from "../../model/triple-entity.model";
 import {TrackScrollDirective} from "../../directives/track-scroll";
+import {CompanyModel} from "../../model/company.model";
 
 @Component({
   selector: 'app-company-detail',
@@ -28,8 +28,9 @@ export class CompanyDetailComponent implements OnInit {
   loading: boolean = true;
   menuEntities: MenuEntityModel[] = new Array<MenuEntityModel>();
   menuTypes: MenuTypeModel[] = new Array<MenuTypeModel>();
-  companyShort: CompanyShortModel =  new CompanyShortModel();
+  companyDetail: CompanyModel =  new CompanyModel();
   tripleEntities: TripleEntityModel[] = new Array<TripleEntityModel>();
+  userRole: string;
 
   deliveryCity: string;
 
@@ -37,13 +38,14 @@ export class CompanyDetailComponent implements OnInit {
 
     this.companyId = window.localStorage.getItem('companyId');
     if ( this.companyId != null ){
-      this.companyShort = this.companyService.getCompanyShortById( this.companyId );
+      this.companyDetail = this.companyService.getCompanyById( this.companyId );
     }
     this.deliveryCity = this.companyService.getDeliveryCity();
     this._globalService.dataBusChanged('pageLoading', true);
     this.selMenuType.id = '-1';
     this.selMenuCategory.id = '-1';
     this.selMenuCategory.displayName = 'Основное меню';
+    this.userRole = window.localStorage.getItem('userrole');
   }
 
     returnToChoice(){
@@ -132,6 +134,14 @@ export class CompanyDetailComponent implements OnInit {
 
   moveToTop(){
     document.getElementById("top").scrollIntoView({behavior: "smooth", block: "start"});
+  }
+
+  editCompany(){
+    this.router.navigate(['pages/company-edit']);
+  }
+
+  isRoleAdmin(){
+    return this.userRole == 'ROLE_ADMIN';
   }
 
 }

@@ -77,7 +77,7 @@ export class CompanyEntityComponent implements OnInit {
     this.menuEntity.count ++;
     this.globalService.addEntityToBasket( this.menuEntity );
     this.globalService.dataBusChanged("add-to-basket","update");
-    this.companyService.addCompanyShortToBasket( this.menuEntity.companyId );
+    this.companyService.addCompanyToBasket( this.menuEntity.companyId );
   }
 
 }

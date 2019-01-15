@@ -30,10 +30,25 @@ public class ConvertUtils {
         companyModel.setPhoneTwo( company.getPhoneTwo() );
         companyModel.setPhoneThree( company.getPhoneThree() );
         companyModel.setLogo( company.getLogo() );
+        companyModel.setDelivery( company.getDelivery() );
+        companyModel.setCommentCount( company.getCommentCount() );
+        companyModel.setDeliveryCondition( company.getDeliveryCondition() );
+        companyModel.setPayTypeCash( company.getPayTypeCash() );
+        companyModel.setPayTypeCard( company.getPayTypeCard() );
+        companyModel.setPayTypeWallet( company.getPayTypeWallet() );
+        companyModel.setWeekdayStart( company.getWeekdayStart() );
+        companyModel.setWeekdayEnd( company.getWeekdayEnd() );
+        companyModel.setWeekdayWork( company.getWeekdayWork() );
+        companyModel.setDayoffStart( company.getDayoffStart() );
+        companyModel.setDayoffEnd( company.getDayoffEnd() );
+        companyModel.setDayoffWork( company.getDayoffWork() );
+        companyModel.setFoodPoint( company.getFoodPoint() );
+        companyModel.setAction( company.getAction() );
+
         return companyModel;
     }
 
-    public Company convertCompanyModelToEntiry(CompanyModel model){
+    public Company convertCompanyModelToEntity(CompanyModel model){
         Company company = new Company();
         Integer companyId = AppConstants.FAKE_ID.equals( model.getId() ) ? null : model.getId();
         company.setId( companyId );
@@ -46,6 +61,20 @@ public class ConvertUtils {
         company.setPhoneTwo( model.getPhoneTwo() );
         company.setPhoneThree( model.getPhoneThree() );
         company.setLogo( model.getLogo() );
+        company.setDelivery( model.getDelivery() );
+        company.setCommentCount( model.getCommentCount() );
+        company.setDeliveryCondition( model.getDeliveryCondition() );
+        company.setPayTypeCash( model.getPayTypeCash() );
+        company.setPayTypeCard( model.getPayTypeCard() );
+        company.setPayTypeWallet( model.getPayTypeWallet() );
+        company.setWeekdayStart( model.getWeekdayStart() );
+        company.setWeekdayEnd( model.getWeekdayEnd() );
+        company.setWeekdayWork( model.getWeekdayWork() );
+        company.setDayoffStart( model.getDayoffStart() );
+        company.setDayoffEnd( model.getDayoffEnd() );
+        company.setDayoffWork( model.getDayoffWork() );
+        company.setFoodPoint( model.getFoodPoint() );
+        company.setAction( model.getAction() );
         return company;
     }
 
@@ -189,4 +218,14 @@ public class ConvertUtils {
         }
         return cityModels;
     }
+
+    public List<CompanyModel> convertCompaniesToModelList( List<Company> companies ){
+        List<CompanyModel> companyModels = new LinkedList<>();
+        for(Company company: companies ){
+            companyModels.add( convertCompanyToModel( company ) );
+        }
+        return companyModels;
+    }
+
+
 }

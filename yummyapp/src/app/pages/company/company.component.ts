@@ -10,7 +10,6 @@ import {MenuCategoryModel} from "../../model/menu-category.model";
 import {DeliveryMenuService} from "../../services/delivery-menu.service";
 import {DeliveryMenuModel} from "../../model/delivery-menu.model";
 import {OTHER_PARAMS} from "./const-other-params";
-import {CompanyShortModel} from "../../model/company-short.model";
 import {MenuEntityModel} from "../../model/menu-entity.model";
 
 @Component({
@@ -26,7 +25,7 @@ export class CompanyComponent implements OnInit {
   menuCategory: MenuCategoryModel[];
   categoriesListView: string = 'Показать Все Блюда';
   typesListView: string = 'Показать Все Кухни';
-  companies: CompanyShortModel[];
+  companies: CompanyModel[];
   deliveryCity: string = "";
   basket: MenuEntityModel[] = new Array<MenuEntityModel>();
   toUpIconOpacity: number = 0;
@@ -36,7 +35,7 @@ export class CompanyComponent implements OnInit {
     this.userRole = window.localStorage.getItem('userrole');
     this._authService.isAuthenticated();
     this.deliveryMenu = new DeliveryMenuModel();
-    this.companies =  new Array<CompanyShortModel>();
+    this.companies =  new Array<CompanyModel>();
     this.otherParams = OTHER_PARAMS;
   }
 
@@ -45,7 +44,7 @@ export class CompanyComponent implements OnInit {
       if (data.ev === 'data-loaded') {
         if ( data.value ){
           this.deliveryMenu =  this.companyService.getDeliveryMenus();
-          this.companies = this.companyService.getCompaniesShort();
+          this.companies = this.companyService.getCompaniesModel();
           this.deliveryCity = this.companyService.getDeliveryCity();
         }
       }
