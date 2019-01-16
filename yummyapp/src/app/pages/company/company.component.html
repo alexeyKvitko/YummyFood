@@ -16,7 +16,7 @@
               <i class="fas fa-search search-icon"></i>
             </div>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <div class="success-btn-item main-button" (click)="createCompany()" *ngIf="isRoleAdmin()">
+            <div class="menu-btn-item azure-mbti main-button" (click)="createCompany()" *ngIf="isRoleAdmin()">
               <img src="assets/images/icons/restaurants-poi.png">
               <div class="mobile-label">
                 <p>ДОБАВИТЬ ЗАВЕДЕНИЕ</p>
@@ -25,7 +25,7 @@
           </div>
           <div class="right-part">
             <div class="right-part-content">
-              <switch switchId="single2" fromStr="ВСЕ" toStr="ОТКРЫТЫЕ" switchW="250px" switchH="40px"></switch>
+              <switch switchId="single2" fromStr="ВСЕ" toStr="ОТКРЫТЫЕ" switchW="250px" switchH="40px" initValToStr="true"></switch>
             </div>
           </div>
         </div>

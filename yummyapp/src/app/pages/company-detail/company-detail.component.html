@@ -15,7 +15,7 @@
               <div class="add-info-container">
                 <p>
                   Оформить заказ можно ежедневно без выходных:<br>
-                  <b>{{companyDetail.weekdayWork}}, {{companyDetail.dayoffWork}}</b><br>
+                  <strong>{{companyDetail.weekdayWork}}, {{companyDetail.dayoffWork}}</strong><br>
                   Минимальный заказ - <b>{{companyDetail.delivery}}</b><br>
                   Доставка - БЕСПЛАТНО.<br>
                   Не нашли то, что искали?
@@ -25,16 +25,22 @@
             </div>
             <!--М Е Н Ю-->
             <div class="compdet-menu">
-              <div class="success-btn-item main-button" (click)="returnToChoice()">
+              <div class="menu-btn-item accent-mbti main-button" (click)="returnToChoice()">
                 <img src="assets/images/icons/restaurant-white.png">
                 <div class="mobile-label">
                   <p>ВЫБОР ЗАВЕДЕНИЯ</p>
                 </div>
               </div>
-              <div class="success-btn-item main-button" (click)="editCompany()" *ngIf="isRoleAdmin()">
-                <img src="assets/images/icons/restaurant-white.png">
+              <div class="menu-btn-item azure-mbti main-button" (click)="editCompany()" *ngIf="isRoleAdmin()">
+                <img src="assets/images/icons/restaurant-edit.png">
                 <div class="mobile-label">
                   <p>РЕДАКТИРОВАНИЕ</p>
+                </div>
+              </div>
+              <div class="menu-btn-item azure-mbti main-button" (click)="parseCompany()" *ngIf="isRoleAdmin()">
+                <img src="assets/images/icons/restaurant-parse.png">
+                <div class="mobile-label">
+                  <p>ПАРСИНГ</p>
                 </div>
               </div>
               <div class="compdet-dishes">

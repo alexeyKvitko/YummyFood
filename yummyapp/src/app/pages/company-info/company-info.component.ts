@@ -432,5 +432,9 @@ export class CompanyInfoComponent implements OnInit {
     return value;
   }
 
+  backToDetails(){
+    this.router.navigate(['pages/company-detail']);
+  }
+
 
 }

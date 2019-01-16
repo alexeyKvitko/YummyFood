@@ -45,9 +45,9 @@
               <img src="assets/images/icons/cash.png">
               <span>Оплата</span>
               <div class="row condition-text">
-                <img src="assets/images/icons/paper-money.png" title="Наличные">
-                <img src="assets/images/icons/credit-card.png" title="Банковская карта">
-                <img src="assets/images/icons/mobile-market.png" title="Электронные деньги">
+                <img src="assets/images/icons/paper-money.png" title="Наличные" *ngIf="company.payTypeCash == 1">
+                <img src="assets/images/icons/credit-card.png" title="Банковская карта" *ngIf="company.payTypeCard == 1">
+                <img src="assets/images/icons/mobile-market.png" title="Электронные деньги" *ngIf="company.payTypeWallet == 1">
               </div>
             </div>
           </div>

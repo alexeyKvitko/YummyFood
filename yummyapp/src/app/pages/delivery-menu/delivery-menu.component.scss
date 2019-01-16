@@ -1,12 +1,33 @@
 @import '../../shared/theme/conf';
 
+.delivery-menu-panel{
+  width: 100%;
+  position: absolute;
+  padding: 170px 20% 120px 20%;
+  background-color: transparent;
+  overflow-x: hidden;
+  overflow-y: auto;
+  h2{
+    font-weight: 300;
+    width: fit-content;
+    margin: 4px 0px;
+    font-size: 12px;
+    border-bottom: 1px dotted $bright-coral;
+    color: $bright-coral;
+    &:hover{
+      cursor: pointer;
+      border-bottom: 1px dotted transparent;
+    }
+  }
+}
+
 .delivery-menu{
   width: 100%;
   display: flex;
   flex-direction: row;
   height: 420px;
   max-height: 420px;
-  background-color: $card-bg;
+  background-color: $card-content-bg;
   padding: 10px;
   .delivery-wrap{
     width: 100%;

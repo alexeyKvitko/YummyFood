@@ -4,33 +4,53 @@
 .tbl-brd{
   border: 2px solid red!important;
 }
-.menu-wrapper {
-  position: relative;
-  background-color: $card-bg;
-  height: 600px;
-  max-height: 600px;
-  overflow: hidden;
-  padding: 10px 0;
+.company-name{
+  padding-left: 175px;
+  font-size: 36px;
+  font-family: Sandora;
+  font-weight: 400;
+  color: $bright-coral;
+  text-decoration: underline;
+  &:hover{
+    cursor: pointer;
+    text-decoration: none;
+  }
+}
+.company-info-panel{
   width: 100%;
+  position: absolute;
+  padding: 115px 20% 120px 20%;
+  background-color: $card-content-bg;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+}
+.tab-view{
   display: flex;
   flex-direction: row;
+  width: 100%;
+  min-height: 800px;
+}
+.menu-wrapper {
+  overflow: hidden;
+  border-right: 1px solid $border-color;
+  padding: 10px 0;
+  width: 30%;
   .menu-content {
     flex-direction: column;
     font-size: 16px;
     padding-left: 8px;
     .menu-group {
-      position: relative;
-      width: 100%;
+      display: flex;
+      flex-direction: row;
       border-top: 0;
-
       padding: 3px;
       text-align: left;
       .menu-item {
         margin: 3px 0;
         border-radius: 3px;
         padding: 2px 20px;
-        min-height: 24px;
-        max-height: 24px;
+        line-height: 24px;
         &:hover {
           cursor: pointer;
           color: $accent-color;
@@ -68,8 +88,6 @@
 }
 
 .entity-wrapper {
-  width: 100%;
-  display: flex;
   flex-direction: column;
   text-align: left;
   overflow-y: auto;
@@ -139,13 +157,10 @@
 }
 .tab-parsing {
   position: relative;
-  top:-10px;
-  left:-10px;
   width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  background-color: $card-bg;
   padding: 10px;
 }
 

@@ -6,10 +6,8 @@
 }
 
 
-.success-btn-item{
+.menu-btn-item{
   position: relative;
-  background-color: $accent-color!important;
-  border: 1px solid $accent-color!important;
   width: 250px!important;
   height: 40px;
   margin-top: 10px;
@@ -21,9 +19,9 @@
   align-items: flex-start;
   img{
     float: left;
-    margin-top: -5px ;
-    width: 36px;
-    height: 36px;
+    margin-top: -4px ;
+    width: 32px;
+    height: 32px;
   }
   .mobile-label{
     position: absolute;
@@ -44,6 +42,17 @@
     border: 1px solid $green-bg!important;
   }
 }
+
+.accent-mbti{
+  background-color: $accent-color!important;
+  border: 1px solid $accent-color!important;
+}
+.azure-mbti{
+  background-color: $azure!important;
+  border: 1px solid $azure!important;
+}
+
+
 
 .btn {
     padding: .3em .8em;

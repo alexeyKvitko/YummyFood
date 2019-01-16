@@ -9,7 +9,7 @@ export let TOP_MENU = [
   },
   {
     label: 'Блюда',
-    link: 'pages/delivery-menu'
+    link: ''
   },
   {
     label: 'Акции',

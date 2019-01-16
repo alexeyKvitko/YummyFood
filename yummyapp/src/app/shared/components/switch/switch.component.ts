@@ -22,19 +22,27 @@ export class SwitchComponent implements OnInit {
   toStr: string = 'default';
 
   @Input()
-  checked: boolean = false;
+  initValToStr: string;
+
+  checked: boolean;
 
   @Output()
   selectValue: EventEmitter<number> = new EventEmitter<number>();
 
   constructor() { }
   ngOnInit() {
-     console.log('checked',this.checked);
+    if( this.initValToStr == 'true' ){
+      this.checked = true;
+    } else if( this.initValToStr == 'false' ){
+      this.checked = false;
+    }
+      this.switch(this.checked);
   }
 
   switch(param){
     this.checked = param;
-    let val = param ? 1 : 0;
+    let val = param == true ? 1 : 0;
+    console.log('param',this.checked,param, val);
     this.selectValue.emit( val );
   }
 

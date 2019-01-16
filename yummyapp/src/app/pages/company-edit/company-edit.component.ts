@@ -10,6 +10,7 @@ import {CompanyModel} from "../../model/company.model";
 import {WORK_DAY_START} from "./const-workdaystart";
 import {WORK_DAY_END} from "./const-workdayend";
 import swal from "sweetalert2";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-company-edit',
@@ -34,7 +35,7 @@ export class CompanyEditComponent implements OnInit {
 
 
 
-  constructor(private formBuilder: FormBuilder, private _authService: AuthService,
+  constructor(private router: Router,private formBuilder: FormBuilder, private _authService: AuthService,
               private companyService: CompanyService, private _globalService: GlobalService) {
     this._authService.isAuthenticated();
     this.companyId = window.localStorage.getItem('companyId');
@@ -83,9 +84,6 @@ export class CompanyEditComponent implements OnInit {
       payWallet: [{value: this.companyModel.payTypeWallet,disabled: true}, Validators.compose([Validators.required])]
     });
     this._globalService.dataBusChanged('pageLoading', false);
-    console.log('this.companyModel.payTypeCash',this.companyModel.payTypeCash);
-    console.log('this.companyModel.payTypeCard',this.companyModel.payTypeCard);
-    console.log('this.companyModel.payTypeWallet',this.companyModel.payTypeWallet);
     this.loading = false;
   }
 
@@ -165,6 +163,7 @@ export class CompanyEditComponent implements OnInit {
   }
 
   switchValue( el, val ){
+    console.log('SWITCH',el, val);
     this.companyForm.get(el).setValue( val );
   }
 
@@ -249,7 +248,6 @@ export class CompanyEditComponent implements OnInit {
   updateCompanyEdit(data) {
     this.companyEdit = data;
     this.companyModel = data.companyModel;
-    console.log('this.companyId',this.companyId);
     if ( this.companyId != '-1' ){
       this.companyEdit.companyModel.city.displayName = this.companyEdit.companyModel.city.name;
     } else {
@@ -423,6 +421,14 @@ export class CompanyEditComponent implements OnInit {
       }
     });
     return display;
+  }
+
+  backToDetails(){
+    this.router.navigate(['pages/company-detail']);
+  }
+
+  editMenu(){
+    this.router.navigate(['pages/delivery-menu']);
   }
 
 }

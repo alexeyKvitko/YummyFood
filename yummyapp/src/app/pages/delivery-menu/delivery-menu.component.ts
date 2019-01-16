@@ -6,6 +6,7 @@ import {MenuCategoryModel} from "../../model/menu-category.model";
 import {DeliveryMenuService} from "../../services/delivery-menu.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import swal from 'sweetalert2';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-delivery-menu',
@@ -19,7 +20,7 @@ export class DeliveryMenuComponent implements OnInit {
   menuTypes: MenuTypeModel[];
   menuCategories: MenuCategoryModel[];
 
-  constructor(private _authService: AuthService, private _globalService: GlobalService,
+  constructor(private router: Router,private _authService: AuthService, private _globalService: GlobalService,
               private deliveryMenuService: DeliveryMenuService, private formBuilder: FormBuilder) {
     this._authService.isAuthenticated();
     this.loading = false;
@@ -38,7 +39,7 @@ export class DeliveryMenuComponent implements OnInit {
       displayName: ['', Validators.required],
       name: ['', Validators.required]
     });
-    this.getDeliveryMenu();
+    this.loadDeliveryMenu();
   }
 
   selectMenuType( menuType: MenuTypeModel ){
@@ -142,5 +143,9 @@ export class DeliveryMenuComponent implements OnInit {
       this._globalService.dataBusChanged('pageLoading', false);
       this.loading = false;
     });
+  }
+
+  goBack(){
+    this.router.navigate(['pages/company-edit']);
   }
 }

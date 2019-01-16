@@ -1,9 +1,11 @@
 <simple-notifications [options]="notiOptions"></simple-notifications>
-<div class="row" [hidden]="loading" *ngIf="companyInfo != null">
+<div class="company-info-panel" [hidden]="loading" *ngIf="companyInfo != null">
+  <span class="company-name" (click)="backToDetails()" title="Назад">{{companyInfo.companyModel.displayName}}</span>
   <tabset id="company-info-tab" theme="justified">
     <tab-content for="company-info-tab" tabTitle="Меню" [active]="true">
+      <div class="tab-view">
       <div class="menu-wrapper">
-        <div id="type-menu" class="menu-content col-md-3">
+        <div id="type-menu" class="menu-content col-md-offset-5">
           <div class="menu-group">
             <div *ngFor="let menuType of companyInfo.menuTypes">
           <span class="menu-icon" *ngIf="!menuType.menuOpen">
@@ -29,6 +31,7 @@
             </div>
           </div>
         </div>
+      </div>
         <!--TABLE-->
         <div class="entity-wrapper" *ngIf="menuEntities != null">
           <div class="col-md-10" >
@@ -110,7 +113,7 @@
       </div>
     </tab-content>
     <tab-content for="company-info-tab" tabTitle="Настройка парсинга" *ngIf="menuEntities != null">
-      <div class="row tab-parsing">
+      <div class="tab-parsing">
         <div class="col-md-6">
           <form [formGroup]="parseForm" (ngSubmit)="onSubmit()">
             <div class="input-box">
@@ -560,7 +563,6 @@
       </div>
     </tab-content>
   </tabset>
-
 </div>
 
 

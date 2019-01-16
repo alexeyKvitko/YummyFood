@@ -140,6 +140,10 @@ export class CompanyDetailComponent implements OnInit {
     this.router.navigate(['pages/company-edit']);
   }
 
+  parseCompany(){
+    this.router.navigate(['pages/company-info']);
+  }
+
   isRoleAdmin(){
     return this.userRole == 'ROLE_ADMIN';
   }

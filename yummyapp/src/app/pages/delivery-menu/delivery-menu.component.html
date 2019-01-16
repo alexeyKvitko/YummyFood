@@ -1,4 +1,6 @@
-<div class="row delivery-menu" [hidden]="loading">
+<div class="delivery-menu-panel">
+  <h2 (click)="goBack()">Вернуться</h2>
+<div class="delivery-menu" [hidden]="loading">
   <div class="col-md-4 delivery-wrap">
     <div class="delivery-title">КУХНЯ</div>
     <div class="delivery-content">
@@ -31,4 +33,5 @@
       <span class="frm-icon-undo" (click)="clearCategory()"><i class="fas fa-eraser" ></i></span>
     </form>
   </div>
+</div>
 </div>
