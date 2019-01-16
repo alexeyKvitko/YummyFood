@@ -14,9 +14,9 @@ export class CompanyModel {
   delivery: string;
   commentCount: string;
   deliveryCondition: string;
-  payTypeCash: string;
-  payTypeCard: string;
-  payTypeWallet: string;
+  payTypeCash: number;
+  payTypeCard: number;
+  payTypeWallet: number;
   weekdayStart: string;
   weekdayEnd: string;
   dayoffStart: string;

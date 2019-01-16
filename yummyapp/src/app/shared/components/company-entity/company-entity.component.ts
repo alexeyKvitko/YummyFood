@@ -13,9 +13,9 @@ export class CompanyEntityComponent implements OnInit {
   @Input()
   menuEntity: MenuEntityModel = new MenuEntityModel();
 
-  private selWeight: string;
-  private selSize: string;
-  private selPrice: string;
+  selWeight: string;
+  selSize: string;
+  selPrice: string;
   defaultImg: string = "assets/images/no-photo.png";
   wspType : string = "One";
 
