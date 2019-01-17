@@ -12,7 +12,7 @@ import ru.yummy.eat.model.AuthToken;
 import ru.yummy.eat.model.LoginUser;
 import ru.yummy.eat.service.UserService;
 
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+@CrossOrigin(origins = "http://127.0.0.1:4200", maxAge = 3600)
 @RestController
 @RequestMapping("/token")
 public class AuthenticationController {
