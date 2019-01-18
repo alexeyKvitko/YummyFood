@@ -312,6 +312,7 @@ export class CompanyInfoComponent implements OnInit {
   }
 
   testParseModel() {
+    document.getElementById("top-parsing").scrollIntoView({behavior: "smooth", block: "start"});
     this._globalService.dataBusChanged('pageLoading', true);
     this.convertFormToModel();
     this.companyService.testMenuPage(this.updateParseMenu).subscribe(data => {
@@ -320,7 +321,6 @@ export class CompanyInfoComponent implements OnInit {
         swal('Тестирование успешно');
         this.parseForm.get('htmlResponse').setValue( data.result.parseMenu.htmlResponse );
         this.testEntities = data.result.menuEntities;
-        console.log('test entities',this.testEntities);
       } else {
         swal({
           type: 'error',

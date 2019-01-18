@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  baseApiUrl: 'http://194.58.122.145:8080/yummyeat'
 };
 
 /*

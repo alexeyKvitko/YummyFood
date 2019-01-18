@@ -7,7 +7,7 @@ import ru.yummy.eat.exception.BusinessLogicException;
 import ru.yummy.eat.model.*;
 import ru.yummy.eat.service.MenuService;
 
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+@CrossOrigin
 @RestController
 @RequestMapping({"/api/menu"})
 public class AdminMenuController {

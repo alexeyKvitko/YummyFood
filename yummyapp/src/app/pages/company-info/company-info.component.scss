@@ -42,7 +42,7 @@
     padding-left: 8px;
     .menu-group {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       border-top: 0;
       padding: 3px;
       text-align: left;
@@ -177,7 +177,7 @@
     padding: 6px;
   }
   .addon-left{
-    min-width: 150px;
+    min-width: 180px;
   }
   span{
     padding-top: 3px;

@@ -8,9 +8,7 @@ import { GlobalService } from './services/global.service';
 import { NotificationComponent } from './components/notification/notification.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { MenuComponent } from './layouts/menu/menu.component';
-import { SidebarComponent } from './layouts/sidebar/sidebar.component';
 import { PagesTopComponent } from './layouts/pages-top/pages-top.component';
-import { RightConfigComponent } from './layouts/right-config/right-config.component';
 import {DialogComponent} from "./layouts/app-dialog/app-dialog.component";
 
 @NgModule({
@@ -24,18 +22,14 @@ import {DialogComponent} from "./layouts/app-dialog/app-dialog.component";
     ],
     declarations: [
         MenuComponent,
-        SidebarComponent,
         PagesTopComponent,
         NotificationComponent,
-        RightConfigComponent,
         LoadingComponent,
         DialogComponent
     ],
     exports: [
-        SidebarComponent,
         PagesTopComponent,
         NotificationComponent,
-        RightConfigComponent,
         LoadingComponent
     ]
 })
