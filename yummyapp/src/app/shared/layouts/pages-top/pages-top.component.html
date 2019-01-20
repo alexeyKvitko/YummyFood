@@ -32,9 +32,10 @@
       <div class="head-menu-item" >
         <div class="head-menu-icon" *ngIf="basketPrice > 0">
            <img src="assets/images/icons/in-basket-rub.png" >
-           <div class="centered">{{basketPrice}}
-             <i class="fas fa-ruble-sign icon"></i>
-           </div>
+           <div class="centered">{{basketPrice}}&nbsp;р.</div>
+        </div>
+        <div [@in-basket] class="head-menu-icon icon-hover" *ngIf="basketPrice > 0">
+          <img src="assets/images/icons/in-basket-rur.png" >
         </div>
       </div>
     </div>

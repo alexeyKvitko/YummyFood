@@ -79,7 +79,7 @@
   }
   .company-entity-footer{
     position: absolute;
-    top:80%;
+    top:83%;
     margin-left: -8px!important;
     display: flex;
     flex-direction: column;
@@ -101,9 +101,15 @@
       background-color: rgba($green-bg,0.95);
       top:16%;
     }
+    .entity-choose{
+      background-color: rgba($dark-green,0.1);
+      margin-top: 14px;
+      height: 100%;
+    }
     .company-entity-button{
       margin: 0 auto;
-      margin-top: 12px;
+      margin-top: 18px;
+      margin-bottom: 8px;
       width: 50%;
       padding: 6px 0px;
       //display: flex;
@@ -130,14 +136,16 @@
       }
     }
     .entity-footer-price{
-      text-align: center;
+      padding-top: 4px;
       display: flex;
       flex-direction: row;
       align-items: center;
       .wsp-small{
+        text-align: center;
         width: 30%;
       }
       .wsp-medium{
+        text-align: center;
         width: 40%;
         text-align: right;
         padding-right: 8px;

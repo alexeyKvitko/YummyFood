@@ -5,12 +5,44 @@ import { menuService } from '../../services/menu.service';
 import {TOP_MENU} from "./top-menu";
 import {DictionaryModel} from "../../../model/dictionary.model";
 import {CompanyService} from "../../../services/company.service";
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'pages-top',
   templateUrl: './pages-top.component.html',
   styleUrls: ['./pages-top.component.scss'],
-  providers: [menuService]
+  providers: [menuService],
+  // animations: [
+  //   trigger('in-basket', [
+  //     transition('void => *', [
+  //       style({ transform: 'scale3d(.3, .3, .3)' }),
+  //       animate(100)
+  //     ]),
+  //     transition('* => void', [
+  //       animate(100, style({ transform: 'scale3d(.0, .0, .0)' }))
+  //     ])
+  //   ])
+  // ]
+  animations: [
+    trigger('in-basket', [
+      state('initial', style({
+        opacity:'0',
+        // top:'0px',
+        // left:'50%'
+      })),
+      state('final', style({
+        opacity:'1',
+        // top:'38px',
+        // left:'15%'
+      })),
+      transition('initial<=>final', [
+        animate(100, style({ transform: 'scale3d(.0, .0, .0)' }))
+      ]),
+      transition('final=>initial', [
+        animate(100, style({ transform: 'scale3d(.0, .0, .0)' }))
+      ])
+    ]),
+  ]
 })
 export class PagesTopComponent implements OnInit{
   avatarImgSrc: string = 'assets/images/logo.png';
@@ -26,6 +58,7 @@ export class PagesTopComponent implements OnInit{
   deliveryCity: string;
   showDialog: boolean = false;
   basketPrice: number = 0;
+  basketState: string = 'initial';
 
   constructor( private _globalService: GlobalService,
                 private router: Router, private companyService : CompanyService ) {
@@ -76,7 +109,10 @@ export class PagesTopComponent implements OnInit{
   }
 
   updateBasket(){
+    console.log('BEFORE',this.basketState);
     this.basketPrice = this._globalService.getBasketPrice();
+    this.basketState = this.basketState == 'initial'? 'final':'initial';
+    console.log('AFTER',this.basketState);
   }
 
 }

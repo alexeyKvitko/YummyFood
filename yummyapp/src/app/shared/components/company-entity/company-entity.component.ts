@@ -33,7 +33,7 @@ export class CompanyEntityComponent implements OnInit {
 
   isHidden(obj){
     let hidden = true;
-    if ( obj == null){
+    if ( obj == null || this.selPrice == obj){
       hidden = false;
     }
     return hidden;
