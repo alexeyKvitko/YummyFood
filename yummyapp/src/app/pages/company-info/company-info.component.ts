@@ -14,6 +14,7 @@ import { ClipboardService } from 'ngx-clipboard'
 import swal from 'sweetalert2';
 import {AuthService} from "../../services/auth.service";
 import {NotificationsService} from "angular2-notifications";
+import {CopyParseDataModel} from "../../model/copy-parse-data.model";
 
 @Component({
   selector: 'app-company-info',
@@ -30,9 +31,13 @@ export class CompanyInfoComponent implements OnInit {
   loading: boolean = true;
   parseMenu: ParseMenuModel = new ParseMenuModel();
   updateParseMenu: ParseMenuModel = new ParseMenuModel();
+  copyParseData: CopyParseDataModel = new CopyParseDataModel();
   parseForm: FormGroup;
   menuEntities: MenuEntityModel[];
   testEntities: MenuEntityModel[];
+  dishes =  new Array<any>();
+  selectedDish: string;
+  saveParseMenuDisabled: boolean = true;
 
   pageNumber = 1;
   notiOptions = {
@@ -64,6 +69,17 @@ export class CompanyInfoComponent implements OnInit {
     this.companyService.getCompanyInfo(this.companyId)
       .subscribe(data => {
         this.companyInfo = data;
+        this.companyInfo.menuTypes.forEach( menuType =>{
+          menuType.menuCategories.forEach( menuCategory => {
+            this.dishes.push({
+              menuType: menuType,
+              menuCategory: menuCategory
+            });
+          });
+        });
+        let dish = this.dishes[0];
+        this.selectedDish = dish.menuType.id+"/"+dish.menuCategory.id+"/"
+                              +dish.menuType.displayName+"/"+dish.menuCategory.displayName;
         this.logoImgSrc = 'assets/images/logos/' + this.companyInfo.companyModel.logo;
         this._globalService.dataBusChanged('headerTitle', this.companyInfo.companyModel.displayName);
         this._globalService.dataBusChanged('companyUrl', this.companyInfo.companyModel.url);
@@ -98,102 +114,111 @@ export class CompanyInfoComponent implements OnInit {
     this.pageNumber = 1;
     this.companyService.getCompanyMenu(this.companyId, menuType.id, menuCategory.id).subscribe(data => {
       this.parseMenu = data.parseMenu;
+      this.copyParseData.companyId = this.companyId;
+      this.copyParseData.toMenuTypeId = this.parseMenu.typeId;
+      this.copyParseData.toMenuCategoryId = this.parseMenu.categoryId;
       this.updateParseMenu.id = this.parseMenu.id;
       this.updateParseMenu.companyId = this.parseMenu.companyId;
       this.updateParseMenu.typeId = this.parseMenu.typeId;
       this.updateParseMenu.categoryId = this.parseMenu.categoryId;
       this.menuEntities = data.menuEntities;
-      let tagNameSplitted = this.splitValue( this.parseMenu.tagName );
-      let tagDescSplitted = this.splitValue( this.parseMenu.tagDescription );
-      let tagImgUrlSplitted = this.splitValue( this.parseMenu.tagImageUrl );
-      let tagWeightOneSplitted = this.splitValue( this.parseMenu.tagWeightOne );
-      let tagSizeOneSplitted = this.splitValue( this.parseMenu.tagSizeOne );
-      let tagPriceOneSplitted = this.splitValue( this.parseMenu.tagPriceOne );
-      let tagWeightTwoSplitted = this.splitValue( this.parseMenu.tagWeightTwo );
-      let tagSizeTwoSplitted = this.splitValue( this.parseMenu.tagSizeTwo );
-      let tagPriceTwoSplitted = this.splitValue( this.parseMenu.tagPriceTwo );
-      let tagWeightThreeSplitted = this.splitValue( this.parseMenu.tagWeightThree );
-      let tagSizeThreeSplitted = this.splitValue( this.parseMenu.tagSizeThree );
-      let tagPriceThreeSplitted = this.splitValue( this.parseMenu.tagPriceThree );
-      let tagWeightFourSplitted = this.splitValue( this.parseMenu.tagWeightFour );
-      let tagSizeFourSplitted = this.splitValue( this.parseMenu.tagSizeFour );
-      let tagPriceFourSplitted = this.splitValue( this.parseMenu.tagPriceFour );
+      this.testEntities = [];
+      this.fillForm();
+    });
+  }
 
-      this.parseForm = this.formBuilder.group({
-        prefixUrl: [{value: this.parseMenu.prefixUrl, disabled: true}],
-        parseUrl: [{value: this.parseMenu.parseUrl, disabled: true}, Validators.compose([Validators.required])],
-        tagTrash: [{value: this.parseMenu.tagTrash, disabled: true}, Validators.compose([Validators.required])],
-        tagEndSection: [{value: this.parseMenu.tagEndSection,disabled: true}, Validators.compose([Validators.required])],
-        htmlResponse: [{value: this.parseMenu.htmlResponse,disabled: true}, Validators.compose([Validators.required])],
-        
-        tagNameStart: [{value: tagNameSplitted[0], disabled: true}, Validators.compose([Validators.required])],
-        tagNameEnd:[{value: tagNameSplitted[1], disabled: true}, Validators.compose([Validators.required])],
-        tagNameDirection:[{value: tagNameSplitted[2], disabled: true}],
-        tagNameEntry:[{value: tagNameSplitted[3], disabled: true}],
+  fillForm(){
+    this.saveParseMenuDisabled = true;
+    let tagNameSplitted = this.splitValue( this.parseMenu.tagName );
+    let tagDescSplitted = this.splitValue( this.parseMenu.tagDescription );
+    let tagImgUrlSplitted = this.splitValue( this.parseMenu.tagImageUrl );
+    let tagWeightOneSplitted = this.splitValue( this.parseMenu.tagWeightOne );
+    let tagSizeOneSplitted = this.splitValue( this.parseMenu.tagSizeOne );
+    let tagPriceOneSplitted = this.splitValue( this.parseMenu.tagPriceOne );
+    let tagWeightTwoSplitted = this.splitValue( this.parseMenu.tagWeightTwo );
+    let tagSizeTwoSplitted = this.splitValue( this.parseMenu.tagSizeTwo );
+    let tagPriceTwoSplitted = this.splitValue( this.parseMenu.tagPriceTwo );
+    let tagWeightThreeSplitted = this.splitValue( this.parseMenu.tagWeightThree );
+    let tagSizeThreeSplitted = this.splitValue( this.parseMenu.tagSizeThree );
+    let tagPriceThreeSplitted = this.splitValue( this.parseMenu.tagPriceThree );
+    let tagWeightFourSplitted = this.splitValue( this.parseMenu.tagWeightFour );
+    let tagSizeFourSplitted = this.splitValue( this.parseMenu.tagSizeFour );
+    let tagPriceFourSplitted = this.splitValue( this.parseMenu.tagPriceFour );
 
-        tagDescStart: [{value: tagDescSplitted[0], disabled: true}, Validators.compose([Validators.required])],
-        tagDescEnd:[{value: tagDescSplitted[1], disabled: true}, Validators.compose([Validators.required])],
-        tagDescDirection:[{value: tagDescSplitted[2], disabled: true}],
-        tagDescEntry:[{value: tagDescSplitted[3], disabled: true}],
+    this.parseForm = this.formBuilder.group({
+      prefixUrl: [{value: this.parseMenu.prefixUrl, disabled: true}],
+      parseUrl: [{value: this.parseMenu.parseUrl, disabled: true}, Validators.compose([Validators.required])],
+      tagTrash: [{value: this.parseMenu.tagTrash, disabled: true}, Validators.compose([Validators.required])],
+      tagEndSection: [{value: this.parseMenu.tagEndSection,disabled: true}, Validators.compose([Validators.required])],
+      htmlResponse: [{value: this.parseMenu.htmlResponse,disabled: true}, Validators.compose([Validators.required])],
+      errorSection: [{value: this.parseMenu.errorSection,disabled: true}, Validators.compose([Validators.required])],
 
-        tagImgUrlStart: [{value: tagImgUrlSplitted[0], disabled: true}, Validators.compose([Validators.required])],
-        tagImgUrlEnd:[{value: tagImgUrlSplitted[1], disabled: true}, Validators.compose([Validators.required])],
-        tagImgUrlDirection:[{value: tagImgUrlSplitted[2], disabled: true}],
-        tagImgUrlEntry:[{value: tagImgUrlSplitted[3], disabled: true}],
-        
-        tagWeightOneStart: [{value: tagWeightOneSplitted[0], disabled: true}, Validators.compose([Validators.required])],
-        tagWeightOneEnd:[{value: tagWeightOneSplitted[1], disabled: true}, Validators.compose([Validators.required])],
-        tagWeightOneDirection:[{value: tagWeightOneSplitted[2], disabled: true}],
-        tagWeightOneEntry:[{value: tagWeightOneSplitted[3], disabled: true}],
-        tagSizeOneStart: [{value: tagSizeOneSplitted[0], disabled: true}, Validators.compose([Validators.required])],
-        tagSizeOneEnd:[{value: tagSizeOneSplitted[1], disabled: true}, Validators.compose([Validators.required])],
-        tagSizeOneDirection:[{value: tagSizeOneSplitted[2], disabled: true}],
-        tagSizeOneEntry:[{value: tagSizeOneSplitted[3], disabled: true}],
-        tagPriceOneStart: [{value: tagPriceOneSplitted[0], disabled: true}, Validators.compose([Validators.required])],
-        tagPriceOneEnd:[{value: tagPriceOneSplitted[1], disabled: true}, Validators.compose([Validators.required])],
-        tagPriceOneDirection:[{value: tagPriceOneSplitted[2], disabled: true}],
-        tagPriceOneEntry:[{value: tagPriceOneSplitted[3], disabled: true}],
+      tagNameStart: [{value: tagNameSplitted[0], disabled: true}, Validators.compose([Validators.required])],
+      tagNameEnd:[{value: tagNameSplitted[1], disabled: true}, Validators.compose([Validators.required])],
+      tagNameDirection:[{value: tagNameSplitted[2], disabled: true}],
+      tagNameEntry:[{value: tagNameSplitted[3], disabled: true}],
 
-        tagWeightTwoStart: [{value: tagWeightTwoSplitted[0], disabled: true}],
-        tagWeightTwoEnd:[{value: tagWeightTwoSplitted[1], disabled: true}],
-        tagWeightTwoDirection:[{value: tagWeightTwoSplitted[2], disabled: true}],
-        tagWeightTwoEntry:[{value: tagWeightTwoSplitted[3], disabled: true}],
-        tagSizeTwoStart: [{value: tagSizeTwoSplitted[0], disabled: true}],
-        tagSizeTwoEnd:[{value: tagSizeTwoSplitted[1], disabled: true}],
-        tagSizeTwoDirection:[{value: tagSizeTwoSplitted[2], disabled: true}],
-        tagSizeTwoEntry:[{value: tagSizeTwoSplitted[3], disabled: true}],
-        tagPriceTwoStart: [{value: tagPriceTwoSplitted[0], disabled: true}],
-        tagPriceTwoEnd:[{value: tagPriceTwoSplitted[1], disabled: true}],
-        tagPriceTwoDirection:[{value: tagPriceTwoSplitted[2], disabled: true}],
-        tagPriceTwoEntry:[{value: tagPriceTwoSplitted[3], disabled: true}],
+      tagDescStart: [{value: tagDescSplitted[0], disabled: true}, Validators.compose([Validators.required])],
+      tagDescEnd:[{value: tagDescSplitted[1], disabled: true}, Validators.compose([Validators.required])],
+      tagDescDirection:[{value: tagDescSplitted[2], disabled: true}],
+      tagDescEntry:[{value: tagDescSplitted[3], disabled: true}],
 
-        tagWeightThreeStart: [{value: tagWeightThreeSplitted[0], disabled: true}],
-        tagWeightThreeEnd:[{value: tagWeightThreeSplitted[1], disabled: true}],
-        tagWeightThreeDirection:[{value: tagWeightThreeSplitted[2], disabled: true}],
-        tagWeightThreeEntry:[{value: tagWeightThreeSplitted[3], disabled: true}],
-        tagSizeThreeStart: [{value: tagSizeThreeSplitted[0], disabled: true}],
-        tagSizeThreeEnd:[{value: tagSizeThreeSplitted[1], disabled: true}],
-        tagSizeThreeDirection:[{value: tagSizeThreeSplitted[2], disabled: true}],
-        tagSizeThreeEntry:[{value: tagSizeThreeSplitted[3], disabled: true}],
-        tagPriceThreeStart: [{value: tagPriceThreeSplitted[0], disabled: true}],
-        tagPriceThreeEnd:[{value: tagPriceThreeSplitted[1], disabled: true}],
-        tagPriceThreeDirection:[{value: tagPriceThreeSplitted[2], disabled: true}],
-        tagPriceThreeEntry:[{value: tagPriceThreeSplitted[3], disabled: true}],
+      tagImgUrlStart: [{value: tagImgUrlSplitted[0], disabled: true}, Validators.compose([Validators.required])],
+      tagImgUrlEnd:[{value: tagImgUrlSplitted[1], disabled: true}, Validators.compose([Validators.required])],
+      tagImgUrlDirection:[{value: tagImgUrlSplitted[2], disabled: true}],
+      tagImgUrlEntry:[{value: tagImgUrlSplitted[3], disabled: true}],
 
-        tagWeightFourStart: [{value: tagWeightFourSplitted[0], disabled: true}],
-        tagWeightFourEnd:[{value: tagWeightFourSplitted[1], disabled: true}],
-        tagWeightFourDirection:[{value: tagWeightFourSplitted[2], disabled: true}],
-        tagWeightFourEntry:[{value: tagWeightFourSplitted[3], disabled: true}],
-        tagSizeFourStart: [{value: tagSizeFourSplitted[0], disabled: true}],
-        tagSizeFourEnd:[{value: tagSizeFourSplitted[1], disabled: true}],
-        tagSizeFourDirection:[{value: tagSizeFourSplitted[2], disabled: true}],
-        tagSizeFourEntry:[{value: tagSizeFourSplitted[3], disabled: true}],
-        tagPriceFourStart: [{value: tagPriceFourSplitted[0], disabled: true}],
-        tagPriceFourEnd:[{value: tagPriceFourSplitted[1], disabled: true}],
-        tagPriceFourDirection:[{value: tagPriceFourSplitted[2], disabled: true}],
-        tagPriceFourEntry:[{value: tagPriceFourSplitted[3], disabled: true}],
-      });
+      tagWeightOneStart: [{value: tagWeightOneSplitted[0], disabled: true}, Validators.compose([Validators.required])],
+      tagWeightOneEnd:[{value: tagWeightOneSplitted[1], disabled: true}, Validators.compose([Validators.required])],
+      tagWeightOneDirection:[{value: tagWeightOneSplitted[2], disabled: true}],
+      tagWeightOneEntry:[{value: tagWeightOneSplitted[3], disabled: true}],
+      tagSizeOneStart: [{value: tagSizeOneSplitted[0], disabled: true}, Validators.compose([Validators.required])],
+      tagSizeOneEnd:[{value: tagSizeOneSplitted[1], disabled: true}, Validators.compose([Validators.required])],
+      tagSizeOneDirection:[{value: tagSizeOneSplitted[2], disabled: true}],
+      tagSizeOneEntry:[{value: tagSizeOneSplitted[3], disabled: true}],
+      tagPriceOneStart: [{value: tagPriceOneSplitted[0], disabled: true}, Validators.compose([Validators.required])],
+      tagPriceOneEnd:[{value: tagPriceOneSplitted[1], disabled: true}, Validators.compose([Validators.required])],
+      tagPriceOneDirection:[{value: tagPriceOneSplitted[2], disabled: true}],
+      tagPriceOneEntry:[{value: tagPriceOneSplitted[3], disabled: true}],
 
+      tagWeightTwoStart: [{value: tagWeightTwoSplitted[0], disabled: true}],
+      tagWeightTwoEnd:[{value: tagWeightTwoSplitted[1], disabled: true}],
+      tagWeightTwoDirection:[{value: tagWeightTwoSplitted[2], disabled: true}],
+      tagWeightTwoEntry:[{value: tagWeightTwoSplitted[3], disabled: true}],
+      tagSizeTwoStart: [{value: tagSizeTwoSplitted[0], disabled: true}],
+      tagSizeTwoEnd:[{value: tagSizeTwoSplitted[1], disabled: true}],
+      tagSizeTwoDirection:[{value: tagSizeTwoSplitted[2], disabled: true}],
+      tagSizeTwoEntry:[{value: tagSizeTwoSplitted[3], disabled: true}],
+      tagPriceTwoStart: [{value: tagPriceTwoSplitted[0], disabled: true}],
+      tagPriceTwoEnd:[{value: tagPriceTwoSplitted[1], disabled: true}],
+      tagPriceTwoDirection:[{value: tagPriceTwoSplitted[2], disabled: true}],
+      tagPriceTwoEntry:[{value: tagPriceTwoSplitted[3], disabled: true}],
+
+      tagWeightThreeStart: [{value: tagWeightThreeSplitted[0], disabled: true}],
+      tagWeightThreeEnd:[{value: tagWeightThreeSplitted[1], disabled: true}],
+      tagWeightThreeDirection:[{value: tagWeightThreeSplitted[2], disabled: true}],
+      tagWeightThreeEntry:[{value: tagWeightThreeSplitted[3], disabled: true}],
+      tagSizeThreeStart: [{value: tagSizeThreeSplitted[0], disabled: true}],
+      tagSizeThreeEnd:[{value: tagSizeThreeSplitted[1], disabled: true}],
+      tagSizeThreeDirection:[{value: tagSizeThreeSplitted[2], disabled: true}],
+      tagSizeThreeEntry:[{value: tagSizeThreeSplitted[3], disabled: true}],
+      tagPriceThreeStart: [{value: tagPriceThreeSplitted[0], disabled: true}],
+      tagPriceThreeEnd:[{value: tagPriceThreeSplitted[1], disabled: true}],
+      tagPriceThreeDirection:[{value: tagPriceThreeSplitted[2], disabled: true}],
+      tagPriceThreeEntry:[{value: tagPriceThreeSplitted[3], disabled: true}],
+
+      tagWeightFourStart: [{value: tagWeightFourSplitted[0], disabled: true}],
+      tagWeightFourEnd:[{value: tagWeightFourSplitted[1], disabled: true}],
+      tagWeightFourDirection:[{value: tagWeightFourSplitted[2], disabled: true}],
+      tagWeightFourEntry:[{value: tagWeightFourSplitted[3], disabled: true}],
+      tagSizeFourStart: [{value: tagSizeFourSplitted[0], disabled: true}],
+      tagSizeFourEnd:[{value: tagSizeFourSplitted[1], disabled: true}],
+      tagSizeFourDirection:[{value: tagSizeFourSplitted[2], disabled: true}],
+      tagSizeFourEntry:[{value: tagSizeFourSplitted[3], disabled: true}],
+      tagPriceFourStart: [{value: tagPriceFourSplitted[0], disabled: true}],
+      tagPriceFourEnd:[{value: tagPriceFourSplitted[1], disabled: true}],
+      tagPriceFourDirection:[{value: tagPriceFourSplitted[2], disabled: true}],
+      tagPriceFourEntry:[{value: tagPriceFourSplitted[3], disabled: true}],
     });
   }
 
@@ -205,10 +230,6 @@ export class CompanyInfoComponent implements OnInit {
       splitted = ['','','f'];
     }
     return splitted;
-  }
-
-  pageChanged(pN: number): void {
-    this.pageNumber = pN;
   }
 
   isControlHidden(controlName) {
@@ -304,6 +325,8 @@ export class CompanyInfoComponent implements OnInit {
   }
   
   concatTagValues( tag ){
+    debugger
+    console.log('this.parseForm.get( tagStart).value',this.parseForm.get( tag+'Start').value.trim().length == 0);
     let val = this.parseForm.get( tag+'Start').value+"~"+
       this.parseForm.get( tag+'End').value+"~"+
       this.parseForm.get(tag+'Direction').value+"~"+
@@ -317,11 +340,15 @@ export class CompanyInfoComponent implements OnInit {
     this.convertFormToModel();
     this.companyService.testMenuPage(this.updateParseMenu).subscribe(data => {
       this._globalService.dataBusChanged('pageLoading', false);
+      console.log('Test data',data);
       if ( data.status === 200 ){
         swal('Тестирование успешно');
+        this.saveParseMenuDisabled = false;
         this.parseForm.get('htmlResponse').setValue( data.result.parseMenu.htmlResponse );
         this.testEntities = data.result.menuEntities;
       } else {
+        this.parseMenu = data.result.parseMenu;
+        this.fillForm();
         swal({
           type: 'error',
           title: data.status,
@@ -430,6 +457,44 @@ export class CompanyInfoComponent implements OnInit {
         break;
     }
     return value;
+  }
+
+  copyParseMenu(){
+    let dishArray = this.selectedDish.split("/");
+    this.copyParseData.fromMenuTypeId = dishArray[0];
+    this.copyParseData.fromMenuCategoryId = dishArray[1];
+    swal({
+      title: 'Подтверждение...',
+      text: "Скопировать данные из : '"+ dishArray[2]+"/"+dishArray[3]+"' ?",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#16be9a',
+      cancelButtonColor: '#ff7403',
+      confirmButtonText: 'Да, скопировать',
+      cancelButtonText: 'Отмена'
+    }).then((result) => {
+      if (result.value) {
+        this._globalService.dataBusChanged('pageLoading', true);
+        this.companyService.copyParseModel( this.copyParseData ).subscribe(data => {
+          this._globalService.dataBusChanged('pageLoading', false);
+          if ( data.status === 200 ){
+            swal('Копирование успешно');
+            this.parseMenu = data.result;
+            this.fillForm();
+          } else {
+            swal({
+              type: 'error',
+              title: data.status,
+              text: data.message,
+            });
+          }
+        });
+      }
+    })
+  }
+
+  dishSelect( dish ){
+    this.selectedDish = dish;
   }
 
   backToDetails(){

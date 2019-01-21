@@ -13,7 +13,11 @@ public interface MenuEntityRepository extends CrudRepository<MenuEntity,Integer>
 
     String UPDATE_SQL = "update menu_entity set status = 'УДАЛИТЬ' where id in " +
             "(select mi.entity_id from menu_item mi where mi.company_id = :companyId " +
-                    "and mi.type_id = :typeId and mi.category_id = :categoryId);";
+                    "and mi.type_id = :typeId and mi.category_id = :categoryId)";
+
+    String DELETE_SQL = "delete from menu_entity where id in " +
+            "(select mi.entity_id from menu_item mi where mi.company_id = :companyId " +
+            "and mi.type_id = :typeId and mi.category_id = :categoryId)";
 
     MenuEntity findByName(String name);
 
@@ -22,6 +26,12 @@ public interface MenuEntityRepository extends CrudRepository<MenuEntity,Integer>
     @Query(value=UPDATE_SQL,nativeQuery = true)
     Integer updateMenuEntities(@Param("companyId") Integer companyId, @Param("typeId") Integer typeId,
                                 @Param("categoryId") Integer categoryId);
+
+    @Transactional
+    @Modifying
+    @Query(value=DELETE_SQL,nativeQuery = true)
+    Integer deleteMenuEntities(@Param("companyId") Integer companyId, @Param("typeId") Integer typeId,
+                               @Param("categoryId") Integer categoryId);
 
     @Query("FROM MenuEntity me WHERE me.id IN (SELECT mi.entityId from MenuItem mi WHERE " +
             "mi.companyId = :companyId and mi.typeId= :typeId and mi.categoryId= :categoryId)")

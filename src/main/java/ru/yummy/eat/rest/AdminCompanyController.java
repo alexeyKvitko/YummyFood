@@ -86,9 +86,12 @@ public class AdminCompanyController {
         response.setStatus( HttpStatus.OK.value() );
         try {
             CompanyMenu companyMenu = parseService.testPage( parseMenuModel );
+            if( companyMenu.getParseMenu().isBroken() ){
+                response.setStatus( HttpStatus.INTERNAL_SERVER_ERROR.value() );
+                response.setMessage( companyMenu.getParseMenu().getErrorMsg() );
+            }
             response.setResult( companyMenu );
-        } catch (BusinessLogicException e){
-            response.setStatus( HttpStatus.INTERNAL_SERVER_ERROR.value() );
+        } catch (Exception e){
             response.setMessage( e.getMessage() );
         }
         return response;
@@ -100,6 +103,20 @@ public class AdminCompanyController {
         response.setStatus( HttpStatus.OK.value() );
         try {
             parseService.saveParseModel( parseMenuModel );
+        } catch (BusinessLogicException e){
+            response.setStatus( HttpStatus.INTERNAL_SERVER_ERROR.value() );
+            response.setMessage( e.getMessage() );
+        }
+        return response;
+    }
+
+    @RequestMapping(value = "/copyParseData", method = RequestMethod.POST)
+    public ApiResponse copyParseData(@RequestBody CopyParseData copyParseData)  {
+        ApiResponse response = new ApiResponse();
+        response.setStatus( HttpStatus.OK.value() );
+        try {
+            ParseMenuModel parseMenu = parseService.copyParseData( copyParseData );
+            response.setResult( parseMenu );
         } catch (BusinessLogicException e){
             response.setStatus( HttpStatus.INTERNAL_SERVER_ERROR.value() );
             response.setMessage( e.getMessage() );

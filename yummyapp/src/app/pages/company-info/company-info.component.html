@@ -1,6 +1,7 @@
 <simple-notifications [options]="notiOptions"></simple-notifications>
 <div class="company-info-panel" [hidden]="loading" *ngIf="companyInfo != null" id="top-parsing">
-  <span class="company-name" (click)="backToDetails()" title="Назад">{{companyInfo.companyModel.displayName}}</span>
+  <span class="company-name" (click)="backToDetails()" title="Назад">{{companyInfo.companyModel.displayName}}&nbsp;
+  {{selMenuType.displayName}}/{{selMenuCategory.displayName}}</span>
   <tabset id="company-info-tab" theme="justified">
     <tab-content for="company-info-tab" tabTitle="Меню" [active]="true">
       <div class="tab-view">
@@ -470,9 +471,32 @@
               <span class="input-group-addon-teal-right itr-start" (click)="undoControl('htmlResponse')" ><i class="fas fa-undo-alt"></i></span>
               <span class="input-group-addon-teal-right itr-end" (click)="copyControl('htmlResponse')"><i class="far fa-copy"></i></span>
             </div>
+            <div class="input-box" *ngIf="parseMenu.broken">
+              <span class="input-group-addon-teal addon-left" id="errorSection-id"
+                    [ngClass]="{'border-focus':!isControlHidden('errorSection')}" (click)="inputControlClick('errorSection')">
+              <span [hidden]="isControlHidden('errorSection')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('errorSection')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Ошибка в сессии</span>
+              <input placeholder="" type="text" formControlName="errorSection">
+              <span class="input-group-addon-teal-right itr-start" (click)="undoControl('errorSection')" ><i class="fas fa-undo-alt"></i></span>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyControl('errorSection')"><i class="far fa-copy"></i></span>
+            </div>
+            <div class="input-box">
+              <span class="input-group-addon-teal addon-left" id="copyFrom-id" (click)="inputControlClick('copyFrom')">
+              <span><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Скопировать с меню</span>
+              <div class="tag-select">
+                <select class="form-control menu" id="copyFrom-sel" (change)="dishSelect($event.target.value)">
+                  <option *ngFor="let dish of dishes" value="{{dish.menuType.id}}/{{dish.menuCategory.id}}
+                                                    /{{dish.menuType.displayName}}/{{dish.menuCategory.displayName}}"
+                          [hidden]="dish.menuCategory.displayName == selMenuCategory.displayName">
+                    {{dish.menuType.displayName}}/{{dish.menuCategory.displayName}}
+                  </option>
+                </select>
+              </div>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyParseMenu()"><i class="far fa-copy"></i></span>
+            </div>
             <div class="input-box" style="float: right">
               <div class="btn-grp">
-                <button type="button" class="btn btn-success btn-with-icon" (click)="saveParseModel()">
+                <button type="button" class="btn btn-success btn-with-icon" [disabled]="saveParseMenuDisabled" (click)="saveParseModel()">
                   <i class="fa fa-check fa-fw"></i>Запись
                 </button>
               </div>

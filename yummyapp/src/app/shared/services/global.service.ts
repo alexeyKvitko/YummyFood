@@ -11,6 +11,7 @@ export class GlobalService {
     private customerBasket: MenuEntityModel[] = new Array<MenuEntityModel>();
 
     private dataSource = new Subject<DataSourceClass>();
+    selEntityImg: string;
 
     data$ = this.dataSource.asObservable();
 
@@ -23,6 +24,7 @@ export class GlobalService {
 
     public addEntityToBasket( menuEntity : MenuEntityModel){
       let exist = false;
+      this.selEntityImg = menuEntity.imageUrl;
       this.customerBasket.forEach( entity =>{
         if ( entity.id == menuEntity.id
                 && entity.wspType == menuEntity.wspType ){
@@ -66,6 +68,9 @@ export class GlobalService {
     }
 
 
+  public getEntityImg(): string {
+    return this.selEntityImg;
+  }
 }
 
 

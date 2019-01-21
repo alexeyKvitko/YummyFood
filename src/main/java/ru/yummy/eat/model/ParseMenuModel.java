@@ -31,6 +31,9 @@ public class ParseMenuModel implements Serializable {
     private String tagWeightFour;
     private String tagSizeFour;
     private String tagPriceFour;
+    private boolean broken;
+    private String errorMsg;
+    private String errorSection;
     private Integer processed;
 
     public Integer getId() {
@@ -231,6 +234,30 @@ public class ParseMenuModel implements Serializable {
 
     public void setProcessed(Integer processed) {
         this.processed = processed;
+    }
+
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
+
+    public String getErrorSection() {
+        return errorSection;
+    }
+
+    public void setErrorSection(String errorSection) {
+        this.errorSection = errorSection;
+    }
+
+    public boolean isBroken() {
+        return broken;
+    }
+
+    public void setBroken(boolean broken) {
+        this.broken = broken;
     }
 
     @Override public boolean equals(Object o) {

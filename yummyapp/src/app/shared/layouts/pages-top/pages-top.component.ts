@@ -5,26 +5,17 @@ import { menuService } from '../../services/menu.service';
 import {TOP_MENU} from "./top-menu";
 import {DictionaryModel} from "../../../model/dictionary.model";
 import {CompanyService} from "../../../services/company.service";
-import {animate, state, style, transition, trigger} from "@angular/animations";
+import {animate, query, stagger, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'pages-top',
   templateUrl: './pages-top.component.html',
   styleUrls: ['./pages-top.component.scss'],
   providers: [menuService],
-  // animations: [
-  //   trigger('in-basket', [
-  //     transition('void => *', [
-  //       style({ transform: 'scale3d(.3, .3, .3)' }),
-  //       animate(100)
-  //     ]),
-  //     transition('* => void', [
-  //       animate(100, style({ transform: 'scale3d(.0, .0, .0)' }))
-  //     ])
-  //   ])
-  // ]
   animations: [
-    trigger('in-basket', [
+    trigger('animateBasket',
+
+      [
       state('initial', style({
         opacity:'0',
         // top:'0px',
@@ -32,16 +23,12 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
       })),
       state('final', style({
         opacity:'1',
-        // top:'38px',
-        // left:'15%'
       })),
-      transition('initial<=>final', [
-        animate(100, style({ transform: 'scale3d(.0, .0, .0)' }))
-      ]),
       transition('final=>initial', [
-        animate(100, style({ transform: 'scale3d(.0, .0, .0)' }))
+        animate('600ms ease-out', style({ transform: 'scale3d(.0, .0, .0)' }))
       ])
-    ]),
+    ]
+    ),
   ]
 })
 export class PagesTopComponent implements OnInit{
@@ -59,6 +46,7 @@ export class PagesTopComponent implements OnInit{
   showDialog: boolean = false;
   basketPrice: number = 0;
   basketState: string = 'initial';
+  basketEntityImage: string = '';
 
   constructor( private _globalService: GlobalService,
                 private router: Router, private companyService : CompanyService ) {
@@ -109,10 +97,13 @@ export class PagesTopComponent implements OnInit{
   }
 
   updateBasket(){
-    console.log('BEFORE',this.basketState);
+    this.basketState = 'final';
     this.basketPrice = this._globalService.getBasketPrice();
-    this.basketState = this.basketState == 'initial'? 'final':'initial';
-    console.log('AFTER',this.basketState);
+    this.basketEntityImage = this._globalService.getEntityImg();
+  }
+
+  onAnimationEvent(event){
+    this.basketState = 'initial';
   }
 
 }

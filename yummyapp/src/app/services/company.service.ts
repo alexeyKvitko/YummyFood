@@ -112,4 +112,8 @@ export class CompanyService {
     return this.http.post<ApiResponse>(this.apiUrl+'/saveParseModel', parseMenuModel);
   }
 
+  public copyParseModel( copyParseData ) {
+    return this.http.post<ApiResponse>(this.apiUrl+'/copyParseData', copyParseData);
+  }
+
 }

@@ -23,6 +23,9 @@ export class ParseMenuModel {
   tagWeightFour: string;
   tagSizeFour: string;
   tagPriceFour: string;
+  broken: boolean;
+  errorMsg: string;
+  errorSection: string;
   processed: string;
 
 }
