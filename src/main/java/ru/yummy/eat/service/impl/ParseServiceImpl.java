@@ -163,11 +163,13 @@ public class ParseServiceImpl implements ParseService {
         LOG.info("** TEST");
         LOG.info("** ");
         LOG.info("** "+parseMenu.getParseUrl());
+        StringBuilder element = new StringBuilder();
         HttpTransport httpTransport = new NetHttpTransport();
         HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
         String htmlResponse = null;
         HttpRequest request = null;
         parseMenu.setBroken( false );
+        element.append("htmlResponse...");
         try {
             request = requestFactory.buildGetRequest(new GenericUrl(parseMenu.getParseUrl()));
             htmlResponse = request.execute().parseAsString();
@@ -177,6 +179,7 @@ public class ParseServiceImpl implements ParseService {
                 return null;
             }
         }
+        element.append("Ok; ").append( System.lineSeparator() );
         List<MenuEntityModel> menuEntities = new LinkedList<>();
         StringBuilder sb = new StringBuilder();
         try {
@@ -186,21 +189,27 @@ public class ParseServiceImpl implements ParseService {
             LOG.info("**");
             // Убираем заголовок
             LOG.info("** REMOVE THE HEADINGS ...");
+            element.append("Remove header...");
             if (parseMenu.getTagTrash() != null) {
                 int trashIdx = htmlResponse.indexOf(parseMenu.getTagTrash()) + parseMenu.getTagTrash().length();
                 htmlResponse = htmlResponse.substring(trashIdx);
             }
+            element.append("Ok; ").append( System.lineSeparator() );
             LOG.info("** Ok");
             LOG.info("**");
             LOG.info("** CLEAN COMMENTS ...");
+            element.append("clean html response...");
             htmlResponse = htmlResponse.substring(htmlResponse.indexOf(parseMenu.getTagEndSection()));
             // Убираем комментарии
             htmlResponse = AppUtils.polish(htmlResponse);
+            element.append("Ok; ").append( System.lineSeparator() );
             LOG.info("** Ok");
             LOG.info("**");
             boolean proceed = true;
             int count = 0;
             while (proceed) {
+                StringBuilder sbError = new StringBuilder();
+                sbError.append("Product ["+count+"]");
                 //Укорачиваем
                 LOG.info("** SECTION ["+count+"]");
                 LOG.info("** ACCESSING ...");
@@ -216,6 +225,7 @@ public class ParseServiceImpl implements ParseService {
                 LOG.info("**");
                 //Получаем данные
                 LOG.info("** PRODUCT NAME ...");
+                sbError.append("get name ...");
                 String entityName = AppUtils.getFieldValue(section, parseMenu.getTagName());
                 LOG.info("** Ok");
                 LOG.info("**");

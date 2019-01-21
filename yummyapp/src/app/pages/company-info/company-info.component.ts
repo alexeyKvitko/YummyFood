@@ -325,13 +325,14 @@ export class CompanyInfoComponent implements OnInit {
   }
   
   concatTagValues( tag ){
-    debugger
-    console.log('this.parseForm.get( tagStart).value',this.parseForm.get( tag+'Start').value.trim().length == 0);
-    let val = this.parseForm.get( tag+'Start').value+"~"+
-      this.parseForm.get( tag+'End').value+"~"+
-      this.parseForm.get(tag+'Direction').value+"~"+
-      this.parseForm.get(tag+'Entry').value;
-    return val
+    let val = null;
+    if ( this.parseForm.get( tag+'Start').value.trim().length > 0){
+      val = this.parseForm.get( tag+'Start').value+"~"+
+        this.parseForm.get( tag+'End').value+"~"+
+        this.parseForm.get(tag+'Direction').value+"~"+
+        this.parseForm.get(tag+'Entry').value;
+    }
+    return val;
   }
 
   testParseModel() {
@@ -340,7 +341,6 @@ export class CompanyInfoComponent implements OnInit {
     this.convertFormToModel();
     this.companyService.testMenuPage(this.updateParseMenu).subscribe(data => {
       this._globalService.dataBusChanged('pageLoading', false);
-      console.log('Test data',data);
       if ( data.status === 200 ){
         swal('Тестирование успешно');
         this.saveParseMenuDisabled = false;
