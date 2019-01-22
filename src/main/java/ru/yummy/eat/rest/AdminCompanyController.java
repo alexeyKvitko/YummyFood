@@ -11,7 +11,8 @@ import ru.yummy.eat.service.impl.CompanyServiceImpl;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://my-server.ru", maxAge = 3600)
+//@CrossOrigin(origins = "http://yummy-eat.ru", maxAge = 3600)
+@CrossOrigin
 @RestController
 @RequestMapping({"/api"})
 public class AdminCompanyController {

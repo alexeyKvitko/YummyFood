@@ -22,6 +22,9 @@ export class PagesComponent {
 
   public init(){
     this.loginService.getIP().subscribe(data => {
+      if( data.city == null || data.city == undefined ){
+        data.city = 'Simferopol'
+      }
       this.companyService.initBootstrapApp( data.city );
     });
     this._globalService.data$.subscribe(data => {
