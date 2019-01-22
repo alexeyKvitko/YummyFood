@@ -9,7 +9,6 @@ import { NotificationComponent } from './components/notification/notification.co
 import { LoadingComponent } from './components/loading/loading.component';
 import { MenuComponent } from './layouts/menu/menu.component';
 import { PagesTopComponent } from './layouts/pages-top/pages-top.component';
-import {DialogComponent} from "./layouts/app-dialog/app-dialog.component";
 
 @NgModule({
     imports: [
@@ -24,8 +23,7 @@ import {DialogComponent} from "./layouts/app-dialog/app-dialog.component";
         MenuComponent,
         PagesTopComponent,
         NotificationComponent,
-        LoadingComponent,
-        DialogComponent
+        LoadingComponent
     ],
     exports: [
         PagesTopComponent,

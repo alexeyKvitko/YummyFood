@@ -14,6 +14,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CompanyCardComponent } from "./components/company-card/company-card.component";
 import {CompanyEntityComponent} from "./components/company-entity/company-entity.component";
+import {DialogComponent} from "./layouts/app-dialog/app-dialog.component";
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import {CompanyEntityComponent} from "./components/company-entity/company-entity
     CompanyCardComponent,
     CompanyEntityComponent,
     AlertComponent,
-    ProfileComponent
+    ProfileComponent,
+    DialogComponent
   ],
   exports: [
     CardComponent,
@@ -44,7 +46,8 @@ import {CompanyEntityComponent} from "./components/company-entity/company-entity
     CompanyEntityComponent,
     SwitchComponent,
     AlertComponent,
-    ProfileComponent
+    ProfileComponent,
+    DialogComponent
   ]
 })
 export class SharedModule { }

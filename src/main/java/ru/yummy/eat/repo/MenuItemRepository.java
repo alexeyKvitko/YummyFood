@@ -17,7 +17,7 @@ public interface MenuItemRepository extends CrudRepository<MenuItem,Integer> {
     String SELECT_COUNT_TYPE_SQL = "select count(id) from menu_item where type_id = :typeId";
 
     String DELETE_SQL = "delete from menu_item where company_id = :companyId " +
-            "and type_id = :typeId and category_id = :categoryId and entity_id <> -1";
+            "and type_id = :typeId and category_id = :categoryId and entity_id > 0";
 
     String SELECT_COUNT_CATEGORY_SQL = "select count(id) from menu_item where category_id = :categoryId";
 

@@ -51,6 +51,9 @@ export class TabsetComponent implements OnInit {
       if (data.ev === 'tabsMenu' && data.value.for === this.id) {
         this.tabsMenuItem.push(data.value);
       }
+      if (data.ev === 'activateTab') {
+        this.isActive( data.value );
+      }
     }, error => {
       console.log('Error: ' + error);
     });

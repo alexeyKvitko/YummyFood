@@ -160,6 +160,15 @@ public class CompanyServiceImpl {
         }
     }
 
+    public void deleteCompanyMenuEntities(int companyId, int typeId, int categoryId) throws BusinessLogicException {
+        try {
+            menuEntityRepo.deleteMenuEntities( companyId, typeId, categoryId );
+            menuItemRepo.deleteMenuItems( companyId, typeId, categoryId );
+        } catch (Exception e){
+            throw new BusinessLogicException( "Ошибка при попытке удаления, "+e.getMessage() );
+        }
+    }
+
     public CompanyEdit saveCompany(CompanyModel companyModel ) throws BusinessLogicException {
         CompanyEdit companyEdit = null;
         Company company = convertUtils.convertCompanyModelToEntity( companyModel );

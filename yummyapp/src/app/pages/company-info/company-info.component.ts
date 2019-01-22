@@ -15,6 +15,7 @@ import swal from 'sweetalert2';
 import {AuthService} from "../../services/auth.service";
 import {NotificationsService} from "angular2-notifications";
 import {CopyParseDataModel} from "../../model/copy-parse-data.model";
+import {ParseResultModel} from "../../model/parse-result";
 
 @Component({
   selector: 'app-company-info',
@@ -38,6 +39,9 @@ export class CompanyInfoComponent implements OnInit {
   dishes =  new Array<any>();
   selectedDish: string;
   saveParseMenuDisabled: boolean = true;
+  showDialog: boolean = false;
+  showParseTab: boolean = false;
+  testDialogHeader: string;
 
   pageNumber = 1;
   notiOptions = {
@@ -62,6 +66,7 @@ export class CompanyInfoComponent implements OnInit {
     this._globalService.dataBusChanged('pageLoading', true);
     this.selMenuType.id = '-1';
     this.selMenuCategory.id = '-1';
+    this.parseMenu.parseResult = new ParseResultModel();
   }
 
 
@@ -85,6 +90,8 @@ export class CompanyInfoComponent implements OnInit {
         this._globalService.dataBusChanged('companyUrl', this.companyInfo.companyModel.url);
         this._globalService.dataBusChanged('pageLoading', false);
         this.loading = false;
+        this.fillForm();
+        this.showParseTab = true;
       });
   }
 
@@ -110,6 +117,7 @@ export class CompanyInfoComponent implements OnInit {
     this._globalService.dataBusChanged('showIcon', false);
     this.selMenuType = menuType;
     this.selMenuCategory = menuCategory;
+    this.showParseTab = true;
 
     this.pageNumber = 1;
     this.companyService.getCompanyMenu(this.companyId, menuType.id, menuCategory.id).subscribe(data => {
@@ -151,7 +159,7 @@ export class CompanyInfoComponent implements OnInit {
       tagTrash: [{value: this.parseMenu.tagTrash, disabled: true}, Validators.compose([Validators.required])],
       tagEndSection: [{value: this.parseMenu.tagEndSection,disabled: true}, Validators.compose([Validators.required])],
       htmlResponse: [{value: this.parseMenu.htmlResponse,disabled: true}, Validators.compose([Validators.required])],
-      errorSection: [{value: this.parseMenu.errorSection,disabled: true}, Validators.compose([Validators.required])],
+      errorSection: [{value: this.parseMenu.parseResult.section,disabled: true}, Validators.compose([Validators.required])],
 
       tagNameStart: [{value: tagNameSplitted[0], disabled: true}, Validators.compose([Validators.required])],
       tagNameEnd:[{value: tagNameSplitted[1], disabled: true}, Validators.compose([Validators.required])],
@@ -254,17 +262,18 @@ export class CompanyInfoComponent implements OnInit {
   }
 
   undoControl( controlName ){
-    return this.parseForm.get(controlName).setValue( this.getByName( controlName) );
+    return this.parseForm.get(controlName).setValue( '' );
   }
 
   undoTag( controlName ){
     if ( this.getByName( controlName) == null || this.getByName( controlName) === ''){
       return;
     }
-    let undoValSplitted = (this.getByName( controlName) ).split('~');
-    this.parseForm.get(controlName+'Start').setValue( undoValSplitted[0] );
-    this.parseForm.get(controlName+'End').setValue( undoValSplitted[1] );
-    this.parseForm.get(controlName+'Direction').setValue( undoValSplitted[2] );
+    // let undoValSplitted = (this.getByName( controlName) ).split('~');
+    this.parseForm.get(controlName+'Start').setValue( '' );
+    this.parseForm.get(controlName+'End').setValue( '' );
+    this.parseForm.get(controlName+'Direction').setValue( 'f' );
+    this.parseForm.get(controlName+'Entry').setValue( 1 );
   }
 
   copyControl(controlName){
@@ -341,31 +350,30 @@ export class CompanyInfoComponent implements OnInit {
     this.convertFormToModel();
     this.companyService.testMenuPage(this.updateParseMenu).subscribe(data => {
       this._globalService.dataBusChanged('pageLoading', false);
+      this.parseMenu = data.result.parseMenu;
       if ( data.status === 200 ){
-        swal('Тестирование успешно');
+        this.testDialogHeader = 'Тестирование успешно';
         this.saveParseMenuDisabled = false;
         this.parseForm.get('htmlResponse').setValue( data.result.parseMenu.htmlResponse );
         this.testEntities = data.result.menuEntities;
       } else {
-        this.parseMenu = data.result.parseMenu;
         this.fillForm();
-        swal({
-          type: 'error',
-          title: data.status,
-          text: data.message,
-        });
+        this.testDialogHeader = 'Ошибка при тестировании';
       }
+      this.showDialog = true;
 
     });
   }
 
   saveParseModel(){
+    document.getElementById("top-parsing").scrollIntoView({behavior: "smooth", block: "start"});
     this._globalService.dataBusChanged('pageLoading', true);
     this.convertFormToModel();
     this.companyService.saveParseModel(this.updateParseMenu).subscribe(data => {
       this.menuCategorySelect( this.selMenuType, this.selMenuCategory );
       if ( data.status === 200 ){
         swal('Обновление данных, успешно');
+        this._globalService.dataBusChanged('activateTab',0);
       } else {
         swal({
           type: 'error',
@@ -460,6 +468,7 @@ export class CompanyInfoComponent implements OnInit {
   }
 
   copyParseMenu(){
+    document.getElementById("top-parsing").scrollIntoView({behavior: "smooth", block: "start"});
     let dishArray = this.selectedDish.split("/");
     this.copyParseData.fromMenuTypeId = dishArray[0];
     this.copyParseData.fromMenuCategoryId = dishArray[1];
@@ -499,6 +508,10 @@ export class CompanyInfoComponent implements OnInit {
 
   backToDetails(){
     this.router.navigate(['pages/company-detail']);
+  }
+
+  isParseTabShow(){
+    return this.showParseTab && this.selMenuCategory.id != '-1';
   }
 
 

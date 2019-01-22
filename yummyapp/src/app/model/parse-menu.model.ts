@@ -1,3 +1,5 @@
+import {ParseResultModel} from "./parse-result";
+
 export class ParseMenuModel {
   id: string;
   companyId: string;
@@ -24,8 +26,7 @@ export class ParseMenuModel {
   tagSizeFour: string;
   tagPriceFour: string;
   broken: boolean;
-  errorMsg: string;
-  errorSection: string;
+  parseResult: ParseResultModel;
   processed: string;
 
 }

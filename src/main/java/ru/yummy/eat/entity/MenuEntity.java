@@ -62,9 +62,6 @@ public class MenuEntity {
     @Column(name="price_four")
     private Integer priceFour;
 
-    @Column(name="status")
-    private String status;
-
     public Integer getId() {
         return id;
     }
@@ -199,14 +196,6 @@ public class MenuEntity {
 
     public void setPriceFour( Integer priceFour ) {
         this.priceFour = priceFour;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     @Override public boolean equals(Object o) {

@@ -47,6 +47,7 @@ export class CompanyEditComponent implements OnInit {
   ngOnInit() {
     this.companyService.getCompanyEdit(this.companyId).subscribe(data => {
       this.deliveryCity = this.companyService.getDeliveryCity();
+      console.log("EDIT DATA", data);
       this.updateCompanyEdit(data);
       this.initForm();
       this.logoImgSrc = 'assets/images/logos/' + this.companyEdit.companyModel.logo;
@@ -231,6 +232,33 @@ export class CompanyEditComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.companyService.deleteCompanyMenu(this.companyId, menuType.id, menuCategory.id).subscribe(data => {
+          let deleteResult = data;
+          if (deleteResult.status == 200) {
+            this.companyService.getCompanyEdit(this.companyId).subscribe(data => {
+              this.updateCompanyEdit(data);
+              this.selectedOptionType = null;
+              this.selectedOptionCategory = null;
+            });
+          }
+          this.showHttpActionMessage(deleteResult);
+        });
+      }
+    })
+  }
+
+  deleteMenuEntities(menuType, menuCategory) {
+    swal({
+      title: 'Подтверждение...',
+      text: "Вы желаете удалить все блюда из меню: '" + menuCategory.displayName + "'",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#16be9a',
+      cancelButtonColor: '#ff7403',
+      confirmButtonText: 'Да, удалить',
+      cancelButtonText: 'Отмена'
+    }).then((result) => {
+      if (result.value) {
+        this.companyService.deleteCompanyMenuEntities(this.companyId, menuType.id, menuCategory.id).subscribe(data => {
           let deleteResult = data;
           if (deleteResult.status == 200) {
             this.companyService.getCompanyEdit(this.companyId).subscribe(data => {

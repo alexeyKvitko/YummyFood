@@ -2,6 +2,7 @@ package ru.yummy.eat.model;
 
 import org.pojomatic.Pojomatic;
 import org.pojomatic.annotations.AutoProperty;
+
 import java.io.Serializable;
 
 @AutoProperty
@@ -32,9 +33,12 @@ public class ParseMenuModel implements Serializable {
     private String tagSizeFour;
     private String tagPriceFour;
     private boolean broken;
-    private String errorMsg;
-    private String errorSection;
+    private ParseResult parseResult;
     private Integer processed;
+
+    public ParseMenuModel() {
+        this.parseResult = new ParseResult();
+    }
 
     public Integer getId() {
         return id;
@@ -236,20 +240,12 @@ public class ParseMenuModel implements Serializable {
         this.processed = processed;
     }
 
-    public String getErrorMsg() {
-        return errorMsg;
+    public ParseResult getParseResult() {
+        return parseResult;
     }
 
-    public void setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg;
-    }
-
-    public String getErrorSection() {
-        return errorSection;
-    }
-
-    public void setErrorSection(String errorSection) {
-        this.errorSection = errorSection;
+    public void setParseResult(ParseResult parseResult) {
+        this.parseResult = parseResult;
     }
 
     public boolean isBroken() {

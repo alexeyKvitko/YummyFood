@@ -104,6 +104,11 @@ export class CompanyService {
       + '/' + typeId + '/' + categoryId);
   }
 
+  public deleteCompanyMenuEntities(companyId, typeId, categoryId) {
+    return this.http.get<ApiResponse>(this.companyUrl + '/deleteMenuEntities/' + companyId
+      + '/' + typeId + '/' + categoryId);
+  }
+
   public testMenuPage(parseMenuModel) {
     return this.http.post<ApiResponse>(this.apiUrl+'/testParse', parseMenuModel);
   }

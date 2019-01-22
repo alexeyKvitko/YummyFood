@@ -36,3 +36,64 @@ button.close {
         animation: modalFadeIn .5s both;
     }
 }
+
+.app-modal{
+  h2{
+    font-size: 22px;
+    font-family: Roboto-Condensed;
+    font-weight: 600;
+    color: $primary-text-color;
+    border-bottom: 1px solid $divider-color;
+  }
+  p{
+    font-size: 11px;
+    font-family: Roboto-Condensed;
+    font-weight: 100;
+    color: $teal-color;
+    margin-bottom: 10px;
+  }
+  strong{
+    display: none;
+  }
+  .city-label{
+    .city-check{
+      color: $secondary-text-color;
+    }
+    .city-uncheck{
+      color: $card-bg;
+    }
+    &:hover{
+      cursor: pointer;
+      color: $bright-coral;
+    }
+  }
+  .test-result{
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid $border-color;
+    padding: 8px;
+    margin-bottom: 12px;
+    .test-field{
+      flex-direction: row;
+      margin: 4px 0px;
+      span{
+        font-family: Taurus;
+        font-size: 14px;
+        color: $teal-color;
+        font-weight: 300;
+      }
+      .test-passed{
+        color: $dark-green;
+        font-weight: 600;
+      }
+      .test-error{
+        color: $accent-color;
+        font-weight: 600;
+      }
+      .test-skipped{
+        color: $divider-color;
+        font-weight: 600;
+      }
+    }
+  }
+}

@@ -1,120 +1,122 @@
 <simple-notifications [options]="notiOptions"></simple-notifications>
 <div class="company-info-panel" [hidden]="loading" *ngIf="companyInfo != null" id="top-parsing">
-  <span class="company-name" (click)="backToDetails()" title="Назад">{{companyInfo.companyModel.displayName}}&nbsp;
+  <span class="company-name" (click)="backToDetails()" >{{companyInfo.companyModel.displayName}}&nbsp;
   {{selMenuType.displayName}}/{{selMenuCategory.displayName}}</span>
+  <h2 class="go-back" (click)="backToDetails()" title="Вернуться">Вернуться</h2>
   <tabset id="company-info-tab" theme="justified">
     <tab-content for="company-info-tab" tabTitle="Меню" [active]="true">
       <div class="tab-view">
-      <div class="menu-wrapper">
-        <div id="type-menu" class="menu-content col-md-offset-5">
-          <div class="menu-group">
-            <div *ngFor="let menuType of companyInfo.menuTypes">
+        <div class="menu-wrapper">
+          <div id="type-menu" class="menu-content col-md-offset-5">
+            <div class="menu-group">
+              <div *ngFor="let menuType of companyInfo.menuTypes">
           <span class="menu-icon" *ngIf="!menuType.menuOpen">
             <i class="far fa-folder"></i>
           </span>
-              <span class="menu-icon" *ngIf="menuType.menuOpen">
+                <span class="menu-icon" *ngIf="menuType.menuOpen">
             <i class="far fa-folder-open"></i>
           </span>
-              <span class="menu-item" (click)="menuTypeSelect(menuType)">
+                <span class="menu-item" (click)="menuTypeSelect(menuType)">
             {{menuType.displayName}}
           </span>
-              <div class="submenu-group" [hidden]="!menuType.menuOpen">
-                <div *ngFor="let menuCategory of menuType.menuCategories" class="submenu-sel"
-                     (click)="menuCategorySelect( menuType, menuCategory)">
+                <div class="submenu-group" [hidden]="!menuType.menuOpen">
+                  <div *ngFor="let menuCategory of menuType.menuCategories" class="submenu-sel"
+                       (click)="menuCategorySelect( menuType, menuCategory)">
               <span class="submenu-icon">
                 <i class="far fa-file"></i>
               </span>
-                  <span [className]="menuCategory.id === selMenuCategory.id ? 'submenu-item sel-menu' : 'submenu-item'">
+                    <span
+                      [className]="menuCategory.id === selMenuCategory.id ? 'submenu-item sel-menu' : 'submenu-item'">
                   {{menuCategory.displayName}}
               </span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
         <!--TABLE-->
         <div class="entity-wrapper" *ngIf="menuEntities != null">
-          <div class="col-md-10" >
-              <table class="table table-hover" >
-                <tr
-                  *ngFor="let menuEntity of menuEntities;let index = index">
-                  <td class="hidden-cell">{{menuEntity.id}}</td>
-                  <td class="col-md-2" style="border-top: 0px!important;">
-                    <img src="{{menuEntity.imageUrl}}" alt="{{menuEntity.imageUrl}}">
-                    <div class="entity-title">{{menuEntity.displayName}}</div>
-                  </td>
-                  <td class="wsp-td">
-                    <div class="description"><strong>{{menuEntity.description}}</strong></div>
-                    <table cellspacing="0" cellpadding="0">
-                      <tr>
-                        <td class="col-md-2 wsp-wrap">
-                          <div class="wsp-cont" *ngIf="menuEntity.weightOne">
-                            <div class="wsp">Вес:</div>
-                            <div class="weight-size">{{menuEntity.weightOne}}</div>
-                          </div>
-                          <div class="wsp-cont" *ngIf="menuEntity.sizeOne">
-                            <div class="wsp">Размер:</div>
-                            <div class="weight-size">{{menuEntity.sizeOne}}</div>
-                          </div>
-                          <div class="wsp-cont" *ngIf="menuEntity.priceOne">
-                            <div class="wsp">Цена:</div>
-                            <div class="price">{{menuEntity.priceOne}}&nbsp;Р</div>
-                          </div>
-                        </td>
-                        <td class="col-md-2 wsp-wrap">
-                          <div class="wsp-cont" *ngIf="menuEntity.weightTwo">
-                            <div class="wsp">Вес:</div>
-                            <div class="weight-size">{{menuEntity.weightTwo}}</div>
-                          </div>
-                          <div class="wsp-cont" *ngIf="menuEntity.sizeTwo">
-                            <div class="wsp">Размер:</div>
-                            <div class="weight-size">{{menuEntity.sizeTwo}}</div>
-                          </div>
-                          <div class="wsp-cont" *ngIf="menuEntity.priceTwo">
-                            <div class="wsp">Цена:</div>
-                            <div class="price">{{menuEntity.priceTwo}}&nbsp;Р</div>
-                          </div>
-                        </td>
-                        <td class="col-md-2 wsp-wrap">
-                          <div class="wsp-cont" *ngIf="menuEntity.weightThree">
-                            <div class="wsp">Вес:</div>
-                            <div class="weight-size">{{menuEntity.weightThree}}</div>
-                          </div>
-                          <div class="wsp-cont" *ngIf="menuEntity.sizeThree">
-                            <div class="wsp">Размер:</div>
-                            <div class="weight-size">{{menuEntity.sizeThree}}</div>
-                          </div>
-                          <div class="wsp-cont" *ngIf="menuEntity.priceThree">
-                            <div class="wsp">Цена:</div>
-                            <div class="price">{{menuEntity.priceThree}}&nbsp;Р</div>
-                          </div>
-                        </td>
-                        <td class="col-md-2 wsp-wrap">
-                          <div class="wsp-cont" *ngIf="menuEntity.weightFour">
-                            <div class="wsp">Вес:</div>
-                            <div class="weight-size">{{menuEntity.weightFour}}</div>
-                          </div>
-                          <div class="wsp-cont" *ngIf="menuEntity.sizeFour">
-                            <div class="wsp">Размер:</div>
-                            <div class="weight-size">{{menuEntity.sizeFour}}</div>
-                          </div>
-                          <div class="wsp-cont" *ngIf="menuEntity.priceFour">
-                            <div class="wsp">Цена:</div>
-                            <div class="price">{{menuEntity.priceFour}}&nbsp;Р</div>
-                          </div>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-              </table>
+          <div class="col-md-10">
+            <table class="table table-hover">
+              <tr
+                *ngFor="let menuEntity of menuEntities;let index = index">
+                <td class="hidden-cell">{{menuEntity.id}}</td>
+                <td class="col-md-2" style="border-top: 0px!important;">
+                  <img src="{{menuEntity.imageUrl}}" alt="{{menuEntity.imageUrl}}">
+                  <div class="entity-title">{{menuEntity.displayName}}</div>
+                </td>
+                <td class="wsp-td">
+                  <div class="description"><strong>{{menuEntity.description}}</strong></div>
+                  <table cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td class="col-md-2 wsp-wrap">
+                        <div class="wsp-cont" *ngIf="menuEntity.weightOne">
+                          <div class="wsp">Вес:</div>
+                          <div class="weight-size">{{menuEntity.weightOne}}</div>
+                        </div>
+                        <div class="wsp-cont" *ngIf="menuEntity.sizeOne">
+                          <div class="wsp">Размер:</div>
+                          <div class="weight-size">{{menuEntity.sizeOne}}</div>
+                        </div>
+                        <div class="wsp-cont" *ngIf="menuEntity.priceOne">
+                          <div class="wsp">Цена:</div>
+                          <div class="price">{{menuEntity.priceOne}}&nbsp;Р</div>
+                        </div>
+                      </td>
+                      <td class="col-md-2 wsp-wrap">
+                        <div class="wsp-cont" *ngIf="menuEntity.weightTwo">
+                          <div class="wsp">Вес:</div>
+                          <div class="weight-size">{{menuEntity.weightTwo}}</div>
+                        </div>
+                        <div class="wsp-cont" *ngIf="menuEntity.sizeTwo">
+                          <div class="wsp">Размер:</div>
+                          <div class="weight-size">{{menuEntity.sizeTwo}}</div>
+                        </div>
+                        <div class="wsp-cont" *ngIf="menuEntity.priceTwo">
+                          <div class="wsp">Цена:</div>
+                          <div class="price">{{menuEntity.priceTwo}}&nbsp;Р</div>
+                        </div>
+                      </td>
+                      <td class="col-md-2 wsp-wrap">
+                        <div class="wsp-cont" *ngIf="menuEntity.weightThree">
+                          <div class="wsp">Вес:</div>
+                          <div class="weight-size">{{menuEntity.weightThree}}</div>
+                        </div>
+                        <div class="wsp-cont" *ngIf="menuEntity.sizeThree">
+                          <div class="wsp">Размер:</div>
+                          <div class="weight-size">{{menuEntity.sizeThree}}</div>
+                        </div>
+                        <div class="wsp-cont" *ngIf="menuEntity.priceThree">
+                          <div class="wsp">Цена:</div>
+                          <div class="price">{{menuEntity.priceThree}}&nbsp;Р</div>
+                        </div>
+                      </td>
+                      <td class="col-md-2 wsp-wrap">
+                        <div class="wsp-cont" *ngIf="menuEntity.weightFour">
+                          <div class="wsp">Вес:</div>
+                          <div class="weight-size">{{menuEntity.weightFour}}</div>
+                        </div>
+                        <div class="wsp-cont" *ngIf="menuEntity.sizeFour">
+                          <div class="wsp">Размер:</div>
+                          <div class="weight-size">{{menuEntity.sizeFour}}</div>
+                        </div>
+                        <div class="wsp-cont" *ngIf="menuEntity.priceFour">
+                          <div class="wsp">Цена:</div>
+                          <div class="price">{{menuEntity.priceFour}}&nbsp;Р</div>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
           </div>
         </div>
       </div>
     </tab-content>
-    <tab-content for="company-info-tab" tabTitle="Настройка парсинга" *ngIf="menuEntities != null">
-      <div class="tab-parsing" >
+    <tab-content for="company-info-tab" tabTitle="Настройка парсинга" >
+      <div class="tab-parsing">
         <div class="col-md-6">
           <form [formGroup]="parseForm" (ngSubmit)="onSubmit()">
             <div class="input-box">
@@ -123,38 +125,50 @@
               <span [hidden]="isControlHidden('parseUrl')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('parseUrl')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Парсим</span>
               <input placeholder="" type="text" formControlName="parseUrl">
-              <span class="input-group-addon-teal-right itr-start" (click)="undoControl('parseUrl')" ><i class="fas fa-undo-alt"></i></span>
-              <span class="input-group-addon-teal-right itr-end" (click)="copyControl('parseUrl')"><i class="far fa-copy"></i></span>
+              <span class="input-group-addon-teal-right itr-start" (click)="undoControl('parseUrl')"><i
+                class="fas fa-eraser"></i></span>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyControl('parseUrl')"><i
+                class="far fa-copy"></i></span>
             </div>
             <div class="input-box">
-             <span class="input-group-addon-teal addon-left" id="prefixUrl" [ngClass]="{'border-focus':!isControlHidden('prefixUrl')}"
+             <span class="input-group-addon-teal addon-left" id="prefixUrl"
+                   [ngClass]="{'border-focus':!isControlHidden('prefixUrl')}"
                    (click)="inputControlClick('prefixUrl')">
               <span [hidden]="isControlHidden('prefixUrl')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('prefixUrl')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Префикс (URL)</span>
               <input placeholder="" type="text" formControlName="prefixUrl">
-              <span class="input-group-addon-teal-right itr-start" (click)="undoControl('prefixUrl')" ><i class="fas fa-undo-alt"></i></span>
-              <span class="input-group-addon-teal-right itr-end" (click)="copyControl('prefixUrl')"><i class="far fa-copy"></i></span>
+              <span class="input-group-addon-teal-right itr-start" (click)="undoControl('prefixUrl')"><i
+                class="fas fa-eraser"></i></span>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyControl('prefixUrl')"><i
+                class="far fa-copy"></i></span>
             </div>
             <div class="input-box">
-              <span class="input-group-addon-teal addon-left" id="tagTrash-id" [ngClass]="{'border-focus':!isControlHidden('tagTrash')}"
+              <span class="input-group-addon-teal addon-left" id="tagTrash-id"
+                    [ngClass]="{'border-focus':!isControlHidden('tagTrash')}"
                     (click)="inputControlClick('tagTrash')">
               <span [hidden]="isControlHidden('tagTrash')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagTrash')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Лишний заголовок</span>
               <input placeholder="" type="text" formControlName="tagTrash">
-              <span class="input-group-addon-teal-right itr-start" (click)="undoControl('tagTrash')" ><i class="fas fa-undo-alt"></i></span>
-              <span class="input-group-addon-teal-right itr-end" (click)="copyControl('tagTrash')"><i class="far fa-copy"></i></span>
+              <span class="input-group-addon-teal-right itr-start" (click)="undoControl('tagTrash')"><i
+                class="fas fa-eraser"></i></span>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyControl('tagTrash')"><i
+                class="far fa-copy"></i></span>
             </div>
             <div class="input-box">
              <span class="col-md-2 input-group-addon-teal addon-left" id="tagEndSection-id"
-                  [ngClass]="{'border-focus':!isControlHidden('tagEndSection')}" (click)="inputControlClick('tagEndSection')">
+                   [ngClass]="{'border-focus':!isControlHidden('tagEndSection')}"
+                   (click)="inputControlClick('tagEndSection')">
               <span [hidden]="isControlHidden('tagEndSection')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagEndSection')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Границы блока</span>
               <input placeholder="" type="text" formControlName="tagEndSection">
-              <span class="input-group-addon-teal-right itr-start" (click)="undoControl('tagEndSection')" ><i class="fas fa-undo-alt"></i></span>
-              <span class="input-group-addon-teal-right itr-end" (click)="copyControl('tagEndSection')"><i class="far fa-copy"></i></span>
+              <span class="input-group-addon-teal-right itr-start" (click)="undoControl('tagEndSection')"><i
+                class="fas fa-eraser"></i></span>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyControl('tagEndSection')"><i
+                class="far fa-copy"></i></span>
             </div>
             <div class="input-box">
-              <span class="input-group-addon-teal addon-left" id="tagName-id" [ngClass]="{'border-focus':!isControlHidden('tagName')}"
+              <span class="input-group-addon-teal addon-left" id="tagName-id"
+                    [ngClass]="{'border-focus':!isControlHidden('tagName')}"
                     (click)="inputControlClick('tagName','split')">
               <span [hidden]="isControlHidden('tagNameStart')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagNameStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Имя</span>
@@ -170,18 +184,22 @@
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
               </div>
-              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagName')" ><i class="fas fa-undo-alt"></i></span>
-              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagName')"><i class="far fa-copy"></i></span>
+              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagName')"><i
+                class="fas fa-eraser"></i></span>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagName')"><i
+                class="far fa-copy"></i></span>
             </div>
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="tagDescription-id"
-                  [ngClass]="{'border-focus':!isControlHidden('tagDesc')}" (click)="inputControlClick('tagDesc','split')">
+                    [ngClass]="{'border-focus':!isControlHidden('tagDesc')}"
+                    (click)="inputControlClick('tagDesc','split')">
               <span [hidden]="isControlHidden('tagDescStart')"><i class="fa fa-lock-open"></i></span>
-              <span [hidden]="!isControlHidden('tagDescStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Описание</span>
+              <span [hidden]="!isControlHidden('tagDescStart')"><i
+                class="fa fa-lock"></i></span>&nbsp;&nbsp;Описание</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagDescStart">&nbsp;
-              <input style="width: 5%"placeholder="" type="text" formControlName="tagDescEnd">&nbsp;
+              <input style="width: 5%" placeholder="" type="text" formControlName="tagDescEnd">&nbsp;
               <div class="tag-select">
-                <select class="form-control"  formControlName="tagDescDirection">
+                <select class="form-control" formControlName="tagDescDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
                 </select>
               </div>
@@ -190,36 +208,43 @@
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
               </div>
-              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagDesc')" ><i class="fas fa-undo-alt"></i></span>
-              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagDesc')"><i class="far fa-copy"></i></span>
+              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagDesc')"><i
+                class="fas fa-eraser"></i></span>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagDesc')"><i
+                class="far fa-copy"></i></span>
             </div>
             <div class="input-box">
              <span class="input-group-addon-teal addon-left" id="tagImageUrl-id"
-                  [ngClass]="{'border-focus':!isControlHidden('tagImgUrl')}" (click)="inputControlClick('tagImgUrl','split')">
+                   [ngClass]="{'border-focus':!isControlHidden('tagImgUrl')}"
+                   (click)="inputControlClick('tagImgUrl','split')">
               <span [hidden]="isControlHidden('tagImgUrlStart')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagImgUrlStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;URL изображения</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagImgUrlStart">&nbsp;
-              <input style="width: 5%"placeholder="" type="text" formControlName="tagImgUrlEnd">&nbsp;
-              <div class="tag-select" >
+              <input style="width: 5%" placeholder="" type="text" formControlName="tagImgUrlEnd">&nbsp;
+              <div class="tag-select">
                 <select class="form-control" id="tagImgUrlDir-id" formControlName="tagImgUrlDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
                 </select>
               </div>
-              <div class="tag-select" >
+              <div class="tag-select">
                 <select class="form-control" id="tagImgUrlE-id" formControlName="tagImgUrlEntry">
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
               </div>
-              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagImgUrl')" ><i class="fas fa-undo-alt"></i></span>
-              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagImgUrl')"><i class="far fa-copy"></i></span>
+              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagImgUrl')"><i
+                class="fas fa-eraser"></i></span>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagImgUrl')"><i
+                class="far fa-copy"></i></span>
             </div>
             <div class="input-box">
              <span class="input-group-addon-teal addon-left" id="tagWeightOne-id"
-                  [ngClass]="{'border-focus':!isControlHidden('tagWeightOne')}" (click)="inputControlClick('tagWeightOne','split')">
+                   [ngClass]="{'border-focus':!isControlHidden('tagWeightOne')}"
+                   (click)="inputControlClick('tagWeightOne','split')">
               <span [hidden]="isControlHidden('tagWeightOneStart')"><i class="fa fa-lock-open"></i></span>
-              <span [hidden]="!isControlHidden('tagWeightOneStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Вес </span>
+              <span [hidden]="!isControlHidden('tagWeightOneStart')"><i
+                class="fa fa-lock"></i></span>&nbsp;&nbsp;Вес </span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagWeightOneStart">&nbsp;
-              <input style="width: 5%"placeholder="" type="text" formControlName="tagWeightOneEnd">&nbsp;
+              <input style="width: 5%" placeholder="" type="text" formControlName="tagWeightOneEnd">&nbsp;
               <div class="tag-select">
                 <select class="form-control" id="tagWeightOneDir-id" formControlName="tagWeightOneDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
@@ -230,16 +255,20 @@
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
               </div>
-              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagWeightOne')" ><i class="fas fa-undo-alt"></i></span>
-              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagWeightOne')"><i class="far fa-copy"></i></span>
+              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagWeightOne')"><i
+                class="fas fa-eraser"></i></span>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagWeightOne')"><i
+                class="far fa-copy"></i></span>
             </div>
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="tagSizeOne-id"
-                  [ngClass]="{'border-focus':!isControlHidden('tagSizeOne')}" (click)="inputControlClick('tagSizeOne','split')">
+                    [ngClass]="{'border-focus':!isControlHidden('tagSizeOne')}"
+                    (click)="inputControlClick('tagSizeOne','split')">
               <span [hidden]="isControlHidden('tagSizeOneStart')"><i class="fa fa-lock-open"></i></span>
-              <span [hidden]="!isControlHidden('tagSizeOneStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Размер</span>
+              <span [hidden]="!isControlHidden('tagSizeOneStart')"><i
+                class="fa fa-lock"></i></span>&nbsp;&nbsp;Размер</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagSizeOneStart">&nbsp;
-              <input style="width: 5%"placeholder="" type="text" formControlName="tagSizeOneEnd">&nbsp;
+              <input style="width: 5%" placeholder="" type="text" formControlName="tagSizeOneEnd">&nbsp;
               <div class="tag-select">
                 <select class="form-control" id="tagSizeOneDir-id" formControlName="tagSizeOneDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
@@ -250,37 +279,46 @@
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
               </div>
-              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagSizeOne')" ><i class="fas fa-undo-alt"></i></span>
-              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagSizeOne')"><i class="far fa-copy"></i></span>
+              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagSizeOne')"><i
+                class="fas fa-eraser"></i></span>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagSizeOne')"><i
+                class="far fa-copy"></i></span>
             </div>
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="tagPriceOne-id"
-                  [ngClass]="{'border-focus':!isControlHidden('tagPriceOne')}" (click)="inputControlClick('tagPriceOne','split')">
+                    [ngClass]="{'border-focus':!isControlHidden('tagPriceOne')}"
+                    (click)="inputControlClick('tagPriceOne','split')">
               <span [hidden]="isControlHidden('tagPriceOneStart')"><i class="fa fa-lock-open"></i></span>
-              <span [hidden]="!isControlHidden('tagPriceOneStart')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Цена</span>
+              <span [hidden]="!isControlHidden('tagPriceOneStart')"><i
+                class="fa fa-lock"></i></span>&nbsp;&nbsp;Цена</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagPriceOneStart">&nbsp;
-              <input style="width: 5%"placeholder="" type="text" formControlName="tagPriceOneEnd">&nbsp;
+              <input style="width: 5%" placeholder="" type="text" formControlName="tagPriceOneEnd">&nbsp;
               <div class="tag-select">
-                <select class="form-control" formControlName="tagPriceOneDirection" id="tagPriceOneDir-id" formControlName="tagPriceOneDirection">
+                <select class="form-control" formControlName="tagPriceOneDirection" id="tagPriceOneDir-id"
+                        formControlName="tagPriceOneDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
                 </select>
               </div>
               <div class="tag-select">
-                <select class="form-control" formControlName="tagPriceOneEntry" id="tagPriceOneE-id" formControlName="tagPriceOneEntry">
+                <select class="form-control" formControlName="tagPriceOneEntry" id="tagPriceOneE-id"
+                        formControlName="tagPriceOneEntry">
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
               </div>
-              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagPriceOne')" ><i class="fas fa-undo-alt"></i></span>
-              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagPriceOne')"><i class="far fa-copy"></i></span>
+              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagPriceOne')"><i
+                class="fas fa-eraser"></i></span>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagPriceOne')"><i
+                class="far fa-copy"></i></span>
             </div>
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="tagWeightTwo-id"
-                  [ngClass]="{'border-focus':!isControlHidden('tagWeightTwo')}" (click)="inputControlClick('tagWeightTwo','split')">
+                    [ngClass]="{'border-focus':!isControlHidden('tagWeightTwo')}"
+                    (click)="inputControlClick('tagWeightTwo','split')">
               <span [hidden]="isControlHidden('tagWeightTwoStart')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagWeightTwoStart')"><i
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Вес 2</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagWeightTwoStart">&nbsp;
-              <input style="width: 5%"placeholder="" type="text" formControlName="tagWeightTwoEnd">&nbsp;
+              <input style="width: 5%" placeholder="" type="text" formControlName="tagWeightTwoEnd">&nbsp;
               <div class="tag-select">
                 <select class="form-control" id="tagWeightTwoDir-id" formControlName="tagWeightTwoDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
@@ -291,17 +329,20 @@
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
               </div>
-              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagWeightTwo')" ><i class="fas fa-undo-alt"></i></span>
-              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagWeightTwo')"><i class="far fa-copy"></i></span>
+              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagWeightTwo')"><i
+                class="fas fa-eraser"></i></span>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagWeightTwo')"><i
+                class="far fa-copy"></i></span>
             </div>
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="tagSizeTwo-id"
-                  [ngClass]="{'border-focus':!isControlHidden('tagSizeTwo')}" (click)="inputControlClick('tagSizeTwo','split')">
+                    [ngClass]="{'border-focus':!isControlHidden('tagSizeTwo')}"
+                    (click)="inputControlClick('tagSizeTwo','split')">
               <span [hidden]="isControlHidden('tagSizeTwoStart')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagSizeTwoStart')"><i
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Размер 2</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagSizeTwoStart">&nbsp;
-              <input style="width: 5%"placeholder="" type="text" formControlName="tagSizeTwoEnd">&nbsp;
+              <input style="width: 5%" placeholder="" type="text" formControlName="tagSizeTwoEnd">&nbsp;
               <div class="tag-select">
                 <select class="form-control" id="tagSizeTwoDir-id" formControlName="tagSizeTwoDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
@@ -312,17 +353,20 @@
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
               </div>
-              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagSizeTwo')" ><i class="fas fa-undo-alt"></i></span>
-              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagSizeTwo')"><i class="far fa-copy"></i></span>
+              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagSizeTwo')"><i
+                class="fas fa-eraser"></i></span>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagSizeTwo')"><i
+                class="far fa-copy"></i></span>
             </div>
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="tagPriceTwo-id"
-                  [ngClass]="{'border-focus':!isControlHidden('tagPriceTwo')}" (click)="inputControlClick('tagPriceTwo','split')">
+                    [ngClass]="{'border-focus':!isControlHidden('tagPriceTwo')}"
+                    (click)="inputControlClick('tagPriceTwo','split')">
               <span [hidden]="isControlHidden('tagPriceTwoStart')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagPriceTwoStart')"><i
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Цена 2</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagPriceTwoStart">&nbsp;
-              <input style="width: 5%"placeholder="" type="text" formControlName="tagPriceTwoEnd">&nbsp;
+              <input style="width: 5%" placeholder="" type="text" formControlName="tagPriceTwoEnd">&nbsp;
               <div class="tag-select">
                 <select class="form-control" id="tagPriceTwoDir-id" formControlName="tagPriceTwoDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
@@ -333,17 +377,20 @@
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
               </div>
-              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagPriceTwo')" ><i class="fas fa-undo-alt"></i></span>
-              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagPriceTwo')"><i class="far fa-copy"></i></span>
+              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagPriceTwo')"><i
+                class="fas fa-eraser"></i></span>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagPriceTwo')"><i
+                class="far fa-copy"></i></span>
             </div>
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="tagWeightThree-id"
-                  [ngClass]="{'border-focus':!isControlHidden('tagWeightThree')}" (click)="inputControlClick('tagWeightThree','split')">
+                    [ngClass]="{'border-focus':!isControlHidden('tagWeightThree')}"
+                    (click)="inputControlClick('tagWeightThree','split')">
               <span [hidden]="isControlHidden('tagWeightThreeStart')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagWeightThreeStart')"><i
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Вес 3</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagWeightThreeStart">&nbsp;
-              <input style="width: 5%"placeholder="" type="text" formControlName="tagWeightThreeEnd">&nbsp;
+              <input style="width: 5%" placeholder="" type="text" formControlName="tagWeightThreeEnd">&nbsp;
               <div class="tag-select">
                 <select class="form-control" id="tagWeightThreeDir-id" formControlName="tagWeightThreeDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
@@ -354,17 +401,20 @@
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
               </div>
-              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagWeightThree')" ><i class="fas fa-undo-alt"></i></span>
-              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagWeightThree')"><i class="far fa-copy"></i></span>
+              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagWeightThree')"><i
+                class="fas fa-eraser"></i></span>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagWeightThree')"><i
+                class="far fa-copy"></i></span>
             </div>
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="tagSizeThree-id"
-                  [ngClass]="{'border-focus':!isControlHidden('tagSizeThree')}" (click)="inputControlClick('tagSizeThree','split')">
+                    [ngClass]="{'border-focus':!isControlHidden('tagSizeThree')}"
+                    (click)="inputControlClick('tagSizeThree','split')">
               <span [hidden]="isControlHidden('tagSizeThreeStart')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagSizeThreeStart')"><i
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Размер 3</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagSizeThreeStart">&nbsp;
-              <input style="width: 5%"placeholder="" type="text" formControlName="tagSizeThreeEnd">&nbsp;
+              <input style="width: 5%" placeholder="" type="text" formControlName="tagSizeThreeEnd">&nbsp;
               <div class="tag-select">
                 <select class="form-control" id="tagSizeThreeDir-id" formControlName="tagSizeThreeDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
@@ -375,17 +425,20 @@
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
               </div>
-              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagSizeThree')" ><i class="fas fa-undo-alt"></i></span>
-              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagSizeThree')"><i class="far fa-copy"></i></span>
+              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagSizeThree')"><i
+                class="fas fa-eraser"></i></span>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagSizeThree')"><i
+                class="far fa-copy"></i></span>
             </div>
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="tagPriceThree-id"
-                  [ngClass]="{'border-focus':!isControlHidden('tagPriceThree')}" (click)="inputControlClick('tagPriceThree','split')">
+                    [ngClass]="{'border-focus':!isControlHidden('tagPriceThree')}"
+                    (click)="inputControlClick('tagPriceThree','split')">
               <span [hidden]="isControlHidden('tagPriceThreeStart')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagPriceThreeStart')"><i
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Цена 3</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagPriceThreeStart">&nbsp;
-              <input style="width: 5%"placeholder="" type="text" formControlName="tagPriceThreeEnd">&nbsp;
+              <input style="width: 5%" placeholder="" type="text" formControlName="tagPriceThreeEnd">&nbsp;
               <div class="tag-select">
                 <select class="form-control" id="tagPriceThreeDir-id" formControlName="tagPriceThreeDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
@@ -396,17 +449,20 @@
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
               </div>
-              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagPriceThree')" ><i class="fas fa-undo-alt"></i></span>
-              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagPriceThree')"><i class="far fa-copy"></i></span>
+              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagPriceThree')"><i
+                class="fas fa-eraser"></i></span>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagPriceThree')"><i
+                class="far fa-copy"></i></span>
             </div>
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="tagWeightFour-id"
-                  [ngClass]="{'border-focus':!isControlHidden('tagWeightFour')}" (click)="inputControlClick('tagWeightFour','split')">
+                    [ngClass]="{'border-focus':!isControlHidden('tagWeightFour')}"
+                    (click)="inputControlClick('tagWeightFour','split')">
               <span [hidden]="isControlHidden('tagWeightFourStart')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagWeightFourStart')"><i
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Вес 4</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagWeightFourStart">&nbsp;
-              <input style="width: 5%"placeholder="" type="text" formControlName="tagWeightFourEnd">&nbsp;
+              <input style="width: 5%" placeholder="" type="text" formControlName="tagWeightFourEnd">&nbsp;
               <div class="tag-select">
                 <select class="form-control" id="tagWeightFourDir-id" formControlName="tagWeightFourDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
@@ -417,17 +473,20 @@
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
               </div>
-              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagWeightFour')" ><i class="fas fa-undo-alt"></i></span>
-              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagWeightFour')"><i class="far fa-copy"></i></span>
+              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagWeightFour')"><i
+                class="fas fa-eraser"></i></span>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagWeightFour')"><i
+                class="far fa-copy"></i></span>
             </div>
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="tagSizeFour-id"
-                  [ngClass]="{'border-focus':!isControlHidden('tagSizeFour')}" (click)="inputControlClick('tagSizeFour','split')">
+                    [ngClass]="{'border-focus':!isControlHidden('tagSizeFour')}"
+                    (click)="inputControlClick('tagSizeFour','split')">
               <span [hidden]="isControlHidden('tagSizeFourStart')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagSizeFourStart')"><i
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Размер 4</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagSizeFourStart">&nbsp;
-              <input style="width: 5%"placeholder="" type="text" formControlName="tagSizeFourEnd">&nbsp;
+              <input style="width: 5%" placeholder="" type="text" formControlName="tagSizeFourEnd">&nbsp;
               <div class="tag-select">
                 <select class="form-control" id="tagSizeFourDir-id" formControlName="tagSizeFourDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
@@ -438,17 +497,20 @@
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
               </div>
-              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagSizeFour')" ><i class="fas fa-undo-alt"></i></span>
-              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagSizeFour')"><i class="far fa-copy"></i></span>
+              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagSizeFour')"><i
+                class="fas fa-eraser"></i></span>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagSizeFour')"><i
+                class="far fa-copy"></i></span>
             </div>
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="tagPriceFour-id"
-                  [ngClass]="{'border-focus':!isControlHidden('tagPriceFour')}" (click)="inputControlClick('tagPriceFour','split')">
+                    [ngClass]="{'border-focus':!isControlHidden('tagPriceFour')}"
+                    (click)="inputControlClick('tagPriceFour','split')">
               <span [hidden]="isControlHidden('tagPriceFourStart')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('tagPriceFourStart')"><i
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Цена 4</span>
               <input style="width: 85%" placeholder="" type="text" formControlName="tagPriceFourStart">&nbsp;
-              <input style="width: 5%"placeholder="" type="text" formControlName="tagPriceFourEnd">&nbsp;
+              <input style="width: 5%" placeholder="" type="text" formControlName="tagPriceFourEnd">&nbsp;
               <div class="tag-select">
                 <select class="form-control" id="tagPriceFourDir-id" formControlName="tagPriceFourDirection">
                   <option *ngFor="let direct of directions" [value]="direct.value">{{direct.display}}</option>
@@ -459,26 +521,34 @@
                   <option *ngFor="let entry of entries" [value]="entry">{{entry}}</option>
                 </select>
               </div>
-              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagPriceFour')" ><i class="fas fa-undo-alt"></i></span>
-              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagPriceFour')"><i class="far fa-copy"></i></span>
+              <span class="input-group-addon-teal-right itr-start" (click)="undoTag('tagPriceFour')"><i
+                class="fas fa-eraser"></i></span>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyTag('tagPriceFour')"><i
+                class="far fa-copy"></i></span>
             </div>
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="htmlResponse-id"
-                  [ngClass]="{'border-focus':!isControlHidden('htmlResponse')}" (click)="inputControlClick('htmlResponse')">
+                    [ngClass]="{'border-focus':!isControlHidden('htmlResponse')}"
+                    (click)="inputControlClick('htmlResponse')">
               <span [hidden]="isControlHidden('htmlResponse')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('htmlResponse')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;HTML ответ</span>
               <input placeholder="" type="text" formControlName="htmlResponse">
-              <span class="input-group-addon-teal-right itr-start" (click)="undoControl('htmlResponse')" ><i class="fas fa-undo-alt"></i></span>
-              <span class="input-group-addon-teal-right itr-end" (click)="copyControl('htmlResponse')"><i class="far fa-copy"></i></span>
+              <span class="input-group-addon-teal-right itr-start" (click)="undoControl('htmlResponse')"><i
+                class="fas fa-eraser"></i></span>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyControl('htmlResponse')"><i
+                class="far fa-copy"></i></span>
             </div>
             <div class="input-box" *ngIf="parseMenu.broken">
               <span class="input-group-addon-teal addon-left" id="errorSection-id"
-                    [ngClass]="{'border-focus':!isControlHidden('errorSection')}" (click)="inputControlClick('errorSection')">
+                    [ngClass]="{'border-focus':!isControlHidden('errorSection')}"
+                    (click)="inputControlClick('errorSection')">
               <span [hidden]="isControlHidden('errorSection')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('errorSection')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Ошибка в сессии</span>
               <input placeholder="" type="text" formControlName="errorSection">
-              <span class="input-group-addon-teal-right itr-start" (click)="undoControl('errorSection')" ><i class="fas fa-undo-alt"></i></span>
-              <span class="input-group-addon-teal-right itr-end" (click)="copyControl('errorSection')"><i class="far fa-copy"></i></span>
+              <span class="input-group-addon-teal-right itr-start" (click)="undoControl('errorSection')"><i
+                class="fas fa-eraser"></i></span>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyControl('errorSection')"><i
+                class="far fa-copy"></i></span>
             </div>
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="copyFrom-id" (click)="inputControlClick('copyFrom')">
@@ -492,11 +562,13 @@
                   </option>
                 </select>
               </div>
-              <span class="input-group-addon-teal-right itr-end" (click)="copyParseMenu()"><i class="far fa-copy"></i></span>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyParseMenu()"><i
+                class="far fa-copy"></i></span>
             </div>
-            <div class="input-box" style="float: right">
+            <div class="input-box" style="float: right" *ngIf="selMenuCategory.id != '-1'">
               <div class="btn-grp">
-                <button type="button" class="btn btn-success btn-with-icon" [disabled]="saveParseMenuDisabled" (click)="saveParseModel()">
+                <button type="button" class="btn btn-success btn-with-icon" [disabled]="saveParseMenuDisabled"
+                        (click)="saveParseModel()">
                   <i class="fa fa-check fa-fw"></i>Запись
                 </button>
               </div>
@@ -518,7 +590,7 @@
                   <div class="entity-title">{{testEntity.displayName}}</div>
                 </div>
                 <div class="description"><strong>{{testEntity.description}}</strong></div>
-                <div class="entity-wrapper" >
+                <div class="entity-wrapper">
                   <table cellspacing="0" cellpadding="0">
                     <tr>
                       <td class="col-md-2 wsp-wrap">
@@ -588,6 +660,84 @@
     </tab-content>
   </tabset>
 </div>
+<app-dialog [(visible)]="showDialog" *ngIf="showDialog">
+  <div class="app-modal">
+    <h2>{{testDialogHeader}}</h2>
+    <p>Крымская Служба Доставки Еды</p>
+    <strong>Крымская Служба Доставки Еды</strong>
+    <div class="test-result" *ngIf="parseMenu.parseResult != null">
+      <div class="test-field">
+        <span>{{parseMenu.parseResult.htmlResult.field}}</span>
+        <span class="test-passed" *ngIf="parseMenu.parseResult.htmlResult.status == '1'">   ...успешно</span>
+        <span class="test-error" *ngIf="parseMenu.parseResult.htmlResult.status == '0'">   ...ошибка</span>
+        <span class="test-skipped" *ngIf="parseMenu.parseResult.htmlResult.status == '-1'">   ...не обработано</span>
+      </div>
+      <div class="test-field">
+        <span>{{parseMenu.parseResult.htmlClean.field}}</span>
+        <span class="test-passed" *ngIf="parseMenu.parseResult.htmlClean.status == '1'">   ...успешно</span>
+        <span class="test-error" *ngIf="parseMenu.parseResult.htmlClean.status == '0'">   ...ошибка</span>
+        <span class="test-skipped" *ngIf="parseMenu.parseResult.htmlClean.status == '-1'">   ...не обработано</span>
+      </div>
+      <div class="test-field">
+        <span>[{{parseMenu.parseResult.productName.iStep}}]&nbsp;{{parseMenu.parseResult.productName.field}}</span>
+        <span class="test-passed" *ngIf="parseMenu.parseResult.productName.status == '1'">   ...успешно</span>
+        <span class="test-error" *ngIf="parseMenu.parseResult.productName.status == '0'">   ...ошибка</span>
+        <span class="test-skipped" *ngIf="parseMenu.parseResult.productName.status == '-1'">   ...не обработано</span>
+      </div>
+      <div class="test-field">
+        <span>[{{parseMenu.parseResult.productDesc.iStep}}]&nbsp;{{parseMenu.parseResult.productDesc.field}}</span>
+        <span class="test-passed" *ngIf="parseMenu.parseResult.productDesc.status == '1'">   ...успешно</span>
+        <span class="test-error" *ngIf="parseMenu.parseResult.productDesc.status == '0'">   ...ошибка</span>
+        <span class="test-skipped" *ngIf="parseMenu.parseResult.productDesc.status == '-1'">   ...не обработано</span>
+      </div>
+      <div class="test-field">
+        <span>[{{parseMenu.parseResult.productImg.iStep}}]&nbsp;{{parseMenu.parseResult.productImg.field}}</span>
+        <span class="test-passed" *ngIf="parseMenu.parseResult.productImg.status == '1'">   ...успешно</span>
+        <span class="test-error" *ngIf="parseMenu.parseResult.productImg.status == '0'">   ...ошибка</span>
+        <span class="test-skipped" *ngIf="parseMenu.parseResult.productImg.status == '-1'">   ...не обработано</span>
+      </div>
+      <div class="test-field">
+        <span>[{{parseMenu.parseResult.wspOne.iStep}}]&nbsp;{{parseMenu.parseResult.wspOne.field}}</span>
+        <span class="test-passed" *ngIf="parseMenu.parseResult.wspOne.status == '1'">   ...успешно</span>
+        <span class="test-error" *ngIf="parseMenu.parseResult.wspOne.status == '0'">   ...ошибка</span>
+        <span class="test-skipped" *ngIf="parseMenu.parseResult.wspOne.status == '-1'">   ...не обработано</span>
+      </div>
+      <div class="test-field">
+        <span>[{{parseMenu.parseResult.wspTwo.iStep}}]&nbsp;{{parseMenu.parseResult.wspTwo.field}}</span>
+        <span class="test-passed" *ngIf="parseMenu.parseResult.wspTwo.status == '1'">   ...успешно</span>
+        <span class="test-error" *ngIf="parseMenu.parseResult.wspTwo.status == '0'">   ...ошибка</span>
+        <span class="test-skipped" *ngIf="parseMenu.parseResult.wspTwo.status == '-1'">   ...не обработано</span>
+      </div>
+      <div class="test-field">
+        <span>[{{parseMenu.parseResult.wspThree.iStep}}]&nbsp;{{parseMenu.parseResult.wspThree.field}}</span>
+        <span class="test-passed" *ngIf="parseMenu.parseResult.wspThree.status == '1'">   ...успешно</span>
+        <span class="test-error" *ngIf="parseMenu.parseResult.wspThree.status == '0'">   ...ошибка</span>
+        <span class="test-skipped" *ngIf="parseMenu.parseResult.wspThree.status == '-1'">   ...не обработано</span>
+      </div>
+      <div class="test-field">
+        <span>[{{parseMenu.parseResult.wspFour.iStep}}]&nbsp;{{parseMenu.parseResult.wspFour.field}}</span>
+        <span class="test-passed" *ngIf="parseMenu.parseResult.wspFour.status == '1'">   ...успешно</span>
+        <span class="test-error" *ngIf="parseMenu.parseResult.wspFour.status == '0'">   ...ошибка</span>
+        <span class="test-skipped" *ngIf="parseMenu.parseResult.wspFour.status == '-1'">   ...не обработано</span>
+      </div>
+      <div class="test-result" *ngIf="parseMenu.broken">
+        <div class="test-field" >
+          <span class="test-error">Ошибка:</span>
+        </div>
+        <div class="test-field" >
+          <span class="test-error">{{parseMenu.parseResult.message}}</span>
+        </div>
+        <div class="test-field" >
+          <span class="test-skiped">Лог:</span>
+        </div>
+        <div class="test-field" >
+          <span class="test-skiped">{{parseMenu.parseResult.stackTrace}}</span>
+        </div>
+      </div>
+    </div>
+    <button (click)="showDialog = !showDialog" class="btn">Закрыть</button>
+  </div>
+</app-dialog>
 
 
 

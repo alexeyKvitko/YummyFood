@@ -376,36 +376,6 @@
     visibility: visible;
   }
 }
-.city-modal{
-  h2{
-    font-size: 22px;
-    font-family: Roboto-Condensed;
-    font-weight: 600;
-    color: $primary-text-color;
-    border-bottom: 1px solid $divider-color;
-  }
-  p{
-    font-size: 11px;
-    font-family: Roboto-Condensed;
-    font-weight: 100;
-    color: $teal-color;
-    margin-bottom: 10px;
-  }
-  strong{
-    display: none;
-  }
-  .city-label{
-    .city-check{
-      color: $secondary-text-color;
-    }
-    .city-uncheck{
-      color: $card-bg;
-    }
-    &:hover{
-      cursor: pointer;
-      color: $bright-coral;
-    }
-  }
-}
+
 
 

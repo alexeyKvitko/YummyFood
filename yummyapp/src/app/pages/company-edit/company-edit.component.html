@@ -1,5 +1,5 @@
-
 <div class="company-edit-content" [hidden]="loading" *ngIf="companyEdit != null">
+  <h2 class="go-back" (click)="backToDetails()" title="Вернуться">Вернуться</h2>
   <div class="menu-wrapper">
     <h2 class="company-name" (click)="backToDetails()" title="Назад">{{companyEdit.companyModel.displayName}}</h2>
     <div class="menu-btn-item accent-mbti main-button" (click)="editMenu()">
@@ -28,8 +28,13 @@
               </span>
               <span [className]="menuCategory.id === selMenuCategory.id ? 'submenu-item sel-menu' : 'submenu-item'">
                   {{menuCategory.displayName}}
-                  <span class="delete-icon" (click)="deleteMenu(menuType, menuCategory)"><i
-                    class="far fa-trash-alt icon"></i></span>
+                  <span class="delete-icon" (click)="deleteMenu(menuType, menuCategory)">
+                    <i class="far fa-trash-alt icon"></i>
+                  </span>
+                <span class="delete-icon" (click)="deleteMenuEntities(menuType, menuCategory)">
+                    <i class="fas fa-broom icon"></i>
+                  </span>
+
               </span>
             </div>
           </div>

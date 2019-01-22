@@ -14,6 +14,8 @@ public abstract class AppConstants {
     public static final String DEFAULT_LOGO = "default.png";
     public static final String SECTION = "SECTION [";
 
+    public static final String SUCCESS = "SUCCESS";
+
     public static final Integer FAKE_ID = -1;
 
     public static final int PROCEED = 1;
@@ -61,6 +63,8 @@ public abstract class AppConstants {
             put("<","");
             put("=","");
             put("&#1088;","");
+            put("&#171;","«");
+            put("&#187;","»");
         }
     };
 

@@ -80,15 +80,30 @@ public class AdminCompanyController {
         return response;
     }
 
+    @GetMapping("/company/deleteMenuEntities/{companyId}/{typeId}/{categoryId}")
+    public ApiResponse deleteMenuEntities(@PathVariable int companyId, @PathVariable int typeId,
+                                         @PathVariable int categoryId) {
+        ApiResponse response = new ApiResponse();
+        response.setStatus( HttpStatus.OK.value() );
+        try {
+            companyService.deleteCompanyMenuEntities( companyId,typeId,categoryId );
+        } catch (BusinessLogicException e){
+            response.setStatus( HttpStatus.INTERNAL_SERVER_ERROR.value() );
+            response.setMessage( e.getMessage() );
+        }
+        return response;
+    }
+
     @RequestMapping(value = "/testParse", method = RequestMethod.POST)
     public ApiResponse testParseModel(@RequestBody ParseMenuModel parseMenuModel)  {
         ApiResponse response = new ApiResponse();
         response.setStatus( HttpStatus.OK.value() );
+        parseMenuModel.setParseUrl( parseMenuModel.getParseUrl().replace("https","http") );
         try {
             CompanyMenu companyMenu = parseService.testPage( parseMenuModel );
             if( companyMenu.getParseMenu().isBroken() ){
                 response.setStatus( HttpStatus.INTERNAL_SERVER_ERROR.value() );
-                response.setMessage( companyMenu.getParseMenu().getErrorMsg() );
+                response.setMessage( companyMenu.getParseMenu().getParseResult().getMessage() );
             }
             response.setResult( companyMenu );
         } catch (Exception e){
@@ -101,7 +116,9 @@ public class AdminCompanyController {
     public ApiResponse saveParseModel(@RequestBody ParseMenuModel parseMenuModel)  {
         ApiResponse response = new ApiResponse();
         response.setStatus( HttpStatus.OK.value() );
+        parseMenuModel.setParseUrl( parseMenuModel.getParseUrl().replace("https","http") );
         try {
+            companyService.deleteCompanyMenuEntities(parseMenuModel.getCompanyId(), parseMenuModel.getTypeId(), parseMenuModel.getCategoryId() );
             parseService.saveParseModel( parseMenuModel );
         } catch (BusinessLogicException e){
             response.setStatus( HttpStatus.INTERNAL_SERVER_ERROR.value() );

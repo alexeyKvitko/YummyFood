@@ -23,6 +23,18 @@
   background-color: $card-content-bg;
   overflow-x: hidden;
   overflow-y: auto;
+  .go-back{
+    font-weight: 300;
+    width: fit-content;
+    margin: 4px 0px;
+    font-size: 12px;
+    border-bottom: 1px dotted $bright-coral;
+    color: $bright-coral;
+    &:hover{
+      cursor: pointer;
+      border-bottom: 1px dotted transparent;
+    }
+  }
 
 }
 .tab-view{

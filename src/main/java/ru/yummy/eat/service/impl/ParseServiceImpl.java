@@ -10,14 +10,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.yummy.eat.AppConstants;
 import ru.yummy.eat.entity.MenuEntity;
 import ru.yummy.eat.entity.MenuItem;
 import ru.yummy.eat.entity.ParseMenu;
 import ru.yummy.eat.exception.BusinessLogicException;
 import ru.yummy.eat.model.*;
-import ru.yummy.eat.model.enums.EntityStatus;
-import ru.yummy.eat.repo.*;
+import ru.yummy.eat.model.enums.TestStatus;
+import ru.yummy.eat.repo.CityRepository;
+import ru.yummy.eat.repo.MenuEntityRepository;
+import ru.yummy.eat.repo.MenuItemRepository;
+import ru.yummy.eat.repo.ParseMenuRepository;
 import ru.yummy.eat.service.ParseService;
 import ru.yummy.eat.util.AppUtils;
 import ru.yummy.eat.util.ConvertUtils;
@@ -50,6 +54,7 @@ public class ParseServiceImpl implements ParseService {
     ConvertUtils convertUtils;
 
     @Override
+    @Transactional
     public synchronized void parsePage() {
         List<ParseMenu> parseMenus = parseRepository.findAllByProcessed(AppConstants.PROCEED);
         HttpTransport httpTransport = new NetHttpTransport();
@@ -67,9 +72,7 @@ public class ParseServiceImpl implements ParseService {
                 }
             }
             htmlResponse = htmlResponse.replace("\n", "").replace("\r", "").replace("\t", "");
-            //ОБНОВЛЯЕМ СТАТУС
-            menuEntityRepository.deleteMenuEntities( parseMenu.getCompanyId(), parseMenu.getCategoryId(), parseMenu.getCategoryId());
-            menuItemRepository.deleteMenuItems( parseMenu.getCompanyId(), parseMenu.getCategoryId(), parseMenu.getCategoryId());
+
             // Убираем заголовок
             if (parseMenu.getTagTrash() != null) {
                 int trashIdx = htmlResponse.indexOf(parseMenu.getTagTrash()) + parseMenu.getTagTrash().length();
@@ -100,9 +103,6 @@ public class ParseServiceImpl implements ParseService {
                 MenuEntity menuEntity = menuEntityRepository.findByName(uniqueName);
                 if (menuEntity == null) {
                     menuEntity = new MenuEntity();
-                    menuEntity.setStatus(EntityStatus.NEW.value());
-                } else {
-                    menuEntity.setStatus(EntityStatus.UPDATED.value());
                 }
                 menuEntity.setName(uniqueName);
                 menuEntity.setDisplayName(entityName);
@@ -162,156 +162,182 @@ public class ParseServiceImpl implements ParseService {
         LOG.info("******************************************************");
         LOG.info("** TEST");
         LOG.info("** ");
-        LOG.info("** "+parseMenu.getParseUrl());
-        StringBuilder element = new StringBuilder();
+        LOG.info("** " + parseMenu.getParseUrl());
+        ParseResult parseResult = new ParseResult();
         HttpTransport httpTransport = new NetHttpTransport();
         HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
         String htmlResponse = null;
         HttpRequest request = null;
-        parseMenu.setBroken( false );
-        element.append("htmlResponse...");
+        parseMenu.setBroken(false);
+        parseResult.getHtmlResult().setStatus(TestStatus.ERROR.value());
         try {
             request = requestFactory.buildGetRequest(new GenericUrl(parseMenu.getParseUrl()));
             htmlResponse = request.execute().parseAsString();
         } catch (Exception e) {
             htmlResponse = getByConnection(parseMenu.getParseUrl());
             if (htmlResponse == null) {
-                return null;
-            }
+                parseResult.getHtmlResult().setStatus(TestStatus.ERROR.value());
+                parseMenu.setBroken(true);
+                parseResult.setMessage(e.getMessage());
+           }
         }
-        element.append("Ok; ").append( System.lineSeparator() );
         List<MenuEntityModel> menuEntities = new LinkedList<>();
         StringBuilder sb = new StringBuilder();
-        try {
-            LOG.info("** GET FULL HTML ...");
-            htmlResponse = htmlResponse.replace("\n", "").replace("\r", "").replace("\t", "");
-            LOG.info("** Ok");
-            LOG.info("**");
-            // Убираем заголовок
-            LOG.info("** REMOVE THE HEADINGS ...");
-            element.append("Remove header...");
-            if (parseMenu.getTagTrash() != null) {
-                int trashIdx = htmlResponse.indexOf(parseMenu.getTagTrash()) + parseMenu.getTagTrash().length();
-                htmlResponse = htmlResponse.substring(trashIdx);
-            }
-            element.append("Ok; ").append( System.lineSeparator() );
-            LOG.info("** Ok");
-            LOG.info("**");
-            LOG.info("** CLEAN COMMENTS ...");
-            element.append("clean html response...");
-            htmlResponse = htmlResponse.substring(htmlResponse.indexOf(parseMenu.getTagEndSection()));
-            // Убираем комментарии
-            htmlResponse = AppUtils.polish(htmlResponse);
-            element.append("Ok; ").append( System.lineSeparator() );
-            LOG.info("** Ok");
-            LOG.info("**");
-            boolean proceed = true;
-            int count = 0;
-            while (proceed) {
-                StringBuilder sbError = new StringBuilder();
-                sbError.append("Product ["+count+"]");
-                //Укорачиваем
-                LOG.info("** SECTION ["+count+"]");
-                LOG.info("** ACCESSING ...");
-                int endSectionIdx = htmlResponse.indexOf(parseMenu.getTagEndSection());
-                String section = null;
-                if (endSectionIdx > -1) {
-                    section = AppUtils.getSection(htmlResponse, parseMenu.getTagEndSection());
-                    htmlResponse = htmlResponse.substring(section.length());
-                } else {
-                    section = htmlResponse;
+        if (htmlResponse != null) {
+            parseResult.getHtmlResult().setStatus(TestStatus.PASSED.value());
+
+            try {
+                LOG.info("** GET FULL HTML ...");
+                htmlResponse = htmlResponse.replace("\n", "").replace("\r", "").replace("\t", "");
+                LOG.info("** Ok");
+                LOG.info("**");
+                // Убираем заголовок
+                parseResult.getHtmlClean().setStatus(TestStatus.ERROR.value());
+                LOG.info("** REMOVE THE HEADINGS ...");
+                if (parseMenu.getTagTrash() != null) {
+                    int trashIdx = htmlResponse.indexOf(parseMenu.getTagTrash()) + parseMenu.getTagTrash().length();
+                    htmlResponse = htmlResponse.substring(trashIdx);
                 }
                 LOG.info("** Ok");
                 LOG.info("**");
-                //Получаем данные
-                LOG.info("** PRODUCT NAME ...");
-                sbError.append("get name ...");
-                String entityName = AppUtils.getFieldValue(section, parseMenu.getTagName());
+                LOG.info("** CLEAN COMMENTS ...");
+                htmlResponse = htmlResponse.substring(htmlResponse.indexOf(parseMenu.getTagEndSection()));
+                // Убираем комментарии
+                htmlResponse = AppUtils.polish(htmlResponse);
+                parseResult.getHtmlClean().setStatus(TestStatus.PASSED.value());
                 LOG.info("** Ok");
                 LOG.info("**");
-                if (entityName == null) {
-                    proceed = false;
-                    if (count == 0) {
-                        throw new BusinessLogicException("Не найдено имя блюда, процесс завершен");
+                boolean proceed = true;
+                int iterationStep = 0;
+                while (proceed) {
+                    parseResult.setStep(iterationStep);
+                    StringBuilder sbError = new StringBuilder();
+                    sbError.append("Product [" + iterationStep + "]");
+                    //Укорачиваем
+                    LOG.info("** SECTION [" + iterationStep + "]");
+                    LOG.info("** ACCESSING ...");
+                    int endSectionIdx = htmlResponse.indexOf(parseMenu.getTagEndSection());
+                    String section = null;
+                    if (endSectionIdx > -1) {
+                        section = AppUtils.getSection(htmlResponse, parseMenu.getTagEndSection());
+                        htmlResponse = htmlResponse.substring(section.length());
                     } else {
-                        break;
+                        section = htmlResponse;
                     }
+                    LOG.info("** Ok");
+                    LOG.info("**");
+                    //Получаем данные
+                    LOG.info("** PRODUCT NAME ...");
+                    parseResult.getProductName().setStatus(TestStatus.ERROR.value());
+                    parseResult.getProductName().setiStep(iterationStep - 1);
+                    String entityName = AppUtils.getFieldValue(section, parseMenu.getTagName());
+                    LOG.info("** Ok");
+                    LOG.info("**");
+                    parseResult.getProductName().setStatus(TestStatus.PASSED.value());
+                    if (entityName == null) {
+                        proceed = false;
+                        if (iterationStep == 0) {
+                            throw new BusinessLogicException("Не найдено имя блюда, процесс завершен");
+                        } else {
+                            break;
+                        }
+                    }
+                    parseResult.setSection(section);
+                    sb.append(AppConstants.SECTION).append((iterationStep + 1)).append("]").append(section);
+                    String uniqueName = entityName.toUpperCase().replace(" ", "_") + "_" + parseMenu.getCompanyId().toString();
+                    MenuEntityModel menuEntity = new MenuEntityModel();
+                    menuEntity.setName(uniqueName);
+                    menuEntity.setDisplayName(entityName);
+                    LOG.info("** GET DESCRIPTION ...");
+                    parseResult.getProductDesc().setStatus(TestStatus.ERROR.value());
+                    parseResult.getProductDesc().setiStep(iterationStep);
+                    menuEntity.setDescription(AppUtils.getFieldValue(section, parseMenu.getTagDescription()));
+                    parseResult.getProductDesc().setStatus(TestStatus.PASSED.value());
+                    LOG.info("** Ok");
+                    LOG.info("**");
+                    LOG.info("** GET THE IMAGE ...");
+                    parseResult.getProductImg().setStatus(TestStatus.ERROR.value());
+                    parseResult.getProductImg().setiStep(iterationStep);
+                    String imageUrl = AppUtils.getFieldValue(section, parseMenu.getTagImageUrl());
+                    parseResult.getProductImg().setStatus(TestStatus.PASSED.value());
+                    LOG.info("** Ok");
+                    LOG.info("**");
+                    menuEntity.setImageUrl(parseMenu.getPrefixUrl() != null ? parseMenu.getPrefixUrl() + imageUrl : imageUrl);
+                    // wsp One
+                    LOG.info("** GET WSP - 1 (Weight, Size, Price)  ...");
+                    parseResult.getWspOne().setStatus(TestStatus.ERROR.value());
+                    parseResult.getWspOne().setiStep(iterationStep);
+                    WeightSizePrice wspOne = getWSP(section, parseMenu.getTagWeightOne(),
+                            parseMenu.getTagSizeOne(), parseMenu.getTagPriceOne());
+                    menuEntity.setWeightOne(wspOne.getWeight());
+                    menuEntity.setSizeOne(wspOne.getSize());
+                    menuEntity.setPriceOne(wspOne.getPrice());
+                    parseResult.getWspOne().setStatus(TestStatus.PASSED.value());
+                    LOG.info("** Ok");
+                    LOG.info("**");
+
+                    // wsp Two
+                    LOG.info("** GET WSP - 2  ...");
+                    parseResult.getWspTwo().setStatus(TestStatus.ERROR.value());
+                    parseResult.getWspTwo().setiStep(iterationStep);
+                    WeightSizePrice wspTwo = getWSP(section, parseMenu.getTagWeightTwo(),
+                            parseMenu.getTagSizeTwo(), parseMenu.getTagPriceTwo());
+                    menuEntity.setWeightTwo(wspTwo.getWeight());
+                    menuEntity.setSizeTwo(wspTwo.getSize());
+                    menuEntity.setPriceTwo(wspTwo.getPrice());
+                    parseResult.getWspTwo().setStatus(TestStatus.PASSED.value());
+                    LOG.info("** Ok");
+                    LOG.info("**");
+
+                    // wsp Three
+                    LOG.info("** GET WSP - 3  ...");
+                    parseResult.getWspThree().setStatus(TestStatus.ERROR.value());
+                    parseResult.getWspThree().setiStep(iterationStep);
+                    WeightSizePrice wspThree = getWSP(section, parseMenu.getTagWeightThree(),
+                            parseMenu.getTagSizeThree(), parseMenu.getTagPriceThree());
+                    menuEntity.setWeightThree(wspThree.getWeight());
+                    menuEntity.setSizeThree(wspThree.getSize());
+                    menuEntity.setPriceThree(wspThree.getPrice());
+                    parseResult.getWspThree().setStatus(TestStatus.PASSED.value());
+                    LOG.info("** Ok");
+                    LOG.info("**");
+                    // wsp Four
+                    LOG.info("** GET WSP - 4  ...");
+                    parseResult.getWspFour().setStatus(TestStatus.ERROR.value());
+                    parseResult.getWspFour().setiStep(iterationStep);
+                    WeightSizePrice wspFour = getWSP(section, parseMenu.getTagWeightFour(),
+                            parseMenu.getTagSizeFour(), parseMenu.getTagPriceFour());
+                    menuEntity.setWeightFour(wspFour.getWeight());
+                    menuEntity.setSizeFour(wspFour.getSize());
+                    menuEntity.setPriceFour(wspFour.getPrice());
+                    parseResult.getWspFour().setStatus(TestStatus.PASSED.value());
+                    LOG.info("** Ok");
+                    LOG.info("**");
+                    menuEntities.add(menuEntity);
+                    iterationStep++;
                 }
-                parseMenu.setErrorSection( section );
-                sb.append(AppConstants.SECTION).append((count+1)).append("]").append(section);
-                String uniqueName = entityName.toUpperCase().replace(" ", "_") + "_" + parseMenu.getCompanyId().toString();
-                MenuEntityModel menuEntity = new MenuEntityModel();
-                menuEntity.setStatus(EntityStatus.NEW.value());
-                menuEntity.setName(uniqueName);
-                menuEntity.setDisplayName(entityName);
-                LOG.info("** GET DESCRIPTION ...");
-                menuEntity.setDescription(AppUtils.getFieldValue(section, parseMenu.getTagDescription()));
-                LOG.info("** Ok");
-                LOG.info("**");
-                LOG.info("** GET THE IMAGE ...");
-                String imageUrl = AppUtils.getFieldValue(section, parseMenu.getTagImageUrl());
-                LOG.info("** Ok");
-                LOG.info("**");
-                menuEntity.setImageUrl(parseMenu.getPrefixUrl() != null ? parseMenu.getPrefixUrl() + imageUrl : imageUrl);
-                // wsp One
-                LOG.info("** GET WSP - 1 (Weight, Size, Price)  ...");
-                WeightSizePrice wspOne = getWSP(section, parseMenu.getTagWeightOne(),
-                        parseMenu.getTagSizeOne(), parseMenu.getTagPriceOne());
-                menuEntity.setWeightOne(wspOne.getWeight());
-                menuEntity.setSizeOne(wspOne.getSize());
-                menuEntity.setPriceOne(wspOne.getPrice());
-                LOG.info("** Ok");
-                LOG.info("**");
-
-                // wsp Two
-                LOG.info("** GET WSP - 2  ...");
-                WeightSizePrice wspTwo = getWSP(section, parseMenu.getTagWeightTwo(),
-                        parseMenu.getTagSizeTwo(), parseMenu.getTagPriceTwo());
-                menuEntity.setWeightTwo(wspTwo.getWeight());
-                menuEntity.setSizeTwo(wspTwo.getSize());
-                menuEntity.setPriceTwo(wspTwo.getPrice());
-                LOG.info("** Ok");
-                LOG.info("**");
-
-                // wsp Three
-                LOG.info("** GET WSP - 3  ...");
-                WeightSizePrice wspThree = getWSP(section, parseMenu.getTagWeightThree(),
-                        parseMenu.getTagSizeThree(), parseMenu.getTagPriceThree());
-                menuEntity.setWeightThree(wspThree.getWeight());
-                menuEntity.setSizeThree(wspThree.getSize());
-                menuEntity.setPriceThree(wspThree.getPrice());
-                LOG.info("** Ok");
-                LOG.info("**");
-                // wsp Four
-                LOG.info("** GET WSP - 4  ...");
-                WeightSizePrice wspFour = getWSP(section, parseMenu.getTagWeightFour(),
-                        parseMenu.getTagSizeFour(), parseMenu.getTagPriceFour());
-                menuEntity.setWeightFour(wspFour.getWeight());
-                menuEntity.setSizeFour(wspFour.getSize());
-                menuEntity.setPriceFour(wspFour.getPrice());
-                LOG.info("** Ok");
-                LOG.info("**");
-                menuEntities.add(menuEntity);
-                count++;
+            } catch (Exception e) {
+                LOG.error("** EXCEPTION: " + e.getMessage());
+                LOG.error("** STACK TRACE: " + e.getMessage());
+                StringBuilder st = new StringBuilder();
+                for (int i = e.getStackTrace().length - 2; i < e.getStackTrace().length; i++) {
+                    st.append("METHOD '" + e.getStackTrace()[i].getMethodName() + "',LINE NUMBER [" + e.getStackTrace()[i].getLineNumber() + "]; ");
+                }
+                LOG.error("** " + st.toString());
+                parseMenu.setBroken(true);
+                parseResult.setMessage(e.getMessage());
+                parseResult.setStackTrace(st.toString());
             }
-        } catch (Exception e) {
-            LOG.error("** EXCEPTION: "+e.getMessage() );
-            LOG.error("** STACK TRACE: "+e.getMessage() );
-            StringBuilder st = new StringBuilder();
-            for( StackTraceElement str: e.getStackTrace() ){
-                st.append("METHOD '"+str.getMethodName()+"',LINE NUMBER ["+str.getLineNumber()+"]; ");
-            }
-            LOG.error("** "+st.toString() );
-            parseMenu.setBroken( true );
-            parseMenu.setErrorMsg( e.getMessage() );
         }
+
         CompanyMenu companyMenu = new CompanyMenu();
-        parseMenu.setHtmlResponse( sb.toString() );
+        parseMenu.setParseResult(parseResult);
+        parseMenu.setHtmlResponse(sb.toString());
         companyMenu.setParseMenu(parseMenu);
         companyMenu.setMenuEntities(parseMenu.isBroken() ? null : menuEntities);
-        LOG.info("**" );
-        LOG.info("** FINISH TEST" );
-        LOG.info("*************************" );
+        LOG.info("**");
+        LOG.info("** FINISH TEST");
+        LOG.info("*************************");
         return companyMenu;
     }
 
@@ -351,7 +377,7 @@ public class ParseServiceImpl implements ParseService {
             Integer entityPrice = 0;
             try {
                 String price = AppUtils.getFieldValue(section, tagPrice).replaceAll(" ", "");
-                LOG.info("** PRICE: "+price);
+                LOG.info("** PRICE: " + price);
                 entityPrice = Integer.valueOf(price);
             } catch (Exception e) {
                 return wsp;
@@ -359,13 +385,21 @@ public class ParseServiceImpl implements ParseService {
             wsp.setPrice(entityPrice);
             if (tagWeight != null) {
                 String weight = AppUtils.getFieldValue(section, tagWeight);
-                LOG.info("** WEIGHT: "+weight);
-                wsp.setWeight( weight );
+                if (weight != null) {
+                    weight = weight.toLowerCase().replace("гр.", "").replace("г.", "").replace("г", "").replace(".", "");
+                    weight = weight + " гр.";
+                }
+                LOG.info("** WEIGHT: " + weight);
+                wsp.setWeight(weight);
             }
             if (tagSize != null) {
                 String size = AppUtils.getFieldValue(section, tagSize);
-                LOG.info("** SIZE: "+size);
-                wsp.setSize( size );
+                if (size != null) {
+                    size = size.toLowerCase().replace("см.", "").replace("см", "").replace("с", "").replace(".", "");
+                    size = size + " см.";
+                }
+                LOG.info("** SIZE: " + size);
+                wsp.setSize(size);
             }
         }
         return wsp;
@@ -385,14 +419,14 @@ public class ParseServiceImpl implements ParseService {
 
     @Override
     public ParseMenuModel copyParseData(CopyParseData copyParseData) throws BusinessLogicException {
-        ParseMenuModel targetMenuModel =  null;
+        ParseMenuModel targetMenuModel = null;
         try {
-            ParseMenu sourceMenu = parseRepository.findParseMenuByCompanyIdAndTypeIdAndCategoryId( copyParseData.getCompanyId(),
-                    copyParseData.getFromMenuTypeId(), copyParseData.getFromMenuCategoryId() );
-            ParseMenu targetMenu = parseRepository.findParseMenuByCompanyIdAndTypeIdAndCategoryId( copyParseData.getCompanyId(),
-                    copyParseData.getToMenuTypeId(), copyParseData.getToMenuCategoryId() );
+            ParseMenu sourceMenu = parseRepository.findParseMenuByCompanyIdAndTypeIdAndCategoryId(copyParseData.getCompanyId(),
+                    copyParseData.getFromMenuTypeId(), copyParseData.getFromMenuCategoryId());
+            ParseMenu targetMenu = parseRepository.findParseMenuByCompanyIdAndTypeIdAndCategoryId(copyParseData.getCompanyId(),
+                    copyParseData.getToMenuTypeId(), copyParseData.getToMenuCategoryId());
 
-            targetMenu.setPrefixUrl( sourceMenu.getPrefixUrl() );
+            targetMenu.setPrefixUrl(sourceMenu.getPrefixUrl());
             targetMenu.setTagTrash(sourceMenu.getTagTrash());
             targetMenu.setTagEndSection(sourceMenu.getTagEndSection());
             targetMenu.setTagName(sourceMenu.getTagName());
@@ -412,13 +446,13 @@ public class ParseServiceImpl implements ParseService {
             targetMenu.setTagPriceFour(sourceMenu.getTagPriceFour());
             targetMenu.setProcessed(sourceMenu.getProcessed());
 
-            parseRepository.save( targetMenu );
-            targetMenuModel = convertUtils.convertParseMenuToModel(targetMenu );
+            parseRepository.save(targetMenu);
+            targetMenuModel = convertUtils.convertParseMenuToModel(targetMenu);
 
         } catch (Exception e) {
             throw new BusinessLogicException(e.getMessage());
         }
         return targetMenuModel;
     }
-    
+
 }

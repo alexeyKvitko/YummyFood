@@ -134,7 +134,6 @@ public class ConvertUtils {
         menuEntityModel.setWeightFour( menuEntity.getWeightFour() );
         menuEntityModel.setSizeFour( menuEntity.getSizeFour() );
         menuEntityModel.setPriceFour( menuEntity.getPriceFour() );
-        menuEntityModel.setStatus( menuEntity.getStatus() );
         return menuEntityModel;
     }
 

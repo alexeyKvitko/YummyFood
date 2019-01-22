@@ -14,6 +14,7 @@ export class TabContentComponent implements OnInit {
   @Input()
   tabTitle: string = 'tab title';
 
+
   @Input()
   active: boolean = false;
 

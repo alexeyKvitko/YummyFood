@@ -5,7 +5,7 @@ import { menuService } from '../../services/menu.service';
 import {TOP_MENU} from "./top-menu";
 import {DictionaryModel} from "../../../model/dictionary.model";
 import {CompanyService} from "../../../services/company.service";
-import {animate, query, stagger, state, style, transition, trigger} from "@angular/animations";
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'pages-top',

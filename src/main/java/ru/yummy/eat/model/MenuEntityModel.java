@@ -27,7 +27,6 @@ public class MenuEntityModel implements Serializable {
     private String weightFour;
     private String sizeFour;
     private Integer priceFour;
-    private String status;
 
     public Integer getId() {
         return id;
@@ -187,14 +186,6 @@ public class MenuEntityModel implements Serializable {
 
     public void setPriceFour(Integer priceFour) {
         this.priceFour = priceFour;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     @Override public boolean equals(Object o) {
