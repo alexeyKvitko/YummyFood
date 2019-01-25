@@ -17,7 +17,9 @@ export class CompanyEntityComponent implements OnInit {
   selSize: string;
   selPrice: string;
   defaultImg: string = "assets/images/no-photo.png";
-  wspType : string = "One";
+  wspType: string = "One";
+  priceCount: number;
+  hoverClass: string = "not-hover";
 
   constructor(private  globalService : GlobalService, private companyService: CompanyService) {
   }
@@ -26,6 +28,10 @@ export class CompanyEntityComponent implements OnInit {
     this.selWeight = this.menuEntity.weightOne;
     this.selSize = this.menuEntity.sizeOne;
     this.selPrice = this.menuEntity.priceOne;
+    this.priceCount = (this.menuEntity.priceOne != null ? 1 : 0) +
+                      (this.menuEntity.priceTwo != null ? 1 : 0) +
+                      (this.menuEntity.priceThree != null ? 1 : 0) +
+                      (this.menuEntity.priceFour != null ? 1 : 0);
     if( this.menuEntity.imageUrl == null ){
       this.menuEntity.imageUrl = this.defaultImg;
     }
@@ -78,6 +84,32 @@ export class CompanyEntityComponent implements OnInit {
     this.globalService.addEntityToBasket( this.menuEntity );
     this.globalService.dataBusChanged("add-to-basket","update");
     this.companyService.addCompanyToBasket( this.menuEntity.companyId );
+  }
+
+  footerMouseOver(){
+    switch ( this.priceCount ) {
+      case 1 :{
+          this.hoverClass = "hover-one";
+        break;
+      }
+      case 2 :{
+        this.hoverClass = "hover-two";
+        break;
+      }
+      case 3 :{
+        this.hoverClass = "hover-three";
+        break;
+      }
+      case 4 :{
+        this.hoverClass = "hover-four";
+        break;
+      }
+    }
+
+  }
+
+  footerMouseLeave(){
+    this.hoverClass = "not-hover";
   }
 
 }

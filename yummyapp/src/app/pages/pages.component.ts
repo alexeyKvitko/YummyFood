@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { GlobalService } from '../shared/services/global.service';
-import {pageRouteAnimation} from "./page-animation";
 import {DeliveryMenuService} from "../services/delivery-menu.service";
 import {CompanyService} from "../services/company.service";
 import {LoginService} from "../services/login.service";
@@ -22,7 +21,7 @@ export class PagesComponent {
 
   public init(){
     this.loginService.getIP().subscribe(data => {
-      if( data.city == null || data.city == undefined ){
+      if( data.city == null || data.city == undefined || data.city.trim().length == 0){
         data.city = 'Simferopol'
       }
       this.companyService.initBootstrapApp( data.city );

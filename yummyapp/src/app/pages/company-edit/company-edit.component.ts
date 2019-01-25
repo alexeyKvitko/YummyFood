@@ -11,6 +11,7 @@ import {WORK_DAY_START} from "./const-workdaystart";
 import {WORK_DAY_END} from "./const-workdayend";
 import swal from "sweetalert2";
 import {Router} from "@angular/router";
+import {validate} from "codelyzer/walkerFactory/walkerFn";
 
 @Component({
   selector: 'app-company-edit',
@@ -47,7 +48,6 @@ export class CompanyEditComponent implements OnInit {
   ngOnInit() {
     this.companyService.getCompanyEdit(this.companyId).subscribe(data => {
       this.deliveryCity = this.companyService.getDeliveryCity();
-      console.log("EDIT DATA", data);
       this.updateCompanyEdit(data);
       this.initForm();
       this.logoImgSrc = 'assets/images/logos/' + this.companyEdit.companyModel.logo;
@@ -182,7 +182,7 @@ export class CompanyEditComponent implements OnInit {
 
   saveCompanyModel() {
     let companyModel = new CompanyModel();
-    companyModel.id = this.companyForm.get('id').value;
+    companyModel.id = this.companyId;
     companyModel.companyName = this.companyForm.get('companyName').value;
     companyModel.displayName = this.companyForm.get('displayName').value;
     let cityVal = this.companyForm.get('city').value;
@@ -211,12 +211,86 @@ export class CompanyEditComponent implements OnInit {
     companyModel.dayoffStart = this.getWorkStartValueByDisplayVal(this.companyForm.get('dayOffStart').value );
     companyModel.dayoffEnd = this.getWorkEndValueByDisplayVal( this.companyForm.get('dayOffEnd').value );
     companyModel.dayoffWork = this.companyForm.get('dayOffByStr').value;
+    if ( this.validateCompanyModel( companyModel ) != null ){
+      return;
+    }
     this.companyService.saveCompanyModelAndInfo( companyModel ).subscribe(data => {
       if (data.status == 200) {
         this.updateCompanyEdit(data.result);
       }
       this.showHttpActionMessage(data);
     });
+  }
+
+  validateCompanyModel( companyModel : CompanyModel ) : string{
+    let result = "";
+    if ( companyModel.companyName == null ||  companyModel.companyName.trim().length == 0 ){
+      result = result + "Ключ компании; ";
+    }
+    if ( companyModel.displayName == null ||  companyModel.displayName.trim().length == 0 ){
+      result = result + "Наименование компании; ";
+    }
+    if ( companyModel.url == null ||  companyModel.url.trim().length == 0 ){
+      result = result + "Сайт компании; ";
+    }
+    if ( companyModel.phoneOne == null ||  companyModel.phoneOne.trim().length == 0 ){
+      result = result + "Телефон; ";
+    }
+    if ( companyModel.delivery == null ||  companyModel.delivery.trim().length == 0 ){
+      result = result + "Минимальная доставка; ";
+    }
+    if ( companyModel.commentCount == null ||  companyModel.commentCount.trim().length == 0 ){
+      result = result + "Кол-во отзывов; ";
+    }
+
+    if ( companyModel.weekdayStart == null){
+      result = result + "Начало работы будни; ";
+    }
+    if ( companyModel.weekdayEnd == null){
+      result = result + "Окончание работы будни; ";
+    }
+    if ( companyModel.weekdayWork == null ||  companyModel.weekdayWork.trim().length == 0 ){
+      result = result + "Работа будни строкой; ";
+    }
+    if ( companyModel.dayoffStart == null){
+      result = result + "Начало работы выxодные; ";
+    }
+    if ( companyModel.dayoffEnd == null){
+      result = result + "Окончание работы выxодные; ";
+    }
+    if ( companyModel.dayoffWork == null ||  companyModel.dayoffWork.trim().length == 0 ){
+      result = result + "Работа выходные строкой; ";
+    }
+    if ( result.length == 0 ) {
+      result = null;
+    }
+    if ( result != null ){
+      swal({
+        type: 'error',
+        title: 'Не заполнены обязательные поля !',
+        text: result
+      });
+    }
+    let reg = /^-?\d+\.?\d*$/;
+    if ( result == null && ( !reg.test(companyModel.commentCount)
+    || !reg.test(companyModel.phoneOne)) ){
+      result = "Кол-во отзывов или телефон";
+      swal({
+        type: 'error',
+        title: 'Должно быть числом!',
+        text: "Кол-во отзывов: "+companyModel.commentCount+", Телефон: "+companyModel.phoneOne
+      });
+    }
+    if ( result == null && companyModel.phoneOne.trim().length != 10 ){
+      result = "Телефон";
+      swal({
+        type: 'error',
+        title: 'Длина телефонного номера должна быть равна 10',
+        text: "Получили: "+companyModel.phoneOne.trim().length
+      });
+    }
+
+    return result;
   }
 
   deleteMenu(menuType, menuCategory) {
@@ -276,6 +350,7 @@ export class CompanyEditComponent implements OnInit {
   updateCompanyEdit(data) {
     this.companyEdit = data;
     this.companyModel = data.companyModel;
+    this.companyId = this.companyModel.id;
     if ( this.companyId != '-1' ){
       this.companyEdit.companyModel.city.displayName = this.companyEdit.companyModel.city.name;
     } else {
@@ -452,7 +527,12 @@ export class CompanyEditComponent implements OnInit {
   }
 
   backToDetails(){
-    this.router.navigate(['pages/company-detail']);
+    if ( this.companyId == '-1'){
+      this.router.navigate(['pages/company']);
+    } else {
+      this.router.navigate(['pages/company-detail']);
+    }
+
   }
 
   editMenu(){

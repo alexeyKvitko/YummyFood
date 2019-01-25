@@ -1,0 +1,23 @@
+<div class="row>">
+  <div class="up-icon up-icon-top" (click)="moveToTop()" [style.opacity]="toUpIconOpacity">
+    <i class="fas fa-angle-double-up" aria-hidden="true"></i>
+  </div>
+  <div class="basket-scr" (scroll)="onScrollDiv($event)">
+    <section class="basket">
+      <div id="top" class="basket-title">
+        <p>Крымская Служба Заказа Еды</p>
+        <p>Ваш Заказ</p>
+      </div>
+      <div class="basket-wrapper">
+        <div class="basket-body">
+          <div class="basket-info">
+            <div class="basket-info-container">
+              <h2>КОРЗИНА</h2>
+              <p>Сумма заказа:{{basketprice}}р.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

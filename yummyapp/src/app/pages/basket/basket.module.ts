@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { routing } from './company.routing';
+import { routing } from './basket.routing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
-import { CompanyComponent } from './company.component';
+import { BasketComponent } from './basket.component';
 
 @NgModule({
   imports: [
@@ -14,7 +14,7 @@ import { CompanyComponent } from './company.component';
     routing
   ],
   declarations: [
-    CompanyComponent
+    BasketComponent
   ]
 })
-export class CompanyModule { }
+export class BasketModule { }

@@ -12,9 +12,9 @@ import java.util.List;
 public interface MenuTypeRepository extends CrudRepository<MenuType,Integer> {
 
     @Query("SELECT DISTINCT mt FROM MenuType mt INNER JOIN MenuItem mi " +
-                    "ON mi.typeId = mt.id and  mi.companyId = :companyId group by mi.typeId order by mt.displayOrder")
-    List<MenuType> findTypesByCompanyId(@Param("companyId") Integer companyId);
+                    "ON mi.typeId = mt.id and  mi.companyId = :companyId group by mi.typeId order by mt.displayName")
+    List<MenuType> findTypesByCompanyIdOrderByDisplayName(@Param("companyId") Integer companyId);
 
-    List<MenuType> findAllByOrderByDisplayOrder();
+    List<MenuType> findAllByOrderByDisplayName();
 
 }

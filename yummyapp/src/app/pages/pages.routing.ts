@@ -17,6 +17,7 @@ export const childRoutes: Routes = [
     children: [
       { path: 'home-page', loadChildren: './home-page/home-page.module#HomePageModule'},
       { path: 'company', loadChildren: './company/company.module#CompanyModule'},
+      { path: 'basket', loadChildren: './basket/basket.module#BasketModule'},
       { path: 'delivery-menu', loadChildren: './delivery-menu/delivery-menu.module#DeliveryMenuModule' },
       { path: 'company-edit', loadChildren: './company-edit/company-edit.module#CompanyEditModule' },
       { path: 'company-info', loadChildren: './company-info/company-info.module#CompanyInfoModule' },

@@ -77,9 +77,25 @@
       }
     }
   }
+  .hover-four{
+    top:20%;
+  }
+  .hover-three{
+    top:30%;
+  }
+  .hover-two{
+    top:40%;
+  }
+  .hover-one{
+    top:65%;
+  }
+  .not-hover{
+    top:83%;
+  }
+
   .company-entity-footer{
     position: absolute;
-    top:83%;
+
     margin-left: -8px!important;
     display: flex;
     flex-direction: column;
@@ -99,7 +115,7 @@
     &:hover{
       cursor: pointer;
       background-color: rgba($green-bg,0.95);
-      top:16%;
+
     }
     .entity-choose{
       background-color: rgba($dark-green,0.1);

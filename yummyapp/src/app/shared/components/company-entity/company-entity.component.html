@@ -8,7 +8,8 @@
     <h2>{{menuEntity.displayName}}</h2>
     <p>{{menuEntity.description}}</p>
   </div>
-  <div class="company-entity-footer">
+  <div class="company-entity-footer" [ngClass]="hoverClass"
+       (mouseover)="footerMouseOver()" (mouseleave)="footerMouseLeave()">
     <div class="entity-footer-price">
       <div class="wsp-small">
         <p>{{selWeight}}</p>
@@ -32,7 +33,7 @@
       <div class="entity-footer-price entity-selecting" (click)="selectPrice('One')"
            [ngClass]="{'entity-select':menuEntity.priceOne == selPrice}" *ngIf="isHidden(menuEntity.priceOne)">
         <div class="wsp-small">
-          <p>{{menuEntity.weightOne}}&nbsp;гр.</p>
+          <p>{{menuEntity.weightOne}}</p>
         </div>
         <div class="wsp-small">
           <p>{{menuEntity.sizeOne}}</p>
@@ -46,7 +47,7 @@
            [ngClass]="{'entity-select':menuEntity.priceTwo == selPrice}"
            *ngIf="isHidden(menuEntity.priceTwo)">
         <div class="wsp-small">
-          <p>{{menuEntity.weightTwo}}&nbsp;гр.</p>
+          <p>{{menuEntity.weightTwo}}</p>
         </div>
         <div class="wsp-small">
           <p>{{menuEntity.sizeTwo}}</p>
@@ -60,7 +61,7 @@
            [ngClass]="{'entity-select':menuEntity.priceThree == selPrice}"
            *ngIf="isHidden(menuEntity.priceThree)">
         <div class="wsp-small">
-          <p>{{menuEntity.weightThree}}&nbsp;гр.</p>
+          <p>{{menuEntity.weightThree}}</p>
         </div>
         <div class="wsp-small">
           <p>{{menuEntity.sizeThree}}</p>
@@ -74,7 +75,7 @@
            [ngClass]="{'entity-select':menuEntity.priceFour == selPrice}"
            *ngIf="isHidden(menuEntity.priceFour)">
         <div class="wsp-small">
-          <p>{{menuEntity.weightFour}}&nbsp;гр.</p>
+          <p>{{menuEntity.weightFour}}</p>
         </div>
         <div class="wsp-small">
           <p>{{menuEntity.sizeFour}}</p>

@@ -1,11 +1,13 @@
 @import '../../theme/conf';
-.city-menu{
+
+.city-menu {
   position: fixed;
   z-index: 9;
   border: 1px solid red;
 }
+
 .first_header {
-  background: rgba($primary-color-light,0.95);
+  background: rgba($primary-color-light, 0.95);
   overflow: hidden;
   position: absolute;
   height: 24px;
@@ -26,26 +28,26 @@
     transition: all 400ms linear 0s;
     text-decoration: none;
     margin-right: 20px;
-    &:hover{
+    &:hover {
       color: #b10400;
     }
   }
-  .map{
+  .map {
     margin-right: 25px;
     color: $bright-coral;
     border-bottom: 1px dotted $bright-coral;
-    span{
+    span {
       padding-left: 6px;
-      &:hover{
+      &:hover {
         color: #b10400;
       }
     }
-    .down{
+    .down {
       margin-left: 3px;
       font-size: 14px;
       color: $primary-text-color
     }
-    &:hover{
+    &:hover {
       cursor: pointer;
       border-bottom: none;
     }
@@ -154,7 +156,6 @@
   }
 }
 
-
 @media (max-width: 1440px) {
   .menu-wrap {
     width: 210px;
@@ -169,7 +170,7 @@
     top: 50px;
   }
   .main_menu_area {
-    .container{
+    .container {
       height: 60px;
       line-height: 70px;
     }
@@ -179,7 +180,7 @@
 
 //MAIN MENU
 .main_menu_area {
-  background: rgba($green-bg,0.95);
+  background: rgba($green-bg, 0.95);
   //background: url("../../../../assets/images/header-bg-green.jpg") no-repeat fixed top center;
   position: absolute;
   width: 100%;
@@ -188,7 +189,7 @@
   z-index: 8;
   box-shadow: 0px 2px 7px #000; /*rgb(139, 195, 74)*/
   display: inline-flex;
-  .container{
+  .container {
     font-family: "Roboto", serif;
     font-size: 14px;
     letter-spacing: .42px;
@@ -202,79 +203,80 @@
     flex-direction: row;
     transition: all 400ms linear 0s;
     position: relative;
-    .menu-active{
-      color:  $primary-color-light;
+    .menu-active {
+      color: $primary-color-light;
       text-shadow: 1px 1px 1px $teal-color;
     }
-    .left-part{
+    .left-part {
     }
-    .right-part{
+    .right-part {
       display: flex;
       flex-direction: row;
       padding-left: 7%;
-      .menu-hidden{
+      .menu-hidden {
         visibility: hidden;
-        width: 0px!important;
+        width: 0px !important;
       }
-      .head-menu-item{
+      .head-menu-item {
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        width:120px;
+        width: 120px;
         height: 100%;
         line-height: 48px;
 
-        .head-menu-text{
+        .head-menu-text {
           transition: all 400ms linear 0s;
-          &:hover{
+          &:hover {
             color: $primary-color-text;
             transition: all 400ms linear 0s;
             cursor: pointer;
           }
         }
-        .head-menu-icon{
+        .head-menu-icon {
+          margin-left: -60px;
           position: relative;
           text-align: center;
           transition: all 400ms linear 0s;
           color: $white;
-          img{
-            width: 64px;
-            height: 64px;
+          img {
+            width: 64px !important;
+            height: 64px !important;
           }
-          .centered{
-            position: absolute;
-            top: 70%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-weight: 600;
-            font-family: Roboto;
-            font-size: 12px;
-            .icon{
-              font-size: 12px;
-            }
-          }
-          &:hover{
+          &:hover {
             cursor: pointer;
-            box-shadow: 0px 2px 7px #000;
+            color:$bright-coral;
           }
         }
-        .icon-hover{
-          margin-left: -96px;
-          img{
+        .centered {
+          position: absolute;
+          top: 70%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-weight: 400;
+          font-family: Roboto;
+          font-size: 11px;
+          .icon {
+            font-size: 11px;
+          }
+
+        }
+        .icon-hover {
+          margin-left: -30px;
+          position: absolute;
+          img {
             border: 1px solid transparent;
             border-radius: 30px;
-            @include box-shadow( 0 3px 10px 2px rgba($teal-color, .7));
-            width: 128px;
-            height: 128px;
+            @include box-shadow(0 3px 10px 2px rgba($teal-color, .7));
+            width: 180px;
+            height: 180px;
           }
         }
       }
     }
   }
 }
-
-
 
 .main_menu_area .navbar.navbar-default .navbar-collapse .nav.navbar-nav li a i {
   padding-left: 3px;

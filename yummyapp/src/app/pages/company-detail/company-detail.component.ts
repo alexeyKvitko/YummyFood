@@ -48,7 +48,7 @@ export class CompanyDetailComponent implements OnInit {
     this.userRole = window.localStorage.getItem('userrole');
   }
 
-    returnToChoice(){
+  returnToChoice(){
     let link = 'pages/company';
     this._globalService.dataBusChanged('selected-link', link);
     this.router.navigate([link]);

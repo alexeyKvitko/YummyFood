@@ -35,8 +35,8 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public DeliveryMenu getAllMenus() {
         DeliveryMenu deliveryMenu =  new DeliveryMenu();
-        List<MenuType> menuTypes = (List<MenuType>) menuTypeRepo.findAllByOrderByDisplayOrder();
-        List<MenuCategory> menuCategories = (List<MenuCategory>) menuCategoryRepo.findAllByOrderByDisplayOrder();
+        List<MenuType> menuTypes = (List<MenuType>) menuTypeRepo.findAllByOrderByDisplayName();
+        List<MenuCategory> menuCategories = (List<MenuCategory>) menuCategoryRepo.findAllByOrderByDisplayName();
         deliveryMenu.setMenuTypes( convertUtils.convertMenuTypesToModelList( menuTypes ) );
         deliveryMenu.setMenuCategories( convertUtils.convertMenuCategoriesToModelList( menuCategories ) );
         return deliveryMenu;

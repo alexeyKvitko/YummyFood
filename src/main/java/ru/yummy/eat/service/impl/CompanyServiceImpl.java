@@ -65,11 +65,11 @@ public class CompanyServiceImpl {
             return companyInfo;
         }
         company = convertUtils.convertCompanyToModel(companyRepo.findById(companyId).get());
-        List<MenuType> menuTypes = menuTypeRepo.findTypesByCompanyId(Integer.valueOf(companyId));
+        List<MenuType> menuTypes = menuTypeRepo.findTypesByCompanyIdOrderByDisplayName(Integer.valueOf(companyId));
         for (MenuType menuType : menuTypes) {
             MenuTypeModel menuTypeModel = convertUtils.convertMenuTypeToModel(menuType);
             List<MenuCategoryModel> menuCategoryModels = new ArrayList<>();
-            List<MenuCategory> categories = menuCategoryRepo.findCategoriesByCompanyAndTypeId(Integer.valueOf(companyId),
+            List<MenuCategory> categories = menuCategoryRepo.findCategoriesByCompanyAndTypeIdOrderByDisplayName(Integer.valueOf(companyId),
                     menuType.getId());
             for (MenuCategory category : categories) {
                 menuCategoryModels.add(convertUtils.convertMenuCategoryToModel(category, menuType.getId()));
@@ -89,8 +89,8 @@ public class CompanyServiceImpl {
         CompanyInfo companyInfo = getCompanyInfo( companyId );
         companyEdit.setCompanyModel( companyInfo.getCompanyModel() );
         companyEdit.setMenuTypes( companyInfo.getMenuTypes() );
-        companyEdit.setDeliveryMenuTypes( convertUtils.convertMenuTypesToModelList( (List<MenuType>) menuTypeRepo.findAll() ) );
-        companyEdit.setDeliveryMenuCategories( convertUtils.convertMenuCategoriesToModelList( (List<MenuCategory>) menuCategoryRepo.findAll() ) );
+        companyEdit.setDeliveryMenuTypes( convertUtils.convertMenuTypesToModelList( (List<MenuType>) menuTypeRepo.findAllByOrderByDisplayName() ) );
+        companyEdit.setDeliveryMenuCategories( convertUtils.convertMenuCategoriesToModelList( (List<MenuCategory>) menuCategoryRepo.findAllByOrderByDisplayName() ) );
         companyEdit.setCities( convertUtils.convertCitiesToModelList( cityRepo.findAllByRegionIdOrderByName( AppConstants.CRIMEA_REGION ) ) );
         return companyEdit;
     }

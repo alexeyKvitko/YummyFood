@@ -7,6 +7,7 @@ import {DictionaryModel} from "../../../model/dictionary.model";
 import {CompanyService} from "../../../services/company.service";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 
+
 @Component({
   selector: 'pages-top',
   templateUrl: './pages-top.component.html',
@@ -25,7 +26,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
         opacity:'1',
       })),
       transition('final=>initial', [
-        animate('600ms ease-out', style({ transform: 'scale3d(.0, .0, .0)' }))
+        animate('800ms ease-out', style({ transform: 'scale3d(.0, .0, .0)' }))
       ])
     ]
     ),
@@ -78,6 +79,7 @@ export class PagesTopComponent implements OnInit{
   ngOnInit() {
     this.selectedLink = null;
     this.routeToLink( this.topMenus[0].link );
+
   }
 
   public routeToLink(link) {
@@ -100,6 +102,10 @@ export class PagesTopComponent implements OnInit{
     this.basketState = 'final';
     this.basketPrice = this._globalService.getBasketPrice();
     this.basketEntityImage = this._globalService.getEntityImg();
+  }
+
+  showBasket(){
+    this.router.navigate(['pages/basket']);
   }
 
   onAnimationEvent(event){

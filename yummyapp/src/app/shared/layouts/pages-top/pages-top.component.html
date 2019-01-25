@@ -7,7 +7,7 @@
 </div>
 <div class="first_header">
   <div class="col-md-4 container">
-      <a href="#" class="header-left"><i class="fa fa-phone icon"></i>+7 (978) 123 3456</a>
+      <a href="#" class="header-left"><i class="fa fa-phone icon"></i>+7 (978) 1000 651</a>
       <a href="#" class="header-left"><i class="far fa-envelope icon"></i>delivery@yummy-eat.ru</a>
   </div>
     <div class="col-md-4 container">
@@ -29,9 +29,9 @@
            [ngClass]="{'menu-active':menu.link === selectedLink}" (click)="routeToLink(menu.link)">
         <span class="head-menu-text">{{menu.label}}</span>
       </div>
-      <div class="head-menu-item" >
-        <div class="head-menu-icon" *ngIf="basketPrice > 0">
-           <img src="assets/images/icons/in-basket-rub.png" >
+      <div class="head-menu-item" (click)="showBasket()">
+        <div class="head-menu-icon" *ngIf="basketPrice > -10">
+           <img src="assets/images/icons/in-basket-rur.png" >
            <div class="centered">{{basketPrice}}&nbsp;р.</div>
         </div>
         <div [@animateBasket]='basketState' class="head-menu-icon icon-hover" *ngIf="basketPrice > 0"

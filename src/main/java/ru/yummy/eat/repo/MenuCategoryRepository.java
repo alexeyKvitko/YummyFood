@@ -10,8 +10,8 @@ import java.util.List;
 public interface MenuCategoryRepository extends CrudRepository<MenuCategory, Integer> {
 
     @Query("SELECT DISTINCT mc from MenuCategory mc " +
-            "INNER JOIN MenuItem mi on mi.categoryId = mc.id and mi.companyId = :companyId and mi.typeId = :typeId order by mc.displayOrder")
-    List<MenuCategory> findCategoriesByCompanyAndTypeId(@Param("companyId") Integer companyId,@Param("typeId") Integer typeId );
+            "INNER JOIN MenuItem mi on mi.categoryId = mc.id and mi.companyId = :companyId and mi.typeId = :typeId order by mc.displayName")
+    List<MenuCategory> findCategoriesByCompanyAndTypeIdOrderByDisplayName(@Param("companyId") Integer companyId,@Param("typeId") Integer typeId );
 
-    List<MenuCategory> findAllByOrderByDisplayOrder();
+    List<MenuCategory> findAllByOrderByDisplayName();
 }
