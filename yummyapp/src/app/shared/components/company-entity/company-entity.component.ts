@@ -20,6 +20,7 @@ export class CompanyEntityComponent implements OnInit {
   wspType: string = "One";
   priceCount: number;
   hoverClass: string = "not-hover";
+  shakeLabel: string ="";
 
   constructor(private  globalService : GlobalService, private companyService: CompanyService) {
   }
@@ -87,6 +88,7 @@ export class CompanyEntityComponent implements OnInit {
   }
 
   footerMouseOver(){
+    this.shakeLabel="shake shake-delay";
     switch ( this.priceCount ) {
       case 1 :{
           this.hoverClass = "hover-one";
@@ -110,6 +112,7 @@ export class CompanyEntityComponent implements OnInit {
 
   footerMouseLeave(){
     this.hoverClass = "not-hover";
+    this.shakeLabel = "";
   }
 
 }

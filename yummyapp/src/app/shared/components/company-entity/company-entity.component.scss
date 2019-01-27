@@ -95,7 +95,6 @@
 
   .company-entity-footer{
     position: absolute;
-
     margin-left: -8px!important;
     display: flex;
     flex-direction: column;
@@ -115,6 +114,9 @@
     &:hover{
       cursor: pointer;
       background-color: rgba($green-bg,0.95);
+      .wsp-medium{
+        @include prefixed(transform, scale(.9));
+      }
 
     }
     .entity-choose{
@@ -137,7 +139,7 @@
         margin-left: 4px;
         text-align: center;
         color: $menu-text;
-        font-family: 'Roboto'!important;
+        font-family: 'Roboto';
         font-size: 14px;
       }
       background-color: $white;
@@ -162,6 +164,8 @@
       }
       .wsp-medium{
         text-align: center;
+        font-family: 'Roboto';
+        @include shrink();
         width: 40%;
         text-align: right;
         padding-right: 8px;
@@ -222,9 +226,9 @@
       }
     }
     span{
-      font-family: Sandora;
-      color: $bright-coral;
-      font-size: 24px;
+      font-family: B52;
+      color: $white;
+      font-size: 28px;
       font-weight: 500;
       .icon{
         font-size: 20px;
