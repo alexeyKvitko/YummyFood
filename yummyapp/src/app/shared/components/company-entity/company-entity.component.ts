@@ -2,6 +2,7 @@ import {Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angula
 import {MenuEntityModel} from "../../../model/menu-entity.model";
 import {GlobalService} from "../../services/global.service";
 import {CompanyService} from "../../../services/company.service";
+import swal from "sweetalert2";
 
 @Component({
   selector: 'company-entity',
@@ -20,7 +21,7 @@ export class CompanyEntityComponent implements OnInit {
   wspType: string = "One";
   priceCount: number;
   hoverClass: string = "not-hover";
-  shakeLabel: string ="";
+  animateColor: string ="";
 
   constructor(private  globalService : GlobalService, private companyService: CompanyService) {
   }
@@ -80,6 +81,10 @@ export class CompanyEntityComponent implements OnInit {
   }
 
   addToBasket(){
+    if ( this.companyService.getNumberOfCompaniesInBasket( this.menuEntity.companyId ) == 3 ){
+      swal("Вы можете сделать заказ максимум в 3-х заведениях ");
+      return;
+    }
     this.menuEntity.wspType = this.wspType;
     this.menuEntity.count ++;
     this.globalService.addEntityToBasket( this.menuEntity );
@@ -88,7 +93,6 @@ export class CompanyEntityComponent implements OnInit {
   }
 
   footerMouseOver(){
-    this.shakeLabel="shake shake-delay";
     switch ( this.priceCount ) {
       case 1 :{
           this.hoverClass = "hover-one";
@@ -112,7 +116,14 @@ export class CompanyEntityComponent implements OnInit {
 
   footerMouseLeave(){
     this.hoverClass = "not-hover";
-    this.shakeLabel = "";
+  }
+
+  addToBasketOver(){
+    this.animateColor="animate-color";
+  }
+
+  addToBasketLeave(){
+    this.animateColor="";
   }
 
 }

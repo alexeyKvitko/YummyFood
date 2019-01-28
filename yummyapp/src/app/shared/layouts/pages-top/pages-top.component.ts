@@ -105,6 +105,7 @@ export class PagesTopComponent implements OnInit{
   }
 
   showBasket(){
+    this.selectedLink = null;
     this.router.navigate(['pages/basket']);
   }
 

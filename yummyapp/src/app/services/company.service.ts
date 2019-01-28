@@ -47,6 +47,16 @@ export class CompanyService {
     });
   }
 
+  public getNumberOfCompaniesInBasket( companyId ){
+    let count = 0;
+    this.bootstrapApp.companies.forEach( company =>{
+      if ( company.isPresentInBasket && company.id != companyId ){
+        count++;
+      }
+    });
+    return count;
+  }
+
   public getCompanyById( companyId ): CompanyModel {
     let companyShort = null;
     this.bootstrapApp.companies.forEach(company => {

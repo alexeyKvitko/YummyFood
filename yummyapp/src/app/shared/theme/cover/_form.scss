@@ -6,6 +6,8 @@
   }
 }
 
+
+
 @mixin placeholderStyle($color, $opacity) {
   &::-webkit-input-placeholder {
     color: $color;

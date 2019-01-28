@@ -61,12 +61,25 @@
         max-height: 24px;
         &:hover {
           cursor: pointer;
-          color: $accent-color;
         }
       }
       .menu-icon {
         color: $primary;
       }
+      .order-icon{
+        margin: 0px 4px;
+        .icon{
+          color: $divider-color;
+          &:hover{
+            color: $bright-coral;
+          }
+        }
+        &:hover {
+          cursor: pointer;
+          color: $accent-color;
+        }
+      }
+
       .delete-icon {
         color: $divider-color;
         margin: 0px 4px;

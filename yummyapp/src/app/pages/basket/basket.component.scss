@@ -47,7 +47,7 @@
       flex-direction: column;
       .basket-info{
         width: 270px;
-        height: 175px;
+        height: 240px;
         margin-left: 20px;
         margin-bottom: 20px;
         border-radius: 3px;
@@ -56,14 +56,31 @@
         @include box-shadow( 0 1px 1px 1px rgba($teal-color, .3));
         .basket-info-container{
           width: 250px;
-          height: 155px;
+          height: 220px;
           padding: 6px;
           background-color: $gray-bkg-color;
-          .h2{
-            margin: 20px 0px 8px 8px;
-            font-family: Sandora;
-            font-size: 24px;
-            font-weight: 600;
+          text-align: center;
+          h2{
+            margin: 4px 0px 8px 8px;
+            font-family: Lobster;
+            color: $dark-green;
+            font-size: 36px;
+            font-weight: 400;
+          }
+          .contacts{
+            border-bottom: 1px dotted $divider-color;
+            padding: 6px 0;
+            p{
+              font-size: 12px;
+              font-weight: 400;
+              color: $teal-color;
+              .icon{
+                font-size: 11px;
+                color: $bright-coral;
+                margin-right: 6px;
+              }
+            }
+              transition: all 400ms linear 0s;
           }
           p{
             color: $gray-text-color;
@@ -77,7 +94,36 @@
                 text-decoration: none;
               }
             }
+          }
+          .price-by-name{
+            height: 18px;
+            margin: 4px 0px;
+            font-size: 14px;
+            &.bordered{
+              border-top:1px dotted $divider-color ;
+              font-size: 16px;
+              font-weight: 600;
+              .span-left{
+                color: $dark-green;
+              }
+              .span-right{
+                color: $dark-green;
+              }
+              margin-top: 8px;
+              padding-top: 8px;
+            }
 
+            .span-left{
+              font-family: Sandora;
+              float: left;
+              color: $bright-coral;
+            }
+            .span-right{
+              font-family: B52;
+              font-weight: 400;
+              color: $teal-color;
+              float: right;
+            }
           }
         }
       }

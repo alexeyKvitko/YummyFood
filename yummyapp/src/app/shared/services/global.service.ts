@@ -42,25 +42,30 @@ export class GlobalService {
     public getBasketPrice(): number{
       let entityPrice = 0;
       this.customerBasket.forEach( menuEntity =>{
-        switch( menuEntity.wspType ){
-          case 'One' :
-            entityPrice = entityPrice + (+menuEntity.priceOne)*menuEntity.count;
-          break;
-          case 'Two' :
-            entityPrice = entityPrice + (+menuEntity.priceTwo)*menuEntity.count;
-            break;
-          case 'Three' :
-            entityPrice = entityPrice + (+menuEntity.priceThree)*menuEntity.count;
-            break;
-          case 'Four' :
-            entityPrice = entityPrice + (+menuEntity.priceFour)*menuEntity.count;
-            break;
-          default:
-          break;
-            
-        }
+        entityPrice += this.calculatePrice( menuEntity );
       });
       return entityPrice;
+    }
+
+    public calculatePrice( menuEntity: MenuEntityModel ){
+      let calc = 0;
+      switch( menuEntity.wspType ){
+        case 'One' :
+          calc = (+menuEntity.priceOne)*menuEntity.count;
+          break;
+        case 'Two' :
+          calc = (+menuEntity.priceTwo)*menuEntity.count;
+          break;
+        case 'Three' :
+          calc = (+menuEntity.priceThree)*menuEntity.count;
+          break;
+        case 'Four' :
+          calc = (+menuEntity.priceFour)*menuEntity.count;
+          break;
+        default:
+          break;
+      }
+      return calc;
     }
 
     public getBasket(){

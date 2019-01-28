@@ -1,4 +1,4 @@
-<div class="logo" [style.opacity]="logoOpacity" >
+<div class="logo" [style.opacity]="logoOpacity">
   <div class="avatar-wrap">
     <div class="avatar">
       <img src="{{avatarImgSrc}}" alt="avatar">
@@ -7,18 +7,18 @@
 </div>
 <div class="first_header">
   <div class="col-md-4 container">
-      <a href="#" class="header-left"><i class="fa fa-phone icon"></i>+7 (978) 1000 651</a>
-      <a href="#" class="header-left"><i class="far fa-envelope icon"></i>delivery@yummy-eat.ru</a>
+    <a href="#" class="header-left"><i class="fa fa-phone icon"></i>+7 (978) 1000 651</a>
+    <a href="#" class="header-left"><i class="far fa-envelope icon"></i>delivery@yummy-eat.ru</a>
   </div>
-    <div class="col-md-4 container">
-      <a class="header-left map" (click)="openCityModal()">
-          <i class="fas fa-map-marker-alt"></i>
-          <span>{{deliveryCity}}</span>
-          <i class="fas fa-caret-down down"></i>
-      </a>
-      <a href="#" class="header-left"><i class="fas fa-pencil-alt icon"></i>Вход</a>
-      <a href="#" class="header-left"><i class="fas fa-sign-in-alt icon"></i>Регистрация</a>
-    </div>
+  <div class="col-md-4 container">
+    <a class="header-left map" (click)="openCityModal()">
+      <i class="fas fa-map-marker-alt"></i>
+      <span>{{deliveryCity}}</span>
+      <i class="fas fa-caret-down down"></i>
+    </a>
+    <a href="#" class="header-left"><i class="fas fa-pencil-alt icon"></i>Вход</a>
+    <a href="#" class="header-left"><i class="fas fa-sign-in-alt icon"></i>Регистрация</a>
+  </div>
 </div>
 <div class="main_menu_area">
   <div class="container">
@@ -31,12 +31,13 @@
       </div>
       <div class="head-menu-item" (click)="showBasket()">
         <div class="head-menu-icon" *ngIf="basketPrice > -10">
-           <img src="assets/images/icons/in-basket-rur.png" >
-           <div class="centered">{{basketPrice}}&nbsp;р.</div>
+          <img src="assets/images/icons/in-basket-rur.png">
+          <div class="centered">{{basketPrice}}&nbsp;р.</div>
         </div>
+
         <div [@animateBasket]='basketState' class="head-menu-icon icon-hover" *ngIf="basketPrice > 0"
              (@animateBasket.done)="onAnimationEvent($event)">
-          <img [src]="basketEntityImage" >
+          <img [src]="basketEntityImage">
         </div>
       </div>
     </div>
@@ -50,7 +51,7 @@
     <div class="row">
       <div class="col-md-4">
         <div class="city-label" *ngFor="let city of cities;let idx = index" [hidden]="idx > 9"
-        (click) = "selectCity(city)">
+             (click)="selectCity(city)">
           <i class="fas fa-check" [ngClass]="{'city-check': city.displayName === deliveryCity,
             'city-uncheck': city.displayName != deliveryCity}"></i>
           {{city.displayName}}
@@ -58,7 +59,7 @@
       </div>
       <div class="col-md-4">
         <div class="city-label" *ngFor="let city of cities;let idx = index" [hidden]="idx < 10"
-             (click) = "selectCity(city)">
+             (click)="selectCity(city)">
           <i class="fas fa-check" [ngClass]="{'city-check': city.displayName === deliveryCity,
             'city-uncheck': city.displayName != deliveryCity}"></i>
           {{city.displayName}}

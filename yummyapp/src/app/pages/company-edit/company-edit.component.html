@@ -10,7 +10,7 @@
     </div>
     <div id="type-menu" class="menu-content">
       <div class="menu-group">
-        <div *ngFor="let menuType of companyEdit.menuTypes">
+        <div *ngFor="let menuType of companyEdit.menuTypes; let idx = index">
           <span class="menu-icon" *ngIf="!menuType.menuOpen">
             <i class="far fa-folder"></i>
           </span>
@@ -18,23 +18,26 @@
             <i class="far fa-folder-open"></i>
           </span>
           <span class="menu-item" (click)="menuTypeSelect(menuType)">
-            {{menuType.displayName}}
+            {{menuType.displayName}}({{menuType.order}})
           </span>
+          <span class="order-icon" (click)="changeOrderType( idx, menuType, -1 )"><i class="fas fa-arrow-alt-circle-up icon"></i></span>
+          <span class="order-icon" (click)="changeOrderType( idx, menuType, 1 )"><i class="fas fa-arrow-alt-circle-down icon"></i></span>
           <div class="submenu-group" [hidden]="!menuType.menuOpen">
-            <div *ngFor="let menuCategory of menuType.menuCategories" class="submenu-sel"
+            <div *ngFor="let menuCategory of menuType.menuCategories; let idx = index" class="submenu-sel"
                  (click)="menuCategorySelect( menuType, menuCategory)">
               <span class="submenu-icon">
                 <i class="far fa-file"></i>
               </span>
               <span [className]="menuCategory.id === selMenuCategory.id ? 'submenu-item sel-menu' : 'submenu-item'">
-                  {{menuCategory.displayName}}
+                  {{menuCategory.displayName}}({{menuCategory.order}})
                   <span class="delete-icon" (click)="deleteMenu(menuType, menuCategory)">
                     <i class="far fa-trash-alt icon"></i>
                   </span>
                 <span class="delete-icon" (click)="deleteMenuEntities(menuType, menuCategory)">
                     <i class="fas fa-broom icon"></i>
-                  </span>
-
+                </span>
+                <span class="order-icon" (click)="changeOrderCategory( idx, menuType, menuCategory, -1 )"><i class="fas fa-arrow-alt-circle-up icon"></i></span>
+                <span class="order-icon" (click)="changeOrderCategory( idx, menuType, menuCategory, 1 )"><i class="fas fa-arrow-alt-circle-down icon"></i></span>
               </span>
             </div>
           </div>

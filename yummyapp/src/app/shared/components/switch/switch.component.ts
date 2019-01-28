@@ -42,7 +42,6 @@ export class SwitchComponent implements OnInit {
   switch(param){
     this.checked = param;
     let val = param == true ? 1 : 0;
-    console.log('param',this.checked,param, val);
     this.selectValue.emit( val );
   }
 

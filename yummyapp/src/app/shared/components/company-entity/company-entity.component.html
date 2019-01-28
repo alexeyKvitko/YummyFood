@@ -17,14 +17,15 @@
       <div class="wsp-small">
         <p>{{selSize}}</p>
       </div>
-      <div class="wsp-medium" [ngClass]="shakeLabel">
-        <span>
+      <div class="wsp-medium ">
+        <span [ngClass]="animateColor">
         {{selPrice}}&nbsp;р.
           <!--<i class="fas fa-ruble-sign icon"></i>-->
        </span>
       </div>
     </div>
-    <div class="company-entity-button" (click)="addToBasket()">
+    <div class="company-entity-button" (click)="addToBasket()"
+         (mouseover)="addToBasketOver()" (mouseleave)="addToBasketLeave()">
       <i class="fas fa-shopping-basket"></i>
       <span>ЗАКАЗАТЬ</span>
     </div>

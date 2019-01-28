@@ -11,7 +11,6 @@ import {WORK_DAY_START} from "./const-workdaystart";
 import {WORK_DAY_END} from "./const-workdayend";
 import swal from "sweetalert2";
 import {Router} from "@angular/router";
-import {validate} from "codelyzer/walkerFactory/walkerFn";
 
 @Component({
   selector: 'app-company-edit',
@@ -164,7 +163,6 @@ export class CompanyEditComponent implements OnInit {
   }
 
   switchValue( el, val ){
-    console.log('SWITCH',el, val);
     this.companyForm.get(el).setValue( val );
   }
 
@@ -356,9 +354,17 @@ export class CompanyEditComponent implements OnInit {
     } else {
       this.companyEdit.companyModel.city.displayName =  this.deliveryCity;
     }
-
-    this.companyEdit.menuTypes.forEach(item => {
-      item.menuOpen = true;
+    let typeOrder = 1;
+    let categoryOrder = 1;
+    this.companyEdit.menuTypes.forEach(type => {
+      categoryOrder = 1;
+      type.order = typeOrder*1000;
+      type.menuOpen = true;
+      type.menuCategories.forEach( category => {
+        category.order = categoryOrder;
+        categoryOrder++;
+      });
+      typeOrder++;
     });
   }
 
@@ -538,5 +544,58 @@ export class CompanyEditComponent implements OnInit {
   editMenu(){
     this.router.navigate(['pages/delivery-menu']);
   }
+
+  changeOrderType( index, menuType, direction ){
+    console.log("change order:",menuType.order, index, direction);
+    if( direction == -1 && menuType.order == 1000 ){
+      swal("Первый элемент");
+      return;
+    }
+    if(  direction == 1 && menuType.order == 1000*(this.companyEdit.menuTypes.length) ){
+      swal("Последний элемент");
+    }
+    if ( direction == -1 ){
+      let previous = this.companyEdit.menuTypes[index-1];
+      this.companyEdit.menuTypes[index-1] = menuType;
+      this.companyEdit.menuTypes[index] = previous;
+    }
+    if( direction == 1 ){
+      let next = this.companyEdit.menuTypes[index+1];
+      this.companyEdit.menuTypes[index+1] = menuType;
+      this.companyEdit.menuTypes[index] = next;
+    }
+    let typeOrder = 1;
+    this.companyEdit.menuTypes.forEach(type => {
+      type.order = typeOrder*1000;
+      typeOrder++;
+    });
+  }
+
+  changeOrderCategory( index, menuType, menuCategory, direction ){
+    if( direction == -1 && menuCategory.order == 1 ){
+      swal("Первый элемент");
+      return;
+    }
+    if(  direction == 1 && menuCategory.order == this.companyEdit.menuTypes.length ){
+      swal("Последний элемент");
+    }
+    if ( direction == -1 ){
+      let previous = menuType.menuCategories[index-1];
+      menuType.menuCategories[index-1] = menuCategory;
+      menuType.menuCategories[index] = previous;
+    }
+    if( direction == 1 ){
+      let next = menuType.menuCategories[index+1];
+      menuType.menuCategories[index+1] = menuCategory;
+      menuType.menuCategories[index] = next;
+    }
+    let categoryOrder = 1;
+    menuType.menuCategories.forEach(category => {
+      category.order = categoryOrder;
+      categoryOrder++;
+    });
+  }
+
+
 
 }
