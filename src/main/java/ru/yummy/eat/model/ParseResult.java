@@ -17,6 +17,7 @@ public class ParseResult implements Serializable {
     private int step;
     private ParseField htmlResult;
     private ParseField htmlClean;
+    private ParseField htmlTag;
     private ParseField productName;
     private ParseField productDesc;
     private ParseField productImg;
@@ -30,6 +31,7 @@ public class ParseResult implements Serializable {
         this.step = AppConstants.FAKE_ID;
         this.htmlResult = new ParseField( TestFields.HTML_RESULT.value(),this.step, TestStatus.NOT_PROCESSED.value() );
         this.htmlClean = new ParseField( TestFields.HTML_CLEAN.value(),this.step, TestStatus.NOT_PROCESSED.value() );
+        this.htmlTag = new ParseField( TestFields.HTML_TAG.value(),this.step, TestStatus.NOT_PROCESSED.value() );
         this.productName = new ParseField( TestFields.PRODUCT_NAME.value(),this.step, TestStatus.NOT_PROCESSED.value() );
         this.productDesc = new ParseField( TestFields.PRODUCT_DESC.value(),this.step, TestStatus.NOT_PROCESSED.value() );
         this.productImg = new ParseField( TestFields.PRODUCT_IMG.value(),this.step, TestStatus.NOT_PROCESSED.value() );
@@ -93,6 +95,14 @@ public class ParseResult implements Serializable {
 
     public void setHtmlClean(ParseField htmlClean) {
         this.htmlClean = htmlClean;
+    }
+
+    public ParseField getHtmlTag() {
+        return htmlTag;
+    }
+
+    public void setHtmlTag(ParseField htmlTag) {
+        this.htmlTag = htmlTag;
     }
 
     public ParseField getProductName() {

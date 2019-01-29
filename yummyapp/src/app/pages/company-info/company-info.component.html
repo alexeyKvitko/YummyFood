@@ -679,6 +679,12 @@
         <span class="test-skipped" *ngIf="parseMenu.parseResult.htmlClean.status == '-1'">   ...не обработано</span>
       </div>
       <div class="test-field">
+        <span>{{parseMenu.parseResult.htmlTag.field}}</span>
+        <span class="test-passed" *ngIf="parseMenu.parseResult.htmlTag.status == '1'">   ...успешно</span>
+        <span class="test-error" *ngIf="parseMenu.parseResult.htmlTag.status == '0'">   ...ошибка</span>
+        <span class="test-skipped" *ngIf="parseMenu.parseResult.htmlTag.status == '-1'">   ...не обработано</span>
+      </div>
+      <div class="test-field">
         <span>[{{parseMenu.parseResult.productName.iStep}}]&nbsp;{{parseMenu.parseResult.productName.field}}</span>
         <span class="test-passed" *ngIf="parseMenu.parseResult.productName.status == '1'">   ...успешно</span>
         <span class="test-error" *ngIf="parseMenu.parseResult.productName.status == '0'">   ...ошибка</span>

@@ -4,6 +4,7 @@ import org.pojomatic.Pojomatic;
 import org.pojomatic.annotations.AutoProperty;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 @AutoProperty
 public class DictionaryModel implements Serializable {
@@ -11,6 +12,7 @@ public class DictionaryModel implements Serializable {
     protected Integer id;
     protected String name;
     protected String displayName;
+    protected Integer order;
 
     public Integer getId() {
         return id;
@@ -34,6 +36,14 @@ public class DictionaryModel implements Serializable {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
     }
 
     @Override public boolean equals(Object o) {

@@ -27,6 +27,8 @@ public class MenuEntityModel implements Serializable {
     private String weightFour;
     private String sizeFour;
     private Integer priceFour;
+    private Integer typeOrder;
+    private Integer categoryOrder;
 
     public Integer getId() {
         return id;
@@ -186,6 +188,22 @@ public class MenuEntityModel implements Serializable {
 
     public void setPriceFour(Integer priceFour) {
         this.priceFour = priceFour;
+    }
+
+    public Integer getTypeOrder() {
+        return typeOrder;
+    }
+
+    public void setTypeOrder(Integer typeOrder) {
+        this.typeOrder = typeOrder;
+    }
+
+    public Integer getCategoryOrder() {
+        return categoryOrder;
+    }
+
+    public void setCategoryOrder(Integer categoryOrder) {
+        this.categoryOrder = categoryOrder;
     }
 
     @Override public boolean equals(Object o) {

@@ -5,6 +5,5 @@ export class MenuTypeModel extends DictionaryModel{
 
   menuOpen : boolean;
   menuCategories: MenuCategoryModel[];
-  order: number;
 
 }

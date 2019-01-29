@@ -3,9 +3,12 @@ package ru.yummy.eat.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.yummy.eat.entity.MenuOrder;
 import ru.yummy.eat.exception.BusinessLogicException;
 import ru.yummy.eat.model.*;
 import ru.yummy.eat.service.MenuService;
+
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -39,6 +42,19 @@ public class AdminMenuController {
         response.setStatus( HttpStatus.OK.value() );
         try {
             menuService.saveMenuCategory( menuCategoryModel );
+        } catch (BusinessLogicException e){
+            response.setStatus( HttpStatus.INTERNAL_SERVER_ERROR.value() );
+            response.setMessage( e.getMessage() );
+        }
+        return response;
+    }
+
+    @RequestMapping(value = "/saveOrder", method = RequestMethod.POST)
+    public ApiResponse saveMenuOrder(@RequestBody List<MenuOrder> menuOrders)  {
+        ApiResponse response = new ApiResponse();
+        response.setStatus( HttpStatus.OK.value() );
+        try {
+            menuService.saveMenuOrders( menuOrders );
         } catch (BusinessLogicException e){
             response.setStatus( HttpStatus.INTERNAL_SERVER_ERROR.value() );
             response.setMessage( e.getMessage() );

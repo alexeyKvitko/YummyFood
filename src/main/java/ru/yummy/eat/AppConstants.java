@@ -35,6 +35,7 @@ public abstract class AppConstants {
     public static final String DIRECT_FORWARD = "f";
     public static final String INLINE_VALUE = "i";
     public static final String DIRECT_BACKWARD = "b";
+    public static final String INLINE_TAG_VALUE = "~i~";
 
     public static final String LEFT_QUOT= "&#8220;";
     public static final String RIGHT_QUOT= "&#8221;";

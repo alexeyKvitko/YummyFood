@@ -3,6 +3,7 @@ package ru.yummy.eat.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yummy.eat.entity.MenuCategory;
+import ru.yummy.eat.entity.MenuOrder;
 import ru.yummy.eat.entity.MenuType;
 import ru.yummy.eat.exception.BusinessLogicException;
 import ru.yummy.eat.model.DeliveryMenu;
@@ -10,6 +11,7 @@ import ru.yummy.eat.model.MenuCategoryModel;
 import ru.yummy.eat.model.MenuTypeModel;
 import ru.yummy.eat.repo.MenuCategoryRepository;
 import ru.yummy.eat.repo.MenuItemRepository;
+import ru.yummy.eat.repo.MenuOrderRepository;
 import ru.yummy.eat.repo.MenuTypeRepository;
 import ru.yummy.eat.service.MenuService;
 import ru.yummy.eat.util.ConvertUtils;
@@ -27,6 +29,9 @@ public class MenuServiceImpl implements MenuService {
 
     @Autowired
     MenuItemRepository menuItemRepo;
+
+    @Autowired
+    MenuOrderRepository orderRepo;
 
     @Autowired
     ConvertUtils convertUtils;
@@ -81,6 +86,15 @@ public class MenuServiceImpl implements MenuService {
                 throw new BusinessLogicException( "Меню используется, удаление невозможно !" );
             }
             menuCategoryRepo.deleteById( menuCategoryId );
+        } catch (Exception e){
+            throw new BusinessLogicException( e.getMessage() );
+        }
+    }
+
+    @Override
+    public void saveMenuOrders(List<MenuOrder> menuOrders) throws BusinessLogicException {
+        try{
+            orderRepo.saveAll( menuOrders );
         } catch (Exception e){
             throw new BusinessLogicException( e.getMessage() );
         }

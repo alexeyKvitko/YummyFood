@@ -11,6 +11,8 @@ import {WORK_DAY_START} from "./const-workdaystart";
 import {WORK_DAY_END} from "./const-workdayend";
 import swal from "sweetalert2";
 import {Router} from "@angular/router";
+import {MenuOrderModel} from "../../model/menu-order.model";
+import {DeliveryMenuService} from "../../services/delivery-menu.service";
 
 @Component({
   selector: 'app-company-edit',
@@ -36,7 +38,8 @@ export class CompanyEditComponent implements OnInit {
 
 
   constructor(private router: Router,private formBuilder: FormBuilder, private _authService: AuthService,
-              private companyService: CompanyService, private _globalService: GlobalService) {
+              private companyService: CompanyService, private _globalService: GlobalService,
+              private deliveryMenuService: DeliveryMenuService) {
     this._authService.isAuthenticated();
     this.companyId = window.localStorage.getItem('companyId');
     this.selMenuType.id = '-1';
@@ -356,16 +359,20 @@ export class CompanyEditComponent implements OnInit {
     }
     let typeOrder = 1;
     let categoryOrder = 1;
-    this.companyEdit.menuTypes.forEach(type => {
-      categoryOrder = 1;
-      type.order = typeOrder*1000;
-      type.menuOpen = true;
-      type.menuCategories.forEach( category => {
-        category.order = categoryOrder;
-        categoryOrder++;
+    if( this.companyEdit.menuOrders.length == 0 ){
+      console.log(" Set default order");
+      this.companyEdit.menuTypes.forEach(type => {
+        categoryOrder = 1;
+        type.order = typeOrder*1000;
+        type.menuOpen = true;
+        type.menuCategories.forEach( category => {
+          category.order = categoryOrder;
+          categoryOrder++;
+        });
+        typeOrder++;
       });
-      typeOrder++;
-    });
+    }
+
   }
 
   getByName(name: string): string {
@@ -434,6 +441,7 @@ export class CompanyEditComponent implements OnInit {
       this.companyEdit.deliveryMenuTypes.forEach(item => {
         if (item.id.toString() === this.selectedOptionType) {
           item.menuOpen = false;
+          item.order = (this.companyEdit.menuTypes.length+1)*1000;
           this.companyEdit.menuTypes.push(item);
         }
       });
@@ -494,6 +502,8 @@ export class CompanyEditComponent implements OnInit {
             if (data.status == 200) {
               menuType.menuOpen = true;
               menuType.menuCategories.push(item);
+              this.companyEdit.menuOrders = data.result;
+              console.log('Update orders 2',data.result, this.companyEdit.menuOrders);
             }
             this.showHttpActionMessage(data);
           });
@@ -546,13 +556,13 @@ export class CompanyEditComponent implements OnInit {
   }
 
   changeOrderType( index, menuType, direction ){
-    console.log("change order:",menuType.order, index, direction);
     if( direction == -1 && menuType.order == 1000 ){
       swal("Первый элемент");
       return;
     }
     if(  direction == 1 && menuType.order == 1000*(this.companyEdit.menuTypes.length) ){
       swal("Последний элемент");
+      return;
     }
     if ( direction == -1 ){
       let previous = this.companyEdit.menuTypes[index-1];
@@ -576,8 +586,9 @@ export class CompanyEditComponent implements OnInit {
       swal("Первый элемент");
       return;
     }
-    if(  direction == 1 && menuCategory.order == this.companyEdit.menuTypes.length ){
+    if(  direction == 1 && menuCategory.order == menuType.menuCategories.length ){
       swal("Последний элемент");
+      return;
     }
     if ( direction == -1 ){
       let previous = menuType.menuCategories[index-1];
@@ -596,6 +607,37 @@ export class CompanyEditComponent implements OnInit {
     });
   }
 
+  saveMenuOrder(){
+    let menuOrders = new Array<MenuOrderModel>();
+    this.companyEdit.menuTypes.forEach(type => {
+      let menuOrderType = this.getMenuOrder( type.id, -1);
+      menuOrderType.order = type.order;
+      menuOrders.push( menuOrderType );
+      type.menuCategories.forEach( category => {
+        let menuOrderCategory = this.getMenuOrder( type.id, category.id );
+        menuOrderCategory.order = category.order;
+        menuOrders.push( menuOrderCategory );
+      });
+    });
+    this.deliveryMenuService.saveMenuOrder( menuOrders ).subscribe(data => {
+      this.showHttpActionMessage(data);
+    });
+  }
 
-
+  getMenuOrder( menuTypeId, menuCategoryId ): MenuOrderModel{
+    let menuOrder = null;
+    this.companyEdit.menuOrders.forEach( order => {
+      if( menuOrder == null && (order.menuTypeId == menuTypeId && order.menuCategoryId == menuCategoryId) ){
+        menuOrder = order;
+      }
+    });
+    if ( menuOrder == null ){
+      menuOrder = new MenuOrderModel();
+      menuOrder.id = null;
+      menuOrder.companyId = this.companyId;
+      menuOrder.menuTypeId = menuTypeId;
+      menuOrder.menuCategoryId = menuCategoryId;
+    }
+    return menuOrder;
+  }
 }

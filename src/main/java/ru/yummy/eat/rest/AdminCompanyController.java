@@ -3,6 +3,7 @@ package ru.yummy.eat.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.yummy.eat.entity.MenuOrder;
 import ru.yummy.eat.exception.BusinessLogicException;
 import ru.yummy.eat.model.*;
 import ru.yummy.eat.service.ParseService;
@@ -59,7 +60,8 @@ public class AdminCompanyController {
         ApiResponse response = new ApiResponse();
         response.setStatus( HttpStatus.OK.value() );
         try {
-            companyService.addCompanyMenu( companyId,typeId,categoryId );
+            List<MenuOrder> menuOrders = companyService.addCompanyMenu( companyId,typeId,categoryId );
+            response.setResult( menuOrders );
         } catch (BusinessLogicException e){
             response.setStatus( HttpStatus.INTERNAL_SERVER_ERROR.value() );
             response.setMessage( e.getMessage() );

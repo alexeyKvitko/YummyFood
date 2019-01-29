@@ -4,6 +4,7 @@ public enum TestFields {
 
     HTML_RESULT("Получение HTML"),
     HTML_CLEAN("Очистка HTML"),
+    HTML_TAG("Получение блока НТML"),
     PRODUCT_NAME("Имя Продукта"),
     PRODUCT_DESC("Описание"),
     PRODUCT_IMG("Изображение"),

@@ -198,13 +198,15 @@ public class ParseServiceImpl implements ParseService {
                     int trashIdx = htmlResponse.indexOf(parseMenu.getTagTrash()) + parseMenu.getTagTrash().length();
                     htmlResponse = htmlResponse.substring(trashIdx);
                 }
+                parseResult.getHtmlClean().setStatus(TestStatus.PASSED.value());
                 LOG.info("** Ok");
                 LOG.info("**");
                 LOG.info("** CLEAN COMMENTS ...");
+                parseResult.getHtmlTag().setStatus(TestStatus.ERROR.value());
                 htmlResponse = htmlResponse.substring(htmlResponse.indexOf(parseMenu.getTagEndSection()));
                 // Убираем комментарии
                 htmlResponse = AppUtils.polish(htmlResponse);
-                parseResult.getHtmlClean().setStatus(TestStatus.PASSED.value());
+                parseResult.getHtmlTag().setStatus(TestStatus.PASSED.value());
                 LOG.info("** Ok");
                 LOG.info("**");
                 boolean proceed = true;
@@ -385,16 +387,16 @@ public class ParseServiceImpl implements ParseService {
             wsp.setPrice(entityPrice);
             if (tagWeight != null) {
                 String weight = AppUtils.getFieldValue(section, tagWeight);
-                if (weight != null) {
-                    weight = weight.toLowerCase().replace("гр.", "").replace("г.", "").replace("г", "").replace(".", "");
+                if (weight != null && tagWeight.indexOf(AppConstants.INLINE_TAG_VALUE) == -1) {
+                    weight = weight.toLowerCase().replace("грамм", "").replace("гр.", "").replace("г.", "").replace("г", "").replace(".", "");
                     weight = weight + " гр.";
                 }
                 LOG.info("** WEIGHT: " + weight);
                 wsp.setWeight(weight);
             }
-            if (tagSize != null) {
+            if (tagSize != null ) {
                 String size = AppUtils.getFieldValue(section, tagSize);
-                if (size != null) {
+                if (size != null && tagSize.indexOf(AppConstants.INLINE_TAG_VALUE) == -1) {
                     size = size.toLowerCase().replace("см.", "").replace("см", "").replace("с", "").replace(".", "");
                     size = size + " см.";
                 }

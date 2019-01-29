@@ -11,8 +11,9 @@ import ru.yummy.eat.model.*;
 import ru.yummy.eat.repo.*;
 import ru.yummy.eat.util.ConvertUtils;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service("companyService")
 public class CompanyServiceImpl {
@@ -39,6 +40,9 @@ public class CompanyServiceImpl {
 
     @Autowired
     CityRepository cityRepo;
+
+    @Autowired
+    MenuOrderRepository orderRepo;
 
     @Autowired
     ConvertUtils convertUtils;
@@ -78,6 +82,59 @@ public class CompanyServiceImpl {
             menuTypeModel.setMenuCategories(menuCategoryModels);
             menuTypeModels.add(menuTypeModel);
         }
+        List<MenuOrder> menuOrders = orderRepo.findAllByCompanyId( companyId );
+        if ( menuOrders != null && menuOrders.size() > 0 ){
+            for( MenuTypeModel menuTypeModel : menuTypeModels ){
+                Optional<MenuOrder>  menuOrder=  menuOrders.stream().filter(order ->
+                        ( order.getMenuTypeId().equals( menuTypeModel.getId() ) ) ).findFirst();
+                if( menuOrder.isPresent() ){
+                    menuTypeModel.setOrder( menuOrder.get().getOrder() );
+                } else {
+                    menuTypeModel.setOrder( AppConstants.FAKE_ID );
+                }
+                if( menuOrder.isPresent() ){
+                    for( MenuCategoryModel menuCategoryModel: menuTypeModel.getMenuCategories() ){
+                        menuOrder = menuOrders.stream().filter( order -> (
+                                order.getMenuTypeId().equals( menuTypeModel.getId() ) &&
+                                        order.getMenuCategoryId().equals( menuCategoryModel.getId() ) ) )
+                                .findFirst();
+                        if( menuOrder.isPresent() ){
+                            menuCategoryModel.setOrder( menuOrder.get().getOrder() );
+                        } else {
+                            menuTypeModel.setOrder( AppConstants.FAKE_ID );
+                        }
+                    }
+                    Collections.sort( menuTypeModel.getMenuCategories(), new Comparator<MenuCategoryModel>() {
+                        @Override
+                        public int compare(MenuCategoryModel o1, MenuCategoryModel o2) {
+                            return (int) (o1.getOrder() - o2.getOrder());
+                        }
+                    } );
+                }
+
+            }
+            Collections.sort( menuTypeModels, new Comparator<MenuTypeModel>() {
+                @Override
+                public int compare(MenuTypeModel o1, MenuTypeModel o2) {
+                    return (int) (o1.getOrder() - o2.getOrder());
+                }
+            } );
+            for( MenuOrder menuOrder: menuOrders ){
+                Integer typeOrder = menuOrders.stream().filter( order -> (order.getMenuTypeId().equals( menuOrder.getMenuTypeId() ) &&
+                                        AppConstants.FAKE_ID.equals( order.getMenuCategoryId() ) ) ).findFirst().get().getOrder();
+                for( MenuEntityModel menuEntityModel : menuEntityModels ){
+                    if( menuOrder.getMenuTypeId().equals( menuEntityModel.getTypeId() ) &&
+                            menuOrder.getMenuCategoryId().equals( menuEntityModel.getCategoryId() ) ){
+                        menuEntityModel.setTypeOrder( typeOrder );
+                        menuEntityModel.setCategoryOrder( menuOrder.getOrder() );
+                    }
+                }
+            }
+            Comparator<MenuEntityModel> comparator = Comparator.comparing(menuEntityModel -> menuEntityModel.getTypeOrder());
+            comparator = comparator.thenComparing(Comparator.comparing(menuEntityModel -> menuEntityModel.getCategoryOrder()));
+            Stream<MenuEntityModel> stream = menuEntityModels.stream().sorted(comparator);
+            menuEntityModels = stream.collect( Collectors.toList() );
+        }
         companyInfo.setCompanyModel(company);
         companyInfo.setMenuTypes(menuTypeModels);
         companyInfo.setMenuEntities( menuEntityModels);
@@ -89,6 +146,7 @@ public class CompanyServiceImpl {
         CompanyInfo companyInfo = getCompanyInfo( companyId );
         companyEdit.setCompanyModel( companyInfo.getCompanyModel() );
         companyEdit.setMenuTypes( companyInfo.getMenuTypes() );
+        companyEdit.setMenuOrders(orderRepo.findAllByCompanyId( companyId ) );
         companyEdit.setDeliveryMenuTypes( convertUtils.convertMenuTypesToModelList( (List<MenuType>) menuTypeRepo.findAllByOrderByDisplayName() ) );
         companyEdit.setDeliveryMenuCategories( convertUtils.convertMenuCategoriesToModelList( (List<MenuCategory>) menuCategoryRepo.findAllByOrderByDisplayName() ) );
         companyEdit.setCities( convertUtils.convertCitiesToModelList( cityRepo.findAllByRegionIdOrderByName( AppConstants.CRIMEA_REGION ) ) );
@@ -123,7 +181,8 @@ public class CompanyServiceImpl {
         return companyMenu;
     }
 
-    public void addCompanyMenu(int companyId, int typeId, int categoryId) throws BusinessLogicException {
+    public List<MenuOrder> addCompanyMenu(int companyId, int typeId, int categoryId) throws BusinessLogicException {
+        List<MenuOrder> menuOrders = null;
         ParseMenu parseMenu = parseRepo.findParseMenuByCompanyIdAndTypeIdAndCategoryId( companyId, typeId, categoryId );
         if ( parseMenu != null ){
             throw new BusinessLogicException( "Меню уже существует, добавление невозможно !" );
@@ -138,11 +197,22 @@ public class CompanyServiceImpl {
         menuItem.setCategoryId( categoryId );
         menuItem.setEntityId( AppConstants.FAKE_ID );
         try {
+            MenuOrder menuTypeOrder = orderRepo.findByCompanyIdAndMenuTypeIdAndMenuCategoryId( companyId, typeId , AppConstants.FAKE_ID);
+            if( menuTypeOrder == null ){
+                Integer maxMenuTypeOrder = orderRepo.getMaxTypeOrder( companyId );
+                maxMenuTypeOrder = maxMenuTypeOrder != null ? maxMenuTypeOrder+1000 : 1000;
+                orderRepo.save( new MenuOrder( companyId,typeId, AppConstants.FAKE_ID, maxMenuTypeOrder ) );
+            }
+            Integer maxMenuCategoryOrder = orderRepo.getMaxCategoryOrder( companyId, typeId );
+            maxMenuCategoryOrder = maxMenuCategoryOrder != null ? maxMenuCategoryOrder+1 : 1;
+            orderRepo.save( new MenuOrder( companyId,typeId,categoryId, maxMenuCategoryOrder ) );
             parseRepo.save( parseMenu );
             menuItemRepo.save( menuItem );
+            menuOrders = orderRepo.findAllByCompanyId( companyId );
         } catch (Exception e){
             throw new BusinessLogicException( "Добавление невозможно, "+e.getMessage() );
         }
+        return menuOrders;
     }
 
     public void deleteCompanyMenu(int companyId, int typeId, int categoryId) throws BusinessLogicException {

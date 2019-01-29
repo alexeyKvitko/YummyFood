@@ -335,11 +335,11 @@ export class CompanyInfoComponent implements OnInit {
   
   concatTagValues( tag ){
     let val = null;
+    let entry = this.parseForm.get(tag+'Entry').value == null ? '1' : this.parseForm.get(tag+'Entry').value;
     if ( this.parseForm.get( tag+'Start').value.trim().length > 0){
       val = this.parseForm.get( tag+'Start').value+"~"+
         this.parseForm.get( tag+'End').value+"~"+
-        this.parseForm.get(tag+'Direction').value+"~"+
-        this.parseForm.get(tag+'Entry').value;
+        this.parseForm.get(tag+'Direction').value+"~"+entry;
     }
     return val;
   }

@@ -5,6 +5,7 @@ import {DeliveryMenuModel} from "../model/delivery-menu.model";
 import {MenuTypeModel} from "../model/menu-type.model";
 import {MenuCategoryModel} from "../model/menu-category.model";
 import {ApiResponse} from "../model/api.response";
+import {MenuOrderModel} from "../model/menu-order.model";
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -43,6 +44,10 @@ export class DeliveryMenuService {
 
   public saveMenuCategory( menuCategory: MenuCategoryModel ) {
     return this.http.post<ApiResponse>(this.deliveryMenuUrl+'/saveCategory', menuCategory );
+  }
+
+  public saveMenuOrder( menuOrders: MenuOrderModel[] ) {
+    return this.http.post<ApiResponse>(this.deliveryMenuUrl+'/saveOrder', menuOrders );
   }
 
   public deleteMenuType(id) {
