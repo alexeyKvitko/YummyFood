@@ -102,6 +102,7 @@ export class CompanyDetailComponent implements OnInit {
       tripleEntity.entityThree = selectedEntities[idx+2] != undefined ? selectedEntities[idx+2] : new MenuEntityModel();
       this.tripleEntities.push( tripleEntity );
     }
+    this.moveToTop();
   }
 
   isMenuActive( id ){

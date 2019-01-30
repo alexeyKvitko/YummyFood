@@ -241,8 +241,8 @@
           transition: all 400ms linear 0s;
           color: $white;
           img {
-            width: 64px !important;
-            height: 64px !important;
+            width: 64px;
+            height: 64px;
           }
           &:hover {
             cursor: pointer;

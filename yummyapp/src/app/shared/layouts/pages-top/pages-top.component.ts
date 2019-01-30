@@ -26,7 +26,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
         opacity:'1',
       })),
       transition('final=>initial', [
-        animate('800ms ease-out', style({ transform: 'scale3d(.0, .0, .0)' }))
+        animate('1s ease-out', style({ transform: 'scale3d(.0, .0, .0)' }))
       ])
     ]
     ),
