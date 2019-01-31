@@ -1,0 +1,35 @@
+<div class="basket-entity-wrapper">
+  <div class="basket-entity">
+    <div class="basket-trash">
+      <img src="assets/images/icons/trash-1.png">
+    </div>
+    <div class="entity-img">
+      <img [src]="menuEntity.imageUrl">
+    </div>
+    <div class="basket-entity-info">
+      <h2>{{menuEntity.displayName}}</h2>
+      <p>{{menuEntity.description}}</p>
+    </div>
+    <div class="basket-count-wrapper">
+      <div class="basket-count">
+        <img src="assets/images/icons/collapse.png" (click)="changeEntityCount(-1)">
+        <span>{{menuEntity.count}}</span>
+        <img src="assets/images/icons/expand.png" (click)="changeEntityCount(1)">
+      </div>
+      <span class="total-label">{{total}}&nbsp;р.</span>
+    </div>
+  </div>
+  <div class="basket-wsp">
+    <span *ngIf="selectedWeight != null">
+      <span class="wsp-lable">Вес: </span>
+      <span class="wsp-value">{{selectedWeight}},&nbsp;&nbsp;</span>
+
+    </span>
+    <span *ngIf="selectedSize != null">
+      <span class="wsp-lable">Размер: </span>
+      <span class="wsp-value">{{selectedSize}},&nbsp;&nbsp;</span>
+    </span>
+    <span class="wsp-lable">Цена: </span>
+    <span class="wsp-value price">{{selectedPrice}}&nbsp;р.</span>
+  </div>
+</div>

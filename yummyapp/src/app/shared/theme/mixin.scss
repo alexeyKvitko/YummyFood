@@ -83,3 +83,69 @@
     }
   }
 }
+
+@mixin shadow-radial{
+  @include hacks();
+  position: relative;
+
+  &:before{
+    pointer-events: none;
+    position: absolute;
+    content: '';
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    height: 5px;
+    opacity: 1;
+    @include prefixed(transition-duration, $mediumDuration);
+    @include prefixed(transition-property, opacity);
+  }
+
+  &:before {
+    bottom: 100%;
+    background: -webkit-radial-gradient(50% 150%, ellipse, $shadowColor 0%, rgba(0, 0, 0, 0) 80%);
+    background: radial-gradient(ellipse at 50% 150%, $shadowColor 0%, rgba(0, 0, 0, 0) 80%);
+  }
+
+  //&:after {
+  //  top: 100%;
+  //  background: -webkit-radial-gradient(50% -50%, ellipse, $shadowColor 0%, rgba(0, 0, 0, 0) 80%);
+  //  background: radial-gradient(ellipse at 50% -50%, $shadowColor 0%, rgba(0, 0, 0, 0) 80%);
+  //}
+
+}
+
+@mixin float-shadow {
+  @include hacks();
+  position: relative;
+  @include prefixed(transition-duration, $mediumDuration);
+  @include prefixed(transition-property, transform);
+
+  &:before {
+    pointer-events: none;
+    position: absolute;
+    z-index: -1;
+    content: '';
+    top: 100%;
+    left: 5%;
+    height: 10px;
+    width: 90%;
+    opacity: 0;
+    background: -webkit-radial-gradient(center, ellipse, rgba(0,0,0,.35) 0%, rgba(0, 0, 0, 0) 80%);
+    background: radial-gradient(ellipse at center, rgba(0,0,0,.35) 0%,rgba(0,0,0,0) 80%); /* W3C */
+    @include prefixed(transition-duration, $mediumDuration);
+    @include prefixed(transition-property, "transform, opacity");
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    @include prefixed(transform, translateY(-5px)); /* move the element up by 5px */
+    cursor: pointer;
+    &:before {
+      opacity: 1;
+      @include prefixed(transform, translateY(5px)); /* move the element down by 5px (it will stay in place because it's attached to the element that also moves up 5px) */
+    }
+  }
+}

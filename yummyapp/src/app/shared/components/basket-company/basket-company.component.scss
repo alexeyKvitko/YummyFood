@@ -1,0 +1,51 @@
+@import '../../theme/conf';
+
+.basket-company-wrapper {
+  margin-bottom: 20px;
+  width: 100%;
+  @include box-shadow(0 1px 1px 1px rgba($teal-color, .3));
+  background-color: $card-content-bg;
+  border-radius: 3px;
+  .basket-company {
+    display: flex;
+    flex-direction: row;
+    .basket-company-logo {
+      padding: 8px 12px;
+      img {
+        width: 96px;
+        height: 96px;
+      }
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    .basket-company-info {
+      flex-direction: column;
+      margin-left: 4px;
+      h2 {
+        color: $bright-coral;
+        padding-top: 8px;
+        font-size: 28px;
+        font-weight: 400;
+        font-family: Sandora;
+        border-bottom: 1px dotted $bright-coral;
+        &:hover {
+          cursor: pointer;
+          border-bottom: 1px dotted transparent;
+        }
+      }
+      p {
+        margin: 4px 0px;
+        font-weight: 400;
+        font-size: 24px;
+        font-family: B52;
+      }
+    }
+  }
+  .basket-company-entity{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+  }
+
+}

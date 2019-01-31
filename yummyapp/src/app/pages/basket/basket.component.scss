@@ -1,4 +1,5 @@
 @import '../../shared/theme/conf';
+
 .basket-scr {
   position: absolute;
   background-repeat: no-repeat;
@@ -11,7 +12,7 @@
   left: 0;
 }
 
-.basket{
+.basket {
   background: url("../../../assets/images/back6.jpg") no-repeat fixed top center;
   background-size: cover;
   position: relative;
@@ -20,13 +21,13 @@
   width: 100%;
   height: auto;
   overflow-y: auto;
-  .basket-title{
+  .basket-title {
     text-align: center;
     width: 100%;
     height: 250px;
     background: url("../../../assets/images/pizza.jpg") no-repeat fixed top center;
     padding-top: 125px;
-    p{
+    p {
       color: $white;
       width: available;
       text-shadow: 1px 1px 1px $black;
@@ -44,95 +45,116 @@
     .basket-body {
       width: 100%;
       display: flex;
-      flex-direction: column;
-      .basket-info{
-        width: 270px;
-        height: 240px;
-        margin-left: 20px;
-        margin-bottom: 20px;
-        border-radius: 3px;
-        padding: 10px;
-        background-color: $card-content-bg;
-        @include box-shadow( 0 1px 1px 1px rgba($teal-color, .3));
-        .basket-info-container{
-          width: 250px;
-          height: 220px;
-          padding: 6px;
-          background-color: $gray-bkg-color;
-          text-align: center;
-          h2{
-            margin: 4px 0px 8px 8px;
-            font-family: Lobster;
-            color: $dark-green;
-            font-size: 36px;
-            font-weight: 400;
-          }
-          .contacts{
-            border-bottom: 1px dotted $divider-color;
-            padding: 6px 0;
-            p{
-              font-size: 12px;
+      flex-direction: row;
+      .basket-body-left {
+        width: 280px;
+        padding-right: 10px;
+        .basket-info {
+          width: 270px;
+          height: 240px;
+          margin-bottom: 20px;
+          border-radius: 3px;
+          padding: 10px;
+          background-color: $card-content-bg;
+          @include box-shadow(0 1px 1px 1px rgba($teal-color, .3));
+          .basket-info-container {
+            width: 250px;
+            height: 220px;
+            padding: 6px;
+            background-color: $gray-bkg-color;
+            text-align: center;
+            h2 {
+              margin: 4px 0px 8px 8px;
+              font-family: Lobster;
+              color: $dark-green;
+              font-size: 36px;
               font-weight: 400;
-              color: $teal-color;
-              .icon{
-                font-size: 11px;
-                color: $bright-coral;
-                margin-right: 6px;
-              }
             }
+            .contacts {
+              border-bottom: 1px dotted $divider-color;
+              padding: 6px 0;
+              p {
+                font-size: 12px;
+                font-weight: 400;
+                color: $teal-color;
+                .icon {
+                  font-size: 11px;
+                  color: $bright-coral;
+                  margin-right: 6px;
+                }
+              }
               transition: all 400ms linear 0s;
-          }
-          p{
-            color: $gray-text-color;
-            font-family: Roboto;
-            font-size: 12px;
-            span{
-              color: $bright-coral;
-              text-decoration: underline;
-              &:hover{
-                cursor: pointer;
-                text-decoration: none;
+            }
+            p {
+              color: $gray-text-color;
+              font-family: Roboto;
+              font-size: 12px;
+              span {
+                color: $bright-coral;
+                text-decoration: underline;
+                &:hover {
+                  cursor: pointer;
+                  text-decoration: none;
+                }
               }
             }
-          }
-          .price-by-name{
-            height: 18px;
-            margin: 4px 0px;
-            font-size: 14px;
-            &.bordered{
-              border-top:1px dotted $divider-color ;
-              font-size: 16px;
-              font-weight: 600;
-              .span-left{
-                color: $dark-green;
+            .price-by-name {
+              height: 18px;
+              margin: 4px 0px;
+              font-size: 14px;
+              &.bordered {
+                border-top: 1px dotted $divider-color;
+                font-size: 16px;
+                font-weight: 600;
+                .span-left {
+                  color: $dark-green;
+                }
+                .span-right {
+                  color: $dark-green;
+                }
+                margin-top: 8px;
+                padding-top: 8px;
               }
-              .span-right{
-                color: $dark-green;
-              }
-              margin-top: 8px;
-              padding-top: 8px;
-            }
 
-            .span-left{
-              font-family: Sandora;
-              float: left;
-              color: $bright-coral;
-            }
-            .span-right{
-              font-family: B52;
-              font-weight: 400;
-              color: $teal-color;
-              float: right;
+              .span-left {
+                font-family: Sandora;
+                float: left;
+                color: $bright-coral;
+                &:hover {
+                  cursor: pointer;
+                }
+              }
+              .span-center {
+                font-family: Sandora;
+                color: $bright-coral;
+                font-weight: 400;
+                &.delivery{
+                  font-weight: 300;
+                  margin: 12px 0px;
+                  border-bottom: 1px dotted transparent;
+                  &:hover{
+                    text-decoration: underline;
+                    cursor: pointer;
+                  }
+                }
+              }
+              .span-right {
+                font-family: B52;
+                font-weight: 400;
+                color: $teal-color;
+                float: right;
+              }
             }
           }
         }
       }
-
+      .basket-body-right {
+        width: 100%;
+        padding-left: 10px;
+      }
     }
-
-
   }
-  &:before{
+  &:before {
     content: "";
     //background: rgba($green-bg, 0.1);
     position: absolute;

@@ -10,24 +10,35 @@
       </div>
       <div class="basket-wrapper">
         <div class="basket-body">
-          <div class="basket-info">
-            <div class="basket-info-container">
-              <h2>ЕдаНяма.рф</h2>
-              <div class="contacts">
-                <p><i class="fa fa-phone icon"></i>+7 (978) 1000 651</p>
-                <p><i class="far fa-envelope icon"></i>delivery@yummy-eat.ru</p>
-              </div>
+          <div class="basket-body-left">
+            <div class="basket-info">
+              <div class="basket-info-container">
+                <h2>ЕдаНяма.рф</h2>
+                <div class="contacts">
+                  <p><i class="fa fa-phone icon"></i>+7 (978) 1000 651</p>
+                  <p><i class="far fa-envelope icon"></i>delivery@yummy-eat.ru</p>
+                </div>
                 <div class="price-by-name" *ngFor="let basket of customerBasket">
-                  <span class="span-left">{{basket.company.displayName}}</span>
+                  <span class="span-left" (click)="showCompanyDetail(basket.company.id)">{{basket.company.displayName}}</span>
                   <span class="span-right">{{basket.price}}&nbsp;р.</span>
                 </div>
-                <div class="price-by-name bordered">
+                <div class="price-by-name bordered" *ngIf="basketPrice > 0">
                   <span class="span-left">Итого к оплате:</span>
                   <span class="span-right">{{basketPrice}}&nbsp;р.</span>
                 </div>
-
+                <div class="price-by-name " *ngIf="basketPrice == 0">
+                  <span class="span-center">Ваша корзина пуста !</span>
+                  <div class="span-center delivery" (click)="showCompanies()" >ВЫБОР БЛЮД</div>
+                </div>
+             </div>
             </div>
           </div>
+          <div class="basket-body-right">
+            <basket-company *ngFor="let basket of customerBasket"
+                             [basket]="basket" (showCompany)="showCompanyDetail($event)">
+            </basket-company>
+          </div>
+
         </div>
       </div>
     </section>

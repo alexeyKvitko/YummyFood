@@ -1,0 +1,15 @@
+<div class="basket-company-wrapper">
+  <div class="basket-company">
+      <div class="basket-company-logo" (click)="showCompanyDetails()">
+        <img src="{{logoSrc}}">
+      </div>
+      <div class="basket-company-info">
+        <h2 (click)="showCompanyDetails()">{{basket.company.displayName}}</h2>
+        <p>Сумма заказа:&nbsp;{{basket.price}}&nbsp;р.</p>
+      </div>
+  </div>
+  <div class="basket-company-entity">
+    <basket-entity *ngFor="let entity of basket.basket" [menuEntity]="entity">
+    </basket-entity>
+  </div>
+</div>

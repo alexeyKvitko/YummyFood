@@ -1,0 +1,114 @@
+@import '../../theme/conf';
+.basket-entity-wrapper{
+  width: 70%;
+  min-height: 96px;
+  margin: 8px 20px;
+  padding: 8px;
+  @include shadow-radial();
+  .basket-entity{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .basket-trash{
+      @include float-shadow();
+      margin-right: 24px;
+      width: 24px;
+      height: 24px;
+      img{
+        width: 24px;
+        height: 24px;
+      }
+    }
+    .entity-img{
+      position: relative;
+      margin-left: 28px;
+      width: 82px;
+      height: 82px;
+      img{
+        max-height: 100%;
+        max-width: 100%;
+        width: auto;
+        height: auto;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+      }
+    }
+    .basket-entity-info{
+      display: flex;
+      margin-left: 24px;
+      flex-direction: column;
+      margin-bottom: 8px;
+      h2{
+        font-family: Taurus;
+        font-size: 20px;
+        font-weight: 400;
+        color: $dark-green;
+        margin-bottom: 4px;
+      }
+      p{
+        max-width: 200px;
+        text-overflow: inherit;
+        color: $secondary-text-color;
+        font-size: 12px;
+      }
+    }
+    .basket-count-wrapper{
+      position: absolute;
+      top:4px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-left: 450px;
+      text-align: center;
+      .total-label{
+        font-size: 24px;
+        font-family: B52;
+        color: $bright-coral;
+      }
+      .basket-count{
+        border-bottom: 1px dotted $green-bg;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        img{
+          width: 24px;
+          height: 24px;
+          &:hover{
+            cursor: pointer;
+          }
+        }
+        span{
+          margin: 0px 12px;
+          color: $dark-green;
+          font-family: B52;
+          font-size: 24px;
+          font-weight: 400;
+        }
+      }
+    }
+
+  }
+  .basket-wsp{
+    font-size: 12px;
+    margin-left: 180px;
+    margin-top: 12px;
+    .wsp-label{
+      color: $secondary-text-color;
+    }
+    .wsp-value{
+      font-family: B52;
+      color: $teal-color;
+      font-weight: 200;
+      &.price{
+        color: $bright-coral;
+        font-size: 14px;
+      }
+    }
+  }
+
+}
+

@@ -2,14 +2,9 @@
 .company-card-wrapper {
   .company-card {
     width: 100%;
-    //margin-bottom: 20px;
     @include box-shadow(0 1px 1px 1px rgba($teal-color, .3));
     background-color: $card-content-bg;
-    //&:hover{
-    //  cursor: pointer;
-    //  border: 1px solid $bright-coral;
-    //
-    //}
+
     border-radius: 3px;
     display: flex;
     flex-direction: row;

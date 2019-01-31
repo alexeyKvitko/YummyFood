@@ -30,12 +30,12 @@
         <span class="head-menu-text">{{menu.label}}</span>
       </div>
       <div class="head-menu-item" (click)="showBasket()">
-        <div class="head-menu-icon" *ngIf="basketPrice > -10">
+        <div class="head-menu-icon" *ngIf="basketPrice > 0">
           <img src="assets/images/icons/in-basket-rur.png">
           <div class="centered">{{basketPrice}}&nbsp;р.</div>
         </div>
 
-        <div [@animateBasket]='basketState' class="head-menu-icon icon-hover" *ngIf="basketPrice > 0"
+        <div [@animateBasket]='basketState' (click)="showBasket()" class="head-menu-icon icon-hover" *ngIf="basketPrice > 0"
              (@animateBasket.done)="onAnimationEvent($event)">
           <img [src]="basketEntityImage">
         </div>

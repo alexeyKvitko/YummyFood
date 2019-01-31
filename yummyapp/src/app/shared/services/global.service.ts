@@ -39,6 +39,22 @@ export class GlobalService {
       }
     }
 
+  public changeEntityCountInBasket( menuEntity : MenuEntityModel, value: number){
+    this.selEntityImg = menuEntity.imageUrl;
+    let tempBasket =  new Array<MenuEntityModel>();
+    this.customerBasket.forEach( entity =>{
+      if ( entity.id == menuEntity.id
+        && entity.wspType == menuEntity.wspType ){
+        entity.count +=value;
+      }
+      if( entity.count > 0 ){
+        tempBasket.push( entity );
+      }
+    });
+    this.customerBasket = tempBasket;
+
+  }
+
     public getBasketPrice(): number{
       let entityPrice = 0;
       this.customerBasket.forEach( menuEntity =>{

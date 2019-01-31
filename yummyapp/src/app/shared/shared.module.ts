@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { JsonpModule } from '@angular/http';
 
 /* components */
 import { CardComponent } from './components/card/card.component';
@@ -15,13 +14,14 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { CompanyCardComponent } from "./components/company-card/company-card.component";
 import {CompanyEntityComponent} from "./components/company-entity/company-entity.component";
 import {DialogComponent} from "./layouts/app-dialog/app-dialog.component";
+import {BasketCompanyComponent} from "./components/basket-company/basket-company.component";
+import {BasketEntityComponent} from "./components/basket-entity/basket-entity.component";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
-    JsonpModule,
+    ReactiveFormsModule
   ],
   declarations: [
     CardComponent,
@@ -32,6 +32,8 @@ import {DialogComponent} from "./layouts/app-dialog/app-dialog.component";
     SwitchComponent,
     CompanyCardComponent,
     CompanyEntityComponent,
+    BasketCompanyComponent,
+    BasketEntityComponent,
     AlertComponent,
     ProfileComponent,
     DialogComponent
@@ -44,6 +46,8 @@ import {DialogComponent} from "./layouts/app-dialog/app-dialog.component";
     ProgressBarComponent,
     CompanyCardComponent,
     CompanyEntityComponent,
+    BasketCompanyComponent,
+    BasketEntityComponent,
     SwitchComponent,
     AlertComponent,
     ProfileComponent,
