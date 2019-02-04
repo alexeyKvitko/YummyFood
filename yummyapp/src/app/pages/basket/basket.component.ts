@@ -15,6 +15,7 @@ export class BasketComponent implements OnInit {
 
   basketPrice : number = 0;
   customerBasket: BasketModel[] = new Array<BasketModel>();
+  toUpIconOpacity: number = 0;
 
   constructor(private  globalService : GlobalService, private companyService: CompanyService, private router: Router) { }
 
@@ -74,6 +75,18 @@ export class BasketComponent implements OnInit {
 
   showCompanies(){
     this.router.navigate(['pages/company']);
+  }
+
+  onScrollDiv(event: UIEvent): void {
+    if ( event.srcElement.scrollTop > 800 ){
+      this.toUpIconOpacity = 1;
+    } else {
+      this.toUpIconOpacity = 0;
+    }
+  }
+
+  moveToTop(){
+    document.getElementById("top").scrollIntoView({behavior: "smooth", block: "start"});
   }
 
 }

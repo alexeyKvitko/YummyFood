@@ -15,13 +15,6 @@
   <div id="top">
     <img src="{{imagePaths.mainScr}}">
   </div>
-
-  <!--<slideshow [imageUrls]="imageUrlArray"-->
-  <!--[height]="'925px'"-->
-  <!--[minHeight]="'925px'"-->
-  <!--[autoPlay]="true"-->
-  <!--[showArrows]="false"-->
-  <!--[autoPlayInterval] = "5000"></slideshow>-->
   <!--===========About US =======================-->
   <div  class="about-us">
     <div class="container">
@@ -146,18 +139,10 @@
         <img src="{{imagePaths.phoneSrc}}"/>
       </div>
     </div>
-    <div class="all-page-footer">
-      <div class="up-icon"  (click)="moveTopBottom()">
+    <page-footer>
+      <div class="up-icon" (click)="moveTopBottom()">
         <i class="fas fa-angle-double-up" aria-hidden="true"></i>
       </div>
-      <div class="all-page-social">
-        <div class="row">
-        <div class="col-md-2 all-page-social-icon" *ngFor="let socialIcon of socialIcons">
-          <img src="{{socialIcon.imagePath}}">
-        </div>
-        </div>
-      </div>
-      Еда из ресторана с доставкой к Вам домой. Проведите уютный вечер дома наслаждаясь лучшими блюдами!
-    </div>
+    </page-footer>
   </section>
 </div>

@@ -39,13 +39,20 @@ export class CompanyService {
     return this.bootstrapApp.companies;
   }
 
-  public addCompanyToBasket( companyId ){
+  public addCompanyToBasket( companyId, value ){
     this.bootstrapApp.companies.forEach( company =>{
       if ( company.id == companyId ){
-        company.isPresentInBasket = true;
+        company.isPresentInBasket = value;
       }
     });
   }
+
+  public removeCompaniesFromBasket(){
+    this.bootstrapApp.companies.forEach( company =>{
+        company.isPresentInBasket = false;
+    });
+  }
+
 
   public getNumberOfCompaniesInBasket( companyId ){
     let count = 0;

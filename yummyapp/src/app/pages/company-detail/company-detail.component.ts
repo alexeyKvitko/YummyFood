@@ -25,6 +25,7 @@ export class CompanyDetailComponent implements OnInit {
   companyInfo: CompanyInfoModel = null;
   selMenuType: MenuTypeModel = new MenuTypeModel();
   selMenuCategory: MenuCategoryModel = new MenuCategoryModel();
+  categoryDisplayName: string = "";
   loading: boolean = true;
   menuEntities: MenuEntityModel[] = new Array<MenuEntityModel>();
   menuTypes: MenuTypeModel[] = new Array<MenuTypeModel>();
@@ -44,7 +45,7 @@ export class CompanyDetailComponent implements OnInit {
     this._globalService.dataBusChanged('pageLoading', true);
     this.selMenuType.id = '-1';
     this.selMenuCategory.id = '-1';
-    this.selMenuCategory.displayName = 'Основное меню';
+    this.selMenuCategory.displayName = '';
     this.userRole = window.localStorage.getItem('userrole');
   }
 
@@ -88,6 +89,7 @@ export class CompanyDetailComponent implements OnInit {
   selectMenuCategory( menuType: MenuTypeModel, menuCategory: MenuCategoryModel ){
     this.selMenuType = menuType;
     this.selMenuCategory = menuCategory;
+    this.categoryDisplayName = this.selMenuCategory.displayName+" от";
     this.tripleEntities = new Array<TripleEntityModel>();
     let selectedEntities = new Array<MenuEntityModel>();
     this.menuEntities.forEach( entity =>{

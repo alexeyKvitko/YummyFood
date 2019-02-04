@@ -1,0 +1,67 @@
+//@import "../../theme/conf";
+.social-card{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  position: absolute;
+  z-index: 21;
+  top:15%;
+  right: 0;
+
+  .si {
+    font-size: 24px;
+    min-width: 50px;
+    min-hight: 50px;
+    padding-top: 10px;
+    margin-left: 15px;
+      width: 50px;
+    height: 50px;
+    text-align: center;
+    text-decoration: none;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    -webkit-transition: all 100ms ease;
+    -moz-transition: all 100ms ease-in-out;
+    -o-transition: all 100ms ease-in-out;
+    -ms-transition: all 100ms ease-in-out;
+    transition: all 100ms ease-in-out;
+    &:hover {
+      margin-left: 0px;
+      padding-top: 15px;
+      width: 65px;
+      height: 65px;
+      cursor: pointer;
+    }
+  }
+
+  .si-facebook {
+    background: #3B5998;
+    color: white;
+  }
+
+  .si-twitter {
+    background: #55ACEE;
+    color: white;
+  }
+
+  .si-google {
+    background: #dd4b39;
+    color: white;
+  }
+
+  .si-instagram {
+    background: #DE2C82;
+    color: white;
+  }
+
+  .si-vk {
+    background: #074E71;
+    color: white;
+  }
+
+  .si-odnoklassniki {
+    background: #FF8400;
+    color: white;
+  }
+
+}

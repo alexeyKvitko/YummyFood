@@ -16,6 +16,8 @@ import {CompanyEntityComponent} from "./components/company-entity/company-entity
 import {DialogComponent} from "./layouts/app-dialog/app-dialog.component";
 import {BasketCompanyComponent} from "./components/basket-company/basket-company.component";
 import {BasketEntityComponent} from "./components/basket-entity/basket-entity.component";
+import {PageFooterComponent} from "./components/page-footer/page-footer.component";
+import {SocialCardComponent} from "./components/social-card/social-card.component";
 
 @NgModule({
   imports: [
@@ -34,6 +36,8 @@ import {BasketEntityComponent} from "./components/basket-entity/basket-entity.co
     CompanyEntityComponent,
     BasketCompanyComponent,
     BasketEntityComponent,
+    PageFooterComponent,
+    SocialCardComponent,
     AlertComponent,
     ProfileComponent,
     DialogComponent
@@ -48,6 +52,8 @@ import {BasketEntityComponent} from "./components/basket-entity/basket-entity.co
     CompanyEntityComponent,
     BasketCompanyComponent,
     BasketEntityComponent,
+    SocialCardComponent,
+    PageFooterComponent,
     SwitchComponent,
     AlertComponent,
     ProfileComponent,

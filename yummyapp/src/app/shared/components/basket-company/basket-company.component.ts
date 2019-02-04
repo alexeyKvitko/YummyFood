@@ -13,6 +13,8 @@ export class BasketCompanyComponent implements OnInit {
   @Input()
   basket: BasketModel;
 
+  priceDiff: number;
+
   @Output()
   showCompany: EventEmitter<number> = new EventEmitter<number>();
 
@@ -22,6 +24,7 @@ export class BasketCompanyComponent implements OnInit {
     if ( this.basket != null ){
       this.logoSrc = "assets/images/logos/"+this.basket.company.logo;
     }
+    this.priceDiff = this.basket.price-this.basket.company.delivery  ;
   }
 
   showCompanyDetails(){

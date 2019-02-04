@@ -1,8 +1,8 @@
 <div class="row>">
-  <div class="up-icon up-icon-top">
+  <div class="up-icon up-icon-top" (click)="moveToTop()" [style.opacity]="toUpIconOpacity">
     <i class="fas fa-angle-double-up" aria-hidden="true"></i>
   </div>
-  <div class="basket-scr">
+  <div class="basket-scr" (scroll)="onScrollDiv($event)">
     <section class="basket">
       <div id="top" class="basket-title">
         <p>Крымская Служба Заказа Еды</p>
@@ -24,11 +24,16 @@
                 </div>
                 <div class="price-by-name bordered" *ngIf="basketPrice > 0">
                   <span class="span-left">Итого к оплате:</span>
-                  <span class="span-right">{{basketPrice}}&nbsp;р.</span>
+                  <span class="span-right">{{basketPrice}}&nbsp;р.</span><br>
+                  <span class="an-else">
+                    Что-нибудь еще ?<br>
+                    Попробуйте <span (click)="showCompanies()">заказать доставку еды </span> в других заведениях.
+                  </span>
                 </div>
                 <div class="price-by-name " *ngIf="basketPrice == 0">
-                  <span class="span-center">Ваша корзина пуста !</span>
-                  <div class="span-center delivery" (click)="showCompanies()" >ВЫБОР БЛЮД</div>
+                  <span class="span-center">Не нашли то, что искали?</span><br>
+                  <span class="span-center">Попробуйте заказать доставку еды </span>
+                  <div class="span-center delivery" (click)="showCompanies()" >В ДРУГИХ ЗАВЕДЕНИЯХ</div>
                 </div>
              </div>
             </div>
@@ -38,9 +43,9 @@
                              [basket]="basket" (showCompany)="showCompanyDetail($event)">
             </basket-company>
           </div>
-
         </div>
       </div>
+      <page-footer></page-footer>
     </section>
   </div>
 </div>

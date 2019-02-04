@@ -99,4 +99,39 @@ public class MenuServiceImpl implements MenuService {
             throw new BusinessLogicException( e.getMessage() );
         }
     }
+
+    @Override
+    public String getMenuTypeIdsAsString(Integer companyId) throws BusinessLogicException {
+        StringBuilder result = new StringBuilder();
+        try{
+            List<Integer> typeIds = menuTypeRepo.findTypeIdsByCompanyId( companyId );
+            if( typeIds.size() > 0){
+                for( Integer id :typeIds ){
+                    result.append(id).append(",");
+                }
+                result.deleteCharAt( result.length()-1 );
+            }
+        } catch (Exception e){
+            throw new BusinessLogicException( e.getMessage() );
+        }
+        return result.toString();
+    }
+
+    @Override
+    public String getMenuCategoryIdsAsString(Integer companyId) throws BusinessLogicException {
+        StringBuilder result = new StringBuilder();
+        try{
+            List<Integer> categoryIds = menuCategoryRepo.findCategoryIdsByCompanyId( companyId );
+            if( categoryIds.size() > 0){
+                for( Integer id :categoryIds ){
+                    result.append(id).append(",");
+                }
+                result.deleteCharAt( result.length()-1 );
+            }
+
+        } catch (Exception e){
+            throw new BusinessLogicException( e.getMessage() );
+        }
+        return result.toString();
+    }
 }

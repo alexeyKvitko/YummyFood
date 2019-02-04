@@ -15,15 +15,10 @@
               <input placeholder="Поиск заведений" type="text">
               <i class="fas fa-search search-icon"></i>
             </div>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <div class="menu-btn-item azure-mbti main-button" (click)="createCompany()" *ngIf="isRoleAdmin()">
-              <img src="assets/images/icons/restaurants-poi.png">
-              <div class="mobile-label">
-                <p>ДОБАВИТЬ ЗАВЕДЕНИЕ</p>
-              </div>
-            </div>
+
           </div>
           <div class="right-part">
+            <div class="decity-count">Выбрано {{filteredCompanies.length}} заведений</div>
             <div class="right-part-content">
               <switch switchId="single2" fromStr="ВСЕ" toStr="ОТКРЫТЫЕ" switchW="250px" switchH="40px" initValToStr="true"></switch>
             </div>
@@ -38,7 +33,7 @@
               </div>
               <div class="dishes-item" *ngFor="let dish of deliveryMenu.menuCategories;let idx = index"
                    [hidden]="!showCategoryItem(idx)">
-                <input class="checkbox checkbox-success" type="checkbox" id="dish-checkbox-{{idx}}">
+                <input class="checkbox checkbox-success" type="checkbox" id="dish-checkbox-{{idx}}" (click)="selectDish(dish)">
                 <label class="check-label" for="dish-checkbox-{{idx}}">{{dish.displayName}}</label>
               </div>
               <div class="dishes-container">
@@ -52,7 +47,7 @@
               </div>
               <div class="dishes-item" *ngFor="let kitchen of deliveryMenu.menuTypes;let idx = index"
                    [hidden]="!showTypesItem(idx)">
-                <input class="checkbox checkbox-success" type="checkbox" id="kitchen-checkbox-{{idx}}">
+                <input class="checkbox checkbox-success" type="checkbox" id="kitchen-checkbox-{{idx}}" (click)="selectKitchen(kitchen)">
                 <label class="check-label" for="kitchen-checkbox-{{idx}}">{{kitchen.displayName}}</label>
               </div>
               <div class="dishes-container">
@@ -65,15 +60,15 @@
                 <p>СПОСОБЫ ОПЛАТЫ</p>
               </div>
               <div class="dishes-item">
-                <input class="checkbox checkbox-success" type="checkbox" id="pay-checkbox-1">
+                <input class="checkbox checkbox-success" type="checkbox" id="pay-checkbox-1" (click)="selectPayType(1)">
                 <label class="check-label" for="pay-checkbox-1">Наличными</label>
               </div>
               <div class="dishes-item">
-                <input class="checkbox checkbox-success" type="checkbox" id="pay-checkbox-2">
+                <input class="checkbox checkbox-success" type="checkbox" id="pay-checkbox-2" (click)="selectPayType(2)">
                 <label class="check-label" for="pay-checkbox-2">Банковской Картой</label>
               </div>
               <div class="dishes-item">
-                <input class="checkbox checkbox-success" type="checkbox" id="pay-checkbox-3">
+                <input class="checkbox checkbox-success" type="checkbox" id="pay-checkbox-3" (click)="selectPayType(3)">
                 <label class="check-label" for="pay-checkbox-3">Электронный кошелек</label>
               </div>
               <br>
@@ -89,17 +84,33 @@
               </div>
               <br>
             </div>
+            <!-- СБРОСИТЬ ФИЛЬТР-->
+            <div class="kabare-menu" *ngIf="showClearFilter()">
+               <div class="clear-filter" (click)="clearFilters()">
+                 <img src="assets/images/icons/cross_red.png">
+                <p>Сбросить фильтр</p>
+               </div>
+              <br>
+            </div>
+            <div class="menu-btn-item azure-mbti main-button"
+                 style="margin-left: 20px"
+                 (click)="createCompany()" *ngIf="isRoleAdmin()">
+              <img src="assets/images/icons/restaurants-poi.png">
+              <div class="mobile-label">
+                <p>ДОБАВИТЬ ЗАВЕДЕНИЕ</p>
+              </div>
+            </div>
           </div>
           <div class="kabare-body-right">
-            <company-card *ngFor="let company of companies;let idx = index"
+            <company-card *ngFor="let company of filteredCompanies;let idx = index"
                           [company]="company"
                           (selectCompany)="showCompanyDetail($event)"></company-card>
           </div>
         </div>
       </div>
+      <page-footer></page-footer>
     </section>
   </div>
 </div>
-<!--<loading [loading]="loading"></loading>-->
-<!--formControlName="tagEndSection"-->
+
 

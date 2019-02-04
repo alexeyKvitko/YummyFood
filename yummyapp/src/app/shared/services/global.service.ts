@@ -63,6 +63,10 @@ export class GlobalService {
       return entityPrice;
     }
 
+  public clearBasket(){
+    this.customerBasket = new Array<MenuEntityModel>();
+  }
+
     public calculatePrice( menuEntity: MenuEntityModel ){
       let calc = 0;
       switch( menuEntity.wspType ){

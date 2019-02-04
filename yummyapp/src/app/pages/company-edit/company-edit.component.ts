@@ -237,7 +237,7 @@ export class CompanyEditComponent implements OnInit {
     if ( companyModel.phoneOne == null ||  companyModel.phoneOne.trim().length == 0 ){
       result = result + "Телефон; ";
     }
-    if ( companyModel.delivery == null ||  companyModel.delivery.trim().length == 0 ){
+    if ( companyModel.delivery == null  ){
       result = result + "Минимальная доставка; ";
     }
     if ( companyModel.commentCount == null ||  companyModel.commentCount.trim().length == 0 ){

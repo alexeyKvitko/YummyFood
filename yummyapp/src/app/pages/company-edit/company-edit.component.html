@@ -123,7 +123,7 @@
               <span class="input-group-addon-teal addon-left" id="phoneOne" (click)="inputControlClick('phoneOne')">
               <span [hidden]="isControlHidden('phoneOne')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('phoneOne')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Телефон</span>
-          <input placeholder="Основной телефон" type="text" formControlName="phoneOne">
+          <input placeholder="Основной телефон" type="number" formControlName="phoneOne">
           <span class="input-group-addon-teal-right itr-end" (click)="undoControl('phoneOne')"><i
             class="fas fa-undo-alt"></i></span>
         </div>
@@ -131,7 +131,7 @@
               <span class="input-group-addon-teal addon-left" id="phoneTwo" (click)="inputControlClick('phoneTwo')">
               <span [hidden]="isControlHidden('phoneTwo')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('phoneTwo')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Телефон</span>
-          <input placeholder="Дополнительный телефон" type="text" formControlName="phoneTwo">
+          <input placeholder="Дополнительный телефон" type="number" formControlName="phoneTwo">
           <span class="input-group-addon-teal-right itr-end" (click)="undoControl('phoneTwo')"><i
             class="fas fa-undo-alt"></i></span>
         </div>
@@ -140,7 +140,7 @@
               <span [hidden]="isControlHidden('phoneThree')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('phoneThree')"><i
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Телефон</span>
-          <input placeholder="Дополнительный телефон" type="text" formControlName="phoneThree">
+          <input placeholder="Дополнительный телефон" type="number" formControlName="phoneThree">
           <span class="input-group-addon-teal-right itr-end" (click)="undoControl('phoneThree')"><i
             class="fas fa-undo-alt"></i></span>
         </div>
@@ -157,7 +157,7 @@
               <span [hidden]="isControlHidden('minOrder')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('minOrder')"><i
                 class="fa fa-lock"></i></span>&nbsp;&nbsp;Мин. заказ</span>
-          <input placeholder="Минимальный заказ" type="text" formControlName="minOrder">
+          <input placeholder="Минимальный заказ" type="number" formControlName="minOrder">
           <span class="input-group-addon-teal-right itr-end" (click)="undoControl('minOrder')"><i
             class="fas fa-undo-alt"></i></span>
         </div>

@@ -24,7 +24,7 @@
   .basket-title {
     text-align: center;
     width: 100%;
-    height: 250px;
+    height: 265px;
     background: url("../../../assets/images/pizza.jpg") no-repeat fixed top center;
     padding-top: 125px;
     p {
@@ -39,7 +39,8 @@
   .basket-wrapper {
     background-color: transparent;
     width: 60%;
-    height: 120%;
+    //height: 120%;
+    min-height: 550px;
     margin: 0 auto;
     padding-top: 20px;
     .basket-body {
@@ -51,7 +52,7 @@
         padding-right: 10px;
         .basket-info {
           width: 270px;
-          height: 240px;
+          height: 255px;
           margin-bottom: 20px;
           border-radius: 3px;
           padding: 10px;
@@ -59,7 +60,7 @@
           @include box-shadow(0 1px 1px 1px rgba($teal-color, .3));
           .basket-info-container {
             width: 250px;
-            height: 220px;
+            height: 235px;
             padding: 6px;
             background-color: $gray-bkg-color;
             text-align: center;
@@ -102,6 +103,14 @@
               height: 18px;
               margin: 4px 0px;
               font-size: 14px;
+              &.disable{
+                .span-left {
+                  color: $secondary-text-color;
+                }
+                .span-right {
+                  color: $secondary-text-color;
+                }
+              }
               &.bordered {
                 border-top: 1px dotted $divider-color;
                 font-size: 16px;
@@ -114,6 +123,21 @@
                 }
                 margin-top: 8px;
                 padding-top: 8px;
+                .an-else{
+                  margin-top: 4px;
+                  color: $secondary-text-color;
+                  font-family: Roboto;
+                  font-weight: normal;
+                  font-size: 12px;
+                  span{
+                    color: $bright-coral;
+                    text-decoration: underline;
+                    &:hover{
+                      cursor: pointer;
+                      text-decoration: none;
+                    }
+                  }
+                }
               }
 
               .span-left {

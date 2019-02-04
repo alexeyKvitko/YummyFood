@@ -474,7 +474,7 @@ checkbox && radio
 }
 
 .up-icon-top{
-  top: 90%;
+  top: 80%;
   left: 5%;
   transition: all 400ms linear 0s;
 }
@@ -507,4 +507,15 @@ checkbox && radio
       }
     }
   }
+  .about-company{
+    margin-top: 12px;
+    font-size: 14px;
+    color: $green-bg;
+    img{
+      width: 48px;
+      height: 48px;
+      margin-right: 12px;
+    }
+  }
+
 }

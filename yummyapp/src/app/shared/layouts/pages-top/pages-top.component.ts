@@ -6,6 +6,7 @@ import {TOP_MENU} from "./top-menu";
 import {DictionaryModel} from "../../../model/dictionary.model";
 import {CompanyService} from "../../../services/company.service";
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import swal from "sweetalert2";
 
 
 @Component({
@@ -19,14 +20,12 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
       [
       state('initial', style({
         opacity:'0',
-        // top:'0px',
-        // left:'50%'
       })),
       state('final', style({
         opacity:'1',
       })),
       transition('final=>initial', [
-        animate('1s ease-out', style({ transform: 'scale3d(.0, .0, .0)' }))
+        animate('600ms ease-out', style({ transform: 'scale3d(.0, .0, .0)' }))
       ])
     ]
     ),
@@ -79,10 +78,13 @@ export class PagesTopComponent implements OnInit{
   ngOnInit() {
     this.selectedLink = null;
     this.routeToLink( this.topMenus[0].link );
-
   }
 
   public routeToLink(link) {
+    if ( link.trim().length == 0 ){
+      swal('В разработке ...');
+      return;
+    }
       if( this.selectedLink != link ){
       this.router.navigate([link]);
       this.selectedLink = link;
@@ -90,9 +92,43 @@ export class PagesTopComponent implements OnInit{
   }
 
   selectCity( city ){
-    this.companyService.initBootstrapApp( city.name);
     this.showDialog = false;
+    if( this.deliveryCity == city.displayName) {
+      return;
+    }
+    if( this.deliveryCity != city.displayName && this.basketPrice > 0 ){
+      swal({
+        title: 'Внимание...',
+        text: "При смене города, Ваш заказ будет утерян, продождить ?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#16be9a',
+        cancelButtonColor: '#ff7403',
+        confirmButtonText: 'ДА',
+        cancelButtonText: 'НЕТ'
+      }).then((result) => {
+        if (result.value) {
+          this.changeDeliveryCity( city )
+        } else {
+          return;
+        }
+      })
+    } else {
+      this.changeDeliveryCity( city );
+    }
   }
+
+
+  changeDeliveryCity( city ){
+    this._globalService.clearBasket();
+    this.companyService.removeCompaniesFromBasket();
+    this._globalService.dataBusChanged("add-to-basket","update");
+    swal('Город доставки: '+city.displayName);
+    this.companyService.initBootstrapApp( city.name);
+    this.selectedLink = null;
+    this.routeToLink( this.topMenus[0].link );
+  }
+
 
   openCityModal(){
     this.showDialog = true;

@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MenuEntityModel} from "../../../model/menu-entity.model";
 import {GlobalService} from "../../services/global.service";
+import {CompanyService} from "../../../services/company.service";
 
 @Component({
   selector: 'basket-entity',
@@ -11,12 +12,13 @@ export class BasketEntityComponent implements OnInit {
 
   @Input()
   menuEntity: MenuEntityModel = new MenuEntityModel();
+
   selectedWeight: string = null;
   selectedSize: string = null;
   selectedPrice: string;
   total: number;
 
-  constructor( private globalService :GlobalService ) { }
+  constructor( private globalService :GlobalService, private companyService: CompanyService) { }
 
   ngOnInit() {
     if( this.menuEntity != null ){
@@ -52,11 +54,26 @@ export class BasketEntityComponent implements OnInit {
     }
   }
 
+  removeAllEntity(){
+    this.changeEntityCount( -this.menuEntity.count );
+  }
+
   changeEntityCount( value: number ){
     this.globalService.changeEntityCountInBasket( this.menuEntity, value );
     this.total = (+this.selectedPrice)*this.menuEntity.count;
     this.globalService.dataBusChanged("add-to-basket","update");
-    // this.companyService.addCompanyToBasket( this.menuEntity.companyId );
+     if (  (this.menuEntity.count+value) < 1 ){
+      let companyCount = 0;
+      this.globalService.getBasket().forEach( entity => {
+        if( this.menuEntity.companyId == entity.companyId ){
+          companyCount++;
+        }
+      });
+      if( companyCount < 1 ){
+        this.companyService.addCompanyToBasket( this.menuEntity.companyId, false );
+      }
+    }
+
   }
 
 

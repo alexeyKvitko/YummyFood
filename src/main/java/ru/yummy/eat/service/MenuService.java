@@ -21,4 +21,8 @@ public interface MenuService {
     void deleteMenuCategory(Integer menuCategoryId) throws BusinessLogicException;
 
     void saveMenuOrders(List<MenuOrder> menuOrders) throws BusinessLogicException;
+
+    String getMenuTypeIdsAsString(Integer companyId) throws BusinessLogicException;
+
+    String getMenuCategoryIdsAsString(Integer companyId) throws BusinessLogicException;
 }

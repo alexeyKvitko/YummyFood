@@ -11,7 +11,7 @@ export class CompanyModel {
   phoneTwo: string;
   phoneThree: string;
   logo:string;
-  delivery: string;
+  delivery: number;
   commentCount: string;
   deliveryCondition: string;
   payTypeCash: number;
@@ -26,6 +26,8 @@ export class CompanyModel {
   weekdayWork: string;
   dayoffWork: string;
   isPresentInBasket: boolean;
+  menuTypeIds: string;
+  menuCategoiesIds: string;
 
   constructor(){
     this.city = new DictionaryModel();

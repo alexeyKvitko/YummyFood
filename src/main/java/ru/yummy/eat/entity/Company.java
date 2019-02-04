@@ -43,7 +43,7 @@ public class Company implements Serializable {
     private String logo;
 
     @Column(name="delivery")
-    private String delivery;
+    private Integer delivery;
 
     @Column(name="comment_count")
     private String commentCount;
@@ -164,11 +164,11 @@ public class Company implements Serializable {
         this.logo = logo;
     }
 
-    public String getDelivery() {
+    public Integer getDelivery() {
         return delivery;
     }
 
-    public void setDelivery(String delivery) {
+    public void setDelivery(Integer delivery) {
         this.delivery = delivery;
     }
 

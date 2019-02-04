@@ -13,6 +13,7 @@ import { TokenInterceptor } from "./services/token-interceptor.service";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PagesModule } from './pages/pages.module';
 import { DeliveryMenuService } from "./services/delivery-menu.service";
+import {UtilsService} from "./services/utils.service";
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { DeliveryMenuService } from "./services/delivery-menu.service";
     FormsModule,
     PagesModule
   ],
-  providers: [CompanyService,LoginService,AuthService,DeliveryMenuService,{provide: HTTP_INTERCEPTORS,
+  providers: [CompanyService,LoginService,AuthService,DeliveryMenuService,UtilsService,{provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
     multi : true}],
   bootstrap: [AppComponent]

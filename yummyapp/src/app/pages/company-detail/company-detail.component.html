@@ -1,15 +1,15 @@
 <div class="row" [hidden]="loading">
-  <div class="up-icon up-icon-top"  (click)="moveToTop()" [style.opacity]="toUpIconOpacity">
+  <div class="up-icon up-icon-top" (click)="moveToTop()" [style.opacity]="toUpIconOpacity">
     <i class="fas fa-angle-double-up" aria-hidden="true"></i>
   </div>
   <div class="compdet-scr" (scroll)="onScrollDiv($event)">
     <section class="compdet">
-      <div class="compdet-title" id="top" >
+      <div class="compdet-title" id="top">
         <p>Крымская Служба Заказа Еды</p>
         <p>{{companyDetail.displayName}}</p>
       </div>
-      <div class="compdet-wrapper" >
-        <div class="compdet-body" >
+      <div class="compdet-wrapper">
+        <div class="compdet-body">
           <div class="compdet-body-left">
             <div class="add-info">
               <div class="add-info-container">
@@ -19,7 +19,8 @@
                   Минимальный заказ - <b>{{companyDetail.delivery}}</b><br>
                   Доставка - БЕСПЛАТНО.<br>
                   Не нашли то, что искали?
-                  Попробуйте <span (click)="returnToChoice()">заказать доставку еды в г.<b>{{deliveryCity}}</b> </span> в других заведениях.
+                  Попробуйте <span (click)="returnToChoice()">заказать доставку еды в г.<b>{{deliveryCity}}</b> </span>
+                  в других заведениях.
                 </p>
               </div>
             </div>
@@ -52,9 +53,10 @@
               </div>
               <div class="menutype-item" *ngFor="let menuType of menuTypes">
                 <label>{{menuType.displayName}}</label>
-                <div class="menucategory-item" [ngClass]="{'menucategory-item-selected': isMenuActive( menuCategory.id )}"
+                <div class="menucategory-item"
+                     [ngClass]="{'menucategory-item-selected': isMenuActive( menuCategory.id )}"
                      *ngFor="let menuCategory of menuType.menuCategories"
-                                      (click)="selectMenuCategory(menuType,menuCategory)">
+                     (click)="selectMenuCategory(menuType,menuCategory)">
                   <label>{{menuCategory.displayName}}</label>
                   <img src="assets/images/icons/in-basket.png" *ngIf="isMenuInBasket( menuCategory.id )">
                 </div>
@@ -63,7 +65,8 @@
           </div>
           <div class="compdet-body-right">
             <company-card [company]="companyDetail" [isDetailInfo]=true></company-card>
-            <div class="compdet-menu-title">{{selMenuCategory.displayName}}&nbsp;от&nbsp;{{companyDetail.displayName}}</div>
+            <div class="compdet-menu-title">{{categoryDisplayName}}&nbsp;{{companyDetail.displayName}}
+            </div>
             <div class="company-row-content" *ngFor="let triple of tripleEntities">
               <div class="square-box" *ngIf="triple.entityOne.priceOne != null">
                 <company-entity [menuEntity]="triple.entityOne">
@@ -81,6 +84,7 @@
           </div>
         </div>
       </div>
+      <page-footer></page-footer>
     </section>
   </div>
 </div>

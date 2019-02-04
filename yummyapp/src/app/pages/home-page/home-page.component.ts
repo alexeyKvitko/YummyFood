@@ -4,7 +4,6 @@ import {TrackScrollDirective} from "../../directives/track-scroll";
 import {IMAGE_PATHS} from "./const-image-paths";
 import {CATALOG} from "./const-catalog";
 import {ACTIONS} from "./const-actions";
-import {SOCIAL} from "./const-social";
 import {GlobalService} from "../../shared/services/global.service";
 
 @Component({
@@ -46,7 +45,6 @@ export class HomePageComponent implements OnInit{
   currentState = 'initial';
   imagePaths = IMAGE_PATHS;
   catalogItems = CATALOG;
-  socialIcons = SOCIAL;
   actionItems = ACTIONS;
   inviteOpacity: number = 1;
   scrollPercent: number = 0;

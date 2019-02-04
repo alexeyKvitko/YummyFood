@@ -52,18 +52,26 @@
       flex-direction: row;
       //align-items: center;
       .right-part{
-        width: 50%;
-        margin-top: 10px;
+        width: 100%;
+        margin-left: 35px;
+        display: flex;
+        flex-direction: row;
+        .decity-count{
+          font-family: Sandora;
+          color: $primary-text-color;
+          font-size: 24px;
+          font-weight: 600;
+          float: left;
+        }
         .right-part-content{
-          margin-right: 20px;
-          float: right;
-          display: flex;
-          flex-direction: column;
+          margin-top: 10px;
+          padding-left: 15px;
+          margin-left: auto;
         }
 
       }
       .left-part{
-        width: 50%;
+        width: 300px;
       }
     }
     .kabare-body{
@@ -91,6 +99,28 @@
       flex-direction: column;
       align-items: flex-start;
       border-radius: 2px;
+      .clear-filter{
+        display: flex;
+        flex-direction: row;
+        margin-top: 20px;
+        margin-left: 16px;
+        img{
+          width: 16px;
+          height: 16px;
+        }
+        p{
+          color: $bright-coral;
+          font-family: Roboto-Condensed;
+          font-size: 14px;
+          border-bottom: 1px dotted $bright-coral;
+          margin-left: 6px;
+          &:hover{
+            border-bottom: 1px dotted transparent;
+            cursor: pointer;
+          }
+        }
+
+      }
       .kabere-dishes{
         text-align: center;
         width:250px;

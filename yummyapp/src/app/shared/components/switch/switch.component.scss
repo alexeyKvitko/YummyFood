@@ -18,7 +18,7 @@
     }
   }
   .sw-select{
-    color: $accent-color;
+    color: $bright-coral;
   }
 }
 
@@ -26,7 +26,8 @@
 .toggle {
   transition: 500ms;
   width: 60px;
-  height: 22px;
+  height: 20px;
+  line-height: 22px;
   margin: 0px 6px;
   //padding-left: -35px;
   .off{
@@ -37,15 +38,17 @@
     -ms-transform: rotate(180deg);
     transform: rotate(180deg);
   }
+  &.on{
+    padding-left: 35px;
+  }
 }
-.toggle.on {
-  padding-left: 35px;
-}
+
 .switcher{
   height: 24px;
   width: 24px;
-  line-height: 24px;
+  line-height: 22px;
   transition: 500ms;
+  margin-top: -3px;
   img{
     width: 100%;
     vertical-align: baseline;

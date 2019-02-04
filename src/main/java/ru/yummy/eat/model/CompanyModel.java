@@ -21,7 +21,7 @@ public class CompanyModel implements Serializable {
     private String phoneTwo;
     private String phoneThree;
     private String logo;
-    private String delivery;
+    private Integer delivery;
     private String commentCount;
     private String deliveryCondition;
     private Integer payTypeCash;
@@ -35,6 +35,9 @@ public class CompanyModel implements Serializable {
     private Integer action;
     private String weekdayWork;
     private String dayoffWork;
+    private String menuTypeIds;
+    private String menuCategoiesIds;
+
 
     public CompanyModel() {
         this.id = AppConstants.FAKE_ID;
@@ -129,11 +132,11 @@ public class CompanyModel implements Serializable {
         this.logo = logo;
     }
 
-    public String getDelivery() {
+    public Integer getDelivery() {
         return delivery;
     }
 
-    public void setDelivery(String delivery) {
+    public void setDelivery(Integer delivery) {
         this.delivery = delivery;
     }
 
@@ -239,6 +242,22 @@ public class CompanyModel implements Serializable {
 
     public void setDayoffWork(String dayoffWork) {
         this.dayoffWork = dayoffWork;
+    }
+
+    public String getMenuTypeIds() {
+        return menuTypeIds;
+    }
+
+    public void setMenuTypeIds(String menuTypeIds) {
+        this.menuTypeIds = menuTypeIds;
+    }
+
+    public String getMenuCategoiesIds() {
+        return menuCategoiesIds;
+    }
+
+    public void setMenuCategoiesIds(String menuCategoiesIds) {
+        this.menuCategoiesIds = menuCategoiesIds;
     }
 
     @Override public boolean equals(Object o) {
