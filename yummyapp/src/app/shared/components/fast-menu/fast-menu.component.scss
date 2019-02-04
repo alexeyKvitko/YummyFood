@@ -1,0 +1,62 @@
+@import "../../theme/conf";
+.fast-menu{
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  position: absolute;
+  z-index: 9;
+  //left:50%;
+  margin: 0 20%;
+  //margin-left: -375px;
+  width: 60%;
+  border-radius: 3px;
+  background: url("../../../../assets/images/back6.jpg") no-repeat fixed top center;
+  @include box-shadow( 0 3px 10px 0 rgba($teal-color, .5));
+  padding: 40px 20px;
+  height: 110px;
+  .fast-menu-item{
+    margin: 0px 10px;
+    min-width: 130px;
+    min-height: 72px;
+    max-height: 72px;
+    text-align: center;
+
+    img{
+      position: absolute;
+      transform: translateX(-50%);
+      text-align: center;
+      width:96px;
+      height: 96px;
+      @include transition(all .4s);
+      top: -8px;
+    }
+    .lbl{
+      font-size: 18px;
+      margin-top: 36px;
+      font-family: Taurus;
+      color: $bright-coral;
+      @include transition(all .4s);
+      text-transform: uppercase;
+    }
+    &:hover{
+      cursor: pointer;
+      img{
+        width:112px;
+        height: 118px;
+        top: -8px;
+      }
+      .lbl{
+        font-size: 22px;
+        margin-top: 42px;
+        font-family: Taurus;
+        color: $bright-coral;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+
+
+
+}
