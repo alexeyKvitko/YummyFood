@@ -3,6 +3,7 @@ package ru.yummy.eat.service;
 import ru.yummy.eat.entity.MenuOrder;
 import ru.yummy.eat.exception.BusinessLogicException;
 import ru.yummy.eat.model.DeliveryMenu;
+import ru.yummy.eat.model.FastMenu;
 import ru.yummy.eat.model.MenuCategoryModel;
 import ru.yummy.eat.model.MenuTypeModel;
 
@@ -25,4 +26,6 @@ public interface MenuService {
     String getMenuTypeIdsAsString(Integer companyId) throws BusinessLogicException;
 
     String getMenuCategoryIdsAsString(Integer companyId) throws BusinessLogicException;
+
+    FastMenu getFastMenu() throws BusinessLogicException;
 }

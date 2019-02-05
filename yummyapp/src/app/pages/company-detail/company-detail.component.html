@@ -1,4 +1,5 @@
 <div class="row" [hidden]="loading">
+  <fast-menu [top]="fastMenuTop" (selectValue)="selectFastMenu($event)"></fast-menu>
   <div class="up-icon up-icon-top" (click)="moveToTop()" [style.opacity]="toUpIconOpacity">
     <i class="fas fa-angle-double-up" aria-hidden="true"></i>
   </div>
@@ -56,7 +57,7 @@
                 <div class="menucategory-item"
                      [ngClass]="{'menucategory-item-selected': isMenuActive( menuCategory.id )}"
                      *ngFor="let menuCategory of menuType.menuCategories"
-                     (click)="selectMenuCategory(menuType,menuCategory)">
+                     (click)="selectMenuCategory(menuType,menuCategory, true)">
                   <label>{{menuCategory.displayName}}</label>
                   <img src="assets/images/icons/in-basket.png" *ngIf="isMenuInBasket( menuCategory.id )">
                 </div>

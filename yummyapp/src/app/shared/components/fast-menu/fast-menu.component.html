@@ -1,21 +1,21 @@
-<div class="fast-menu" [style.top]="topPos" [style.opacity]="fmOpacity" >
-  <div class="fast-menu-item">
+<div class="fast-menu" [ngClass]="{'with-bg':showBackground}" [style.top]="topPos">
+  <div class="fast-menu-item" [ngClass]="{'menu-sel':selected == 1}" (click)="selectMenu(1)">
     <img src="assets/images/menu/pizza.png">
     <div class="lbl">Пицца</div>
   </div>
-  <div class="fast-menu-item">
+  <div class="fast-menu-item" [ngClass]="{'menu-sel':selected == 2}" (click)="selectMenu(2)">
     <img src="assets/images/menu/sushi.png">
     <div class="lbl">Суши</div>
   </div>
-  <div class="fast-menu-item">
+  <div class="fast-menu-item" [ngClass]="{'menu-sel':selected == 3}" (click)="selectMenu(3)">
     <img src="assets/images/menu/burger.png">
     <div class="lbl">Бургеры</div>
   </div>
-  <div class="fast-menu-item">
+  <div class="fast-menu-item" [ngClass]="{'menu-sel':selected == 4}" (click)="selectMenu(4)">
     <img src="assets/images/menu/shashlik.png">
     <div class="lbl">Шашлыки</div>
   </div>
-  <div class="fast-menu-item">
+  <div class="fast-menu-item" [ngClass]="{'menu-sel':selected == 5}" (click)="selectMenu(5)">
     <div class="lbl">WOK</div>
     <img src="assets/images/menu/wok.png">
 

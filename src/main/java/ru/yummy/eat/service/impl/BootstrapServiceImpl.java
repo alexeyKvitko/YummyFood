@@ -61,6 +61,7 @@ public class BootstrapServiceImpl {
                 companyModel.setMenuTypeIds( menuService.getMenuTypeIdsAsString( companyModel.getId() ) );
                 companyModel.setMenuCategoiesIds( menuService.getMenuCategoryIdsAsString( companyModel.getId() ) );
             }
+            bootstrapModel.setFastMenu( menuService.getFastMenu() );
         } catch (BusinessLogicException e ){
             LOG.error("CAN'T GET MENU TYPE IDS, OR MENU CATEGORY IDS"+e.getMessage() );
         }

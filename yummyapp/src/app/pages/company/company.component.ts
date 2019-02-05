@@ -35,6 +35,7 @@ export class CompanyComponent implements OnInit {
   selectedDishes: number[] =  new Array<number>();
   selectedKitches: number[] =  new Array<number>();
   selectedPayTypes: number[] =  new Array<number>();
+  selectedFastMenu: number[] =  new Array<number>();
   fastMenuTop: number = 290;
 
   constructor(private router: Router,private _authService: AuthService, private deliveryMenuService : DeliveryMenuService,
@@ -134,22 +135,25 @@ export class CompanyComponent implements OnInit {
     return this.userRole == 'ROLE_ADMIN';
   }
 
-  selectDish( dish ){
-    const index = this.selectedDishes.indexOf( dish.id );
+  selectDish( dishId ){
+    const index = this.selectedDishes.indexOf( dishId );
     if (index != -1){
       this.selectedDishes.splice(index, 1);
     } else {
-      this.selectedDishes.push( dish.id );
+      this.selectedDishes.push( dishId );
     }
     this.filterCompanies();
+    if( this.selectedDishes.length == 0 ){
+      this._globalService.dataBusChanged("fast-menu-clear",true);
+    }
   }
 
-  selectKitchen( kitchen ){
-    const index = this.selectedKitches.indexOf( kitchen.id );
+  selectKitchen( kitchenId ){
+    const index = this.selectedKitches.indexOf( kitchenId );
     if (index != -1){
       this.selectedKitches.splice(index, 1);
     } else {
-      this.selectedKitches.push( kitchen.id );
+      this.selectedKitches.push( kitchenId );
     }
     this.filterCompanies();
   }
@@ -187,16 +191,16 @@ export class CompanyComponent implements OnInit {
     })
   }
 
-  clearFilters(){
+  clearFilters( sendMessage ){
     this.selectedDishes =  new Array<number>();
     this.selectedKitches =  new Array<number>();
     this.selectedPayTypes =  new Array<number>();
     this.filterCompanies();
     for( let idx = 0; idx < this.deliveryMenu.menuCategories.length; idx++ ){
-      document.getElementById("dish-checkbox-"+idx).checked = false;
+      document.getElementById("dish-checkbox-"+this.deliveryMenu.menuCategories[idx].id).checked = false;
     }
     for( let idx = 0; idx < this.deliveryMenu.menuTypes.length; idx++ ){
-      document.getElementById("kitchen-checkbox-"+idx).checked = false;
+      document.getElementById("kitchen-checkbox-"+this.deliveryMenu.menuTypes[idx].id).checked = false;
     }
     for( let idx = 1; idx < 4; idx++ ){
       document.getElementById("pay-checkbox-"+idx).checked = false;
@@ -205,12 +209,44 @@ export class CompanyComponent implements OnInit {
       document.getElementById("other-checkbox-"+idx).checked = false;
     }
     this.moveToTop();
+    if( sendMessage ){
+      this._globalService.dataBusChanged("fast-menu-clear",true);
+    }
   }
 
   showClearFilter(): boolean{
     return this.selectedPayTypes.length > 0 ||
               this.selectedDishes.length > 0 ||
                 this.selectedKitches.length > 0;
+  }
+
+  selectFastMenu( value ){
+    let fastMenu = this.companyService.getFastMenuModel();
+    this.clearFilters( false );
+    switch ( value ){
+      case 1 :
+         this.selectedFastMenu = fastMenu.pizzaIds;
+        break;
+      case 2 :
+        this.selectedFastMenu = fastMenu.shushiIds;
+        break;
+      case 3 :
+        this.selectedFastMenu = fastMenu.burgerIds;
+        break;
+      case 4 :
+        this.selectedFastMenu = fastMenu.grillIds;
+        break;
+      case 5 :
+        this.selectedFastMenu = fastMenu.wokIds;
+        break;
+      default:
+        break;
+    }
+    this.selectedFastMenu.forEach( id =>{
+      this.selectDish(id);
+      document.getElementById("dish-checkbox-"+id).checked = true;
+    } );
+
   }
 
 }

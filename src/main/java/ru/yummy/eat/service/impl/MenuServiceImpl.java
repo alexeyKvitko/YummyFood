@@ -2,11 +2,13 @@ package ru.yummy.eat.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.yummy.eat.config.AppProperties;
 import ru.yummy.eat.entity.MenuCategory;
 import ru.yummy.eat.entity.MenuOrder;
 import ru.yummy.eat.entity.MenuType;
 import ru.yummy.eat.exception.BusinessLogicException;
 import ru.yummy.eat.model.DeliveryMenu;
+import ru.yummy.eat.model.FastMenu;
 import ru.yummy.eat.model.MenuCategoryModel;
 import ru.yummy.eat.model.MenuTypeModel;
 import ru.yummy.eat.repo.MenuCategoryRepository;
@@ -133,5 +135,20 @@ public class MenuServiceImpl implements MenuService {
             throw new BusinessLogicException( e.getMessage() );
         }
         return result.toString();
+    }
+
+    @Override
+    public FastMenu getFastMenu() throws BusinessLogicException {
+        FastMenu fastMenu = new FastMenu();
+        try{
+            fastMenu.setPizzaIds( menuCategoryRepo.findAllByNames( AppProperties.getProperties().getMenuCategoryPizza()) );
+            fastMenu.setShushiIds( menuCategoryRepo.findAllByNames( AppProperties.getProperties().getMenuCategorySushi()) );
+            fastMenu.setBurgerIds( menuCategoryRepo.findAllByNames( AppProperties.getProperties().getMenuCategoryBurger()) );
+            fastMenu.setGrillIds( menuCategoryRepo.findAllByNames( AppProperties.getProperties().getMenuCategoryGrill()) );
+            fastMenu.setWokIds( menuCategoryRepo.findAllByNames( AppProperties.getProperties().getMenuCategoryWOK()) );
+        } catch (Exception e){
+            throw new BusinessLogicException( e.getMessage() );
+        }
+        return fastMenu;
     }
 }

@@ -8,6 +8,7 @@ import {ApiResponse} from "../model/api.response";
 import {CompanyEditModel} from "../model/company-edit.model";
 import {BootstrapAppModel} from "../model/bootstrap-app.model";
 import {GlobalService} from "../shared/services/global.service";
+import {FastMenuModel} from "../model/fast-menu.model";
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,10 @@ export class CompanyService {
 
   public getCompaniesModel() {
     return this.bootstrapApp.companies;
+  }
+
+  public getFastMenuModel(): FastMenuModel{
+    return this.bootstrapApp.fastMenu;
   }
 
   public addCompanyToBasket( companyId, value ){

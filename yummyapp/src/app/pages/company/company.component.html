@@ -1,5 +1,5 @@
 <div class="row>">
-  <fast-menu [top]="fastMenuTop">npm</fast-menu>
+  <fast-menu [top]="fastMenuTop" (selectValue)="selectFastMenu($event)"></fast-menu>
   <div class="up-icon up-icon-top"  (click)="moveToTop()" [style.opacity]="toUpIconOpacity">
     <i class="fas fa-angle-double-up" aria-hidden="true"></i>
   </div>
@@ -34,8 +34,8 @@
               </div>
               <div class="dishes-item" *ngFor="let dish of deliveryMenu.menuCategories;let idx = index"
                    [hidden]="!showCategoryItem(idx)">
-                <input class="checkbox checkbox-success" type="checkbox" id="dish-checkbox-{{idx}}" (click)="selectDish(dish)">
-                <label class="check-label" for="dish-checkbox-{{idx}}">{{dish.displayName}}</label>
+                <input class="checkbox checkbox-success" type="checkbox" id="dish-checkbox-{{dish.id}}" (click)="selectDish(dish.id)">
+                <label class="check-label" for="dish-checkbox-{{dish.id}}">{{dish.displayName}}</label>
               </div>
               <div class="dishes-container">
                 <span (click)="showAllCategories()">{{categoriesListView}}</span>
@@ -48,8 +48,8 @@
               </div>
               <div class="dishes-item" *ngFor="let kitchen of deliveryMenu.menuTypes;let idx = index"
                    [hidden]="!showTypesItem(idx)">
-                <input class="checkbox checkbox-success" type="checkbox" id="kitchen-checkbox-{{idx}}" (click)="selectKitchen(kitchen)">
-                <label class="check-label" for="kitchen-checkbox-{{idx}}">{{kitchen.displayName}}</label>
+                <input class="checkbox checkbox-success" type="checkbox" id="kitchen-checkbox-{{kitchen.id}}" (click)="selectKitchen(kitchen.id)">
+                <label class="check-label" for="kitchen-checkbox-{{kitchen.id}}">{{kitchen.displayName}}</label>
               </div>
               <div class="dishes-container">
                 <span (click)="showAllTypes()">{{typesListView}}</span>
@@ -87,7 +87,7 @@
             </div>
             <!-- СБРОСИТЬ ФИЛЬТР-->
             <div class="kabare-menu" *ngIf="showClearFilter()">
-               <div class="clear-filter" (click)="clearFilters()">
+               <div class="clear-filter" (click)="clearFilters( true )">
                  <img src="assets/images/icons/cross_red.png">
                 <p>Сбросить фильтр</p>
                </div>

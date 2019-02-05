@@ -9,6 +9,7 @@ import {GlobalService} from "../../shared/services/global.service";
 import {TripleEntityModel} from "../../model/triple-entity.model";
 import {TrackScrollDirective} from "../../directives/track-scroll";
 import {CompanyModel} from "../../model/company.model";
+import {document} from "ngx-bootstrap";
 
 @Component({
   selector: 'app-company-detail',
@@ -31,7 +32,9 @@ export class CompanyDetailComponent implements OnInit {
   menuTypes: MenuTypeModel[] = new Array<MenuTypeModel>();
   companyDetail: CompanyModel =  new CompanyModel();
   tripleEntities: TripleEntityModel[] = new Array<TripleEntityModel>();
+  selectedFastMenu: number[] =  new Array<number>();
   userRole: string;
+  fastMenuTop: number = 290;
 
   deliveryCity: string;
 
@@ -86,7 +89,7 @@ export class CompanyDetailComponent implements OnInit {
       });
   }
 
-  selectMenuCategory( menuType: MenuTypeModel, menuCategory: MenuCategoryModel ){
+  selectMenuCategory( menuType: MenuTypeModel, menuCategory: MenuCategoryModel, sendMessage ){
     this.selMenuType = menuType;
     this.selMenuCategory = menuCategory;
     this.categoryDisplayName = this.selMenuCategory.displayName+" от";
@@ -105,6 +108,9 @@ export class CompanyDetailComponent implements OnInit {
       this.tripleEntities.push( tripleEntity );
     }
     this.moveToTop();
+    if( sendMessage ){
+      this._globalService.dataBusChanged("fast-menu-clear",true);
+    }
   }
 
   isMenuActive( id ){
@@ -128,6 +134,8 @@ export class CompanyDetailComponent implements OnInit {
   }
 
   onScrollDiv(event: UIEvent): void {
+    this.fastMenuTop = 290 - (event.srcElement.scrollTop/2);
+    this._globalService.dataBusChanged('fast-menu-pos',this.fastMenuTop);
     if ( event.srcElement.scrollTop > 800 ){
       this.toUpIconOpacity = 1;
     } else {
@@ -149,6 +157,52 @@ export class CompanyDetailComponent implements OnInit {
 
   isRoleAdmin(){
     return this.userRole == 'ROLE_ADMIN';
+  }
+
+  selectFastMenu( value ){
+    let fastMenu = this.companyService.getFastMenuModel();
+    // this.clearFilters( false );
+    switch ( value ){
+      case 1 :
+        this.selectedFastMenu = fastMenu.pizzaIds;
+        break;
+      case 2 :
+        this.selectedFastMenu = fastMenu.shushiIds;
+        break;
+      case 3 :
+        this.selectedFastMenu = fastMenu.burgerIds;
+        break;
+      case 4 :
+        this.selectedFastMenu = fastMenu.grillIds;
+        break;
+      case 5 :
+        this.selectedFastMenu = fastMenu.wokIds;
+        break;
+      default:
+        break;
+    }
+    let found = false;
+    let menuType = new MenuTypeModel();
+    let menuCategory = new MenuCategoryModel();
+    this.selectedFastMenu.forEach(fastMenuId => {
+      console.log("fast menu",fastMenuId);
+    this.menuEntities.forEach( entity =>{
+        if (!found && fastMenuId == (+entity.categoryId) ){
+          found = true;
+          this.menuTypes.forEach(type =>{if( entity.typeId == type.id ){
+            menuType = type;
+          }});
+          menuType.menuCategories.forEach(category =>{if( entity.categoryId == category.id ){
+            menuCategory = category;
+          }});
+        }
+      });
+    });
+    if ( found ){
+      this.selectMenuCategory( menuType, menuCategory, false );
+    } else {
+      this._globalService.dataBusChanged("fast-menu-clear",true);
+    }
   }
 
 }

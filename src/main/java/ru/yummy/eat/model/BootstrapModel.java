@@ -12,6 +12,7 @@ public class BootstrapModel implements Serializable {
     private List<CompanyModel> companies;
     private List<DictionaryModel> cities;
     private DeliveryMenu deliveryMenu;
+    private FastMenu fastMenu;
     private String deliveryCity;
     private boolean isDefault;
 
@@ -53,6 +54,14 @@ public class BootstrapModel implements Serializable {
 
     public void setDefault(boolean aDefault) {
         isDefault = aDefault;
+    }
+
+    public FastMenu getFastMenu() {
+        return fastMenu;
+    }
+
+    public void setFastMenu(FastMenu fastMenu) {
+        this.fastMenu = fastMenu;
     }
 
     @Override public boolean equals(Object o) {
