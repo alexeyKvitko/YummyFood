@@ -14,27 +14,27 @@
   height: 130px;
   .fast-menu-item{
     margin: 0px 10px;
-    min-width: 130px;
+    min-width: 140px;
+    width: 130px;
     height: 72px;
     text-align: center;
     background-color: rgba($white,0.8);
+    @include box-shadow( 0 3px 10px 0 rgba($teal-color, .5));
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
     @include transition(all .3s);
     img{
-      position: absolute;
-      transform: translateX(-50%);
+      margin-top: -40px;
+      position: relative;
       text-align: center;
       width:96px;
       height: 96px;
       @include transition(all .3s);
-      top: 58px;
     }
     .lbl{
-      padding-top: 2px;
+      margin-top: -10px;
       font-size: 18px;
-      margin-top: 8px;
       font-family: Taurus;
       color: $bright-coral;
       @include transition(all .3s);
@@ -43,41 +43,92 @@
     &:hover{
       background-color: rgba($white,0.9);
       cursor: pointer;
-      height: 92px;
+      height: 80px;
+      width: 140px;
       img{
-        width:112px;
-        height: 118px;
-        top: -8px;
+        margin-top: 16px;
+        width:128px;
+        height: 128px;
+        @include transition(all .3s);
       }
       .lbl{
         font-size: 22px;
-        margin-top: 54px;
+        margin-top: -130px;
       }
     }
   }
   .menu-sel{
-    height: 92px;
+    height: 80px;
+    width: 140px;
     img{
-      width:112px;
-      height: 118px;
-      top: -8px;
+      margin-top: 16px;
+      width:128px;
+      height: 128px;
+      @include transition(all .3s);
     }
     .lbl{
       font-size: 22px;
-      margin-top: 54px;
+      margin-top: -130px;
     }
   }
 
   &.with-bg{
     //background: url("../../../../assets/images/back6.jpg") no-repeat fixed top center;
     @include transition(all .6s);
-    border: 2px solid red;
     display: flex;
     flex-direction: column;
     margin-left: 0px;
-    left:10%;
-    top: 112px;
-    width: 130px;
-    height: 500px;
+    padding: 0px;
+    left:0;
+    top: 150px;
+    width: 90px;
+    height: 400px;
+    .fast-menu-item{
+      margin: 3px 0px;
+      min-width:72px;
+      max-width: 90px;
+      height: 64px;
+      width: 72px;
+      text-align: center;
+      background-color: rgba($white,0.4);
+      img{
+        margin-top: 0px;
+        width:64px;
+        height: 64px;
+        @include transition(all .3s);
+      }
+      .lbl{
+        visibility: hidden;
+      }
+      &:hover{
+        width: 90px;
+        height: 64px;
+        background-color: rgba($white,0.6);
+        img{
+          width:64px;
+          height: 64px;
+          @include transition(all .3s);
+        }
+        .lbl{
+          visibility: hidden;
+        }
+      }
+    }
+
+    .menu-sel{
+      width: 90px;
+      height: 64px;
+      background-color: rgba($card-bg,0.8);
+      @include box-shadow( 0 3px 10px 0 rgba($primary-text-color, .7));
+      img{
+        width:64px;
+        height: 64px;
+        @include transition(all .3s);
+      }
+      .lbl{
+        visibility: hidden;
+      }
+    }
+
   }
 }

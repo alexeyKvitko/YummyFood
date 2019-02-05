@@ -21,14 +21,16 @@ export class FastMenuComponent implements OnInit {
   constructor( private globalService: GlobalService) {
     this.globalService.data$.subscribe(data => {
       if (data.ev === 'fast-menu-pos') {
-        if( this.top > 110 ){
+        if( this.top > 140 ){
           this.topPos = data.value+'px';
           this.showBackground = false;
         } else {
-          this.topPos = '112px';
+          this.topPos = '150px';
           this.showBackground = true;
         }
+
         this.top = (+data.value);
+
       }
       if (data.ev === 'fast-menu-clear') {
         this.selected = -1;

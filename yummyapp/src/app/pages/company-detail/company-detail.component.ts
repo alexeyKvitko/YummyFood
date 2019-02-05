@@ -185,7 +185,6 @@ export class CompanyDetailComponent implements OnInit {
     let menuType = new MenuTypeModel();
     let menuCategory = new MenuCategoryModel();
     this.selectedFastMenu.forEach(fastMenuId => {
-      console.log("fast menu",fastMenuId);
     this.menuEntities.forEach( entity =>{
         if (!found && fastMenuId == (+entity.categoryId) ){
           found = true;

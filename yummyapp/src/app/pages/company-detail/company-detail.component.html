@@ -5,7 +5,7 @@
   </div>
   <div class="compdet-scr" (scroll)="onScrollDiv($event)">
     <section class="compdet">
-      <div class="compdet-title" id="top">
+      <div class="compdet-title" >
         <p>Крымская Служба Заказа Еды</p>
         <p>{{companyDetail.displayName}}</p>
       </div>
@@ -64,7 +64,7 @@
               </div>
             </div>
           </div>
-          <div class="compdet-body-right">
+          <div class="compdet-body-right" id="top">
             <company-card [company]="companyDetail" [isDetailInfo]=true></company-card>
             <div class="compdet-menu-title">{{categoryDisplayName}}&nbsp;{{companyDetail.displayName}}
             </div>
