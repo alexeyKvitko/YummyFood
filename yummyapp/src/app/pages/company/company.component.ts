@@ -31,12 +31,12 @@ export class CompanyComponent implements OnInit {
   filteredCompanies: CompanyModel[];
   deliveryCity: string = "";
   basket: MenuEntityModel[] = new Array<MenuEntityModel>();
-  toUpIconOpacity: number = 0;
   selectedDishes: number[] =  new Array<number>();
   selectedKitches: number[] =  new Array<number>();
   selectedPayTypes: number[] =  new Array<number>();
   selectedFastMenu: number[] =  new Array<number>();
   fastMenuTop: number = 290;
+  toUpIconOpacity: number = 0;
 
   constructor(private router: Router,private _authService: AuthService, private deliveryMenuService : DeliveryMenuService,
               private companyService: CompanyService, private _globalService: GlobalService, private utilService :UtilsService) {

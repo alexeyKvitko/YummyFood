@@ -54,6 +54,20 @@ public class AdminCompanyController {
         return companyService.getCompanyMenu( companyId,typeId,categoryId );
     }
 
+    @GetMapping("/company/dishes/{companyId}/{categoryId}")
+    public ApiResponse getCompanyDishes(@PathVariable int companyId, @PathVariable int categoryId) {
+        ApiResponse response = new ApiResponse();
+        response.setStatus( HttpStatus.OK.value() );
+        try {
+            List<MenuEntityModel> menuEntityModels = companyService.getCompanyDishes( companyId,categoryId );
+            response.setResult( menuEntityModels );
+        } catch (BusinessLogicException e){
+            response.setStatus( HttpStatus.INTERNAL_SERVER_ERROR.value() );
+            response.setMessage( e.getMessage() );
+        }
+        return response;
+    }
+
     @GetMapping("/company/addMenu/{companyId}/{typeId}/{categoryId}")
     public ApiResponse addCompanyMenu(@PathVariable int companyId, @PathVariable int typeId,
                                       @PathVariable int categoryId) {

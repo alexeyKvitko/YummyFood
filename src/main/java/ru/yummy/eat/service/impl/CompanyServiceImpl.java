@@ -254,6 +254,25 @@ public class CompanyServiceImpl {
         return companyEdit;
     }
 
+    public List<MenuEntityModel> getCompanyDishes( Integer companyId, Integer categoryId ) throws BusinessLogicException {
+        List<MenuEntityModel> menuEntityModels = null;
+        try {
+            List<MenuEntity> menuEntities = null;
+            if( companyId != null ){
+                menuEntities = menuEntityRepo.findAllByCompanyIdAndCategoryIdOrderByDisplayName( companyId, categoryId );
+            } else {
+                menuEntities = menuEntityRepo.findAllByCategoryIdOrderByDisplayName( categoryId );
+            }
+            for(MenuEntity menuEntity: menuEntities ){
+                menuEntityModels.add( convertUtils.convertMenuEntityToModel( menuEntity,companyId,null,categoryId) );
+            }
+        } catch (Exception e){
+            LOG.error("Ошибка при получении блюд, "+e.getMessage());
+            throw new BusinessLogicException( "Ошибка при попытке записи компании, "+e.getMessage() );
+        }
+        return menuEntityModels;
+    }
+
 
 
 }
