@@ -25,7 +25,7 @@
                 <div class="price-by-name bordered" *ngIf="basketPrice > 0">
                   <span class="span-left">Итого к оплате:</span>
                   <span class="span-right">{{basketPrice}}&nbsp;р.</span><br>
-                  <span class="an-else">
+                  <span class="an-else" *ngIf="customerBasket.length < 3">
                     Что-нибудь еще ?<br>
                     Попробуйте <span (click)="showCompanies()">заказать доставку еды </span> в других заведениях.
                   </span>

@@ -7,7 +7,7 @@
     <section class="dish-page">
       <div id="top" class="dish-page-title">
         <p>Крымская Служба Заказа Еды</p>
-        <p>{{deliveryCity}}</p>
+        <p class="second-line">{{deliveryCity}}</p>
       </div>
       <div class="dish-page-wrapper">
         <div class="dish-page-header">
@@ -19,7 +19,10 @@
 
           </div>
           <div class="right-part">
-            <div class="decity-count">Показано 0 блюд</div>
+            <div class="decity-count">
+              <img src="assets/images/pepsi.gif" *ngIf="showPepsi">
+              <span *ngIf="!showPepsi">{{dishCountStr}}</span>
+            </div>
           </div>
         </div>
         <div class="dish-page-body">
@@ -31,8 +34,8 @@
               </div>
               <div class="dishes-item" *ngFor="let dish of deliveryMenu.menuCategories;let idx = index"
                    [hidden]="!showCategoryItem(idx)">
-                <input name="dish-radio" class="checkbox checkbox-success" type="radio" id="dish-radio-{{dish.id}}" (click)="selectDish(dish)">
-                <label class="check-label" for="dish-radio-{{dish.id}}">{{dish.displayName}}</label>
+                <input name="dish-radio" class="radio checkbox-success" type="radio" id="dish-radio-{{dish.id}}" (click)="selectDish(dish)">
+                <label class="radio-label" for="dish-radio-{{dish.id}}">{{dish.displayName}}</label>
               </div>
               <div class="dishes-container">
                 <span (click)="showAllCategories()">{{categoriesListView}}</span>
@@ -45,8 +48,8 @@
               </div>
               <div class="dishes-item" *ngFor="let company of companies;let idx = index"
                    [hidden]="!showCompanyItem(idx)">
-                <input name="company-radio" class="checkbox checkbox-success" type="radio" id="company-radio-{{company.id}}" (click)="selectCompany(company)">
-                <label class="check-label" for="company-radio-{{company.id}}">{{company.displayName}}</label>
+                <input class="checkbox checkbox-success" type="checkbox" id="company-checkbox-{{company.id}}" (click)="selectCompany(company)">
+                <label class="check-label" for="company-checkbox-{{company.id}}">{{company.displayName}}</label>
               </div>
               <div class="dishes-container">
                 <span (click)="showAllCompanies()">{{companyListView}}</span>
@@ -71,17 +74,22 @@
               </div>
               <br>
             </div>
-            <!-- СБРОСИТЬ ФИЛЬТР-->
-            <div class="dish-page-menu" *ngIf="showClearFilter()">
-              <div class="clear-filter" (click)="clearFilters( true )">
-                <img src="assets/images/icons/cross_red.png">
-                <p>Сбросить фильтр</p>
-              </div>
-              <br>
-            </div>
           </div>
           <div class="dish-page-body-right">
-            TO-DO
+            <div class="company-row-content" *ngFor="let triple of tripleEntities">
+              <div class="square-box" *ngIf="triple.entityOne.priceOne != null">
+                <company-entity [menuEntity]="triple.entityOne" (selectCompany)="showCompanyDetail($event)">
+                </company-entity>
+              </div>
+              <div class="square-box" *ngIf="triple.entityTwo.priceOne != null">
+                <company-entity [menuEntity]="triple.entityTwo" (selectCompany)="showCompanyDetail($event)">
+                </company-entity>
+              </div>
+              <div class="square-box" *ngIf="triple.entityThree.priceOne != null">
+                <company-entity [menuEntity]="triple.entityThree" (selectCompany)="showCompanyDetail($event)">
+                </company-entity>
+              </div>
+            </div>
           </div>
         </div>
       </div>

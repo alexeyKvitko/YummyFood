@@ -5,6 +5,10 @@ import {CompanyModel} from "../../model/company.model";
 import {MenuEntityModel} from "../../model/menu-entity.model";
 import {CompanyService} from "../../services/company.service";
 import {MenuCategoryModel} from "../../model/menu-category.model";
+import swal from "sweetalert2";
+import {TripleEntityModel} from "../../model/triple-entity.model";
+import {document} from "ngx-bootstrap";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-dish-page',
@@ -17,17 +21,24 @@ export class DishPageComponent implements OnInit {
   deliveryMenu : DeliveryMenuModel;
   companies: CompanyModel[];
   basket: MenuEntityModel[] = new Array<MenuEntityModel>();
-  fastMenuTop: number = 290;
+  fastMenuTop: number = 210;
   toUpIconOpacity: number = 0;
   categoriesListView: string = 'Показать Все Блюда';
   companyListView: string = 'Показать Все Заведения';
   menuEntities: MenuEntityModel[] = new Array<MenuEntityModel>();
-  selectedDish: MenuCategoryModel;
-  selectedCompany: CompanyModel;
+  tripleEntities: TripleEntityModel[] = new Array<TripleEntityModel>();
+  selectedDish: MenuCategoryModel = new MenuCategoryModel();
+  selectedCompanies: number[] =  new Array<number>();
+  dishCount: number = 0;
+  dishCountStr: string = "";
+  showPepsi: boolean = false;
+  selectedFastMenu: number;
 
-  constructor( private _globalService: GlobalService, private companyService: CompanyService) {
+  constructor( private _globalService: GlobalService, private companyService: CompanyService,
+               private router: Router) {
     this.deliveryMenu = new DeliveryMenuModel();
     this.companies =  new Array<CompanyModel>();
+    this.selectedDish.displayName='Пицца';
   }
 
   ngOnInit() {
@@ -46,6 +57,7 @@ export class DishPageComponent implements OnInit {
       console.log('Error: ' + error);
     });
     this._globalService.dataBusChanged('data-loaded',true);
+    this.loadEntities( 1);
   }
 
   showCategoryItem( idx: number){
@@ -81,7 +93,7 @@ export class DishPageComponent implements OnInit {
   }
 
   onScrollDiv(event: UIEvent): void {
-    this.fastMenuTop = 290 - (event.srcElement.scrollTop/2);
+    this.fastMenuTop = 210 - (event.srcElement.scrollTop/2);
     this._globalService.dataBusChanged('fast-menu-pos',this.fastMenuTop);
     if ( event.srcElement.scrollTop > 800 ){
       this.toUpIconOpacity = 1;
@@ -92,14 +104,130 @@ export class DishPageComponent implements OnInit {
 
   selectDish( dish ){
     this.selectedDish = dish;
+    this.loadEntities( dish.id );
   }
 
   selectCompany( company ){
-    this.selectedCompany = company;
+    const index = this.selectedCompanies.indexOf( company.id );
+    if (index != -1){
+      this.selectedCompanies.splice(index, 1);
+    } else {
+      this.selectedCompanies.push( company.id );
+    }
+    let selectedEntities = new Array<MenuEntityModel>();
+    if( this.selectedCompanies.length == 0 ){
+      selectedEntities = this.menuEntities;
+    } else {
+      this.menuEntities.forEach( entity =>{
+        if( this.selectedCompanies.indexOf( (+entity.companyId) )  > -1 ){
+          selectedEntities.push( entity );
+        }
+      });
+    }
+    this.fillTripleMenuEntity( selectedEntities );
+    this.moveToTop();
   }
 
-  loadEntities(){
+  moveToTop(){
+    document.getElementById("top").scrollIntoView({behavior: "smooth", block: "start"});
+  }
 
+  showCompanyDetail(companyId){
+    window.localStorage.setItem('companyId',companyId);
+    this.router.navigate(['pages/company-detail']);
+  }
+
+  loadEntities( dishId ){
+    this.showPepsi = true;
+    this.companyService.getCompanyDishes( dishId ).subscribe(data => {
+      this.showPepsi = false;
+      if (data.status === 200) {
+        this.fillTripleMenuEntity( data.result );
+        this.selectedCompanies =  new Array<number>();
+        this.companies.forEach( company =>{
+          document.getElementById("company-checkbox-"+company.id).checked = false;
+        });
+        this._globalService.dataBusChanged( 'fast-menu-select', dishId );
+        this.moveToTop();
+      } else {
+        swal({
+          type: 'error',
+          title: data.status,
+          text: data.message,
+        });
+      }
+    });
+  }
+
+  fillTripleMenuEntity( sourceEntities ){
+    this.dishCount = sourceEntities.length;
+    let suffix=" блюд";
+    let mod = this.dishCount % 10;
+    if ( this.dishCount < 10 || this.dishCount > 15 ){
+      if( mod == 1 ){
+        suffix = ' блюдо';
+      }
+      if( mod == 2 || mod == 3 || mod == 4){
+        suffix = ' блюда';
+      }
+    }
+    this.dishCountStr = this.selectedDish.displayName+" - "+this.dishCount+suffix;
+    this.menuEntities = sourceEntities;
+    this.tripleEntities =  new Array<TripleEntityModel>();
+    for( let idx = 0; idx < this.dishCount; idx +=3){
+      let tripleEntity = new TripleEntityModel();
+      tripleEntity.entityOne = this.getTripleMenuEntity( sourceEntities[idx] );
+      tripleEntity.entityTwo = this.getTripleMenuEntity( sourceEntities[idx+1] );
+      tripleEntity.entityThree = this.getTripleMenuEntity( sourceEntities[idx+2] );
+      this.tripleEntities.push( tripleEntity );
+    }
+  }
+
+  getTripleMenuEntity( menuEntity ){
+    let result = null;
+    if( menuEntity != undefined ){
+      result = menuEntity;
+      this.companies.forEach(company => {
+        if ( menuEntity.companyId == company.id ){
+          result.companyName = company.displayName;
+        }
+      });
+    } else {
+      result = new MenuEntityModel();
+    }
+    return result;
+  }
+
+  selectFastMenu( value ){
+    let fastMenu = this.companyService.getFastMenuModel();
+
+    switch ( value ){
+      case 1 :
+        this.selectedFastMenu = fastMenu.pizzaIds[1];
+        break;
+      case 2 :
+        this.selectedFastMenu = fastMenu.shushiIds[0];
+        break;
+      case 3 :
+        this.selectedFastMenu = fastMenu.burgerIds[0];
+        break;
+      case 4 :
+        this.selectedFastMenu = fastMenu.grillIds[0];
+        break;
+      case 5 :
+        this.selectedFastMenu = fastMenu.wokIds[0];
+        break;
+      default:
+        break;
+    }
+    let dish = null;
+    this.deliveryMenu.menuCategories.forEach(category => {
+      if (this.selectedFastMenu == (+category.id) ) {
+        dish = category;
+      }
+    });
+    this.selectDish( dish );
+    document.getElementById("dish-radio-"+dish.id).checked = true;
   }
 
 }

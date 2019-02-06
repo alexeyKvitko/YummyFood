@@ -33,6 +33,9 @@
       font-family: "Lobster" !important;
       font-size: 42px;
       font-weight: 500;
+      &.second-line{
+        margin-top: 150px;
+      }
     }
   }
   .dish-page-wrapper {
@@ -58,10 +61,19 @@
         display: flex;
         flex-direction: row;
         .decity-count {
-          font-family: Sandora;
-          color: $primary-text-color;
-          font-size: 24px;
-          font-weight: 600;
+          margin-left: 12px;
+          img{
+            height: 54px;
+            width: 108px;
+          }
+          span{
+
+            font-family: Sandora;
+            color: $primary-text-color;
+            font-size: 24px;
+            font-weight: 600;
+          }
+
           float: left;
         }
         .right-part-content {
@@ -86,6 +98,22 @@
         width: 100%;
         flex-direction: column;
         padding: 0px 10px 10px 25px;
+        .company-row-content{
+          margin-bottom: 20px;
+          display: flex;
+          flex-direction: row;
+          width: 100%;
+          .square-box{
+            position: relative;
+            width: 34%;
+            overflow: hidden;
+          }
+          .square-box:before{
+            content: "";
+            display: block;
+            padding-top: 100%;
+          }
+        }
       }
     }
     .dish-page-menu {

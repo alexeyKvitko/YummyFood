@@ -8,6 +8,9 @@
     <h2>{{menuEntity.displayName}}</h2>
     <p>{{menuEntity.description}}</p>
   </div>
+  <div class="company-entity-name" [hidden]="menuEntity.companyName == null" (click)="emitCompanyDetail(menuEntity.companyId)">
+    {{menuEntity.companyName}}
+  </div>
   <div class="company-entity-footer" [ngClass]="hoverClass"
        (mouseover)="footerMouseOver()" (mouseleave)="footerMouseLeave()">
     <div class="entity-footer-price">

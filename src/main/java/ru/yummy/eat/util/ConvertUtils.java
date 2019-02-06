@@ -137,6 +137,33 @@ public class ConvertUtils {
         return menuEntityModel;
     }
 
+
+    public MenuEntityModel convertRawMenuEntityToModel( Object[] obj,Integer categoryId){
+
+        MenuEntityModel menuEntityModel = new MenuEntityModel();
+        menuEntityModel.setCompanyId( (Integer) obj[0] );
+        menuEntityModel.setTypeId( (Integer) obj[1] );
+        menuEntityModel.setCategoryId( categoryId );
+        menuEntityModel.setId( (Integer) obj[2] );
+        menuEntityModel.setName( (String) obj[3] );
+        menuEntityModel.setDisplayName( (String) obj[4] );
+        menuEntityModel.setDescription( (String) obj[5] );
+        menuEntityModel.setImageUrl( (String) obj[6] );
+        menuEntityModel.setWeightOne( (String) obj[7] );
+        menuEntityModel.setSizeOne( (String) obj[8] );
+        menuEntityModel.setPriceOne( (Integer) obj[9] );
+        menuEntityModel.setWeightTwo( (String) obj[10] );
+        menuEntityModel.setSizeTwo( (String) obj[11] );
+        menuEntityModel.setPriceTwo( (Integer) obj[12] );
+        menuEntityModel.setWeightThree( (String) obj[13] );
+        menuEntityModel.setSizeThree( (String) obj[14] );
+        menuEntityModel.setPriceThree( (Integer) obj[15] );
+        menuEntityModel.setWeightFour( (String) obj[16] );
+        menuEntityModel.setSizeFour( (String) obj[17] );
+        menuEntityModel.setPriceFour( (Integer) obj[18] );
+        return menuEntityModel;
+    }
+
     public ParseMenuModel convertParseMenuToModel( ParseMenu parseMenu ){
         ParseMenuModel parseMenuModel = new ParseMenuModel();
         parseMenuModel.setId(parseMenu.getId());

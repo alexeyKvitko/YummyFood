@@ -35,7 +35,7 @@ export class CompanyComponent implements OnInit {
   selectedKitches: number[] =  new Array<number>();
   selectedPayTypes: number[] =  new Array<number>();
   selectedFastMenu: number[] =  new Array<number>();
-  fastMenuTop: number = 290;
+  fastMenuTop: number = 210;
   toUpIconOpacity: number = 0;
 
   constructor(private router: Router,private _authService: AuthService, private deliveryMenuService : DeliveryMenuService,
@@ -118,7 +118,7 @@ export class CompanyComponent implements OnInit {
   }
 
   onScrollDiv(event: UIEvent): void {
-    this.fastMenuTop = 290 - (event.srcElement.scrollTop/2);
+    this.fastMenuTop = 210 - (event.srcElement.scrollTop/2);
     this._globalService.dataBusChanged('fast-menu-pos',this.fastMenuTop);
     if ( event.srcElement.scrollTop > 800 ){
       this.toUpIconOpacity = 1;

@@ -42,14 +42,9 @@
     height: 14%;
     border-radius: 3px;
     background-color: rgba($white,0.8);
-    //border-bottom: 1px solid $gray-text-color;
     padding: 6px;
     text-align: center;
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out;
-    -ms-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
+    @include transition(all .3s);
     &:hover{
       cursor: pointer;
       height: 80%;
@@ -66,14 +61,15 @@
       margin-top: 16px;
       color: $primary-text-color;
       font-family: Roboto-Condensed;
-      display: none;
+      visibility: hidden;
       font-weight: 500;
       font-size: 16px;
     }
     &:hover{
       cursor: pointer;
       p{
-        display: block;
+        @include transition(all .3s);
+        visibility: visible;
       }
     }
   }
@@ -93,6 +89,25 @@
     top:83%;
   }
 
+  .company-entity-name{
+    position: absolute;
+    left:0px;
+    padding: 0px 4px;
+    top:75%;
+    background-color: rgba($bright-coral,0.8);
+    color: $white;
+    font-family: Sandora;
+    font-size:16px;
+    text-align: left;
+    text-overflow: ellipsis;
+    text-wrap: normal;
+    border: 1px solid rgba($bright-coral,0.8);
+    border-radius: 3px;
+    &:hover{
+      cursor: pointer;
+      border: 1px solid $white;
+    }
+  }
   .company-entity-footer{
     position: absolute;
     margin-left: -8px!important;

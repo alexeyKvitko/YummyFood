@@ -52,7 +52,7 @@
         padding-right: 10px;
         .basket-info {
           width: 270px;
-          height: 255px;
+          height: 275px;
           margin-bottom: 20px;
           border-radius: 3px;
           padding: 10px;
@@ -60,7 +60,7 @@
           @include box-shadow(0 1px 1px 1px rgba($teal-color, .3));
           .basket-info-container {
             width: 250px;
-            height: 235px;
+            height: 255px;
             padding: 6px;
             background-color: $gray-bkg-color;
             text-align: center;

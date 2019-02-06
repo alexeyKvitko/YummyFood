@@ -14,9 +14,9 @@ export class TokenInterceptor implements HttpInterceptor {
       return next.handle(req);
     }
     // Add to production
-    req = req.clone({
-      url: this.baseUrl+req.url
-    });
+    // req = req.clone({
+    //   url: this.baseUrl+req.url
+    // });
     if (token ) {
       req = req.clone({
         setHeaders: {

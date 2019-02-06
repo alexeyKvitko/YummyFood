@@ -34,7 +34,7 @@ export class CompanyDetailComponent implements OnInit {
   tripleEntities: TripleEntityModel[] = new Array<TripleEntityModel>();
   selectedFastMenu: number[] =  new Array<number>();
   userRole: string;
-  fastMenuTop: number = 290;
+  fastMenuTop: number = 210;
 
   deliveryCity: string;
 
@@ -134,7 +134,7 @@ export class CompanyDetailComponent implements OnInit {
   }
 
   onScrollDiv(event: UIEvent): void {
-    this.fastMenuTop = 290 - (event.srcElement.scrollTop/2);
+    this.fastMenuTop = 210 - (event.srcElement.scrollTop/2);
     this._globalService.dataBusChanged('fast-menu-pos',this.fastMenuTop);
     if ( event.srcElement.scrollTop > 800 ){
       this.toUpIconOpacity = 1;

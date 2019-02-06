@@ -1,6 +1,7 @@
 export class MenuEntityModel {
   id: string;
   companyId: string;
+  companyName: string;
   typeId: string;
   categoryId: string;
   name: string;

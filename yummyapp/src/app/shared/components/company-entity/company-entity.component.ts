@@ -14,6 +14,9 @@ export class CompanyEntityComponent implements OnInit {
   @Input()
   menuEntity: MenuEntityModel = new MenuEntityModel();
 
+  @Output()
+  selectCompany: EventEmitter<number> = new EventEmitter<number>();
+
   selWeight: string;
   selSize: string;
   selPrice: string;
@@ -78,6 +81,10 @@ export class CompanyEntityComponent implements OnInit {
         break;
       }
     }
+  }
+
+  emitCompanyDetail( companyId ){
+    this.selectCompany.emit( companyId );
   }
 
   addToBasket(){
