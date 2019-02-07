@@ -105,6 +105,7 @@ export class DishPageComponent implements OnInit {
   selectDish( dish ){
     this.selectedDish = dish;
     this.loadEntities( dish.id );
+    this.moveToTop();
   }
 
   selectCompany( company ){
@@ -118,10 +119,12 @@ export class DishPageComponent implements OnInit {
     if( this.selectedCompanies.length == 0 ){
       selectedEntities = this.menuEntities;
     } else {
-      this.menuEntities.forEach( entity =>{
-        if( this.selectedCompanies.indexOf( (+entity.companyId) )  > -1 ){
-          selectedEntities.push( entity );
+       this.menuEntities.forEach( entity =>{
+         this.selectedCompanies.forEach( companyId => {
+          if( companyId == (+entity.companyId)  ){
+            selectedEntities.push( entity );
         }
+        });
       });
     }
     this.fillTripleMenuEntity( selectedEntities );
@@ -139,16 +142,16 @@ export class DishPageComponent implements OnInit {
 
   loadEntities( dishId ){
     this.showPepsi = true;
-    this.companyService.getCompanyDishes( dishId ).subscribe(data => {
+    this.companyService.getCompanyDishes( this.deliveryCity, dishId ).subscribe(data => {
       this.showPepsi = false;
       if (data.status === 200) {
+        this.menuEntities = data.result;
         this.fillTripleMenuEntity( data.result );
         this.selectedCompanies =  new Array<number>();
         this.companies.forEach( company =>{
           document.getElementById("company-checkbox-"+company.id).checked = false;
         });
         this._globalService.dataBusChanged( 'fast-menu-select', dishId );
-        this.moveToTop();
       } else {
         swal({
           type: 'error',
@@ -172,7 +175,6 @@ export class DishPageComponent implements OnInit {
       }
     }
     this.dishCountStr = this.selectedDish.displayName+" - "+this.dishCount+suffix;
-    this.menuEntities = sourceEntities;
     this.tripleEntities =  new Array<TripleEntityModel>();
     for( let idx = 0; idx < this.dishCount; idx +=3){
       let tripleEntity = new TripleEntityModel();
@@ -228,6 +230,10 @@ export class DishPageComponent implements OnInit {
     });
     this.selectDish( dish );
     document.getElementById("dish-radio-"+dish.id).checked = true;
+  }
+
+  selectPayType(val){
+
   }
 
 }

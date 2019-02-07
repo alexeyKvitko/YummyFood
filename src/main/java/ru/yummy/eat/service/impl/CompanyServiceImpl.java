@@ -254,10 +254,10 @@ public class CompanyServiceImpl {
         return companyEdit;
     }
 
-    public List<MenuEntityModel> getCompanyDishes( Integer categoryId ) throws BusinessLogicException {
+    public List<MenuEntityModel> getCompanyDishes( String deliveryCity, Integer categoryId ) throws BusinessLogicException {
         List<MenuEntityModel> menuEntityModels = null;
         try {
-            List<Object> rawObjects = menuEntityRepo.findByCategoryIdOrderByDisplayName( categoryId );
+            List<Object> rawObjects = menuEntityRepo.findByCategoryIdOrderByDisplayName( deliveryCity, categoryId );
             menuEntityModels = new LinkedList<>();
             for(Object raw: rawObjects ){
                 menuEntityModels.add( convertUtils.convertRawMenuEntityToModel( (Object[]) raw,categoryId) );

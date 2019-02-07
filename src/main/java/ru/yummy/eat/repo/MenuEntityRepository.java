@@ -38,9 +38,12 @@ public interface MenuEntityRepository extends CrudRepository<MenuEntity,Integer>
             "me.weight_four, " +
             "me.size_four, " +
             "me.price_four " +
-            "from " +
-            "menu_entity me inner join menu_item mi on mi.entity_id = me.id and mi.category_id = :categoryId" +
-            " order by me.display_name";
+            "from menu_entity me " +
+            "inner join menu_item mi on mi.entity_id = me.id " +
+            "inner join companies cm ON cm.id = mi.company_id " +
+            "inner join cities ct on ct.id = cm.city_id " +
+            "where mi.category_id = :categoryId and ct.name = :cityName " +
+            "order by me.display_name";
 
     MenuEntity findByName(String name);
 
@@ -71,6 +74,7 @@ public interface MenuEntityRepository extends CrudRepository<MenuEntity,Integer>
     List<MenuEntity> findAllByCategoryIdOrderByDisplayName( @Param("categoryId") Integer categoryId );
 
     @Query(value=FIND_BY_CATEGORY_SQL,nativeQuery = true)
-    List<Object> findByCategoryIdOrderByDisplayName( @Param("categoryId") Integer categoryId );
+    List<Object> findByCategoryIdOrderByDisplayName( @Param("cityName") String cityName,
+                                                     @Param("categoryId") Integer categoryId );
 
 }

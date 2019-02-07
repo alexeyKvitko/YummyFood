@@ -21,9 +21,11 @@ export class CompanyEntityComponent implements OnInit {
   selSize: string;
   selPrice: string;
   defaultImg: string = "assets/images/no-photo.png";
+  pinImg: string = "assets/images/icons/pin.png";
   wspType: string = "One";
   priceCount: number;
   hoverClass: string = "not-hover";
+  headerClass: string ="header-float";
   animateColor: string ="";
 
   constructor(private  globalService : GlobalService, private companyService: CompanyService) {
@@ -131,6 +133,16 @@ export class CompanyEntityComponent implements OnInit {
 
   addToBasketLeave(){
     this.animateColor="";
+  }
+
+  pushPin(){
+    if( this.headerClass == "header-float"){
+      this.headerClass = "header-fixed";
+      this.pinImg = "assets/images/icons/pin-push.png";
+    } else {
+      this.headerClass = "header-float";
+      this.pinImg = "assets/images/icons/pin.png";
+    }
   }
 
 }

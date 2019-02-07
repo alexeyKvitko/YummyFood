@@ -113,8 +113,8 @@ export class CompanyService {
       + '/' + typeId + '/' + categoryId);
   }
 
-  public getCompanyDishes( categoryId ) {
-    return this.http.get<ApiResponse>(this.companyUrl + '/dishes/' + categoryId);
+  public getCompanyDishes( deliveryCity, categoryId ) {
+    return this.http.get<ApiResponse>(this.companyUrl + '/dishes/' +deliveryCity+"/"+ categoryId);
   }
 
   public addCompanyMenu(companyId, typeId, categoryId) {

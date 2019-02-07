@@ -5,11 +5,11 @@
   </div>
   <div class="dish-page-scr" (scroll)="onScrollDiv($event)">
     <section class="dish-page">
-      <div id="top" class="dish-page-title">
+      <div class="dish-page-title">
         <p>Крымская Служба Заказа Еды</p>
-        <p class="second-line">{{deliveryCity}}</p>
+        <p class="second-line" id="top">{{deliveryCity}}</p>
       </div>
-      <div class="dish-page-wrapper">
+      <div class="dish-page-wrapper" >
         <div class="dish-page-header">
           <div class="left-part">
             <div class="search-input-box">
@@ -25,7 +25,7 @@
             </div>
           </div>
         </div>
-        <div class="dish-page-body">
+        <div class="dish-page-body" >
           <div class="dish-page-body-left">
             <!--Б Л Ю Д А-->
             <div class="dish-page-menu">
@@ -75,7 +75,7 @@
               <br>
             </div>
           </div>
-          <div class="dish-page-body-right">
+          <div  class="dish-page-body-right">
             <div class="company-row-content" *ngFor="let triple of tripleEntities">
               <div class="square-box" *ngIf="triple.entityOne.priceOne != null">
                 <company-entity [menuEntity]="triple.entityOne" (selectCompany)="showCompanyDetail($event)">

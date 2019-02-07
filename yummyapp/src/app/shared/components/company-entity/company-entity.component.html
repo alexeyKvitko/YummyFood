@@ -4,10 +4,14 @@
     <img src="assets/images/icons/in-basket.png">
     <p>{{menuEntity.count}}</p>
   </div>
-  <div class="company-entity-header">
+  <div class="company-entity-header" [ngClass]="headerClass">
     <h2>{{menuEntity.displayName}}</h2>
     <p>{{menuEntity.description}}</p>
+    <div class="company-entity-pin" (click)="pushPin()">
+      <img [src]="pinImg">
+    </div>
   </div>
+
   <div class="company-entity-name" [hidden]="menuEntity.companyName == null" (click)="emitCompanyDetail(menuEntity.companyId)">
     {{menuEntity.companyName}}
   </div>

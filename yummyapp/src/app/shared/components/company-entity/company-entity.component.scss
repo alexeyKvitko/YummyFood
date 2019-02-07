@@ -34,20 +34,34 @@
       font-weight: 600;
     }
   }
+
   .company-entity-header{
     position: absolute;
     top:0px;
     margin-left: -8px!important;
     width: 100%;
-    height: 14%;
+    //height: 14%;
     border-radius: 3px;
     background-color: rgba($white,0.8);
     padding: 6px;
     text-align: center;
     @include transition(all .3s);
+    .company-entity-pin{
+      position: absolute;
+      top: 80%;
+      right: 6px;
+      visibility: hidden;
+      img{
+        width: 32px;
+        height: 32px;
+      }
+    }
     &:hover{
       cursor: pointer;
       height: 80%;
+      .company-entity-pin{
+        visibility: visible;
+      }
     }
     h2{
       padding: 0px 8px;
@@ -88,6 +102,21 @@
   .not-hover{
     top:83%;
   }
+
+  .header-fixed{
+    height: 80%;
+    p{
+      visibility: visible;
+    }
+    .company-entity-pin{
+      visibility: visible;
+    }
+  }
+
+  .header-float{
+    height: 14%;
+  }
+
 
   .company-entity-name{
     position: absolute;
