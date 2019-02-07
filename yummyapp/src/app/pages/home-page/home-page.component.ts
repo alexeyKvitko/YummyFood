@@ -5,6 +5,8 @@ import {IMAGE_PATHS} from "./const-image-paths";
 import {CATALOG} from "./const-catalog";
 import {ACTIONS} from "./const-actions";
 import {GlobalService} from "../../shared/services/global.service";
+import {CompanyService} from "../../services/company.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home-page',
@@ -48,9 +50,11 @@ export class HomePageComponent implements OnInit{
   actionItems = ACTIONS;
   inviteOpacity: number = 1;
   scrollPercent: number = 0;
+  deliveryCity: string = "";
 
-  constructor(private _globalService: GlobalService) {
-  }
+  constructor(private _globalService: GlobalService,
+                private companyService: CompanyService,
+                  private router: Router) {}
 
   moveTopBottom(){
     if( this.scrollPos === 'top' ){
@@ -84,8 +88,24 @@ export class HomePageComponent implements OnInit{
 
   ngOnInit(): void {
     this._globalService.dataBusChanged('logo-opacity',0);
+    this._globalService.data$.subscribe(data => {
+      if (data.ev === 'data-loaded') {
+        if ( data.value ){
+          this.deliveryCity = this.companyService.getDeliveryCity();
+          window.localStorage.setItem("delivery-city", this.deliveryCity);
+        }
+      }
+    });
+    if ( window.localStorage.getItem("delivery-city") != null ){
+      this.deliveryCity = window.localStorage.getItem("delivery-city");
+    }
   }
 
-
+  selectFastMenu( menuVal ){
+    window.localStorage.setItem("fast-menu",menuVal);
+    let link = 'pages/company';
+    this._globalService.dataBusChanged('selected-link', link);
+    this.router.navigate([link]);
+  }
 
 }

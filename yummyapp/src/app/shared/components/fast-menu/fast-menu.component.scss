@@ -6,12 +6,15 @@
   justify-content: center;
   position: absolute;
   z-index: 9;
-  margin-left: -375px;
+  margin-left: -420px;
   left: 50%;
-  width: 750px;
-  border-radius: 3px;
-  padding: 40px 20px;
+  width: 840px;
+  border-radius: 6px;
+  padding: 30px 20px;
   height: 130px;
+  background-color: rgba($card-border,0.95);
+
+  border: 1px solid $card-bg;
   .fast-menu-item{
     margin: 0px 10px;
     min-width: 140px;
@@ -83,6 +86,8 @@
     top: 150px;
     width: 90px;
     height: 400px;
+    background-color: transparent;
+    border: 1px solid transparent;
     .fast-menu-item{
       margin: 3px 0px;
       min-width:72px;

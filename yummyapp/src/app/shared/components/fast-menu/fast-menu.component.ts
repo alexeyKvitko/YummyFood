@@ -12,6 +12,9 @@ export class FastMenuComponent implements OnInit {
   @Input()
   top : number ;
 
+  @Input()
+  topPercent : number ;
+
   @Output()
   selectValue: EventEmitter<number> = new EventEmitter<number>();
 
@@ -30,9 +33,7 @@ export class FastMenuComponent implements OnInit {
           this.topPos = '150px';
           this.showBackground = true;
         }
-
         this.top = (+data.value);
-
       }
       if (data.ev === 'fast-menu-clear') {
         this.selected = -1;
@@ -40,7 +41,6 @@ export class FastMenuComponent implements OnInit {
       if (data.ev === 'fast-menu-select') {
         this.selectMenuByDish( data.value );
       }
-
     }, error => {
       console.log('Error: ' + error);
     });
@@ -48,7 +48,13 @@ export class FastMenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.topPos = this.top+'px';
+    if ( this.top ){
+      this.topPos = this.top+'px';
+    }
+    if ( this.topPercent ){
+      this.topPos = this.topPercent+'%';
+    }
+
   }
 
   selectMenu( val ){

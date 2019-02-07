@@ -503,7 +503,6 @@ export class CompanyEditComponent implements OnInit {
               menuType.menuOpen = true;
               menuType.menuCategories.push(item);
               this.companyEdit.menuOrders = data.result;
-              console.log('Update orders 2',data.result, this.companyEdit.menuOrders);
             }
             this.showHttpActionMessage(data);
           });

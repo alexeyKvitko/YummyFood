@@ -48,23 +48,25 @@ export class CompanyComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.deliveryMenu =  this.companyService.getDeliveryMenus();
+    this.companies = this.companyService.getCompaniesModel();
+    this.deliveryCity = this.companyService.getDeliveryCity();
+    let fastMenu = window.localStorage.getItem("fast-menu");
+    if( fastMenu != null ){
+      this.initDishes( (+fastMenu) );
+      window.localStorage.removeItem("fast-menu");
+    } else {
+      this.filteredCompanies = this.companies;
+    }
     this._globalService.data$.subscribe(data => {
-      if (data.ev === 'data-loaded') {
-        if ( data.value ){
-          this.deliveryMenu =  this.companyService.getDeliveryMenus();
-          this.companies = this.companyService.getCompaniesModel();
-          this.filteredCompanies = this.companies;
-          this.deliveryCity = this.companyService.getDeliveryCity();
-        }
-      }
       if (data.ev === 'add-to-basket' && data.value === 'update') {
         this.basket = this._globalService.getBasket();
       }
     }, error => {
       console.log('Error: ' + error);
     });
-    this._globalService.dataBusChanged('data-loaded',true);
     this._globalService.dataBusChanged('logo-opacity',1);
+    // this._globalService.dataBusChanged('data-loaded',true);
   };
 
   showCategoryItem( idx: number){
@@ -146,6 +148,7 @@ export class CompanyComponent implements OnInit {
     if( this.selectedDishes.length == 0 ){
       this._globalService.dataBusChanged("fast-menu-clear",true);
     }
+    this._globalService.dataBusChanged( 'fast-menu-select', dishId );
   }
 
   selectKitchen( kitchenId ){
@@ -188,7 +191,7 @@ export class CompanyComponent implements OnInit {
       if( canAdd ){
         this.filteredCompanies.push( company );
       }
-    })
+    });
   }
 
   clearFilters( sendMessage ){
@@ -220,12 +223,11 @@ export class CompanyComponent implements OnInit {
                 this.selectedKitches.length > 0;
   }
 
-  selectFastMenu( value ){
+  setSelectedFastMenu( value){
     let fastMenu = this.companyService.getFastMenuModel();
-    this.clearFilters( false );
     switch ( value ){
       case 1 :
-         this.selectedFastMenu = fastMenu.pizzaIds;
+        this.selectedFastMenu = fastMenu.pizzaIds;
         break;
       case 2 :
         this.selectedFastMenu = fastMenu.shushiIds;
@@ -242,11 +244,25 @@ export class CompanyComponent implements OnInit {
       default:
         break;
     }
-    this.selectedFastMenu.forEach( id =>{
-      this.selectDish(id);
-      document.getElementById("dish-checkbox-"+id).checked = true;
-    } );
-
   }
+
+  selectFastMenu( value ){
+    this.setSelectedFastMenu( value );
+      this.clearFilters(false);
+    this.selectedFastMenu.forEach(id => {
+      this.selectDish(id);
+      document.getElementById("dish-checkbox-" + id).checked = true;
+    });
+  }
+
+  initDishes( value ){
+    this.setSelectedFastMenu( value );
+    this.selectedFastMenu.forEach( fastMenuId => {
+      this.selectedDishes.push( fastMenuId );
+    });
+    this.filterCompanies();
+    this._globalService.dataBusChanged('fast-menu-select',this.selectedDishes[0]);
+  }
+
 
 }

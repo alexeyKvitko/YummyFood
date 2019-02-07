@@ -11,7 +11,7 @@
   }
 }
 
-#top,#bottom{
+#top, #bottom {
   -webkit-transition: all 1.0s ease;
   -moz-transition: all 1.0s ease-in-out;
   -o-transition: all 1.0s ease-in-out;
@@ -31,7 +31,7 @@
   left: 0;
 }
 
-.main-img{
+.main-img {
   background: rgba(0, 0, 0, 0.9);
   overflow: hidden;
   position: absolute;
@@ -41,74 +41,80 @@
   z-index: 8;
 }
 
-.invite {
-  position: absolute;
-  padding: 5px;
-  background: rgba($white,0.9);
-  z-index: 11;
-  margin: 0 auto;
+.invite-title {
+  text-align: center;
+  width: 100%;
   margin-top: -130px;
-  margin-left: -300px;
-  top: 50%;
-  left: 50%;
-  width: 550px;
-  height: 240px;
-  .invite-container{
-    border: 1px solid $dark-green;
-    margin: 10px;
+  border: 1px solid red;
+  p {
     color: $white;
-    width: 520px;
-    height: 210px;
     text-shadow: 1px 1px 1px $black;
-    padding-top: 20px;
-  .invite-h{
-    text-align: center;
     font-family: "Lobster" !important;
-    font-size: 54px;
-    font-weight: 400;
-    }
-    .invite-f{
-      text-align: center;
-      font-family: "Lobster" !important;
-      font-size: 54px;
+    font-size: 42px;
+    font-weight: 500;
+    &.second-line {
+      margin-top: 150px;
     }
   }
 }
-.about-us{
-  width:100%;
+
+.invite {
+  position: absolute;
+  padding: 5px;
+  z-index: 7;
+  margin: 0 auto;
+  top: 30%;
+  text-align: center;
+  left: 0;
+  width: 100%;
+  height: 240px;
+  color: $white;
+  font-size: 52px;
+  text-shadow: 1px 1px 1px $black;
+  .invite-h {
+    font-family: "Lobster";
+  }
+  .invite-f {
+    margin-top: 170px;
+    font-family: "Lobster";
+  }
+}
+
+.about-us {
+  width: 100%;
   height: 500px;
   background: $white;
   display: flex;
   flex-direction: row;
-  img{
+  img {
     width: 800px;
     height: 100%;
   }
-  .about-container{
+  .about-container {
     position: absolute;
     left: 45%;
     margin-top: 40px;
-    .about-text{
-      h2{
+    .about-text {
+      h2 {
         font-size: 32px;
         color: $primary-text-color;
-        font-family: 'Roboto-Condensed-Light'!important;
+        font-family: 'Roboto-Condensed-Light' !important;
       }
-      p{
+      p {
         font-size: 22px;
         color: $secondary-text-color;
-        font-family: 'Roboto-Condensed-Light'!important;
+        font-family: 'Roboto-Condensed-Light' !important;
       }
     }
   }
 }
 
-.paralax-container{
+.paralax-container {
   width: 100%;
   height: 150px;
   text-align: center;
   padding-top: 40px;
-  span{
+  span {
     font-weight: 500;
     color: $primary-color-text;
     font-family: "Lobster" !important;
@@ -116,6 +122,7 @@
     text-shadow: 1px 1px 1px $black;
   }
 }
+
 //================= МЕНЮ ДНЯ ===========================
 
 .proposal {
@@ -125,13 +132,13 @@
   z-index: 2;
   overflow: hidden;
 
-  .proposal-wrapper{
+  .proposal-wrapper {
     background-color: $card-bg;
     padding-top: 60px;
     width: 100%;
-    height:550px;
+    height: 550px;
   }
-  &:before{
+  &:before {
     content: "";
     background: rgba($green-bg, 0.3);
     position: absolute;
@@ -142,10 +149,11 @@
     height: 100%;
   }
 }
+
 .proposal-item {
   border: 1px solid $card-border;
   background-color: $card-content-bg;
-  @include box-shadow( 0 3px 10px 0 rgba($teal-color, .5));
+  @include box-shadow(0 3px 10px 0 rgba($teal-color, .5));
   text-align: center;
   position: relative;
   padding-bottom: 30px;
@@ -178,11 +186,11 @@
     height: 210px;
   }
 }
-.proposal-container{
+
+.proposal-container {
   margin: 0 15%;
   padding-top: 20px;
 }
-
 
 //======================== АКЦИИ И СКИДКИ ===================
 .discounts {
@@ -191,14 +199,14 @@
   position: relative;
   z-index: 2;
   overflow: hidden;
-  .discounts-wrapper{
+  .discounts-wrapper {
     background-color: $card-bg;
     text-align: center;
     width: 100%;
-    height:670px;
+    height: 670px;
   }
 
-  &:before{
+  &:before {
     content: "";
     background: rgba($green-bg, 0.3);
     position: absolute;
@@ -209,20 +217,22 @@
     height: 100%;
   }
 }
-.discount-container{
+
+.discount-container {
   display: table;
   margin: 0 auto;
   padding-top: 20px;
 }
+
 .discount_item {
   border: 1px solid $card-border;
-  @include box-shadow( 0 3px 10px 0 rgba($teal-color, .5));
+  @include box-shadow(0 3px 10px 0 rgba($teal-color, .5));
   width: 500px;
   height: 250px;
   margin: 30px 30px;
   .discount-text {
     position: absolute;
-    top:195px;
+    top: 195px;
     left: 250px;
     color: $bright-coral;
     font-weight: 400;
@@ -233,12 +243,12 @@
     height: 170px;
     width: 500px;
     position: absolute;
-    top:160px;
+    top: 160px;
     left: 30px;
   }
 }
 
-.down-icon{
+.down-icon {
   position: absolute;
   color: $white;
   background-color: $green-bg;
@@ -248,97 +258,112 @@
   top: 900px;
   left: 70%;
   transition: all 400ms linear 0s;
-  &:hover{
+  &:hover {
     cursor: pointer;
     background-color: $bright-coral;
     color: $primary-color-text;
   }
 }
 
-
-
 //================MOBILE AREA =================
-.mobile{
+.mobile {
   background: url("../../../assets/images/home-bg-3.jpg") no-repeat fixed top center;
   background-size: cover;
   position: relative;
   z-index: 2;
   overflow: hidden;
 
-  .mobile-wrapper{
+  .mobile-wrapper {
     background-color: $card-bg;
     width: 100%;
-    height:350px;
+    height: 350px;
     display: flex;
     flex-direction: row;
-    .mobile-container{
-      width:50%;
+    .mobile-container {
+      width: 50%;
       height: 100%;
       text-align: right;
-      padding-top: 60px;
-      padding-right: 80px;
+      padding: 30px;
       background-color: $green-bg;
-      .mobile-desc{
-        padding-top: 20px;
+      .mobile-desc {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        .desc-label{
+          p{
+            font-size: 22px;
+            color: $light-gray-text;
+            font-family: 'Roboto-Condensed-Light' !important;
+          }
+        }
+        .desc-img{
+          margin-left: 10px;
+          width:70px;
+          height: 70px;
+          img{
+            width:64px;
+            height: 64px;
+          }
+        }
       }
-      h2{
+      h2 {
         font-size: 64px;
         font-weight: 400;
         color: $white;
-        font-family: 'Roboto-Condensed-Light'!important;
+        font-family: 'Roboto-Condensed-Light' !important;
       }
-      p{
-        font-size: 22px;
-        color: #FEFEFE;
-        font-family: 'Roboto-Condensed-Light'!important;
+      p {
+
       }
     }
-    .mobile-phone{
+    .mobile-phone {
       position: relative;
-      left: 10%;
-      top:-70px;
-      img{
+      left: 3%;
+      top: -70px;
+      img {
         height: 420px;
       }
     }
-    .mobile-btn-grp{
+    .mobile-btn-grp {
       margin-left: 20px;
-      margin-top: 50px;
+      margin-top: 20px;
       display: flex;
       flex-direction: column;
-      .mobile-btn-item{
+      .mobile-btn-item {
         position: relative;
         background-color: $card-content-bg;
         width: 220px;
         height: 60px;
-        margin-top: 20px;
+        margin-top: 30px;
         padding: 6px;
         text-align: left;
         display: flex;
         flex-direction: row;
-        img{
+        img {
           width: 48px;
         }
-        .mobile-label{
+        .mobile-label {
           position: absolute;
           height: 18px;
           top: -2px;
           left: 62px;
         }
-        p{
+        p {
           height: 20px;
           font-size: 18px;
           color: $teal-color;
-          font-family: 'Roboto-Condensed-Light'!important;
+          font-family: 'Roboto-Condensed-Light' !important;
         }
-        &:hover{
+        &:hover {
           cursor: pointer;
         }
       }
 
     }
   }
-  &:before{
+  &:before {
     content: "";
     background: rgba($green-bg, 0.3);
     position: absolute;
