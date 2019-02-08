@@ -12,6 +12,7 @@ import ru.yummy.eat.model.BootstrapModel;
 import ru.yummy.eat.model.CompanyModel;
 import ru.yummy.eat.repo.CityRepository;
 import ru.yummy.eat.repo.CompanyRepository;
+import ru.yummy.eat.util.AppUtils;
 import ru.yummy.eat.util.ConvertUtils;
 
 import java.util.List;
@@ -33,27 +34,28 @@ public class BootstrapServiceImpl {
     @Autowired
     MenuServiceImpl menuService;
 
-    public BootstrapModel getBootstrapModel(String cityName) {
+    public BootstrapModel getBootstrapModel(String latitude, String longitude) {
         BootstrapModel bootstrapModel = new BootstrapModel();
-        List<Company> companies = null;
+        Double lat = null;
+        Double lon = null;
+        List<City> cities = null;
         City city = null;
-        Integer cityId = AppConstants.SIMFEROPOL_ID;
-        String deliveryCity = AppConstants.SIMFEROPOL_NAME;
-        bootstrapModel.setDefault( true );
-        try{
-            city = cityRepo.findByNameEn( cityName );
-        } catch (Exception e){
-            //TODo LOG
-        }
-        if  ( city != null ){
-            cityId = city.getId();
-            deliveryCity = city.getName();
-            bootstrapModel.setDefault( false );
-        }
-        if( cityName == null ){
-            companies = (List<Company>) companyRepo.findAll();
-        } else {
-            companies= companyRepo.findAllByCityId( cityId );
+        List<Company> companies = null;
+        try {
+            if (latitude == null || longitude == null ||
+             AppConstants.FAKE_STR_ID.equals( latitude ) ||
+                    AppConstants.FAKE_STR_ID.equals( longitude ) ) {
+                lat = AppConstants.SIMFEROPOL_LAT;
+                lon = AppConstants.SIMFEROPOL_LON;
+            } else {
+                lat = Double.valueOf(latitude.replace(",", "."));
+                lon = Double.valueOf(longitude.replace(",", "."));
+            }
+            cities = (List<City>) cityRepo.findAll();
+            city = AppUtils.getNearestCity(lat, lon, cities);
+            companies = companyRepo.findAllByCityId( city.getId() );
+        } catch ( Exception e ){
+            LOG.error("Exception in method [getBootstrapModel]: "+ e.getMessage() );
         }
         bootstrapModel.setCompanies( convertUtils.convertCompaniesToModelList( companies ) );
         try {
@@ -69,7 +71,7 @@ public class BootstrapServiceImpl {
         bootstrapModel.setDeliveryMenu( menuService.getAllMenus() );
         bootstrapModel.setCities( convertUtils.convertCitiesToModelList(
                                                         cityRepo.findAllByRegionIdOrderByName( AppConstants.CRIMEA_REGION ) ));
-        bootstrapModel.setDeliveryCity( deliveryCity );
+        bootstrapModel.setDeliveryCity( city.getName() );
         return bootstrapModel;
     }
 }

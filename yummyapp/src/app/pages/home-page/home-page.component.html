@@ -4,7 +4,6 @@
 
 <div class="home-scr" track-scroll (onScroll)="track($event)">
   <div class="down-icon" [style.opacity]="inviteOpacity" (click)="moveTopBottom()">
-    <i class="fas fa-angle-double-down" aria-hidden="true"></i>
   </div>
   <fast-menu [topPercent]="40" (selectValue)="selectFastMenu($event)"></fast-menu>
   <div  class="invite" >
@@ -167,8 +166,7 @@
       </div>
     </div>
     <page-footer>
-      <div class="up-icon" (click)="moveTopBottom()">
-        <i class="fas fa-angle-double-up" aria-hidden="true"></i>
+      <div class="up-icon-img" (click)="moveTopBottom()">
       </div>
     </page-footer>
   </section>

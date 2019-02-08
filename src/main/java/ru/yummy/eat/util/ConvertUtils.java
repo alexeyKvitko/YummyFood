@@ -239,6 +239,8 @@ public class ConvertUtils {
             model.setId( city.getId() );
             model.setName( city.getNameEn() );
             model.setDisplayName( city.getName() );
+            model.setLatitude( city.getLatitude().toString() );
+            model.setLongitude( city.getLongitude().toString() );
             cityModels.add( model );
         }
         return cityModels;

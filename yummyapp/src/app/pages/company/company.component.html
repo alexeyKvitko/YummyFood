@@ -1,7 +1,6 @@
 <div class="row>">
   <fast-menu [top]="fastMenuTop" (selectValue)="selectFastMenu($event)"></fast-menu>
-  <div class="up-icon up-icon-top"  (click)="moveToTop()" [style.opacity]="toUpIconOpacity">
-    <i class="fas fa-angle-double-up" aria-hidden="true"></i>
+  <div class="float-up-icon"  (click)="moveToTop()" [style.opacity]="toUpIconOpacity">
   </div>
   <div class="kabare-scr" (scroll)="onScrollDiv($event)">
     <section class="kabare">

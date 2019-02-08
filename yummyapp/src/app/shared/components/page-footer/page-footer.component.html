@@ -1,16 +1,42 @@
-<div class="all-page-footer">
+<div class="row all-page-footer">
   <ng-content></ng-content>
-  <div class="all-page-social">
+  <div class="col-md-4 contact-us">
+    <h2>Пишите:</h2>
+    <span>delivery@edanyma.ru</span>
+    <h2>Звоните:</h2>
+    <span class="phone">+7978 255 7978</span>
+    <h2>
+      <img src="assets/images/logo.png">
+    </h2>
+    <span><strong style="display: none">ЕдаНяма.рф</strong>ЕдаНяма.рф - Крымская Служба Заказа Еды.</span>
+   </div>
+  <div class="col-md-4 contact-us">
+    <h2>Категория заведений:</h2>
+    <p>ПИЦЦА</p>
+    <p>СУШИ</p>
+    <p>БУРГУРЫ</p>
+    <p>МАНГАЛ</p>
+    <p>WOK</p>
+  </div>
+  <div class="col-md-4 contact-us">
+    <h2>Мы в соцсетях</h2>
     <div class="row">
       <div class="col-md-2 all-page-social-icon" *ngFor="let socialIcon of socialIcons">
         <img src="{{socialIcon.imagePath}}">
       </div>
     </div>
+    <h2>Оплата</h2>
+    <div class="col-md-2 all-page-social-icon" *ngFor="let payType of payTypeIcons">
+      <img src="{{payType.imagePath}}">
+    </div>
   </div>
-  <span>Еда с доставкой к Вам домой. Проведите уютный вечер дома наслаждаясь лучшими блюдами!</span>
-  <div class="about-company">
-    <img src="assets/images/logo.png">
-    <span><strong style="display: none">ЕдаНяма.рф</strong>ЕдаНяма.рф - Крымская Служба Заказа Еды.</span>
-  </div>
+
+  <!--<div class="all-page-social">-->
+    <!--<div class="row">-->
+      <!--<div class="col-md-2 all-page-social-icon" *ngFor="let socialIcon of socialIcons">-->
+        <!--<img src="{{socialIcon.imagePath}}">-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
 
 </div>

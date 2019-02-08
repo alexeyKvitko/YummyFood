@@ -8,15 +8,20 @@ public abstract class AppConstants {
     public static final String SIGNING_KEY = "admin";
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String HEADER_STRING = "Authorization";
+
     public static final int CRIMEA_REGION = 621550;
     public static final int SIMFEROPOL_ID = 621565;
+    public static final double SIMFEROPOL_LAT = 44.9521;
+    public static final double SIMFEROPOL_LON = 34.1024;
     public static final String SIMFEROPOL_NAME = "Симферополь";
+
     public static final String DEFAULT_LOGO = "default.png";
     public static final String SECTION = "SECTION [";
 
     public static final String SUCCESS = "SUCCESS";
 
     public static final Integer FAKE_ID = -1;
+    public static final String FAKE_STR_ID ="-1";
 
     public static final int PROCEED = 1;
     public static final int PROCESSED = 0;

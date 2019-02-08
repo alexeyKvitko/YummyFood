@@ -124,7 +124,7 @@ export class PagesTopComponent implements OnInit{
     this.companyService.removeCompaniesFromBasket();
     this._globalService.dataBusChanged("add-to-basket","update");
     swal('Город доставки: '+city.displayName);
-    this.companyService.initBootstrapApp( city.name);
+    this.companyService.initBootstrapApp( city.latitude, city.longitude );
     this.selectedLink = null;
     this.routeToLink( this.topMenus[0].link );
   }

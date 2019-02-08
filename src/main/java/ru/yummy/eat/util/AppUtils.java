@@ -2,7 +2,10 @@ package ru.yummy.eat.util;
 
 import org.apache.commons.lang.StringUtils;
 import ru.yummy.eat.AppConstants;
+import ru.yummy.eat.entity.City;
 import ru.yummy.eat.model.SearchParam;
+
+import java.util.List;
 
 public abstract class AppUtils {
 
@@ -128,7 +131,7 @@ public abstract class AppUtils {
         return section;
     }
 
-    public static int HaversineInM( double lat1, double long1, double lat2, double long2 ) {
+    public static int getHaversineInM( double lat1, double long1, double lat2, double long2 ) {
         return ( int ) ( 1000D * HaversineInKM( lat1, long1, lat2, long2 ) );
     }
 
@@ -139,8 +142,20 @@ public abstract class AppUtils {
                 * Math.pow( Math.sin( dlong / 2D ), 2D );
         double c = 2D * Math.atan2( Math.sqrt( a ), Math.sqrt( 1D - a ) );
         double d = EQUATOR_IAL_EARTH_RADIUS * c;
-
         return d;
+    }
+
+    public static City getNearestCity( double lat1, double long1, List<City> cities){
+        City nearest = null;
+        int minDistance = 10000;
+        for(City city: cities){
+            int distance = getHaversineInM( lat1, long1, city.getLatitude(), city.getLongitude() );
+            if ( distance < minDistance ){
+                 minDistance = distance;
+                 nearest = city;
+            }
+        }
+        return nearest;
     }
 
     public static int getRandomBetweenRange( int min, int max ) {

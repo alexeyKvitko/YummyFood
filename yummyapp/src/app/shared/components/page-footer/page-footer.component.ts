@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {SOCIAL} from "./const-social";
+import {PAY_TYPE} from "./const-pay";
 
 @Component({
   selector: 'page-footer',
@@ -9,6 +10,8 @@ import {SOCIAL} from "./const-social";
 export class PageFooterComponent implements OnInit {
 
   socialIcons = SOCIAL;
+
+  payTypeIcons = PAY_TYPE;
 
   constructor() { }
 

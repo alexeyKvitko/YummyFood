@@ -20,12 +20,29 @@ export class PagesComponent {
   }
 
   public init(){
-    this.loginService.getIP().subscribe(data => {
-      if( data.city == null || data.city == undefined || data.city.trim().length == 0){
-        data.city = 'Simferopol'
-      }
-      this.companyService.initBootstrapApp( data.city );
-    });
+    if (window.navigator && window.navigator.geolocation) {
+      window.navigator.geolocation.getCurrentPosition(
+        position => {
+          this.companyService.initBootstrapApp( position.coords.latitude, position.coords.longitude );
+        },
+        error => {
+          switch (error.code) {
+            case 1:
+              console.log('Permission Denied');
+              break;
+            case 2:
+              console.log('Position Unavailable');
+              break;
+            case 3:
+              console.log('Timeout');
+              break;
+          }
+          this.companyService.initBootstrapApp( '-1', '-1' );
+        }
+      );
+    } else {
+      this.companyService.initBootstrapApp( '-1', '-1' );
+    };
     this._globalService.data$.subscribe(data => {
       if (data.ev === 'pageLoading') {
         this.loading = data.value;

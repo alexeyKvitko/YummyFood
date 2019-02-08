@@ -33,9 +33,10 @@ public class AdminCompanyController {
         return companyService.getAllCompanies();
     }
 
-    @GetMapping("/company/bootstrap/{ip}")
-    public BootstrapModel getBootsrapInfo(@PathVariable String ip) {
-        return bootstrapService.getBootstrapModel(ip);
+    @GetMapping("/company/bootstrap/{latitude}/{longitude}")
+    public BootstrapModel getBootsrapInfo(@PathVariable String latitude,
+                                          @PathVariable String longitude) {
+        return bootstrapService.getBootstrapModel( latitude, longitude );
     }
 
     @GetMapping("/company/edit/{id}")

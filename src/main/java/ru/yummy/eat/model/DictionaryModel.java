@@ -12,6 +12,8 @@ public class DictionaryModel implements Serializable {
     protected Integer id;
     protected String name;
     protected String displayName;
+    protected String latitude;
+    protected String longitude;
     protected Integer order;
 
     public Integer getId() {
@@ -44,6 +46,22 @@ public class DictionaryModel implements Serializable {
 
     public void setOrder(Integer order) {
         this.order = order;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     @Override public boolean equals(Object o) {

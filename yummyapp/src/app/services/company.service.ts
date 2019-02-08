@@ -22,8 +22,8 @@ export class CompanyService {
   constructor(private http: HttpClient,private _globalService: GlobalService) {
   }
 
-  public initBootstrapApp( city: string) {
-    this.http.get<BootstrapAppModel>(this.companyUrl+'/bootstrap/'+city).subscribe( data => {
+  public initBootstrapApp( latitude, longitude ) {
+    this.http.get<BootstrapAppModel>(this.companyUrl+'/bootstrap/'+latitude+"/"+longitude).subscribe( data => {
       this.bootstrapApp = data;
       this.bootstrapApp.companies.forEach( company =>{
         company.isPresentInBasket = false;
