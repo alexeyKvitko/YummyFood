@@ -1,0 +1,214 @@
+@import '../../shared/theme/conf';
+
+.registration-scr {
+  position: absolute;
+  background-repeat: no-repeat;
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 7;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.registration {
+  background: url("../../../assets/images/back6.jpg") no-repeat fixed top center;
+  background-size: cover;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+  overflow-y: auto;
+  .registration-title {
+    text-align: center;
+    width: 100%;
+    height: 265px;
+    background: url("../../../assets/images/pizza.jpg") no-repeat fixed top center;
+    padding-top: 125px;
+    p {
+      color: $white;
+      width: available;
+      text-shadow: 1px 1px 1px $black;
+      font-family: "Lobster" !important;
+      font-size: 42px;
+      font-weight: 500;
+    }
+  }
+  .registration-wrapper {
+    background-color: transparent;
+    width: 60%;
+    //height: 120%;
+    min-height: 550px;
+    margin: 0 auto;
+    padding-top: 20px;
+    .registration-body {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      .registration-body-left {
+        width: 250px;
+        padding-right: 10px;
+        .registration-info {
+          width: 270px;
+          height: 215px;
+          margin-bottom: 20px;
+          border-radius: 3px;
+          padding: 10px;
+          background-color: $card-content-bg;
+          @include box-shadow(0 1px 1px 1px rgba($teal-color, .3));
+          .registration-info-container {
+            width: 250px;
+            height: 195px;
+            padding: 6px;
+            background-color: $gray-bkg-color;
+            text-align: center;
+            h2 {
+              margin: 4px 0px 8px 8px;
+              font-family: Lobster;
+              color: $dark-green;
+              font-size: 28px;
+              font-weight: 400;
+            }
+            .contacts {
+              border-bottom: 1px dotted $divider-color;
+              padding: 6px 0;
+              p {
+                font-size: 12px;
+                font-weight: 400;
+                color: $teal-color;
+                .icon {
+                  font-size: 11px;
+                  color: $bright-coral;
+                  margin-right: 6px;
+                }
+              }
+              transition: all 400ms linear 0s;
+            }
+            .registration-action{
+              text-align: left;
+              margin-top: 10px;
+              p {
+                padding: 4px 10px;
+                border-left: 4px solid transparent;
+                width: fit-content;
+                color: $gray-text-color;
+                font-family: Roboto;
+                font-size: 14px;
+                &:hover{
+                  cursor: pointer;
+                  font-weight: 600;
+                }
+              }
+              .active{
+                width: 100%;
+                border-left: 4px solid $dark-green;
+                background-color: rgba($gray-text-color, 0.1);
+              }
+            }
+          }
+        }
+      }
+      .registration-body-right {
+        width: 100%;
+        .registration-form-wrapper{
+          margin-left: 40px;
+          padding: 12px 24px;
+          background-color: $card-content-bg;
+          @include box-shadow(0 1px 1px 1px rgba($teal-color, .3));
+          .already-register{
+            color: $teal-color;
+            font-family: Roboto-Condensed;
+            font-size: 12px;
+            span{
+              color: $bright-coral;
+              text-decoration: underline;
+              &:hover{
+                cursor: pointer;
+                text-decoration: none;
+              }
+            }
+          }
+          h2{
+            margin: 24px 0px;
+            color: $primary-text-color;
+            font-family: Taurus;
+            font-size: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+          }
+          .registration-form{
+            .input-control{
+              width: 100%;
+              margin: 4px 0px;
+              label{
+                font-family: Roboto-Condensed;
+                width: 150px;
+                min-width: 150px;
+                color: $secondary-text-color;
+                font-weight: normal;
+              }
+              #phone-prefix-id{
+                width: 32px;
+              }
+              input{
+                border: 0px;
+                border-bottom: 1px solid $primary-color-light;
+                background-color: $card-content-bg;;
+                width: 50%;
+                height: 28px;
+                &::placeholder{
+                  color: $primary-color-light;
+                }
+                &:focus{
+                  outline: 0px;
+                  background-color: $white;
+                  border-bottom: 1px solid $primary;
+                }
+              }
+              input[type=number]::-webkit-inner-spin-button,
+              input[type=number]::-webkit-outer-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+              }
+            }
+            .error-msg{
+              span{
+                font-family: Roboto-Condensed;
+                font-size: 12px;
+                font-weight: 300;
+                color: $accent-color;
+              }
+            }
+
+          }
+        }
+      }
+    }
+  }
+  &:before {
+    content: "";
+    //background: rgba($green-bg, 0.1);
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+  }
+}
+.float-up-icon{
+  position: absolute;
+  background-image: url("../../../assets/images/icons/up-circle.png");
+  width: 60px;
+  height: 60px;
+  z-index: 25;
+  top: 78%;
+  left: 15%;
+  @include transition(all .4s);
+  &:hover{
+    cursor: pointer;
+    background-image: url("../../../assets/images/icons/up-circle-hover.png");
+  }
+}

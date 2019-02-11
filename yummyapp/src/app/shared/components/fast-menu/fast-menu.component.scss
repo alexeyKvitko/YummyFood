@@ -86,8 +86,8 @@
     top: 150px;
     width: 90px;
     height: 400px;
-    background-color: transparent;
-    border: 1px solid transparent;
+    //background-color: transparent;
+    //border: 1px solid transparent;т
     .fast-menu-item{
       margin: 3px 0px;
       min-width:72px;
@@ -95,7 +95,7 @@
       height: 64px;
       width: 72px;
       text-align: center;
-      background-color: rgba($white,0.4);
+      background-color: rgba($white,0.9);
       img{
         margin-top: 0px;
         width:64px;

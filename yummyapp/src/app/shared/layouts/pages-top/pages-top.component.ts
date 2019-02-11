@@ -129,6 +129,14 @@ export class PagesTopComponent implements OnInit{
     this.routeToLink( this.topMenus[0].link );
   }
 
+  registration(){
+    this.selectedLink = null;
+    this.router.navigate(['pages/registration']);
+  }
+
+  enterPassword(){
+
+  }
 
   openCityModal(){
     this.showDialog = true;

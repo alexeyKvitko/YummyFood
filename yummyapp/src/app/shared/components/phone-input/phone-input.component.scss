@@ -1,0 +1,28 @@
+@import '../../../shared/theme/conf';
+.phone-input{
+  font-family: Roboto-Condensed;
+  color: $secondary-text-color;
+  input{
+    color: $primary-text-color;
+    font-family: B52;
+    border: 0px;
+    border-bottom: 1px solid $primary-color-light;
+    background-color: $card-content-bg;
+    margin: 0px 2px;
+    height: 24px;
+    width: 10px;
+    &::placeholder{
+      color: $primary-color-light;
+    }
+    &:focus{
+      outline: 0px;
+      background-color: $white;
+      border-bottom: 1px solid $primary;
+    }
+  }
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}

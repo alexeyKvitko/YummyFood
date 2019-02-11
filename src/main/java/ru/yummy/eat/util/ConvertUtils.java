@@ -1,6 +1,7 @@
 package ru.yummy.eat.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.yummy.eat.AppConstants;
 import ru.yummy.eat.entity.*;
@@ -9,12 +10,16 @@ import ru.yummy.eat.repo.CityRepository;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class ConvertUtils {
 
     @Autowired
     CityRepository cityRepo;
+
+    @Autowired
+    private BCryptPasswordEncoder bcryptEncoder;
 
     public CompanyModel convertCompanyToModel(Company company){
         CompanyModel companyModel = new CompanyModel();
@@ -254,5 +259,17 @@ public class ConvertUtils {
         return companyModels;
     }
 
+    public OurClient convertModelToOurClient(OurClientModel ourClientModel ){
+        OurClient ourClient = new OurClient();
+        if( AppConstants.FAKE_ID.equals( ourClientModel.getId() ) ){
+            ourClient.setId( null );
+        }
+        ourClient.setEmail( ourClientModel.getEmail().toLowerCase().trim() );
+        ourClient.setPhone( ourClientModel.getPhone().trim() );
+        ourClient.setPassword( bcryptEncoder.encode( ourClientModel.getPassword() ) );
+        ourClient.setUuid( UUID.randomUUID().toString() );
+        ourClient.setBonus( ourClientModel.getBonus() );
+        return ourClient;
+    }
 
 }

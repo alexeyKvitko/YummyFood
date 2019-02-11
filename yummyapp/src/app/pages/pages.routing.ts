@@ -19,6 +19,7 @@ export const childRoutes: Routes = [
       { path: 'company', loadChildren: './company/company.module#CompanyModule'},
       { path: 'dish-page', loadChildren: './dish-page/dish-page.module#DishPageModule' },
       { path: 'basket', loadChildren: './basket/basket.module#BasketModule'},
+      { path: 'registration', loadChildren: './registration/registration.module#RegistrationModule'},
       { path: 'delivery-menu', loadChildren: './delivery-menu/delivery-menu.module#DeliveryMenuModule' },
       { path: 'company-edit', loadChildren: './company-edit/company-edit.module#CompanyEditModule' },
       { path: 'company-info', loadChildren: './company-info/company-info.module#CompanyInfoModule' },

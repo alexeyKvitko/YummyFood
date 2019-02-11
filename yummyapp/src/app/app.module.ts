@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PagesModule } from './pages/pages.module';
 import { DeliveryMenuService } from "./services/delivery-menu.service";
 import {UtilsService} from "./services/utils.service";
+import {ClientService} from "./services/client.service";
 
 @NgModule({
   declarations: [
@@ -27,9 +28,13 @@ import {UtilsService} from "./services/utils.service";
     FormsModule,
     PagesModule
   ],
-  providers: [CompanyService,LoginService,AuthService,DeliveryMenuService,UtilsService,{provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptor,
-    multi : true}],
+  providers: [CompanyService,
+              ClientService,
+              LoginService,
+              AuthService,
+              DeliveryMenuService,
+              UtilsService,
+              {provide: HTTP_INTERCEPTORS,useClass: TokenInterceptor,multi : true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

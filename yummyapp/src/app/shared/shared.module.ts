@@ -19,6 +19,7 @@ import {BasketEntityComponent} from "./components/basket-entity/basket-entity.co
 import {PageFooterComponent} from "./components/page-footer/page-footer.component";
 import {SocialCardComponent} from "./components/social-card/social-card.component";
 import {FastMenuComponent} from "./components/fast-menu/fast-menu.component";
+import {PhoneInputComponent} from "./components/phone-input/phone-input.component";
 
 @NgModule({
   imports: [
@@ -41,6 +42,7 @@ import {FastMenuComponent} from "./components/fast-menu/fast-menu.component";
     SocialCardComponent,
     AlertComponent,
     FastMenuComponent,
+    PhoneInputComponent,
     ProfileComponent,
     DialogComponent
   ],
@@ -59,6 +61,7 @@ import {FastMenuComponent} from "./components/fast-menu/fast-menu.component";
     FastMenuComponent,
     SwitchComponent,
     AlertComponent,
+    PhoneInputComponent,
     ProfileComponent,
     DialogComponent
   ]

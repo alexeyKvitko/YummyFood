@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="float-up-icon" (click)="moveToTop()" [style.opacity]="toUpIconOpacity">
+  </div>
+  <div class="registration-scr" (scroll)="onScrollDiv($event)">
+    <section class="registration">
+      <div id="top" class="registration-title">
+        <p>Крымская Служба Заказа Еды</p>
+        <p>Регистрация нового пользователя</p>
+      </div>
+      <div class="registration-wrapper">
+        <div class="registration-body">
+          <div class="registration-body-left">
+            <div class="registration-info">
+              <div class="registration-info-container">
+                <h2>Личный кабинет</h2>
+                <div class="contacts">
+                  <p><i class="fa fa-phone icon"></i>+7978 255 7978</p>
+                  <p><i class="far fa-envelope icon"></i>delivery@yummy-eat.ru</p>
+                </div>
+                <div class="registration-action">
+                  <p>Вход в приложение</p>
+                  <p class="active">Регистрация</p>
+                  <p>Забыли пароль ?</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="registration-body-right">
+            <div class="registration-form-wrapper">
+              <div class="already-register">
+                Если Вы уже зарегистрированы, можете&nbsp;<span>войти в приложение</span>
+              </div>
+              <h2>
+                Основная информация
+              </h2>
+              <div class="registration-form">
+                <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+                  <div class="input-control">
+                    <label for="email-id">E-mail:</label>
+                    <input id="email-id" placeholder="E-mail" type="email" formControlName="email" >
+                    <div class="error-msg" *ngIf="emailError != null">
+                      <span>{{emailError}}</span>
+                    </div>
+                  </div>
+                  <div class="input-control">
+                    <label for="phone-prefix-id">Телефон:</label>
+                    <phone-input id="phone-prefix-id" (phoneValue)="changePhone( $event )"></phone-input>
+                    <div class="error-msg" *ngIf="phoneError != null">
+                      <span>{{phoneError}}</span>
+                    </div>
+                  </div>
+                  <div class="input-control">
+                    <label for="password-id">Пароль:</label>
+                    <input id="password-id" placeholder="Пароль" type="password" formControlName="password" required>
+                  </div>
+                  <div class="input-control">
+                    <label for="confirm-id">Подтвердите Пароль:</label>
+                    <input id="confirm-id" placeholder="Подтвердите" type="password" formControlName="confirm" required>
+                    <div class="error-msg" *ngIf="passwordError != null">
+                      <span>{{passwordError}}</span>
+                    </div>
+                  </div>
+                  <br>
+                  <button type="button" class="btn btn-success btn-with-icon" (click)="onSubmit()">
+                    <i class="fas fa-address-book"></i>&nbsp;Зарегистрироваться
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <page-footer></page-footer>
+    </section>
+  </div>
+</div>
