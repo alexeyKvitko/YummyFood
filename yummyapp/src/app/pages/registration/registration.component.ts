@@ -84,7 +84,10 @@ export class RegistrationComponent implements OnInit {
     }
     this.clientService.registerOurClient( this.ourClient ).subscribe(data => {
       if (data.status == 200) {
-        window.localStorage.setItem("our-client",this.ourClient.phone );
+        window.localStorage.setItem("our-client",data.result );
+        let homeLink = 'pages/home-page';
+        this.router.navigate([homeLink]);
+        this.globalService.dataBusChanged("selected-link",homeLink);
       }
       this.showHttpActionMessage(data);
     });

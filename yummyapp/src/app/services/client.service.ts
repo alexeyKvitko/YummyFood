@@ -14,9 +14,11 @@ export class ClientService {
 
 
   public registerOurClient( ourClientModel : OurClientModel ) {
-
     return this.http.post<ApiResponse>(this.clientUrl + '/registerClient', ourClientModel );
+  }
 
+  public authorizationOurClient( ourClientModel : OurClientModel ) {
+    return this.http.post<ApiResponse>(this.clientUrl + '/authorizationClient', ourClientModel );
   }
 
 

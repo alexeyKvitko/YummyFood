@@ -47,6 +47,7 @@ export class PagesTopComponent implements OnInit{
   basketPrice: number = 0;
   basketState: string = 'initial';
   basketEntityImage: string = '';
+  isUserAuth: boolean = false;
 
   constructor( private _globalService: GlobalService,
                 private router: Router, private companyService : CompanyService ) {
@@ -61,7 +62,12 @@ export class PagesTopComponent implements OnInit{
         this.logoOpacity = data.value;
       }
       if (data.ev === 'selected-link') {
-        this.selectedLink = data.value;
+        if( data.value != null ){
+          this.selectedLink = data.value;
+        }
+        if( window.localStorage.getItem("our-client") != null ){
+          this.isUserAuth = true;
+        }
       }
       if (data.ev === 'add-to-basket' && data.value === 'update') {
         this.updateBasket();
@@ -134,8 +140,8 @@ export class PagesTopComponent implements OnInit{
     this.router.navigate(['pages/registration']);
   }
 
-  enterPassword(){
-
+  showLoginDialog(){
+    this._globalService.dataBusChanged('show-login-dialog', true);
   }
 
   openCityModal(){
@@ -157,4 +163,10 @@ export class PagesTopComponent implements OnInit{
     this.basketState = 'initial';
   }
 
+  showPesonalArea(){}
+
+  logout(){
+    window.localStorage.removeItem("our-client");
+    this.isUserAuth = false;
+  }
 }

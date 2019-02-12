@@ -1,0 +1,49 @@
+<app-dialog [(visible)]="showLoginDialog" type="login">
+  <div class="login-form">
+    <h2>АВТОРИЗАЦИЯ</h2>
+    <p>Крымская Служба Доставки Еды</p>
+    <switch switchId="loginType" fromStr="E-Mail" toStr="Телефон" switchW="250px" switchH="40px" initValToStr="true"
+            (selectValue)="switchValue($event)"></switch>
+    <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+      <div class="input-control" *ngIf="!loginType">
+        <label for="email-id">E-mail:</label>
+        <input id="email-id" placeholder="E-mail" type="email" formControlName="email" autocomplete="off">
+        <div class="error-msg" *ngIf="emailError != null">
+          <span>{{emailError}}</span>
+        </div>
+      </div>
+      <div class="input-control" *ngIf="loginType">
+        <label for="phone-prefix-id">Телефон:</label>
+        <phone-input id="phone-prefix-id" (phoneValue)="changePhone( $event )"></phone-input>
+        <div class="error-msg" *ngIf="phoneError != null">
+          <span>{{phoneError}}</span>
+        </div>
+      </div>
+      <div class="input-control">
+        <label for="password-id">Пароль:</label>
+        <input id="password-id" placeholder="Пароль" type="password" formControlName="password" required>
+      </div>
+      <div class="input-radio">
+        <input id="rem-me-id"  type="checkbox" formControlName="rememberMe">
+        <label for="rem-me-id">Запомнить меня</label>
+      </div>
+      <div class="enter-btn">
+        <button type="button" class="btn btn-success btn-with-icon" (click)="onSubmit()">
+          <i class="fas fa-sign-in-alt"></i>&nbsp;ВОЙТИ
+        </button>
+        <div class="error-msg" *ngIf="authError != null">
+          <span>{{authError}}</span>
+        </div>
+      </div>
+      <div class="fogot-remember">
+        <div class="fr-left">
+          <span class="fr-label">Забыли пароль?</span>
+        </div>
+        <div class="fr-right">
+          <span class="fr-label">Регистрация</span>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</app-dialog>

@@ -20,6 +20,7 @@ import {PageFooterComponent} from "./components/page-footer/page-footer.componen
 import {SocialCardComponent} from "./components/social-card/social-card.component";
 import {FastMenuComponent} from "./components/fast-menu/fast-menu.component";
 import {PhoneInputComponent} from "./components/phone-input/phone-input.component";
+import {LoginDialogComponent} from "./components/login-dialog/login-dialog.component";
 
 @NgModule({
   imports: [
@@ -44,7 +45,8 @@ import {PhoneInputComponent} from "./components/phone-input/phone-input.componen
     FastMenuComponent,
     PhoneInputComponent,
     ProfileComponent,
-    DialogComponent
+    DialogComponent,
+    LoginDialogComponent
   ],
   exports: [
     CardComponent,
@@ -63,7 +65,8 @@ import {PhoneInputComponent} from "./components/phone-input/phone-input.componen
     AlertComponent,
     PhoneInputComponent,
     ProfileComponent,
-    DialogComponent
+    DialogComponent,
+    LoginDialogComponent
   ]
 })
 export class SharedModule { }

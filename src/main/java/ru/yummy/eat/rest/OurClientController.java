@@ -22,9 +22,25 @@ public class OurClientController {
         ApiResponse response = new ApiResponse();
         response.setStatus(HttpStatus.OK.value());
         String result = clientService.registerClient(ourClientModel);
-        if (!AppConstants.SUCCESS.equals(result)) {
-            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        if ( !result.matches(AppConstants.UUID_PATTERN) ) {
+            response.setStatus(HttpStatus.CREATED.value());
             response.setMessage(result);
+        } else {
+            response.setResult( result );
+        }
+        return response;
+    }
+
+    @RequestMapping(value = "/authorizationClient", method = RequestMethod.POST)
+    public ApiResponse authorizationClient(@RequestBody OurClientModel ourClientModel) {
+        ApiResponse response = new ApiResponse();
+        response.setStatus(HttpStatus.OK.value());
+        String result = clientService.authorizationClient(ourClientModel);
+        if ( !result.matches(AppConstants.UUID_PATTERN) ) {
+            response.setStatus(HttpStatus.CREATED.value());
+            response.setMessage(result);
+        } else {
+            response.setResult( result );
         }
         return response;
     }

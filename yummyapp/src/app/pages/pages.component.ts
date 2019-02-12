@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component } from '@angular/core';
 import { GlobalService } from '../shared/services/global.service';
 import {DeliveryMenuService} from "../services/delivery-menu.service";
 import {CompanyService} from "../services/company.service";
@@ -18,6 +18,8 @@ export class PagesComponent {
               private companyService: CompanyService, private loginService: LoginService) {
     this.init();
   }
+
+
 
   public init(){
     if (window.navigator && window.navigator.geolocation) {
@@ -51,5 +53,6 @@ export class PagesComponent {
       console.log('Error: ' + error);
     });
   }
+
 
 }

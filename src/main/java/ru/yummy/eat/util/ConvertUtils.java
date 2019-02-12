@@ -264,12 +264,16 @@ public class ConvertUtils {
         if( AppConstants.FAKE_ID.equals( ourClientModel.getId() ) ){
             ourClient.setId( null );
         }
-        ourClient.setEmail( ourClientModel.getEmail().toLowerCase().trim() );
-        ourClient.setPhone( ourClientModel.getPhone().trim() );
+        ourClient.setEmail( ourClientModel.getEmail()!= null ? ourClientModel.getEmail().toLowerCase().trim(): null );
+        ourClient.setPhone(  ourClientModel.getPhone() != null ? ourClientModel.getPhone().trim() : null );
         ourClient.setPassword( bcryptEncoder.encode( ourClientModel.getPassword() ) );
         ourClient.setUuid( UUID.randomUUID().toString() );
         ourClient.setBonus( ourClientModel.getBonus() );
         return ourClient;
+    }
+
+    public boolean isPasswordMatches( String rawPswd, String encodePswd ){
+        return bcryptEncoder.matches( rawPswd, encodePswd );
     }
 
 }

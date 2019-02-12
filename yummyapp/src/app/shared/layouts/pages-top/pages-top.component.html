@@ -16,8 +16,14 @@
       <span>{{deliveryCity}}</span>
       <i class="fas fa-caret-down down"></i>
     </a>
-    <span class="header-left" (click)="enterPassword()"><i class="fas fa-pencil-alt icon"></i>Вход</span>
-    <span class="header-left" (click)="registration()"><i class="fas fa-sign-in-alt icon"></i>Регистрация</span>
+    <span *ngIf="!isUserAuth">
+        <span class="header-left" (click)="showLoginDialog()"><i class="fas fa-pencil-alt icon"></i>Вход</span>
+        <span class="header-left" (click)="registration()"><i class="fas fa-sign-in-alt icon"></i>Регистрация</span>
+    </span>
+    <span *ngIf="isUserAuth">
+        <span class="header-left" (click)="showPesonalArea()"><i class="fas fa-coffee icon"></i>Личный кабинет</span>
+        <span class="header-left" (click)="logout()"><i class="fas fa-sign-out-alt icon"></i>Выход</span>
+    </span>
   </div>
 </div>
 <div class="main_menu_area">
@@ -67,5 +73,5 @@
       </div>
     </div>
   </div>
-  <!--<button (click)="showDialog = !showDialog" class="btn">Close</button>-->
 </app-dialog>
+<login-dialog></login-dialog>

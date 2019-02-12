@@ -29,6 +29,7 @@ export class CompanyService {
         company.isPresentInBasket = false;
       });
       this._globalService.dataBusChanged('data-loaded', true);
+      this._globalService.dataBusChanged('selected-link', null);
     });
   }
 

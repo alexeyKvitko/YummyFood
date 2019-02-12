@@ -1,0 +1,100 @@
+@import '../../../shared/theme/conf';
+.login-form {
+  margin-left: 12px;
+  h2{
+    font-size: 22px;
+    font-family: Roboto-Condensed;
+    font-weight: 600;
+    color: $primary-text-color;
+    border-bottom: 1px solid $divider-color;
+  }
+  p{
+    font-size: 11px;
+    font-family: Roboto-Condensed;
+    font-weight: 100;
+    color: $teal-color;
+    margin-bottom: 10px;
+  }
+  .input-control{
+    width: 100%;
+    margin: 10px 0px;
+    label{
+      font-family: Roboto-Condensed;
+      width: 115px;
+      min-width: 115px;
+      color: $secondary-text-color;
+      font-weight: normal;
+    }
+    input{
+      border: 0px;
+      padding-left: 4px;
+      border-bottom: 1px solid $primary-color-light;
+      background-color: $card-content-bg;;
+      width: 48%;
+      height: 28px;
+      &::placeholder{
+        color: $primary-color-light;
+      }
+      &:focus{
+        outline: 0px;
+        background-color: $white;
+        border-bottom: 1px solid $primary;
+      }
+    }
+  }
+  .input-radio{
+    width: 100%;
+    margin-top: 10px;
+    margin-left: 120px;
+    label{
+      line-height: 18px;
+      font-family: Roboto-Condensed;
+      color: $teal-color;
+      font-weight: normal;
+      margin-left: 4px;
+    }
+    input{
+      &:hover{
+        cursor: pointer;
+      }
+    }
+  }
+  .enter-btn{
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid $divider-color;
+  }
+  .fogot-remember{
+    width: 100%;
+    margin-top: 12px;
+    display: flex;
+    flex-direction: row;
+    .fr-left{
+      width: 50%;
+      text-align: left;
+    }
+    .fr-right{
+      width: 50%;
+      text-align: right;
+    }
+    .fr-label{
+      font-family: Roboto-Condensed;
+      font-size: 12px;
+      color: $bright-coral;
+      width: fit-content;
+      border-bottom: 1px dotted $bright-coral;
+      &:hover{
+        cursor: pointer;
+        border-bottom: 1px dotted transparent;
+      }
+    }
+  }
+  .error-msg{
+    span{
+      font-family: Roboto-Condensed;
+      font-size: 12px;
+      font-weight: 300;
+      color: $accent-color;
+    }
+  }
+}

@@ -20,11 +20,18 @@ import {animate, style, transition, trigger} from "@angular/animations";
 export class DialogComponent implements OnInit {
   @Input() closable = true;
   @Input() visible: boolean;
+  @Input() type: string
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  dialogClass: string = 'dialog';
 
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    if( this.type && this.type === "login" ){
+      this.dialogClass = "login-dialog";
+    }
+  }
 
   close() {
     this.visible = false;
