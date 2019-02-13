@@ -1,0 +1,31 @@
+<div class="finish-order-wrapper">
+  <div class="finish-order">
+    <div class="order-header">
+      <img src="assets/images/logo.png">
+      <h3 >Оформление Заказа</h3>
+    </div>
+    <h2>КОНТАКТНАЯ ИНФОРМАЦИЯ</h2>
+    <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+      <div class="input-control">
+        <label for="password-id">Имя/Фамилия:</label>
+        <input id="password-id" placeholder="Пароль" type="text" formControlName="credential" required>
+      </div>
+      <div class="input-control" >
+        <label for="email-id">E-mail:</label>
+        <input id="email-id" placeholder="E-mail" type="email" formControlName="email" autocomplete="off">
+        <div class="error-msg" *ngIf="emailError != null">
+          <span>{{emailError}}</span>
+        </div>
+      </div>
+      <div class="input-control" *ngIf="loginType">
+        <label for="phone-prefix-id">Телефон:</label>
+        <phone-input id="phone-prefix-id" (phoneValue)="changePhone( $event )"></phone-input>
+        <div class="error-msg" *ngIf="phoneError != null">
+          <span>{{phoneError}}</span>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+</div>

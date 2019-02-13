@@ -72,6 +72,8 @@ export class LoginDialogComponent implements OnInit {
       if (data.status == 200) {
         window.localStorage.setItem("our-client",data.result );
         let homeLink = 'pages/home-page';
+        let rememberMe = this.authForm.controls.rememberMe.value ? 'true':'false';
+        window.localStorage.setItem("remember-me", rememberMe);
         this._globalService.dataBusChanged("selected-link",homeLink);
         this.router.navigate([homeLink]);
         this.showLoginDialog = false;

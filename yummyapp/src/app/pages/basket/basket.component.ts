@@ -16,6 +16,7 @@ export class BasketComponent implements OnInit {
   basketPrice : number = 0;
   customerBasket: BasketModel[] = new Array<BasketModel>();
   toUpIconOpacity: number = 0;
+  enableOrder: boolean;
 
   constructor(private  globalService : GlobalService, private companyService: CompanyService, private router: Router) { }
 
@@ -54,6 +55,7 @@ export class BasketComponent implements OnInit {
 
   addBasketModel( company: CompanyModel, menuEntity: MenuEntityModel ){
     let resultBasketModel = null;
+    this.enableOrder = true;
     this.customerBasket.forEach( basketModel => {
       if ( resultBasketModel == null && basketModel.company.id == company.id ){
         resultBasketModel = basketModel;
@@ -66,6 +68,11 @@ export class BasketComponent implements OnInit {
     }
     resultBasketModel.price += this.globalService.calculatePrice( menuEntity );
     resultBasketModel.basket.push( menuEntity );
+    if ( resultBasketModel.price > resultBasketModel.company.delivery ){
+      resultBasketModel.orderPosible = true;
+    } else {
+      this.enableOrder = false;
+    }
   }
 
   showCompanyDetail(companyId){

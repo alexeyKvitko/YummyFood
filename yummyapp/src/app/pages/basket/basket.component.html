@@ -17,18 +17,24 @@
                   <p><i class="fa fa-phone icon"></i>+7978 255 7978</p>
                   <p><i class="far fa-envelope icon"></i>delivery@yummy-eat.ru</p>
                 </div>
-                <div class="price-by-name" *ngFor="let basket of customerBasket">
+                <div class="price-by-name" *ngFor="let basket of customerBasket" [ngClass]="{'disable':!basket.orderPosible}">
                   <span class="span-left" (click)="showCompanyDetail(basket.company.id)">{{basket.company.displayName}}</span>
                   <span class="span-right">{{basket.price}}&nbsp;р.</span>
                 </div>
                 <div class="price-by-name bordered" *ngIf="basketPrice > 0">
                   <span class="span-left">Итого к оплате:</span>
                   <span class="span-right">{{basketPrice}}&nbsp;р.</span><br>
+                  <div class="button-div">
+                    <button type="button" class="btn btn-success btn-with-icon" [disabled]="!enableOrder">
+                      <i class="fas fa-shopping-cart"></i>&nbsp;ОФОРМИТЬ ЗАКАЗ
+                    </button>
+                  </div>
                   <span class="an-else" *ngIf="customerBasket.length < 3">
                     Что-нибудь еще ?<br>
                     Попробуйте <span (click)="showCompanies()">заказать доставку еды </span> в других заведениях.
                   </span>
                 </div>
+
                 <div class="price-by-name " *ngIf="basketPrice == 0">
                   <span class="span-center">Не нашли то, что искали?</span><br>
                   <span class="span-center">Попробуйте заказать доставку еды </span>
@@ -41,6 +47,7 @@
             <basket-company *ngFor="let basket of customerBasket"
                              [basket]="basket" (showCompany)="showCompanyDetail($event)">
             </basket-company>
+            <finish-order></finish-order>
           </div>
         </div>
       </div>

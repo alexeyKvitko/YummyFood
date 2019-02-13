@@ -1,0 +1,69 @@
+@import '../../theme/conf';
+
+.finish-order-wrapper {
+  margin-bottom: 20px;
+  width: 100%;
+  @include box-shadow(0 1px 1px 1px rgba($teal-color, .3));
+  background-color: $card-content-bg;
+  border-radius: 3px;
+  .finish-order {
+    display: flex;
+    flex-direction: column;
+    padding-left: 12px;
+    .order-header{
+      display: flex;
+      flex-direction: row;
+      padding: 8px 12px;
+      img {
+        width: 96px;
+        height: 96px;
+      }
+      h3{
+        margin-left: 12px;
+        height: 32px;
+        color: $bright-coral;
+        width: fit-content;
+        font-size: 28px;
+        font-weight: 400;
+        font-family: Sandora;
+        border-bottom: 1px dotted $bright-coral;
+      }
+    }
+    h2{
+      margin: 12px 0px;
+      margin-right: 12px;
+      font-size: 22px;
+      font-family: Roboto-Condensed;
+      font-weight: 600;
+      color: $primary-text-color;
+      border-bottom: 1px solid $divider-color;
+    }
+    .input-control{
+      width: 100%;
+      margin: 10px 0px;
+      label{
+        font-family: Roboto-Condensed;
+        width: 115px;
+        min-width: 115px;
+        color: $secondary-text-color;
+        font-weight: normal;
+      }
+      input{
+        border: 0px;
+        padding-left: 4px;
+        border-bottom: 1px solid $primary-color-light;
+        background-color: $card-content-bg;;
+        width: 48%;
+        height: 28px;
+        &::placeholder{
+          color: $primary-color-light;
+        }
+        &:focus{
+          outline: 0px;
+          background-color: $white;
+          border-bottom: 1px solid $primary;
+        }
+      }
+    }
+  }
+}

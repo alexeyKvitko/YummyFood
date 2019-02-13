@@ -7,8 +7,13 @@ import {Component, HostListener} from '@angular/core';
 export class AppComponent {
   title = 'app';
 
-  @HostListener('window:beforeunload')
-  doSomething() {
-    alert("Close")
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeunloadHandler(event) {
+    if( window.localStorage.getItem("remember-me") == null ||
+            window.localStorage.getItem("remember-me") == 'false' ){
+      window.localStorage.removeItem("our-client");
+    }
   }
+
 }
