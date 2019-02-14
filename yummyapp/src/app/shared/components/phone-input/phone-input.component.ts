@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'phone-input',
@@ -6,6 +6,9 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
   styleUrls: ['./phone-input.component.scss']
 })
 export class PhoneInputComponent implements OnInit {
+
+ @Input()
+ existPhone: string = null;
 
   phone: string[] =  new Array();
 
@@ -15,6 +18,14 @@ export class PhoneInputComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    if ( this.existPhone != null ){
+      for( let idx=0; idx<this.existPhone.length; idx++ ){
+        let nextId = "digit-id-"+(idx+1);
+        this.phone[idx] = this.existPhone[idx];
+        document.getElementById( nextId ).setAttribute('value',this.existPhone[idx]);
+      }
+    }
+
   }
 
   changeFocus( evn, back, forward, index ){

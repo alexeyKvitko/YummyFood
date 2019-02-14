@@ -29,25 +29,60 @@
         border-bottom: 1px dotted $bright-coral;
       }
     }
-    h2{
+    .title{
       margin: 12px 0px;
-      margin-right: 12px;
+      margin-right: 24px;
       font-size: 22px;
       font-family: Roboto-Condensed;
       font-weight: 600;
       color: $primary-text-color;
       border-bottom: 1px solid $divider-color;
     }
+    button{
+      margin-top: 12px;
+      margin-bottom: 24px;
+    }
     .input-control{
       width: 100%;
       margin: 10px 0px;
+      vertical-align: top;
+      .error-msg{
+        font-weight: bold;
+        font-size: 12px;
+        color:$accent-color;
+        font-family: Roboto-Condensed;
+      }
+      &.row-6pt{
+        display: flex;
+        flex-direction: row;
+        input{
+          width:6%;
+          margin-right: 12px;
+        }
+      }
+      &.row-17pt{
+        display: flex;
+        flex-direction: row;
+        input{
+          width:17%;
+          margin-right: 12px;
+        }
+      }
       label{
         font-family: Roboto-Condensed;
         width: 115px;
         min-width: 115px;
-        color: $secondary-text-color;
+        color: $teal-color;
         font-weight: normal;
+        span{
+          color: $accent-color;
+          font-size: 12px;
+          font-weight: bold;
+          padding-left: 3px;
+          padding-bottom: 9px;
+        }
       }
+
       input{
         border: 0px;
         padding-left: 4px;
@@ -62,6 +97,14 @@
           outline: 0px;
           background-color: $white;
           border-bottom: 1px solid $primary;
+        }
+      }
+      input[type="radio"]{
+        width: 14px;
+        height: 14px;
+        background-color: $dark-green!important;
+        &:hover{
+          cursor: pointer;
         }
       }
     }

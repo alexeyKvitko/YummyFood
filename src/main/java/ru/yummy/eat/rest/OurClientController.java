@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.yummy.eat.AppConstants;
 import ru.yummy.eat.exception.BusinessLogicException;
 import ru.yummy.eat.model.ApiResponse;
+import ru.yummy.eat.model.ClientOrderModel;
 import ru.yummy.eat.model.OurClientModel;
 import ru.yummy.eat.service.impl.OurClientServiceImpl;
 
@@ -42,6 +43,27 @@ public class OurClientController {
         } else {
             response.setResult( result );
         }
+        return response;
+    }
+
+    @RequestMapping(value = "/createClientOrder", method = RequestMethod.POST)
+    public ApiResponse createClientOrder(@RequestBody ClientOrderModel clientOrderModel) {
+        ApiResponse response = new ApiResponse();
+        response.setStatus(HttpStatus.OK.value());
+        String result = clientService.createClientOrder(clientOrderModel);
+        if ( !result.matches(AppConstants.UUID_PATTERN) ) {
+            response.setStatus(HttpStatus.CREATED.value());
+            response.setMessage(result);
+        } else {
+            response.setResult( result );
+        }
+        return response;
+    }
+
+    @GetMapping("/getClientInfo/{uuid}")
+    public ApiResponse deleteMenuType(@PathVariable String uuid)  {
+        ApiResponse response = null;
+        response = clientService.getClientByUUID( uuid );
         return response;
     }
 }

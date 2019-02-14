@@ -4,11 +4,14 @@
       <img src="assets/images/logo.png">
       <h3 >Оформление Заказа</h3>
     </div>
-    <h2>КОНТАКТНАЯ ИНФОРМАЦИЯ</h2>
+    <h2 class="title">КОНТАКТНАЯ ИНФОРМАЦИЯ</h2>
     <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
       <div class="input-control">
-        <label for="password-id">Имя/Фамилия:</label>
-        <input id="password-id" placeholder="Пароль" type="text" formControlName="credential" required>
+        <label for="password-id">Обращение:<span>*</span></label>
+        <input id="password-id" placeholder="Укажите как к Вам обращаться" type="text" formControlName="nickName" >
+        <div class="error-msg" *ngIf="nickNameError != null">
+          <span>{{nickNameError}}</span>
+        </div>
       </div>
       <div class="input-control" >
         <label for="email-id">E-mail:</label>
@@ -17,15 +20,70 @@
           <span>{{emailError}}</span>
         </div>
       </div>
-      <div class="input-control" *ngIf="loginType">
-        <label for="phone-prefix-id">Телефон:</label>
-        <phone-input id="phone-prefix-id" (phoneValue)="changePhone( $event )"></phone-input>
+      <div class="input-control" >
+        <label for="phone-prefix-id">Телефон:<span>*</span></label>
+        <phone-input id="phone-prefix-id" [(existPhone)]="ourClient.phone" (phoneValue)="changePhone( $event )"></phone-input>
         <div class="error-msg" *ngIf="phoneError != null">
           <span>{{phoneError}}</span>
         </div>
       </div>
-
+      <h2 class="title">АДРЕС ДОСТАВКИ</h2>
+      <div class="input-control">
+        <label for="city-id">Город:<span>*</span></label>
+        <input id="city-id" placeholder="Город" type="text" formControlName="city" >
+        <div class="error-msg" *ngIf="cityError != null">
+          <span>{{cityError}}</span>
+        </div>
+      </div>
+      <div class="input-control">
+        <label for="street-id">Улица:<span>*</span></label>
+        <input id="street-id" placeholder="Улица" type="text" formControlName="street" >
+        <div class="error-msg" *ngIf="streetError != null">
+          <span>{{streetError}}</span>
+        </div>
+      </div>
+      <div class="input-control row-6pt">
+        <label for="house-id">Дом:<span>*</span></label>
+        <input id="house-id" placeholder="Дом" type="text" formControlName="building" >
+        <label for="entry-id">Подъезд:</label>
+        <input id="entry-id" placeholder="Подъезд" type="text" formControlName="entry" >
+        <label for="floor-id">Этаж:</label>
+        <input id="floor-id" placeholder="Этаж" type="text" formControlName="floor" >
+      </div>
+      <div class="error-msg" *ngIf="buildingError != null">
+        <span>{{buildingError}}</span>
+      </div>
+      <div class="input-control row-17pt">
+        <label for="intercom-id">Код домофона:</label>
+        <input id="intercom-id" placeholder="Код домофона" type="text" formControlName="intercom" >
+        <label for="flat-id">Квартира/офис:</label>
+        <input id="flat-id" placeholder="Квартира" type="text" formControlName="flat" >
+      </div>
+      <div class="input-control">
+        <label for="change-id">Нужна сдача с:</label>
+        <input id="change-id" placeholder="Нужна сдача с" type="number" formControlName="needChange" >
+      </div>
+      <div class="input-control">
+        <label for="comment-id">Комментарий:</label>
+        <textarea style="resize: none;" id="comment-id"  cols="57" rows="3" formControlName="comment" >
+        </textarea>
+      </div>
+      <h2 class="title">ОПЛАТА</h2>
+      <div class="input-control">
+        <label for="pay-type-сash-id">Наличными:</label>
+        <input id="pay-type-сash-id" name="pay-type-name" type="radio" class="checkbox-success" checked (click)="selectPayType('CASH')">
+      </div>
+      <div class="input-control">
+        <label for="pay-type-card-id">Оплата картой:</label>
+        <input id="pay-type-card-id"  name="pay-type-name" type="radio" class="checkbox-success" (click)="selectPayType('CARD')">
+      </div>
+      <div class="input-control">
+        <label for="pay-type-wallet-id">Электр. деньги:</label>
+        <input id="pay-type-wallet-id"  name="pay-type-name"type="radio" class="checkbox-success" (click)="selectPayType('WALLET')">
+      </div>
+      <button type="button" class="btn btn-success btn-with-icon" (click)="onSubmit()">
+        <i class="fas fa-shopping-cart"></i>&nbsp;ЗАКАЗАТЬ
+      </button>
     </form>
-
   </div>
 </div>

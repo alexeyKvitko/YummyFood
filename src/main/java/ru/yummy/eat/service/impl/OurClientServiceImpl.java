@@ -3,10 +3,13 @@ package ru.yummy.eat.service.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import ru.yummy.eat.AppConstants;
 import ru.yummy.eat.entity.OurClient;
 import ru.yummy.eat.exception.BusinessLogicException;
+import ru.yummy.eat.model.ApiResponse;
+import ru.yummy.eat.model.ClientOrderModel;
 import ru.yummy.eat.model.OurClientModel;
 import ru.yummy.eat.repo.OurClientRepository;
 import ru.yummy.eat.util.ConvertUtils;
@@ -55,7 +58,7 @@ public class OurClientServiceImpl {
                 result = AppConstants.WRONG_PASSWORD;
             }
             if (result == null) {
-                result = ourClient.getUuid();
+                result = existClient.getUuid();
             }
         } catch (Exception e) {
             LOG.error("Exception got when register client: " + e.getMessage());
@@ -77,6 +80,24 @@ public class OurClientServiceImpl {
             result = AppConstants.PHONE_EXIST;
         }
         return result;
+    }
+
+    public String createClientOrder(ClientOrderModel clientOrderModel){
+        return null;
+    }
+
+    public ApiResponse getClientByUUID(String uuid){
+        ApiResponse response = new ApiResponse();
+        response.setStatus( HttpStatus.OK.value() );
+        try {
+            OurClientModel ourClientModel = convertUtils.convertOurClientToModel( clientRepository.findByUuid( uuid) );
+            response.setResult( ourClientModel );
+        } catch ( Exception e ){
+            LOG.error( "Exception got when register client: "+e.getMessage() );
+            response.setStatus( HttpStatus.INTERNAL_SERVER_ERROR.value() );
+            response.setMessage( e.getMessage() );
+        }
+       return response;
     }
 
 

@@ -272,6 +272,17 @@ public class ConvertUtils {
         return ourClient;
     }
 
+    public OurClientModel convertOurClientToModel(OurClient ourClient ){
+        OurClientModel ourClientModel = new OurClientModel();
+        ourClientModel.setId( ourClient.getId() );
+        ourClientModel.setEmail( ourClient.getEmail() );
+        ourClientModel.setPhone(  ourClient.getPhone() );
+        ourClientModel.setPassword( null );
+        ourClientModel.setUuid( ourClient.getUuid() );
+        ourClientModel.setBonus( ourClient.getBonus() );
+        return ourClientModel;
+    }
+
     public boolean isPasswordMatches( String rawPswd, String encodePswd ){
         return bcryptEncoder.matches( rawPswd, encodePswd );
     }

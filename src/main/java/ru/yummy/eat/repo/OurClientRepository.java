@@ -10,4 +10,6 @@ public interface OurClientRepository extends CrudRepository<OurClient,Integer> {
     OurClient findByEmail(String email);
 
     OurClient findByPhone(String phone);
+
+    OurClient findByUuid(String uuid);
 }

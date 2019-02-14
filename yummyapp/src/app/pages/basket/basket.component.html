@@ -25,7 +25,7 @@
                   <span class="span-left">Итого к оплате:</span>
                   <span class="span-right">{{basketPrice}}&nbsp;р.</span><br>
                   <div class="button-div">
-                    <button type="button" class="btn btn-success btn-with-icon" [disabled]="!enableOrder">
+                    <button type="button" class="btn btn-success btn-with-icon" [disabled]="!enableOrder" (click)="finishOrder()">
                       <i class="fas fa-shopping-cart"></i>&nbsp;ОФОРМИТЬ ЗАКАЗ
                     </button>
                   </div>
@@ -47,7 +47,9 @@
             <basket-company *ngFor="let basket of customerBasket"
                              [basket]="basket" (showCompany)="showCompanyDetail($event)">
             </basket-company>
-            <finish-order></finish-order>
+            <div id="finish-order-id">
+              <finish-order  [(ourClient)]="ourClient" [(orderBasket)]="customerBasket" *ngIf="showFinishOrder"></finish-order>
+            </div>
           </div>
         </div>
       </div>

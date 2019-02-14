@@ -5,6 +5,8 @@ import {CompanyService} from "../../services/company.service";
 import {CompanyModel} from "../../model/company.model";
 import {BasketModel} from "../../model/basket.model";
 import {Router} from "@angular/router";
+import {ClientService} from "../../services/client.service";
+import {OurClientModel} from "../../model/our-client";
 
 @Component({
   selector: 'app-basket',
@@ -17,8 +19,12 @@ export class BasketComponent implements OnInit {
   customerBasket: BasketModel[] = new Array<BasketModel>();
   toUpIconOpacity: number = 0;
   enableOrder: boolean;
+  showFinishOrder: boolean = false;
+  ourClient: OurClientModel = new OurClientModel();
 
-  constructor(private  globalService : GlobalService, private companyService: CompanyService, private router: Router) { }
+  constructor(private  globalService : GlobalService, private  clientService : ClientService,
+              private companyService: CompanyService,
+              private router: Router) { }
 
   ngOnInit() {
     this.initBasket();
@@ -78,6 +84,21 @@ export class BasketComponent implements OnInit {
   showCompanyDetail(companyId){
     window.localStorage.setItem('companyId',companyId);
     this.router.navigate(['pages/company-detail']);
+  }
+
+  finishOrder(){
+    let uuid = window.localStorage.getItem("our-client");
+    if( uuid != null ){
+      this.clientService.getClientInfo( uuid ).subscribe(data => {
+        if (data.status == 200) {
+          this.ourClient = data.result;
+        }
+        this.showFinishOrder = true;
+      });
+    } else {
+      this.showFinishOrder = true;
+    }
+    document.getElementById("finish-order-id").scrollIntoView({behavior: "smooth", block: "start"});
   }
 
   showCompanies(){
