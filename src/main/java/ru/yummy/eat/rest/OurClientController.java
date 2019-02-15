@@ -48,15 +48,8 @@ public class OurClientController {
 
     @RequestMapping(value = "/createClientOrder", method = RequestMethod.POST)
     public ApiResponse createClientOrder(@RequestBody ClientOrderModel clientOrderModel) {
-        ApiResponse response = new ApiResponse();
-        response.setStatus(HttpStatus.OK.value());
-        String result = clientService.createClientOrder(clientOrderModel);
-        if ( !result.matches(AppConstants.UUID_PATTERN) ) {
-            response.setStatus(HttpStatus.CREATED.value());
-            response.setMessage(result);
-        } else {
-            response.setResult( result );
-        }
+        ApiResponse response = null;
+        response = clientService.createClientOrder(clientOrderModel);
         return response;
     }
 

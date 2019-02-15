@@ -178,6 +178,74 @@
       .basket-body-right {
         width: 100%;
         padding-left: 10px;
+        .issued-order-container{
+          margin-bottom: 20px;
+          width: 100%;
+          @include box-shadow(0 1px 1px 1px rgba($teal-color, .3));
+          background-color: $card-content-bg;
+          border-radius: 3px;
+          .issued-order {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            .io-left {
+              justify-items: left;
+              img {
+                width: 205px;
+
+              }
+            }
+            .io-right{
+              justify-items: right;
+              img{
+                width: 205px;
+                height: 495px;
+
+              }
+            }
+            .io-center{
+              width:100%;
+              text-align: center;
+              p{
+                font-family: Roboto-Condensed;
+                font-size: 22px;
+                font-weight: 400;
+                color: $primary-text-color;
+                text-transform: uppercase;
+                padding: 6px 10px;
+              }
+              h2{
+                font-family: B52;
+                font-size: 24px;
+                font-weight: 400;
+                color: $dark-green;
+              }
+              .just-text{
+                font-family: Roboto-Condensed;
+                color: $teal-color;
+                font-size: 14px;
+                span{
+                  color: $bright-coral;
+                  font-size: 16px;
+                  font-weight: 600;
+                }
+                &.with-margin{
+                  margin: 12px 0px;
+                }
+              }
+              .share-friend{
+                margin: 24px 0px;
+                padding-top: 24px;
+                @include shadow-radial();
+                font-family: Roboto;
+                color: $primary-text-color;
+                font-size: 12px;
+                font-weight: 400;
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -205,4 +273,43 @@
     cursor: pointer;
     background-image: url("../../../assets/images/icons/up-circle-hover.png");
   }
+}
+
+.social-icon{
+  display: flex;
+  flex-direction: row;
+  z-index: 21;
+  justify-content: center;
+  .si {
+    font-size: 18px;
+    min-width: 36px;
+    min-hight: 36px;
+    padding-top: 6px;
+    width: 36px;
+    height: 36px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 2px;
+    margin-right: 6px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+   .si-facebook {
+    background: #3B5998;
+    color: white;
+  }
+  .si-twitter {
+    background: #55ACEE;
+    color: white;
+  }
+  .si-vk {
+    background: #074E71;
+    color: white;
+  }
+  .si-odnoklassniki {
+    background: #FF8400;
+    color: white;
+  }
+
 }

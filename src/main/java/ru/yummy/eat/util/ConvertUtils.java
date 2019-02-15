@@ -283,6 +283,57 @@ public class ConvertUtils {
         return ourClientModel;
     }
 
+    public ClientOrder convertModelToClientOrder( ClientOrderModel clientOrderModel ){
+        ClientOrder clientOrder = new ClientOrder();
+        clientOrder.setId( AppConstants.FAKE_ID.equals( clientOrderModel.getId() ) ? null : clientOrderModel.getId());
+        clientOrder.setNickName( clientOrderModel.getNickName() );
+        clientOrder.setEmail( clientOrderModel.getEmail() );
+        clientOrder.setPhone( clientOrderModel.getPhone() );
+        clientOrder.setCity( clientOrderModel.getCity() );
+        clientOrder.setStreet( clientOrderModel.getStreet() );
+        clientOrder.setBuilding( clientOrderModel.getBuilding() );
+        clientOrder.setEntry( clientOrderModel.getEntry() );
+        clientOrder.setFloor( clientOrderModel.getFloor() );
+        clientOrder.setFlat( clientOrderModel.getFlat() );
+        clientOrder.setIntercom( clientOrderModel.getIntercom() );
+        clientOrder.setNeedChange( clientOrderModel.getNeedChange() );
+        clientOrder.setComment( clientOrderModel.getComment() );
+        clientOrder.setPayType( clientOrderModel.getPayType() );
+        return  clientOrder;
+    }
+
+    public List<OrderEntity> convertModelsToOrderEntityList(Integer orderId, List<BasketModel> basketModels ){
+        List<OrderEntity> orderEntities = new LinkedList<>();
+        for(BasketModel basketModel: basketModels ){
+            for(MenuEntityModel entityModel: basketModel.getBasket() ){
+                OrderEntity orderEntity = new OrderEntity();
+                orderEntity.setId( null );
+                orderEntity.setOrderId( orderId );
+                orderEntity.setCompanyId( basketModel.getCompany().getId() );
+                orderEntity.setEntityId( entityModel.getId() );
+                orderEntity.setCount( entityModel.getCount() );
+                orderEntity.setWspType( entityModel.getWspType() );
+                switch ( entityModel.getWspType().toUpperCase() ){
+                    case AppConstants.WSP_TYPE_ONE:
+                        orderEntity.setPrice( entityModel.getPriceOne()* entityModel.getCount() );
+                        break;
+                    case AppConstants.WSP_TYPE_TWO:
+                        orderEntity.setPrice( entityModel.getPriceTwo()* entityModel.getCount() );
+                        break;
+                    case AppConstants.WSP_TYPE_THREE:
+                        orderEntity.setPrice( entityModel.getPriceThree()* entityModel.getCount() );
+                        break;
+                    case AppConstants.WSP_TYPE_FOUR:
+                        orderEntity.setPrice( entityModel.getPriceFour()* entityModel.getCount() );
+                        break;
+                }
+                orderEntities.add( orderEntity );
+            }
+        }
+        return orderEntities;
+    }
+
+
     public boolean isPasswordMatches( String rawPswd, String encodePswd ){
         return bcryptEncoder.matches( rawPswd, encodePswd );
     }

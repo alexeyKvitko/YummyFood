@@ -6,7 +6,7 @@ import org.pojomatic.annotations.AutoProperty;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "сlient_order")
+@Table(name = "client_order")
 @AutoProperty
 public class ClientOrder {
 

@@ -1,8 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {OurClientModel} from "../../../model/our-client";
 import {ClientOrderModel} from "../../../model/client-order.model";
 import {BasketModel} from "../../../model/basket.model";
+import {ClientService} from "../../../services/client.service";
+import swal from "sweetalert2";
 
 @Component({
   selector: 'finish-order',
@@ -29,7 +31,10 @@ export class FinishOrderComponent implements OnInit {
   buildingError: string = null;
   interval;
 
-  constructor(private formBuilder: FormBuilder) { }
+  @Output()
+  orderClosed: EventEmitter<ClientOrderModel> = new EventEmitter<ClientOrderModel>();
+
+  constructor(private formBuilder: FormBuilder, private clientService: ClientService) { }
 
   ngOnInit() {
     this.initForm();
@@ -119,20 +124,31 @@ export class FinishOrderComponent implements OnInit {
       },3000);
       return;
     }
-    console.log("ClientOrder", this.clientOrder );
-    // this.clientService.registerOurClient( this.ourClient ).subscribe(data => {
-    //   if (data.status == 200) {
-    //     window.localStorage.setItem("our-client",data.result );
-    //     let homeLink = 'pages/home-page';
-    //     this.router.navigate([homeLink]);
-    //     this.globalService.dataBusChanged("selected-link",homeLink);
-    //   }
-    //   this.showHttpActionMessage(data);
-    // });
+    this.clientService.createOrder( this.clientOrder ).subscribe(data => {
+      if (data.status == 200) {
+        let homeLink = 'pages/home-page';
+        this.clientOrder.id = data.result;
+        this.orderClosed.emit(this.clientOrder );
+      } else {
+        this.showHttpActionMessage(data);
+      }
+    });
   }
 
   emailIsValid (email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  }
+
+  showHttpActionMessage(data) {
+    if (data.status === 200) {
+      swal('Регистрация данных, успешна');
+    } else {
+      swal({
+        type: 'error',
+        title: data.status,
+        text: data.message,
+      });
+    }
   }
 
 }

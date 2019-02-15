@@ -21,6 +21,8 @@ export class BasketComponent implements OnInit {
   enableOrder: boolean;
   showFinishOrder: boolean = false;
   ourClient: OurClientModel = new OurClientModel();
+  orderOpen: boolean = true;
+  orderNum: number;
 
   constructor(private  globalService : GlobalService, private  clientService : ClientService,
               private companyService: CompanyService,
@@ -113,8 +115,29 @@ export class BasketComponent implements OnInit {
     }
   }
 
+  closeOrder( clientOrder ){
+    document.getElementById("finish-order-id").scrollIntoView({behavior: "smooth", block: "start"});
+    this.orderOpen = false;
+    this.orderNum = clientOrder.id;
+    document.getElementById("issued-order").scrollIntoView({behavior: "smooth", block: "start"});
+  }
+
   moveToTop(){
     document.getElementById("top").scrollIntoView({behavior: "smooth", block: "start"});
+  }
+
+  goHomePage(){
+    let link = 'pages/home';
+    this.globalService.dataBusChanged("selected-link",link);
+    this.router.navigate([link]);
+  }
+
+  ngOnDestroy(){
+    if ( !this.orderOpen ){
+      this.globalService.clearBasket();
+      this.companyService.removeCompaniesFromBasket();
+      this.globalService.dataBusChanged("add-to-basket","update");
+    }
   }
 
 }

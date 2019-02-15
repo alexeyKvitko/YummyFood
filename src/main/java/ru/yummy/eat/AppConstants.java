@@ -17,6 +17,12 @@ public abstract class AppConstants {
     public static final double SIMFEROPOL_LON = 34.1024;
     public static final String SIMFEROPOL_NAME = "Симферополь";
 
+    public static final String WSP_TYPE_ONE = "ONE";
+    public static final String WSP_TYPE_TWO = "TWO";
+    public static final String WSP_TYPE_THREE = "THREE";
+    public static final String WSP_TYPE_FOUR = "FOUR";
+
+
     public static final String EMAIL_NOT_FOUND = "Пользователь с указанным E-MAIL не найден";
     public static final String PHONE_NOT_FOUND = "Пользователь с указанным телефонным номером не найден";
     public static final String WRONG_PASSWORD = "Введен неверный пароль";

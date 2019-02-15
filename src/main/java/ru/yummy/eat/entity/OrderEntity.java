@@ -25,6 +25,7 @@ public class OrderEntity {
 
     @Column(name = "wsp_type")
     private String wspType;
+
     @Column(name = "count")
     private Integer count;
 

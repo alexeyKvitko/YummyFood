@@ -3,6 +3,7 @@ import {HttpClient } from '@angular/common/http';
 import {ApiResponse} from "../model/api.response";
 import {OurClientModel} from "../model/our-client";
 import {CompanyInfoModel} from "../model/company-info.model";
+import {ClientOrderModel} from "../model/client-order.model";
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,11 @@ export class ClientService {
   public getClientInfo(uuid: string){
     return this.http.get<ApiResponse>(this.clientUrl + '/getClientInfo/' + uuid);
   }
+
+  public createOrder( clientOrder : ClientOrderModel ){
+    return this.http.post<ApiResponse>(this.clientUrl + '/createClientOrder', clientOrder );
+  }
+
 
 
 }

@@ -29,6 +29,8 @@ public class MenuEntityModel implements Serializable {
     private Integer priceFour;
     private Integer typeOrder;
     private Integer categoryOrder;
+    private Integer count;
+    private String wspType;
 
     public Integer getId() {
         return id;
@@ -204,6 +206,22 @@ public class MenuEntityModel implements Serializable {
 
     public void setCategoryOrder(Integer categoryOrder) {
         this.categoryOrder = categoryOrder;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public String getWspType() {
+        return wspType;
+    }
+
+    public void setWspType(String wspType) {
+        this.wspType = wspType;
     }
 
     @Override public boolean equals(Object o) {

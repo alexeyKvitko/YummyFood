@@ -17,15 +17,19 @@
                   <p><i class="fa fa-phone icon"></i>+7978 255 7978</p>
                   <p><i class="far fa-envelope icon"></i>delivery@yummy-eat.ru</p>
                 </div>
-                <div class="price-by-name" *ngFor="let basket of customerBasket" [ngClass]="{'disable':!basket.orderPosible}">
-                  <span class="span-left" (click)="showCompanyDetail(basket.company.id)">{{basket.company.displayName}}</span>
+                <div class="price-by-name" *ngFor="let basket of customerBasket"
+                     [ngClass]="{'disable':!basket.orderPosible}">
+                  <span class="span-left"
+                        (click)="showCompanyDetail(basket.company.id)">{{basket.company.displayName}}</span>
                   <span class="span-right">{{basket.price}}&nbsp;р.</span>
                 </div>
                 <div class="price-by-name bordered" *ngIf="basketPrice > 0">
                   <span class="span-left">Итого к оплате:</span>
                   <span class="span-right">{{basketPrice}}&nbsp;р.</span><br>
                   <div class="button-div">
-                    <button type="button" class="btn btn-success btn-with-icon" [disabled]="!enableOrder" (click)="finishOrder()">
+                    <button type="button" class="btn btn-success btn-with-icon" [disabled]="!enableOrder"
+                            *ngIf="orderOpen"
+                            (click)="finishOrder()">
                       <i class="fas fa-shopping-cart"></i>&nbsp;ОФОРМИТЬ ЗАКАЗ
                     </button>
                   </div>
@@ -38,17 +42,58 @@
                 <div class="price-by-name " *ngIf="basketPrice == 0">
                   <span class="span-center">Не нашли то, что искали?</span><br>
                   <span class="span-center">Попробуйте заказать доставку еды </span>
-                  <div class="span-center delivery" (click)="showCompanies()" >В ДРУГИХ ЗАВЕДЕНИЯХ</div>
+                  <div class="span-center delivery" (click)="showCompanies()">В ДРУГИХ ЗАВЕДЕНИЯХ</div>
                 </div>
-             </div>
+              </div>
             </div>
           </div>
           <div class="basket-body-right">
-            <basket-company *ngFor="let basket of customerBasket"
-                             [basket]="basket" (showCompany)="showCompanyDetail($event)">
-            </basket-company>
+            <div *ngIf="orderOpen">
+              <basket-company *ngFor="let basket of customerBasket"
+                              [basket]="basket" (showCompany)="showCompanyDetail($event)">
+              </basket-company>
+            </div>
             <div id="finish-order-id">
-              <finish-order  [(ourClient)]="ourClient" [(orderBasket)]="customerBasket" *ngIf="showFinishOrder"></finish-order>
+              <finish-order [(ourClient)]="ourClient" [(orderBasket)]="customerBasket"
+                            (orderClosed)="closeOrder($event)" *ngIf="showFinishOrder && orderOpen"></finish-order>
+            </div>
+            <div id="issued-order">
+              <div class="issued-order-container" *ngIf="!orderOpen">
+                <div class="issued-order">
+                  <div class="io-left">
+                    <img src="assets/images/banners/banner-order-left.png">
+                  </div>
+                  <div class="io-center">
+                    <p>Ваш Заказ</p>
+                    <h2>№ {{orderNum}}</h2>
+                    <p>на сумму</p>
+                    <h2>{{basketPrice}}&nbsp;руб.</h2>
+                    <p>Успешно Сформирован</p>
+                    <div class="just-text">
+                      Если Вам не перезвонили по заказу в течении <span>10 минут</span>, пожалуйста,
+                      сообщите нам об этом по номеру <span>+7978 255 7978</span>
+                    </div>
+                    <div class="share-friend">
+                      Поделись с друзьями и получай баллы вместе с ними
+                    </div>
+                    <div class="social-icon">
+                      <div class="si si-vk"><i class="fab fa-vk"></i></div>
+                      <div class="si si-odnoklassniki"><i class="fab fa-odnoklassniki"></i></div>
+                      <div class="si si-facebook"><i class="fab fa-facebook-f"></i></div>
+                      <div class="si si-twitter"><i class="fab fa-twitter"></i></div>
+                    </div>
+                    <div class="just-text with-margin">
+                      СПАСИБО ЗА ПОКУПКИ НА НАШЕМ СЕРВИСЕ
+                    </div>
+                    <button type="button" class="btn btn-success btn-with-icon" (click)="goHomePage()">
+                      ПРОДОЛЖИТЬ
+                    </button>
+                  </div>
+                  <div class="io-right">
+                    <img src="assets/images/banners/banner-order-right.png">
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
