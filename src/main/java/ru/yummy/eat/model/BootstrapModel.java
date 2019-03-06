@@ -11,6 +11,7 @@ public class BootstrapModel implements Serializable {
 
     private List<CompanyModel> companies;
     private List<DictionaryModel> cities;
+    private List<CompanyActionModel> companyActions;
     private DeliveryMenu deliveryMenu;
     private FastMenu fastMenu;
     private String deliveryCity;
@@ -30,6 +31,14 @@ public class BootstrapModel implements Serializable {
 
     public void setCities(List<DictionaryModel> cities) {
         this.cities = cities;
+    }
+
+    public List<CompanyActionModel> getCompanyActions() {
+        return companyActions;
+    }
+
+    public void setCompanyActions(List<CompanyActionModel> companyActions) {
+        this.companyActions = companyActions;
     }
 
     public DeliveryMenu getDeliveryMenu() {

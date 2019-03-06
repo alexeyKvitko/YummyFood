@@ -1,13 +1,19 @@
 package ru.yummy.eat.util;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.yummy.eat.AppConstants;
 import ru.yummy.eat.entity.City;
 import ru.yummy.eat.model.SearchParam;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public abstract class AppUtils {
+
+    private static final Logger LOG = LoggerFactory.getLogger(AppUtils.class);
 
     static final double EQUATOR_IAL_EARTH_RADIUS = 6378.1370D;
     static final double D2R = ( Math.PI / 180D );
@@ -171,6 +177,17 @@ public abstract class AppUtils {
         param.setDirection( tags[2] );
         param.setEntry( Integer.valueOf( tags[3] ) );
         return param;
+    }
+
+    public static String formatDate( String format, Date date ) {
+        SimpleDateFormat sdf = new SimpleDateFormat( format );
+        String result = null;
+        try {
+            result = sdf.format(date);
+        } catch ( Exception ex) {
+            LOG.error( "Ошибка преобразования: "+ex.getMessage() );
+        }
+        return result;
     }
 
 }

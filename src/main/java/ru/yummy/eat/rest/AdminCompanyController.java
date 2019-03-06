@@ -118,7 +118,7 @@ public class AdminCompanyController {
         response.setStatus( HttpStatus.OK.value() );
         parseMenuModel.setParseUrl( parseMenuModel.getParseUrl().replace("https","http") );
         try {
-            CompanyMenu companyMenu = parseService.testPage( parseMenuModel );
+            CompanyMenu companyMenu = parseService.testPage( parseMenuModel, false );
             if( companyMenu.getParseMenu().isBroken() ){
                 response.setStatus( HttpStatus.INTERNAL_SERVER_ERROR.value() );
                 response.setMessage( companyMenu.getParseMenu().getParseResult().getMessage() );

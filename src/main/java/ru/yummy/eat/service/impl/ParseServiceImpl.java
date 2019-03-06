@@ -15,13 +15,11 @@ import ru.yummy.eat.AppConstants;
 import ru.yummy.eat.entity.MenuEntity;
 import ru.yummy.eat.entity.MenuItem;
 import ru.yummy.eat.entity.ParseMenu;
+import ru.yummy.eat.entity.UpdateJournal;
 import ru.yummy.eat.exception.BusinessLogicException;
 import ru.yummy.eat.model.*;
 import ru.yummy.eat.model.enums.TestStatus;
-import ru.yummy.eat.repo.CityRepository;
-import ru.yummy.eat.repo.MenuEntityRepository;
-import ru.yummy.eat.repo.MenuItemRepository;
-import ru.yummy.eat.repo.ParseMenuRepository;
+import ru.yummy.eat.repo.*;
 import ru.yummy.eat.service.ParseService;
 import ru.yummy.eat.util.AppUtils;
 import ru.yummy.eat.util.ConvertUtils;
@@ -30,6 +28,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -51,7 +51,14 @@ public class ParseServiceImpl implements ParseService {
     CityRepository cityRepository;
 
     @Autowired
+    UpdateJournalRepository journalRepository;
+
+    @Autowired
+    CompanyServiceImpl companyService;
+
+    @Autowired
     ConvertUtils convertUtils;
+
 
     @Override
     @Transactional
@@ -158,7 +165,7 @@ public class ParseServiceImpl implements ParseService {
 
 
     @Override
-    public synchronized CompanyMenu testPage(ParseMenuModel parseMenu) throws BusinessLogicException {
+    public synchronized CompanyMenu testPage(ParseMenuModel parseMenu, boolean isUpdateJournal ) throws BusinessLogicException {
         LOG.info("******************************************************");
         LOG.info("** TEST");
         LOG.info("** ");
@@ -170,6 +177,10 @@ public class ParseServiceImpl implements ParseService {
         HttpRequest request = null;
         parseMenu.setBroken(false);
         parseResult.getHtmlResult().setStatus(TestStatus.ERROR.value());
+        StringBuilder emptyTags = new StringBuilder();
+        UpdateJournal updateJournal = new UpdateJournal();
+        updateJournal.setParseUrl( parseMenu.getParseUrl() );
+        parseMenu.setUpdateResult( AppConstants.TEST_SUCCESS );
         try {
             request = requestFactory.buildGetRequest(new GenericUrl(parseMenu.getParseUrl()));
             htmlResponse = request.execute().parseAsString();
@@ -233,6 +244,9 @@ public class ParseServiceImpl implements ParseService {
                     parseResult.getProductName().setStatus(TestStatus.ERROR.value());
                     parseResult.getProductName().setiStep(iterationStep - 1);
                     String entityName = AppUtils.getFieldValue(section, parseMenu.getTagName());
+                    if( parseMenu.getTagName() != null && (entityName == null || entityName.trim().length() == 0) ){
+                        emptyTags.append("tag_name;");
+                    }
                     LOG.info("** Ok");
                     LOG.info("**");
                     parseResult.getProductName().setStatus(TestStatus.PASSED.value());
@@ -255,6 +269,10 @@ public class ParseServiceImpl implements ParseService {
                     parseResult.getProductDesc().setiStep(iterationStep);
                     menuEntity.setDescription(AppUtils.getFieldValue(section, parseMenu.getTagDescription()));
                     parseResult.getProductDesc().setStatus(TestStatus.PASSED.value());
+                    if( parseMenu.getTagDescription() != null && (menuEntity.getDescription() == null ||
+                                    menuEntity.getDescription().trim().length() == 0) ){
+                        emptyTags.append("tag_description;");
+                    }
                     LOG.info("** Ok");
                     LOG.info("**");
                     LOG.info("** GET THE IMAGE ...");
@@ -262,6 +280,9 @@ public class ParseServiceImpl implements ParseService {
                     parseResult.getProductImg().setiStep(iterationStep);
                     String imageUrl = AppUtils.getFieldValue(section, parseMenu.getTagImageUrl());
                     parseResult.getProductImg().setStatus(TestStatus.PASSED.value());
+                    if( parseMenu.getTagImageUrl() != null && (imageUrl == null ||imageUrl.trim().length() == 0) ){
+                        emptyTags.append("tag_img_url;");
+                    }
                     LOG.info("** Ok");
                     LOG.info("**");
                     menuEntity.setImageUrl(parseMenu.getPrefixUrl() != null ? parseMenu.getPrefixUrl() + imageUrl : imageUrl);
@@ -275,6 +296,9 @@ public class ParseServiceImpl implements ParseService {
                     menuEntity.setSizeOne(wspOne.getSize());
                     menuEntity.setPriceOne(wspOne.getPrice());
                     parseResult.getWspOne().setStatus(TestStatus.PASSED.value());
+                    if( parseMenu.getTagPriceOne() != null && wspOne.getPrice() == null ){
+                        emptyTags.append("tag_price_one;");
+                    }
                     LOG.info("** Ok");
                     LOG.info("**");
 
@@ -288,6 +312,9 @@ public class ParseServiceImpl implements ParseService {
                     menuEntity.setSizeTwo(wspTwo.getSize());
                     menuEntity.setPriceTwo(wspTwo.getPrice());
                     parseResult.getWspTwo().setStatus(TestStatus.PASSED.value());
+                    if( parseMenu.getTagPriceTwo() != null && wspTwo.getPrice() == null ){
+                        emptyTags.append("tag_price_two;");
+                    }
                     LOG.info("** Ok");
                     LOG.info("**");
 
@@ -301,6 +328,9 @@ public class ParseServiceImpl implements ParseService {
                     menuEntity.setSizeThree(wspThree.getSize());
                     menuEntity.setPriceThree(wspThree.getPrice());
                     parseResult.getWspThree().setStatus(TestStatus.PASSED.value());
+                    if( parseMenu.getTagPriceThree() != null && wspThree.getPrice() == null ){
+                        emptyTags.append("tag_price_three;");
+                    }
                     LOG.info("** Ok");
                     LOG.info("**");
                     // wsp Four
@@ -313,6 +343,9 @@ public class ParseServiceImpl implements ParseService {
                     menuEntity.setSizeFour(wspFour.getSize());
                     menuEntity.setPriceFour(wspFour.getPrice());
                     parseResult.getWspFour().setStatus(TestStatus.PASSED.value());
+                    if( parseMenu.getTagPriceFour() != null && wspFour.getPrice() == null ){
+                        emptyTags.append("tag_price_four;");
+                    }
                     LOG.info("** Ok");
                     LOG.info("**");
                     menuEntities.add(menuEntity);
@@ -320,18 +353,25 @@ public class ParseServiceImpl implements ParseService {
                 }
             } catch (Exception e) {
                 LOG.error("** EXCEPTION: " + e.getMessage());
-                LOG.error("** STACK TRACE: " + e.getMessage());
+                e.printStackTrace();
                 StringBuilder st = new StringBuilder();
                 for (int i = e.getStackTrace().length - 2; i < e.getStackTrace().length; i++) {
                     st.append("METHOD '" + e.getStackTrace()[i].getMethodName() + "',LINE NUMBER [" + e.getStackTrace()[i].getLineNumber() + "]; ");
                 }
                 LOG.error("** " + st.toString());
                 parseMenu.setBroken(true);
+                parseMenu.setUpdateResult( AppConstants.ERROR );
+                updateJournal.setValue( AppConstants.ERROR);
+                parseMenu.setDescription(e.getMessage()+", Stack trace: "+st.toString());
                 parseResult.setMessage(e.getMessage());
                 parseResult.setStackTrace(st.toString());
             }
         }
-
+        if ( isUpdateJournal ){
+           updateJournal.setTagName( emptyTags.toString() );
+           updateJournal.setValue( AppConstants.TEST_SUCCESS );
+           journalRepository.save( updateJournal );
+        }
         CompanyMenu companyMenu = new CompanyMenu();
         parseMenu.setParseResult(parseResult);
         parseMenu.setHtmlResponse(sb.toString());
@@ -455,6 +495,37 @@ public class ParseServiceImpl implements ParseService {
             throw new BusinessLogicException(e.getMessage());
         }
         return targetMenuModel;
+    }
+
+    public void scheduledParseMenu(){
+        List<ParseMenu> parseMenus =  parseRepository.findAllByLastUpdateIsNull();
+        for(ParseMenu parseMenu: parseMenus){
+            try {
+                parseMenu.setLastUpdate( AppUtils.formatDate(AppConstants.UPDATE_DATE_FORMAT, new Date()));
+                CompanyMenu companyMenu = testPage( convertUtils.convertParseMenuToModel( parseMenu ), true );
+                convertUtils.convertParseMenuModelToEntity( parseMenu, companyMenu.getParseMenu() );
+            } catch ( Exception e ) {
+                parseMenu.setUpdateResult( AppConstants.ERROR);
+                parseMenu.setDescription( e.getMessage() );
+            }
+            parseRepository.save( parseMenu );
+        }
+        List<ParseMenu> productions = parseRepository.findAllByUpdateResult( AppConstants.TEST_SUCCESS );
+        for(ParseMenu parseMenu: productions ){
+            try {
+                parseMenu.setProcessed( AppConstants.PROCEED );
+                parseRepository.save( parseMenu );
+                companyService.deleteCompanyMenuEntities( parseMenu.getCompanyId(),parseMenu.getTypeId(), parseMenu.getCategoryId() );
+                parsePage();
+            } catch ( Exception e ) {
+                parseMenu.setUpdateResult( AppConstants.ERROR_PRODUCTION );
+                parseMenu.setDescription( e.getMessage() );
+            }
+            parseMenu.setLastUpdate( AppUtils.formatDate(AppConstants.UPDATE_DATE_FORMAT, new Date()));
+            parseMenu.setUpdateResult( AppConstants.PRODUCTION_SUCCESS );
+            parseRepository.save( parseMenu );
+
+        }
     }
 
 }

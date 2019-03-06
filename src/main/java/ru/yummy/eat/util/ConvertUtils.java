@@ -195,6 +195,9 @@ public class ConvertUtils {
         parseMenuModel.setTagSizeFour(parseMenu.getTagSizeFour());
         parseMenuModel.setTagPriceFour(parseMenu.getTagPriceFour());
         parseMenuModel.setProcessed(parseMenu.getProcessed());
+        parseMenuModel.setLastUpdate( parseMenu.getLastUpdate() );
+        parseMenuModel.setUpdateResult( parseMenu.getUpdateResult() );
+        parseMenuModel.setDescription( parseMenu.getDescription() );
         return parseMenuModel;
     }
 
@@ -219,6 +222,9 @@ public class ConvertUtils {
         parseMenu.setTagSizeFour(parseMenuModel.getTagSizeFour());
         parseMenu.setTagPriceFour(parseMenuModel.getTagPriceFour());
         parseMenu.setProcessed( AppConstants.PROCEED );
+        parseMenu.setLastUpdate( parseMenuModel.getLastUpdate() );
+        parseMenu.setUpdateResult( parseMenuModel.getUpdateResult() );
+        parseMenu.setDescription( parseMenuModel.getDescription() );
     }
 
     public List<MenuTypeModel> convertMenuTypesToModelList( List<MenuType> menuTypes ){
@@ -331,6 +337,14 @@ public class ConvertUtils {
             }
         }
         return orderEntities;
+    }
+
+    public List<CompanyActionModel> convertCompanyActionsToModels( List<CompanyAction> companyActions ){
+        List<CompanyActionModel> companyActionModels =  new LinkedList<>();
+        for( CompanyAction companyAction: companyActions ){
+            companyActionModels.add( new CompanyActionModel( companyAction.getCompanyName(), companyAction.getActionImgUrl() ) );
+        }
+        return companyActionModels;
     }
 
 

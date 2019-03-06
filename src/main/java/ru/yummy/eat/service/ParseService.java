@@ -9,10 +9,12 @@ public interface ParseService {
 
     void parsePage( );
 
-    CompanyMenu testPage(ParseMenuModel parseMenu) throws BusinessLogicException;
+    CompanyMenu testPage(ParseMenuModel parseMenu, boolean isUpdateJournal) throws BusinessLogicException;
 
     void saveParseModel(ParseMenuModel parseMenu) throws BusinessLogicException;
 
     ParseMenuModel copyParseData(CopyParseData copyParseData) throws BusinessLogicException;
+
+    void scheduledParseMenu();
 
 }

@@ -18,6 +18,8 @@ public interface MenuItemRepository extends CrudRepository<MenuItem,Integer> {
 
     String DELETE_SQL = "delete from menu_item where company_id = :companyId " +
             "and type_id = :typeId and category_id = :categoryId and entity_id > 0";
+    String DELETE_BY_COMPANY_SQL = "delete from menu_item where company_id = :companyId " +
+            " and entity_id > 0";
 
     String SELECT_COUNT_CATEGORY_SQL = "select count(id) from menu_item where category_id = :categoryId";
 

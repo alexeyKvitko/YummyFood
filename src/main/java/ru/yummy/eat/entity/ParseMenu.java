@@ -84,6 +84,15 @@ public class ParseMenu implements Serializable {
     @Column( name = "processed" )
     private Integer processed;
 
+    @Column( name = "last_update" )
+    private String lastUpdate;
+
+    @Column( name = "update_result" )
+    private String updateResult;
+
+    @Column( name = "description" )
+    private String description;
+
     public Integer getId() {
         return id;
     }
@@ -274,6 +283,30 @@ public class ParseMenu implements Serializable {
 
     public void setProcessed(Integer processed) {
         this.processed = processed;
+    }
+
+    public String getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(String lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    public String getUpdateResult() {
+        return updateResult;
+    }
+
+    public void setUpdateResult(String updateResult) {
+        this.updateResult = updateResult;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override public boolean equals(Object o) {

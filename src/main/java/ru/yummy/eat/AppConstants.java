@@ -8,6 +8,7 @@ public abstract class AppConstants {
     public static final String SIGNING_KEY = "admin";
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String HEADER_STRING = "Authorization";
+    public static final String UPDATE_DATE_FORMAT = "dd-MM-yyyy HH:mm";
 
     public static final String UUID_PATTERN = "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}";
 
@@ -33,6 +34,11 @@ public abstract class AppConstants {
     public static final String SECTION = "SECTION [";
 
     public static final String SUCCESS = "SUCCESS";
+
+    public static final String TEST_SUCCESS = "TEST SUCCESS";
+    public static final String PRODUCTION_SUCCESS = "PRODUCTION SUCCESS";
+    public static final String ERROR = "ERROR";
+    public static final String ERROR_PRODUCTION = "ERROR PRODUCTION";
 
     public static final Integer FAKE_ID = -1;
     public static final String FAKE_STR_ID ="-1";

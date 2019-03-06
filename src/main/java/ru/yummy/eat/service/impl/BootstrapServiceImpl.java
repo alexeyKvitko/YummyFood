@@ -7,10 +7,13 @@ import org.springframework.stereotype.Service;
 import ru.yummy.eat.AppConstants;
 import ru.yummy.eat.entity.City;
 import ru.yummy.eat.entity.Company;
+import ru.yummy.eat.entity.CompanyAction;
 import ru.yummy.eat.exception.BusinessLogicException;
 import ru.yummy.eat.model.BootstrapModel;
+import ru.yummy.eat.model.CompanyActionModel;
 import ru.yummy.eat.model.CompanyModel;
 import ru.yummy.eat.repo.CityRepository;
+import ru.yummy.eat.repo.CompanyActionRepository;
 import ru.yummy.eat.repo.CompanyRepository;
 import ru.yummy.eat.util.AppUtils;
 import ru.yummy.eat.util.ConvertUtils;
@@ -29,6 +32,9 @@ public class BootstrapServiceImpl {
     CityRepository cityRepo;
 
     @Autowired
+    CompanyActionRepository companyActionRepo;
+
+    @Autowired
     ConvertUtils convertUtils;
 
     @Autowired
@@ -41,6 +47,7 @@ public class BootstrapServiceImpl {
         List<City> cities = null;
         City city = null;
         List<Company> companies = null;
+        List<CompanyAction> companyActions =  null;
         try {
             if (latitude == null || longitude == null ||
              AppConstants.FAKE_STR_ID.equals( latitude ) ||
@@ -54,6 +61,8 @@ public class BootstrapServiceImpl {
             cities = (List<City>) cityRepo.findAll();
             city = AppUtils.getNearestCity(lat, lon, cities);
             companies = companyRepo.findAllByCityId( city.getId() );
+            companyActions = companyActionRepo.findAllByCityId( city.getId() );
+
         } catch ( Exception e ){
             LOG.error("Exception in method [getBootstrapModel]: "+ e.getMessage() );
         }
@@ -67,7 +76,7 @@ public class BootstrapServiceImpl {
         } catch (BusinessLogicException e ){
             LOG.error("CAN'T GET MENU TYPE IDS, OR MENU CATEGORY IDS"+e.getMessage() );
         }
-
+        bootstrapModel.setCompanyActions( convertUtils.convertCompanyActionsToModels( companyActions ) );
         bootstrapModel.setDeliveryMenu( menuService.getAllMenus() );
         bootstrapModel.setCities( convertUtils.convertCitiesToModelList(
                                                         cityRepo.findAllByRegionIdOrderByName( AppConstants.CRIMEA_REGION ) ));

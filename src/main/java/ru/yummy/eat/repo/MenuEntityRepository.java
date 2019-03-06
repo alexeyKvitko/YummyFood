@@ -19,6 +19,9 @@ public interface MenuEntityRepository extends CrudRepository<MenuEntity,Integer>
             "(select mi.entity_id from menu_item mi where mi.company_id = :companyId " +
             "and mi.type_id = :typeId and mi.category_id = :categoryId)";
 
+    String DELETE_BY_COMPANY_SQL = "delete from menu_entity where id in " +
+            "(select mi.entity_id from menu_item mi where mi.company_id = :companyId );";
+
     String FIND_BY_CATEGORY_SQL = "select mi.company_id," +
             "mi.type_id," +
             "me.id, " +
@@ -58,6 +61,7 @@ public interface MenuEntityRepository extends CrudRepository<MenuEntity,Integer>
     @Query(value=DELETE_SQL,nativeQuery = true)
     Integer deleteMenuEntities(@Param("companyId") Integer companyId, @Param("typeId") Integer typeId,
                                @Param("categoryId") Integer categoryId);
+
 
     @Query("FROM MenuEntity me WHERE me.id IN (SELECT mi.entityId from MenuItem mi WHERE " +
             "mi.companyId = :companyId and mi.typeId= :typeId and mi.categoryId= :categoryId)")

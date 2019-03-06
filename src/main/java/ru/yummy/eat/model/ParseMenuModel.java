@@ -3,6 +3,7 @@ package ru.yummy.eat.model;
 import org.pojomatic.Pojomatic;
 import org.pojomatic.annotations.AutoProperty;
 
+import javax.persistence.Column;
 import java.io.Serializable;
 
 @AutoProperty
@@ -35,6 +36,9 @@ public class ParseMenuModel implements Serializable {
     private boolean broken;
     private ParseResult parseResult;
     private Integer processed;
+    private transient String lastUpdate;
+    private transient String updateResult;
+    private transient String description;
 
     public ParseMenuModel() {
         this.parseResult = new ParseResult();
@@ -254,6 +258,30 @@ public class ParseMenuModel implements Serializable {
 
     public void setBroken(boolean broken) {
         this.broken = broken;
+    }
+
+    public String getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(String lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    public String getUpdateResult() {
+        return updateResult;
+    }
+
+    public void setUpdateResult(String updateResult) {
+        this.updateResult = updateResult;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override public boolean equals(Object o) {
