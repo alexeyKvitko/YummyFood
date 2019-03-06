@@ -499,6 +499,7 @@ public class ParseServiceImpl implements ParseService {
 
     public void scheduledParseMenu(){
         List<ParseMenu> parseMenus =  parseRepository.findAllByLastUpdateIsNull();
+        int idx = 0;
         for(ParseMenu parseMenu: parseMenus){
             try {
                 parseMenu.setLastUpdate( AppUtils.formatDate(AppConstants.UPDATE_DATE_FORMAT, new Date()));
@@ -508,24 +509,27 @@ public class ParseServiceImpl implements ParseService {
                 parseMenu.setUpdateResult( AppConstants.ERROR);
                 parseMenu.setDescription( e.getMessage() );
             }
+            parseMenu.setProcessed(0);
             parseRepository.save( parseMenu );
+            System.out.println("Testing: "+idx+" of "+parseMenus.size());
+            idx++;
         }
         List<ParseMenu> productions = parseRepository.findAllByUpdateResult( AppConstants.TEST_SUCCESS );
-        for(ParseMenu parseMenu: productions ){
-            try {
-                parseMenu.setProcessed( AppConstants.PROCEED );
-                parseRepository.save( parseMenu );
-                companyService.deleteCompanyMenuEntities( parseMenu.getCompanyId(),parseMenu.getTypeId(), parseMenu.getCategoryId() );
-                parsePage();
-            } catch ( Exception e ) {
-                parseMenu.setUpdateResult( AppConstants.ERROR_PRODUCTION );
-                parseMenu.setDescription( e.getMessage() );
-            }
-            parseMenu.setLastUpdate( AppUtils.formatDate(AppConstants.UPDATE_DATE_FORMAT, new Date()));
-            parseMenu.setUpdateResult( AppConstants.PRODUCTION_SUCCESS );
-            parseRepository.save( parseMenu );
-
-        }
+//        for(ParseMenu parseMenu: productions ){
+//            try {
+//                parseMenu.setProcessed( AppConstants.PROCEED );
+//                parseRepository.save( parseMenu );
+//                companyService.deleteCompanyMenuEntities( parseMenu.getCompanyId(),parseMenu.getTypeId(), parseMenu.getCategoryId() );
+//                parsePage();
+//            } catch ( Exception e ) {
+//                parseMenu.setUpdateResult( AppConstants.ERROR_PRODUCTION );
+//                parseMenu.setDescription( e.getMessage() );
+//            }
+//            parseMenu.setLastUpdate( AppUtils.formatDate(AppConstants.UPDATE_DATE_FORMAT, new Date()));
+//            parseMenu.setUpdateResult( AppConstants.PRODUCTION_SUCCESS );
+//            parseRepository.save( parseMenu );
+//
+//        }
     }
 
 }
