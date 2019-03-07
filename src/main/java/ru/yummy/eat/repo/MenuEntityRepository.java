@@ -19,6 +19,9 @@ public interface MenuEntityRepository extends CrudRepository<MenuEntity,Integer>
             "(select mi.entity_id from menu_item mi where mi.company_id = :companyId " +
             "and mi.type_id = :typeId and mi.category_id = :categoryId)";
 
+    String SELECT_ERROR_SQL = "select concat(concat(mc.display_name,' - ',pm.parse_url),', причина:',NULLIF(pm.description,'No description') ) as reason from parse_menu pm " +
+            "inner join menu_category mc ON mc.id = pm.category_id where update_result = 'ERROR'";
+
     String DELETE_BY_COMPANY_SQL = "delete from menu_entity where id in " +
             "(select mi.entity_id from menu_item mi where mi.company_id = :companyId );";
 
@@ -80,5 +83,8 @@ public interface MenuEntityRepository extends CrudRepository<MenuEntity,Integer>
     @Query(value=FIND_BY_CATEGORY_SQL,nativeQuery = true)
     List<Object> findByCategoryIdOrderByDisplayName( @Param("cityName") String cityName,
                                                      @Param("categoryId") Integer categoryId );
+
+    @Query(value=SELECT_ERROR_SQL,nativeQuery = true)
+    List<String> getPageWithErrors();
 
 }

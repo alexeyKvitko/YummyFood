@@ -17,9 +17,9 @@ public class MainController {
     @Qualifier("parseServiceImpl")
     ParseService parseService;
 
-    @GetMapping("/parsePage")
-    public String parsePagee() {
-        parseService.parsePage();
+    @GetMapping("/testAllPages")
+    public String testAllPage() {
+        parseService.scheduledTestParseMenu();
         return "OK";
     }
 

@@ -14,6 +14,9 @@ public class UpdateJournal {
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Integer id;
 
+    @Column( name = "update_date" )
+    private String updateDate;
+
     @Column( name = "parse_url" )
     private String parseUrl;
 
@@ -53,6 +56,14 @@ public class UpdateJournal {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public String getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(String updateDate) {
+        this.updateDate = updateDate;
     }
 
     @Override public boolean equals(Object o) {
