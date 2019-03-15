@@ -15,6 +15,7 @@ import ru.yummy.eat.model.OurClientModel;
 import ru.yummy.eat.repo.ClientOrderRepository;
 import ru.yummy.eat.repo.OrderEntityRepository;
 import ru.yummy.eat.repo.OurClientRepository;
+import ru.yummy.eat.util.AppUtils;
 import ru.yummy.eat.util.ConvertUtils;
 
 import java.util.List;
@@ -36,6 +37,9 @@ public class OurClientServiceImpl {
     @Autowired
     OrderEntityRepository orderEntityRepo;
 
+    @Autowired
+    MailServiceImpl mailService;
+
 
     public String registerClient( OurClientModel ourClientModel ) {
         String result = null;
@@ -54,10 +58,34 @@ public class OurClientServiceImpl {
         return result;
     }
 
-    public String authorizationClient( OurClientModel ourClientModel ) {
-        String result = null;
+    public OurClientModel registerMobileClient( OurClientModel ourClientModel ) {
+        OurClient ourClient = convertUtils.convertModelToOurClient( ourClientModel );
+        String checkResult = null;
+        if( AppConstants.FORGOT_PASSWORD.equals( ourClientModel.getAdditionalMessage() ) ){
+            ourClient = updateClient(ourClient);
+        } else {
+            checkResult = checkForExistingClient( ourClient );
+        }
+        if( checkResult == null ){
+            try {
+                clientRepo.save( ourClient );
+                ourClientModel = convertUtils.convertOurClientToModel( ourClient );
+            } catch ( Exception e ){
+                LOG.error( "Exception got when register client: "+e.getMessage() );
+                ourClientModel.setId( AppConstants.FAKE_ID );
+                ourClientModel.setAdditionalMessage( e.getMessage() );
+            }
+        } else {
+            ourClientModel.setId( AppConstants.FAKE_ID );
+            ourClientModel.setAdditionalMessage( checkResult );
+        }
+        return ourClientModel;
+    }
+
+    public OurClientModel authorizationMobileClient( OurClientModel ourClientModel ) {
         OurClient ourClient = convertUtils.convertModelToOurClient(ourClientModel);
         OurClient existClient = null;
+        String result = null;
         try {
             if (ourClientModel.getEmail() != null) {
                 existClient = clientRepo.findByEmail(ourClient.getEmail());
@@ -70,28 +98,80 @@ public class OurClientServiceImpl {
                 result = AppConstants.WRONG_PASSWORD;
             }
             if (result == null) {
-                result = existClient.getUuid();
+                ourClientModel = convertUtils.convertOurClientToModel( existClient );
+            } else {
+                ourClientModel.setId( AppConstants.FAKE_ID );
+                ourClientModel.setAdditionalMessage( result );
             }
         } catch (Exception e) {
             LOG.error("Exception got when register client: " + e.getMessage());
-            result = e.getMessage();
+            ourClientModel.setId( AppConstants.FAKE_ID );
+            ourClientModel.setAdditionalMessage( e.getMessage() );
         }
+        return ourClientModel;
+    }
 
+    public String authorizationClient( OurClientModel ourClientModel ) {
+        String result = null;
+        OurClientModel existClient = authorizationMobileClient( ourClientModel );
+        if( AppConstants.FAKE_ID.equals( existClient.getId() ) ){
+            result = existClient.getAdditionalMessage();
+        } else {
+            result = existClient.getUuid();
+        }
         return result;
     }
 
-    public String checkForExistingClient( OurClient ourClient ){
-        String result = null;
-        OurClient existClient = clientRepo.findByPhone( ourClient.getPhone() );
-        if ( existClient == null && ourClient.getEmail() != null ){
-            existClient = clientRepo.findByEmail( ourClient.getEmail() );
-            if( existClient != null ){
-                result = AppConstants.EMAIL_EXIST;
+    public String  validateAndSendEmailConfirmCode( OurClientModel ourClientModel ){
+        String result = checkForExistingClient(convertUtils.convertModelToOurClient(ourClientModel) );
+        String searchCriteria = ourClientModel.getEmail() != null ? ourClientModel.getEmail() : ourClientModel.getPhone();
+        if( AppConstants.FORGOT_PASSWORD.equals( ourClientModel.getAdditionalMessage() ) ){
+            if ( result == null ){
+                result = String.format(AppConstants.USER_NOT_EXIST, searchCriteria );
+                return result;
+            } else {
+                result = null;
             }
-        } else {
-            result = AppConstants.PHONE_EXIST;
+        }
+        if( result == null && ourClientModel.getEmail() != null ){
+            result = AppUtils.getRandomBetweenRange( 4000,9999 )+"";
+            if( !mailService.sendConfirmCodeEmail( ourClientModel.getEmail(), result ) ){
+                result = AppConstants.WRONG_EMAIL;
+            }
+        }
+        if( result == null && ourClientModel.getPhone() != null ){
+            result = AppConstants.SEND_PHONE_CODE;
         }
         return result;
+    }
+
+    private String checkForExistingClient( OurClient ourClient ){
+        String result = null;
+        OurClient existClient = null;
+        if ( ourClient.getPhone() != null ){
+            existClient = clientRepo.findByPhone( ourClient.getPhone() );
+            if( existClient != null ){
+                result = String.format(AppConstants.USER_EXIST, ourClient.getPhone() );
+            }
+        } else if ( ourClient.getEmail() != null ){
+            existClient = clientRepo.findByEmail( ourClient.getEmail() );
+            if( existClient != null ){
+                result = String.format(AppConstants.USER_EXIST, ourClient.getEmail() );
+            }
+        }
+        return result;
+    }
+
+    private OurClient updateClient( OurClient ourClient ){
+        OurClient existClient = null;
+        if ( ourClient.getPhone() != null ){
+            existClient = clientRepo.findByPhone( ourClient.getPhone() );
+
+        } else if ( ourClient.getEmail() != null ){
+            existClient = clientRepo.findByEmail( ourClient.getEmail() );
+        }
+        existClient.setPassword( ourClient.getPassword() );
+        return existClient;
     }
 
     public ApiResponse createClientOrder(ClientOrderModel clientOrderModel){
@@ -122,7 +202,7 @@ public class OurClientServiceImpl {
             response.setStatus( HttpStatus.INTERNAL_SERVER_ERROR.value() );
             response.setMessage( e.getMessage() );
         }
-       return response;
+        return response;
     }
 
 

@@ -16,6 +16,7 @@ public class OurClientModel implements Serializable {
     private String confirm;
     private String uuid;
     private String bonus;
+    private String additionalMessage;
 
 
     public Integer getId() {
@@ -72,6 +73,14 @@ public class OurClientModel implements Serializable {
 
     public void setConfirm(String confirm) {
         this.confirm = confirm;
+    }
+
+    public String getAdditionalMessage() {
+        return additionalMessage;
+    }
+
+    public void setAdditionalMessage(String additionalMessage) {
+        this.additionalMessage = additionalMessage;
     }
 
     @Override public boolean equals(Object o) {

@@ -43,19 +43,39 @@ public class MailServiceImpl {
             tr.connect(null, "alex09079901");
             tr.sendMessage( message,message.getAllRecipients() );
             tr.close();
-
-//        Multipart multipart = new MimeMultipart();
-//        multipart.addBodyPart(messageBodyPart);
-//        MimeBodyPart attachPart = new MimeBodyPart();
-//
-//        attachPart.attachFile("/var/tmp/image19.png");
-//        multipart.addBodyPart(attachPart);
-//        msg.setContent(multipart);
-//            Transport.send(msg);
         } catch (Exception e) {
             LOG.error("Can't send email" + e.getMessage());
             e.printStackTrace();
         }
+    }
 
+    public boolean sendConfirmCodeEmail(String mailTo, String code) {
+        boolean result = true;
+        try {
+            Properties props = PropertiesLoaderUtils.loadAllProperties("mail.properties");
+            Session mailSession = Session.getDefaultInstance(props);
+            MimeMessage message = new MimeMessage(mailSession);
+            MimeMessageHelper helper = new MimeMessageHelper( message, true, "UTF-8" );
+            helper.setFrom( new InternetAddress( "alexey.kvitko.15@gmail.com", false ) );
+            helper.setTo( new InternetAddress( mailTo ) );
+            helper.setSubject("Крымская служба доставки еды");
+            StringBuilder bodyBuilder = new StringBuilder();
+            bodyBuilder.append("<html><body><H2><b>ЕдаНяма</b></H2><br>" );
+            bodyBuilder.append("<H3><p>Код подтверждения регистрации</p></H3>" );
+            bodyBuilder.append("<h1><b style='font-size:28px;color:#F53240'>"+code.charAt(0)+"&nbsp;"+code.charAt(1)+"&nbsp;"
+                                    +code.charAt(2)+"&nbsp;"+code.charAt(3)+"&nbsp;</b></h1><br><br>" );
+            bodyBuilder.append("<br><br><p style='font-size:10px;color:#5E5E5E'>Письмо сгенерировано автоматически.Не отвечайте</p>");
+            bodyBuilder.append("</body></html>");
+            helper.setText( bodyBuilder.toString(), true );
+            Transport tr = mailSession.getTransport();
+            tr.connect(null, "alex09079901");
+            tr.sendMessage( message,message.getAllRecipients() );
+            tr.close();
+        } catch (Exception e) {
+            LOG.error("Can't send email" + e.getMessage());
+            e.printStackTrace();
+            result = false;
+        }
+        return result;
     }
 }

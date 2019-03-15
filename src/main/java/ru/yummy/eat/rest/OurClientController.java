@@ -32,6 +32,34 @@ public class OurClientController {
         return response;
     }
 
+    @RequestMapping(value = "/registerMobileClient", method = RequestMethod.POST)
+    public ApiResponse registerMobileClient(@RequestBody OurClientModel ourClientModel) {
+        ApiResponse response = new ApiResponse();
+        response.setStatus(HttpStatus.OK.value());
+        OurClientModel newClient = clientService.registerMobileClient( ourClientModel );
+        if ( AppConstants.FAKE_ID.equals( newClient.getId() ) ) {
+            response.setStatus(HttpStatus.CREATED.value());
+            response.setMessage( newClient.getAdditionalMessage() );
+        } else {
+            response.setResult( newClient );
+        }
+        return response;
+    }
+
+    @RequestMapping(value = "/validateAndSendEmail", method = RequestMethod.POST)
+    public ApiResponse validateAndSendEmail(@RequestBody OurClientModel ourClientModel) {
+        ApiResponse response = new ApiResponse();
+        response.setStatus(HttpStatus.OK.value());
+        String result = clientService.validateAndSendEmailConfirmCode(ourClientModel);
+        if ( !result.matches(AppConstants.CONFIRM_CODE_PATTERN) ) {
+            response.setStatus(HttpStatus.CREATED.value());
+            response.setMessage(result);
+        } else {
+            response.setResult( result );
+        }
+        return response;
+    }
+
     @RequestMapping(value = "/authorizationClient", method = RequestMethod.POST)
     public ApiResponse authorizationClient(@RequestBody OurClientModel ourClientModel) {
         ApiResponse response = new ApiResponse();
@@ -42,6 +70,20 @@ public class OurClientController {
             response.setMessage(result);
         } else {
             response.setResult( result );
+        }
+        return response;
+    }
+
+    @RequestMapping(value = "/authorizationMobileClient", method = RequestMethod.POST)
+    public ApiResponse authorizationMobileClient(@RequestBody OurClientModel ourClientModel) {
+        ApiResponse response = new ApiResponse();
+        response.setStatus(HttpStatus.OK.value());
+        OurClientModel existClient = clientService.authorizationMobileClient( ourClientModel );
+        if ( AppConstants.FAKE_ID.equals( existClient.getId() ) ) {
+            response.setStatus(HttpStatus.CREATED.value());
+            response.setMessage( existClient.getAdditionalMessage() );
+        } else {
+            response.setResult( existClient );
         }
         return response;
     }

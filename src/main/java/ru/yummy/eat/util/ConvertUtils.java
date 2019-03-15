@@ -245,13 +245,14 @@ public class ConvertUtils {
 
     public List<DictionaryModel> convertCitiesToModelList( List<City> cities ){
         List<DictionaryModel> cityModels = new LinkedList<>();
-        for(City city: cities ){
+        for( City city: cities ){
             DictionaryModel model =  new DictionaryModel();
             model.setId( city.getId() );
             model.setName( city.getNameEn() );
             model.setDisplayName( city.getName() );
             model.setLatitude( city.getLatitude().toString() );
             model.setLongitude( city.getLongitude().toString() );
+            model.setUrl( city.getUrl() );
             cityModels.add( model );
         }
         return cityModels;

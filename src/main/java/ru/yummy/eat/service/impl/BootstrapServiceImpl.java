@@ -78,8 +78,7 @@ public class BootstrapServiceImpl {
         }
         bootstrapModel.setCompanyActions( convertUtils.convertCompanyActionsToModels( companyActions ) );
         bootstrapModel.setDeliveryMenu( menuService.getAllMenus() );
-        bootstrapModel.setCities( convertUtils.convertCitiesToModelList(
-                                                        cityRepo.findAllByRegionIdOrderByName( AppConstants.CRIMEA_REGION ) ));
+        bootstrapModel.setCities( convertUtils.convertCitiesToModelList( cities ) );
         bootstrapModel.setDeliveryCity( city.getName() );
         return bootstrapModel;
     }

@@ -11,12 +11,13 @@ public abstract class AppConstants {
     public static final String UPDATE_DATE_FORMAT = "dd-MM-yyyy HH:mm";
 
     public static final String UUID_PATTERN = "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}";
+    public static final String CONFIRM_CODE_PATTERN = "^\\d{4}$";
 
     public static final int CRIMEA_REGION = 621550;
     public static final int SIMFEROPOL_ID = 621565;
     public static final double SIMFEROPOL_LAT = 44.9521;
     public static final double SIMFEROPOL_LON = 34.1024;
-    public static final String SIMFEROPOL_NAME = "Симферополь";
+    public static final String SEND_PHONE_CODE = "1111";
 
     public static final String WSP_TYPE_ONE = "ONE";
     public static final String WSP_TYPE_TWO = "TWO";
@@ -27,8 +28,9 @@ public abstract class AppConstants {
     public static final String EMAIL_NOT_FOUND = "Пользователь с указанным E-MAIL не найден";
     public static final String PHONE_NOT_FOUND = "Пользователь с указанным телефонным номером не найден";
     public static final String WRONG_PASSWORD = "Введен неверный пароль";
-    public static final String EMAIL_EXIST = "Пользователь с таким E-MAIL уже зарегестрирован";
-    public static final String PHONE_EXIST = "Пользователь с таким телефонным номером уже зарегестрирован";
+    public static final String WRONG_EMAIL = "Код подтверждения не отправлен, попробуйте позже ...";
+    public static final String USER_EXIST = "Пользователь %s зарегистрирован";
+    public static final String USER_NOT_EXIST = "Пользователь %s не зарегистрирован";
 
     public static final String DEFAULT_LOGO = "default.png";
     public static final String SECTION = "SECTION [";
@@ -94,5 +96,6 @@ public abstract class AppConstants {
         }
     };
 
+    public static final String FORGOT_PASSWORD = "FORGOT_PASSWORD";
 
 }
