@@ -5,6 +5,7 @@ export class CompanyModel {
   companyName: string;
   displayName: string;
   city: any;
+  thumbUrl: string;
   url: string;
   email: string;
   phoneOne: string;
@@ -12,6 +13,7 @@ export class CompanyModel {
   phoneThree: string;
   logo:string;
   delivery: number;
+  deliveryTimeMin: number;
   commentCount: string;
   deliveryCondition: string;
   payTypeCash: number;

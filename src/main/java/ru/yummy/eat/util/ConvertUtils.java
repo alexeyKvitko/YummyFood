@@ -28,6 +28,7 @@ public class ConvertUtils {
         companyModel.setDisplayName( company.getDisplayName() );
         City city = cityRepo.findById( company.getCityId() ).get();
         companyModel.setCity( city );
+        companyModel.setThumbUrl( company.getThumbUrl() );
         companyModel.setUrl( company.getUrl() );
         companyModel.setEmail( company.getEmail() );
         companyModel.setPhoneOne( company.getPhoneOne() );
@@ -35,6 +36,7 @@ public class ConvertUtils {
         companyModel.setPhoneThree( company.getPhoneThree() );
         companyModel.setLogo( company.getLogo() );
         companyModel.setDelivery( company.getDelivery() );
+        companyModel.setDeliveryTimeMin( company.getDeliveryTimeMin() );
         companyModel.setCommentCount( company.getCommentCount() );
         companyModel.setDeliveryCondition( company.getDeliveryCondition() );
         companyModel.setPayTypeCash( company.getPayTypeCash() );
@@ -59,6 +61,7 @@ public class ConvertUtils {
         company.setCompanyName( model.getCompanyName().toUpperCase() );
         company.setDisplayName( model.getDisplayName() );
         company.setCityId( model.getCity().getId() );
+        company.setThumbUrl( model.getThumbUrl() );
         company.setUrl( model.getUrl() );
         company.setEmail( model.getEmail() );
         company.setPhoneOne( model.getPhoneOne() );
@@ -66,6 +69,7 @@ public class ConvertUtils {
         company.setPhoneThree( model.getPhoneThree() );
         company.setLogo( model.getLogo() );
         company.setDelivery( model.getDelivery() );
+        company.setDeliveryTimeMin( model.getDeliveryTimeMin() );
         company.setCommentCount( model.getCommentCount() );
         company.setDeliveryCondition( model.getDeliveryCondition() );
         company.setPayTypeCash( model.getPayTypeCash() );
@@ -176,6 +180,9 @@ public class ConvertUtils {
         parseMenuModel.setTypeId( parseMenu.getTypeId() );
         parseMenuModel.setCategoryId( parseMenu.getCategoryId() );
         parseMenuModel.setParseUrl(parseMenu.getParseUrl());
+        parseMenuModel.setParseUrlTwo(parseMenu.getParseUrlTwo());
+        parseMenuModel.setParseUrlThree(parseMenu.getParseUrlThree());
+        parseMenuModel.setParseUrlFour(parseMenu.getParseUrlFour());
         parseMenuModel.setPrefixUrl( parseMenu.getPrefixUrl() );
         parseMenuModel.setTagTrash(parseMenu.getTagTrash());
         parseMenuModel.setTagEndSection(parseMenu.getTagEndSection());
@@ -203,6 +210,9 @@ public class ConvertUtils {
 
     public void convertParseMenuModelToEntity( ParseMenu parseMenu, ParseMenuModel parseMenuModel ) throws Exception{
         parseMenu.setParseUrl(parseMenuModel.getParseUrl());
+        parseMenu.setParseUrlTwo(parseMenuModel.getParseUrlTwo());
+        parseMenu.setParseUrlThree(parseMenuModel.getParseUrlThree());
+        parseMenu.setParseUrlFour(parseMenuModel.getParseUrlFour());
         parseMenu.setPrefixUrl( parseMenuModel.getPrefixUrl() );
         parseMenu.setTagTrash(parseMenuModel.getTagTrash());
         parseMenu.setTagEndSection(parseMenuModel.getTagEndSection());

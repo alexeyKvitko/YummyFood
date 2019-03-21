@@ -15,6 +15,7 @@ public class CompanyModel implements Serializable {
     private String companyName;
     private String displayName;
     private City city;
+    private String thumbUrl;
     private String url;
     private String email;
     private String phoneOne;
@@ -22,6 +23,7 @@ public class CompanyModel implements Serializable {
     private String phoneThree;
     private String logo;
     private Integer delivery;
+    private Integer deliveryTimeMin;
     private String commentCount;
     private String deliveryCondition;
     private Integer payTypeCash;
@@ -84,6 +86,14 @@ public class CompanyModel implements Serializable {
         this.city = city;
     }
 
+    public String getThumbUrl() {
+        return thumbUrl;
+    }
+
+    public void setThumbUrl(String thumbUrl) {
+        this.thumbUrl = thumbUrl;
+    }
+
     public String getUrl() {
         return url;
     }
@@ -134,6 +144,14 @@ public class CompanyModel implements Serializable {
 
     public Integer getDelivery() {
         return delivery;
+    }
+
+    public Integer getDeliveryTimeMin() {
+        return deliveryTimeMin;
+    }
+
+    public void setDeliveryTimeMin(Integer deliveryTimeMin) {
+        this.deliveryTimeMin = deliveryTimeMin;
     }
 
     public void setDelivery(Integer delivery) {

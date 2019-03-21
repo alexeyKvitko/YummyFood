@@ -27,6 +27,15 @@ public class ParseMenu implements Serializable {
     @Column( name = "parse_url" )
     private String parseUrl;
 
+    @Column( name = "parse_url_two" )
+    private String parseUrlTwo;
+
+    @Column( name = "parse_url_three" )
+    private String parseUrlThree;
+
+    @Column( name = "parse_url_four" )
+    private String parseUrlFour;
+
     @Column( name = "prefix_url" )
     private String prefixUrl;
 
@@ -97,7 +106,7 @@ public class ParseMenu implements Serializable {
         return id;
     }
 
-    public void setId( Integer id ) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -105,7 +114,7 @@ public class ParseMenu implements Serializable {
         return companyId;
     }
 
-    public void setCompanyId( Integer companyId ) {
+    public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
     }
 
@@ -113,7 +122,7 @@ public class ParseMenu implements Serializable {
         return typeId;
     }
 
-    public void setTypeId( Integer typeId ) {
+    public void setTypeId(Integer typeId) {
         this.typeId = typeId;
     }
 
@@ -121,7 +130,7 @@ public class ParseMenu implements Serializable {
         return categoryId;
     }
 
-    public void setCategoryId( Integer categoryId ) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -129,8 +138,32 @@ public class ParseMenu implements Serializable {
         return parseUrl;
     }
 
-    public void setParseUrl( String parseUrl ) {
+    public void setParseUrl(String parseUrl) {
         this.parseUrl = parseUrl;
+    }
+
+    public String getParseUrlTwo() {
+        return parseUrlTwo;
+    }
+
+    public void setParseUrlTwo(String parseUrlTwo) {
+        this.parseUrlTwo = parseUrlTwo;
+    }
+
+    public String getParseUrlThree() {
+        return parseUrlThree;
+    }
+
+    public void setParseUrlThree(String parseUrlThree) {
+        this.parseUrlThree = parseUrlThree;
+    }
+
+    public String getParseUrlFour() {
+        return parseUrlFour;
+    }
+
+    public void setParseUrlFour(String parseUrlFour) {
+        this.parseUrlFour = parseUrlFour;
     }
 
     public String getPrefixUrl() {
@@ -141,6 +174,14 @@ public class ParseMenu implements Serializable {
         this.prefixUrl = prefixUrl;
     }
 
+    public String getTagTrash() {
+        return tagTrash;
+    }
+
+    public void setTagTrash(String tagTrash) {
+        this.tagTrash = tagTrash;
+    }
+
     public String getTagEndSection() {
         return tagEndSection;
     }
@@ -149,19 +190,11 @@ public class ParseMenu implements Serializable {
         this.tagEndSection = tagEndSection;
     }
 
-    public String getTagTrash() {
-        return tagTrash;
-    }
-
-    public void setTagTrash( String tagTrash ) {
-        this.tagTrash = tagTrash;
-    }
-
     public String getTagName() {
         return tagName;
     }
 
-    public void setTagName( String tagName ) {
+    public void setTagName(String tagName) {
         this.tagName = tagName;
     }
 
@@ -169,7 +202,7 @@ public class ParseMenu implements Serializable {
         return tagDescription;
     }
 
-    public void setTagDescription( String tagDescription ) {
+    public void setTagDescription(String tagDescription) {
         this.tagDescription = tagDescription;
     }
 
@@ -177,7 +210,7 @@ public class ParseMenu implements Serializable {
         return tagImageUrl;
     }
 
-    public void setTagImageUrl( String tagImageUrl ) {
+    public void setTagImageUrl(String tagImageUrl) {
         this.tagImageUrl = tagImageUrl;
     }
 
@@ -185,7 +218,7 @@ public class ParseMenu implements Serializable {
         return tagWeightOne;
     }
 
-    public void setTagWeightOne( String tagWeightOne ) {
+    public void setTagWeightOne(String tagWeightOne) {
         this.tagWeightOne = tagWeightOne;
     }
 
@@ -193,7 +226,7 @@ public class ParseMenu implements Serializable {
         return tagSizeOne;
     }
 
-    public void setTagSizeOne( String tagSizeOne ) {
+    public void setTagSizeOne(String tagSizeOne) {
         this.tagSizeOne = tagSizeOne;
     }
 
@@ -201,7 +234,7 @@ public class ParseMenu implements Serializable {
         return tagPriceOne;
     }
 
-    public void setTagPriceOne( String tagPriceOne ) {
+    public void setTagPriceOne(String tagPriceOne) {
         this.tagPriceOne = tagPriceOne;
     }
 
@@ -209,7 +242,7 @@ public class ParseMenu implements Serializable {
         return tagWeightTwo;
     }
 
-    public void setTagWeightTwo( String tagWeightTwo ) {
+    public void setTagWeightTwo(String tagWeightTwo) {
         this.tagWeightTwo = tagWeightTwo;
     }
 
@@ -217,7 +250,7 @@ public class ParseMenu implements Serializable {
         return tagSizeTwo;
     }
 
-    public void setTagSizeTwo( String tagSizeTwo ) {
+    public void setTagSizeTwo(String tagSizeTwo) {
         this.tagSizeTwo = tagSizeTwo;
     }
 
@@ -225,7 +258,7 @@ public class ParseMenu implements Serializable {
         return tagPriceTwo;
     }
 
-    public void setTagPriceTwo( String tagPriceTwo ) {
+    public void setTagPriceTwo(String tagPriceTwo) {
         this.tagPriceTwo = tagPriceTwo;
     }
 
@@ -233,7 +266,7 @@ public class ParseMenu implements Serializable {
         return tagWeightThree;
     }
 
-    public void setTagWeightThree( String tagWeightThree ) {
+    public void setTagWeightThree(String tagWeightThree) {
         this.tagWeightThree = tagWeightThree;
     }
 
@@ -241,7 +274,7 @@ public class ParseMenu implements Serializable {
         return tagSizeThree;
     }
 
-    public void setTagSizeThree( String tagSizeThree ) {
+    public void setTagSizeThree(String tagSizeThree) {
         this.tagSizeThree = tagSizeThree;
     }
 
@@ -249,7 +282,7 @@ public class ParseMenu implements Serializable {
         return tagPriceThree;
     }
 
-    public void setTagPriceThree( String tagPriceThree ) {
+    public void setTagPriceThree(String tagPriceThree) {
         this.tagPriceThree = tagPriceThree;
     }
 
@@ -257,7 +290,7 @@ public class ParseMenu implements Serializable {
         return tagWeightFour;
     }
 
-    public void setTagWeightFour( String tagWeightFour ) {
+    public void setTagWeightFour(String tagWeightFour) {
         this.tagWeightFour = tagWeightFour;
     }
 
@@ -265,7 +298,7 @@ public class ParseMenu implements Serializable {
         return tagSizeFour;
     }
 
-    public void setTagSizeFour( String tagSizeFour ) {
+    public void setTagSizeFour(String tagSizeFour) {
         this.tagSizeFour = tagSizeFour;
     }
 
@@ -273,7 +306,7 @@ public class ParseMenu implements Serializable {
         return tagPriceFour;
     }
 
-    public void setTagPriceFour( String tagPriceFour ) {
+    public void setTagPriceFour(String tagPriceFour) {
         this.tagPriceFour = tagPriceFour;
     }
 

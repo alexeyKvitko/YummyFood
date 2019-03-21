@@ -15,6 +15,9 @@ public class ParseMenuModel implements Serializable {
     private Integer categoryId;
     private String htmlResponse;
     private String parseUrl;
+    private String parseUrlTwo;
+    private String parseUrlThree;
+    private String parseUrlFour;
     private String prefixUrl;
     private String tagTrash;
     private String tagEndSection;
@@ -90,6 +93,30 @@ public class ParseMenuModel implements Serializable {
 
     public void setParseUrl(String parseUrl) {
         this.parseUrl = parseUrl;
+    }
+
+    public String getParseUrlTwo() {
+        return parseUrlTwo;
+    }
+
+    public void setParseUrlTwo(String parseUrlTwo) {
+        this.parseUrlTwo = parseUrlTwo;
+    }
+
+    public String getParseUrlThree() {
+        return parseUrlThree;
+    }
+
+    public void setParseUrlThree(String parseUrlThree) {
+        this.parseUrlThree = parseUrlThree;
+    }
+
+    public String getParseUrlFour() {
+        return parseUrlFour;
+    }
+
+    public void setParseUrlFour(String parseUrlFour) {
+        this.parseUrlFour = parseUrlFour;
     }
 
     public String getPrefixUrl() {
@@ -236,12 +263,12 @@ public class ParseMenuModel implements Serializable {
         this.tagPriceFour = tagPriceFour;
     }
 
-    public Integer getProcessed() {
-        return processed;
+    public boolean isBroken() {
+        return broken;
     }
 
-    public void setProcessed(Integer processed) {
-        this.processed = processed;
+    public void setBroken(boolean broken) {
+        this.broken = broken;
     }
 
     public ParseResult getParseResult() {
@@ -252,12 +279,12 @@ public class ParseMenuModel implements Serializable {
         this.parseResult = parseResult;
     }
 
-    public boolean isBroken() {
-        return broken;
+    public Integer getProcessed() {
+        return processed;
     }
 
-    public void setBroken(boolean broken) {
-        this.broken = broken;
+    public void setProcessed(Integer processed) {
+        this.processed = processed;
     }
 
     public String getLastUpdate() {

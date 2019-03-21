@@ -112,6 +112,14 @@
             class="fas fa-undo-alt"></i></span>
         </div>
         <div class="input-box">
+              <span class="input-group-addon-teal addon-left" id="thumb" (click)="inputControlClick('thumb')">
+              <span [hidden]="isControlHidden('thumb')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('thumb')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Thumb URL</span>
+          <input placeholder="URL миниатюры " type="text" formControlName="thumb">
+          <span class="input-group-addon-teal-right itr-end" (click)="undoControl('thumb')"><i
+            class="fas fa-undo-alt"></i></span>
+        </div>
+        <div class="input-box">
               <span class="input-group-addon-teal addon-left" id="email" (click)="inputControlClick('email')">
               <span [hidden]="isControlHidden('email')"><i class="fa fa-lock-open"></i></span>
               <span [hidden]="!isControlHidden('email')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;EMAIL</span>
@@ -150,6 +158,15 @@
               <span [hidden]="!isControlHidden('logo')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Лого</span>
           <input placeholder="Лого" type="text" formControlName="logo">
           <span class="input-group-addon-teal-right itr-end" (click)="undoControl('logo')"><i
+            class="fas fa-undo-alt"></i></span>
+        </div>
+        <div class="input-box">
+              <span class="input-group-addon-teal addon-left" id="deliTime" (click)="inputControlClick('deliTime')">
+              <span [hidden]="isControlHidden('deliTime')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('deliTime')"><i
+                class="fa fa-lock"></i></span>&nbsp;&nbsp;Время доставки (мин.)</span>
+          <input placeholder="Время доставки в минутах" type="number" formControlName="deliTime">
+          <span class="input-group-addon-teal-right itr-end" (click)="undoControl('deliTime')"><i
             class="fas fa-undo-alt"></i></span>
         </div>
         <div class="input-box">

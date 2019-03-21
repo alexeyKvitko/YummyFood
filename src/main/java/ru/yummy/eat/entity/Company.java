@@ -24,6 +24,9 @@ public class Company implements Serializable {
     @Column( name = "city_id" )
     private Integer cityId;
 
+    @Column( name = "thumb_url" )
+    private String thumbUrl;
+
     @Column( name = "url" )
     private String url;
 
@@ -50,6 +53,9 @@ public class Company implements Serializable {
 
     @Column(name="delivery_condition")
     private String deliveryCondition;
+
+    @Column(name="delivery_time_min")
+    private Integer deliveryTimeMin;
 
     @Column(name="pay_type_cash")
     private Integer payTypeCash;
@@ -116,6 +122,14 @@ public class Company implements Serializable {
         this.cityId = cityId;
     }
 
+    public String getThumbUrl() {
+        return thumbUrl;
+    }
+
+    public void setThumbUrl(String thumbUrl) {
+        this.thumbUrl = thumbUrl;
+    }
+
     public String getUrl() {
         return url;
     }
@@ -170,6 +184,14 @@ public class Company implements Serializable {
 
     public void setDelivery(Integer delivery) {
         this.delivery = delivery;
+    }
+
+    public Integer getDeliveryTimeMin() {
+        return deliveryTimeMin;
+    }
+
+    public void setDeliveryTimeMin(Integer deliveryTimeMin) {
+        this.deliveryTimeMin = deliveryTimeMin;
     }
 
     public String getCommentCount() {

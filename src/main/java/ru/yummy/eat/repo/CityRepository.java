@@ -19,4 +19,5 @@ public interface CityRepository extends CrudRepository<City,Integer> {
 
     List<City> findAllByProcessed( Integer processed );
 
+    List<City> findByOrderByName();
 }

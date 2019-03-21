@@ -7,6 +7,9 @@ export class ParseMenuModel {
   categoryId: string;
   htmlResponse: string;
   parseUrl: string;
+  parseUrlTwo: string;
+  parseUrlThree: string;
+  parseUrlFour: string;
   prefixUrl: string;
   tagTrash: string;
   tagEndSection: string;

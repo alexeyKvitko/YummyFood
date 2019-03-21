@@ -58,7 +58,7 @@ public class BootstrapServiceImpl {
                 lat = Double.valueOf(latitude.replace(",", "."));
                 lon = Double.valueOf(longitude.replace(",", "."));
             }
-            cities = (List<City>) cityRepo.findAll();
+            cities = cityRepo.findByOrderByName();
             city = AppUtils.getNearestCity(lat, lon, cities);
             companies = companyRepo.findAllByCityId( city.getId() );
             companyActions = companyActionRepo.findAllByCityId( city.getId() );

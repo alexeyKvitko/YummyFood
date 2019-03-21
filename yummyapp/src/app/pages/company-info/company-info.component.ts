@@ -156,6 +156,9 @@ export class CompanyInfoComponent implements OnInit {
     this.parseForm = this.formBuilder.group({
       prefixUrl: [{value: this.parseMenu.prefixUrl, disabled: true}],
       parseUrl: [{value: this.parseMenu.parseUrl, disabled: true}, Validators.compose([Validators.required])],
+      parseUrlTwo: [{value: this.parseMenu.parseUrlTwo, disabled: true}, Validators.compose([Validators.required])],
+      parseUrlThree: [{value: this.parseMenu.parseUrlThree, disabled: true}, Validators.compose([Validators.required])],
+      parseUrlFour: [{value: this.parseMenu.parseUrlFour, disabled: true}, Validators.compose([Validators.required])],
       tagTrash: [{value: this.parseMenu.tagTrash, disabled: true}, Validators.compose([Validators.required])],
       tagEndSection: [{value: this.parseMenu.tagEndSection,disabled: true}, Validators.compose([Validators.required])],
       htmlResponse: [{value: this.parseMenu.htmlResponse,disabled: true}, Validators.compose([Validators.required])],
@@ -313,6 +316,9 @@ export class CompanyInfoComponent implements OnInit {
   convertFormToModel(){
     this.updateParseMenu.prefixUrl = this.parseForm.get('prefixUrl').value;
     this.updateParseMenu.parseUrl = this.parseForm.get('parseUrl').value;
+    this.updateParseMenu.parseUrlTwo = this.parseForm.get('parseUrlTwo').value;
+    this.updateParseMenu.parseUrlThree = this.parseForm.get('parseUrlThree').value;
+    this.updateParseMenu.parseUrlFour = this.parseForm.get('parseUrlFour').value;
     this.updateParseMenu.tagTrash = this.parseForm.get('tagTrash').value;
     this.updateParseMenu.tagEndSection = this.parseForm.get('tagEndSection').value;
     
@@ -407,6 +413,15 @@ export class CompanyInfoComponent implements OnInit {
       case 'parseUrl': {
         value = this.parseMenu.parseUrl;
         break;}
+      case 'parseUrlTwo': {
+        value = this.parseMenu.parseUrlTwo;
+        break;}
+      case 'parseUrlThree': {
+        value = this.parseMenu.parseUrlThree;
+        break;}
+      case 'parseUrlFour': {
+        value = this.parseMenu.parseUrlFour;
+        break;}
       case 'prefixUrl': {
         value = this.parseMenu.prefixUrl;
         break;}
@@ -419,7 +434,7 @@ export class CompanyInfoComponent implements OnInit {
       case 'tagName': {
         value = this.parseMenu.tagName;
         break;}
-      case 'tagDescription': {
+      case 'tagDesc': {
         value = this.parseMenu.tagDescription;
         break;}
       case 'tagImageUrl': {

@@ -119,6 +119,7 @@
       <div class="tab-parsing">
         <div class="col-md-6">
           <form [formGroup]="parseForm" (ngSubmit)="onSubmit()">
+            <!--Главный URL-->
             <div class="input-box">
               <span class="input-group-addon-teal addon-left" [ngClass]="{'border-focus':!isControlHidden('parseUrl')}"
                     id="parseUrl" (click)="inputControlClick('parseUrl')">
@@ -130,6 +131,44 @@
               <span class="input-group-addon-teal-right itr-end" (click)="copyControl('parseUrl')"><i
                 class="far fa-copy"></i></span>
             </div>
+            <!--Страница 2-->
+            <div class="input-box">
+              <span class="input-group-addon-teal addon-left" [ngClass]="{'border-focus':!isControlHidden('parseUrlTwo')}"
+                    id="parseUrlTwo" (click)="inputControlClick('parseUrlTwo')">
+              <span [hidden]="isControlHidden('parseUrlTwo')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('parseUrlTwo')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Страница 2</span>
+              <input placeholder="" type="text" formControlName="parseUrlTwo">
+              <span class="input-group-addon-teal-right itr-start" (click)="undoControl('parseUrlTwo')"><i
+                class="fas fa-eraser"></i></span>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyControl('parseUrlTwo')"><i
+                class="far fa-copy"></i></span>
+            </div>
+            <!--Страница 3-->
+            <div class="input-box">
+              <span class="input-group-addon-teal addon-left" [ngClass]="{'border-focus':!isControlHidden('parseUrlThree')}"
+                    id="parseUrlThree" (click)="inputControlClick('parseUrlThree')">
+              <span [hidden]="isControlHidden('parseUrlThree')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('parseUrlThree')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Страница 3</span>
+              <input placeholder="" type="text" formControlName="parseUrlThree">
+              <span class="input-group-addon-teal-right itr-start" (click)="undoControl('parseUrlThree')"><i
+                class="fas fa-eraser"></i></span>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyControl('parseUrlThree')"><i
+                class="far fa-copy"></i></span>
+            </div>
+            <!--Страница 4-->
+            <div class="input-box">
+              <span class="input-group-addon-teal addon-left" [ngClass]="{'border-focus':!isControlHidden('parseUrlFour')}"
+                    id="parseUrlFour" (click)="inputControlClick('parseUrlFour')">
+              <span [hidden]="isControlHidden('parseUrlFour')"><i class="fa fa-lock-open"></i></span>
+              <span [hidden]="!isControlHidden('parseUrlFour')"><i class="fa fa-lock"></i></span>&nbsp;&nbsp;Страница 4</span>
+              <input placeholder="" type="text" formControlName="parseUrlFour">
+              <span class="input-group-addon-teal-right itr-start" (click)="undoControl('parseUrlFour')"><i
+                class="fas fa-eraser"></i></span>
+              <span class="input-group-addon-teal-right itr-end" (click)="copyControl('parseUrlFour')"><i
+                class="far fa-copy"></i></span>
+            </div>
+
+            <!--ПРЕФИКС-->
             <div class="input-box">
              <span class="input-group-addon-teal addon-left" id="prefixUrl"
                    [ngClass]="{'border-focus':!isControlHidden('prefixUrl')}"

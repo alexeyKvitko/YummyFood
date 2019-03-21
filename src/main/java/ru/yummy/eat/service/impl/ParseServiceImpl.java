@@ -67,110 +67,128 @@ public class ParseServiceImpl implements ParseService {
     @Override
     @Transactional
     public void parsePage(ParseMenu parseMenu) {
-        try {
-            HttpTransport httpTransport = new NetHttpTransport();
-            HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
-            parseMenu.setUpdateResult(AppConstants.PRODUCTION_SUCCESS);
-            String htmlResponse = null;
-            HttpRequest request = null;
-            try {
-                request = requestFactory.buildGetRequest(new GenericUrl(parseMenu.getParseUrl()));
-                htmlResponse = request.execute().parseAsString();
-            } catch (Exception e) {
-                htmlResponse = getByConnection(parseMenu.getParseUrl());
-                if (htmlResponse == null) {
-                    return;
-                }
-            }
-            htmlResponse = htmlResponse.replace("\n", "").replace("\r", "").replace("\t", "");
-
-            // Убираем заголовок
-            if (parseMenu.getTagTrash() != null) {
-                int trashIdx = htmlResponse.indexOf(parseMenu.getTagTrash()) + parseMenu.getTagTrash().length();
-                htmlResponse = htmlResponse.substring(trashIdx);
-            }
-            htmlResponse = htmlResponse.substring(htmlResponse.indexOf(parseMenu.getTagEndSection()));
-            // Убираем комментарии
-            htmlResponse = AppUtils.polish(htmlResponse);
-            boolean proceed = true;
-            List<MenuEntity> menuEntities = new LinkedList<>();
-            while (proceed) {
-                //Укорачиваем
-                int endSectionIdx = htmlResponse.indexOf(parseMenu.getTagEndSection());
-                String section = null;
-                if (endSectionIdx > -1) {
-                    section = AppUtils.getSection(htmlResponse, parseMenu.getTagEndSection());
-                    htmlResponse = htmlResponse.substring(section.length());
-                } else {
-                    section = htmlResponse;
-                }
-                //Получаем данные
-                String entityName = AppUtils.getFieldValue(section, parseMenu.getTagName());
-                if (entityName == null) {
-                    proceed = false;
-                    break;
-                }
-                String uniqueName = entityName.toUpperCase().replace(" ", "_") + "_" + parseMenu.getCompanyId().toString();
-                MenuEntity menuEntity = menuEntityRepository.findByName(uniqueName);
-                if (menuEntity == null) {
-                    menuEntity = new MenuEntity();
-                }
-                menuEntity.setName(uniqueName);
-                menuEntity.setDisplayName(entityName);
-                menuEntity.setDescription(AppUtils.getFieldValue(section, parseMenu.getTagDescription()));
-                String imageUrl = AppUtils.getFieldValue(section, parseMenu.getTagImageUrl());
-                menuEntity.setImageUrl(parseMenu.getPrefixUrl() != null ? parseMenu.getPrefixUrl() + imageUrl : imageUrl);
-                // wsp One
-                WeightSizePrice wspOne = getWSP(section, parseMenu.getTagWeightOne(),
-                        parseMenu.getTagSizeOne(), parseMenu.getTagPriceOne());
-                menuEntity.setWeightOne(wspOne.getWeight());
-                menuEntity.setSizeOne(wspOne.getSize());
-                menuEntity.setPriceOne(wspOne.getPrice());
-
-                // wsp Two
-                WeightSizePrice wspTwo = getWSP(section, parseMenu.getTagWeightTwo(),
-                        parseMenu.getTagSizeTwo(), parseMenu.getTagPriceTwo());
-                menuEntity.setWeightTwo(wspTwo.getWeight());
-                menuEntity.setSizeTwo(wspTwo.getSize());
-                menuEntity.setPriceTwo(wspTwo.getPrice());
-
-                // wsp Three
-                WeightSizePrice wspThree = getWSP(section, parseMenu.getTagWeightThree(),
-                        parseMenu.getTagSizeThree(), parseMenu.getTagPriceThree());
-                menuEntity.setWeightThree(wspThree.getWeight());
-                menuEntity.setSizeThree(wspThree.getSize());
-                menuEntity.setPriceThree(wspThree.getPrice());
-
-                // wsp Four
-                WeightSizePrice wspFour = getWSP(section, parseMenu.getTagWeightFour(),
-                        parseMenu.getTagSizeFour(), parseMenu.getTagPriceFour());
-                menuEntity.setWeightFour(wspFour.getWeight());
-                menuEntity.setSizeFour(wspFour.getSize());
-                menuEntity.setPriceFour(wspFour.getPrice());
-
-                menuEntityRepository.save(menuEntity);
-                Integer itemId = menuItemRepository.getMenuItemId(parseMenu.getCompanyId(), parseMenu.getTypeId(),
-                        parseMenu.getCategoryId(), menuEntity.getId());
-                if (itemId == null) {
-                    MenuItem menuItem = new MenuItem();
-                    menuItem.setCompanyId(parseMenu.getCompanyId());
-                    menuItem.setTypeId(parseMenu.getTypeId());
-                    menuItem.setCategoryId(parseMenu.getCategoryId());
-                    menuItem.setEntityId(menuEntity.getId());
-                    menuItemRepository.save(menuItem);
-                }
-            }
-            parseMenu.setProcessed(AppConstants.PROCESSED);
-        } catch (Exception e) {
-            parseMenu.setUpdateResult(AppConstants.ERROR_PRODUCTION);
-            StringBuilder st = new StringBuilder();
-            for (int i = e.getStackTrace().length - 2; i < e.getStackTrace().length; i++) {
-                st.append("METHOD '" + e.getStackTrace()[i].getMethodName() + "',LINE NUMBER [" + e.getStackTrace()[i].getLineNumber() + "]; ");
-            }
-            String description = e.getMessage() + ", Stack trace: " + st.toString();
-            parseMenu.setDescription(description.trim().length() > 1999 ?
-                    description.trim().substring(0, 1999) : description);
+        //Собираем все url
+        List<String> parsedUrls =  new LinkedList<>();
+        parsedUrls.add( parseMenu.getParseUrl() );
+        if( parseMenu.getParseUrlTwo() != null  ){
+            parsedUrls.add( parseMenu.getParseUrlTwo() );
         }
+        if( parseMenu.getParseUrlThree() != null  ){
+            parsedUrls.add( parseMenu.getParseUrlThree() );
+        }
+        if( parseMenu.getParseUrlFour() != null  ){
+            parsedUrls.add( parseMenu.getParseUrlFour() );
+        }
+        for( String parseUrl :parsedUrls ){
+            try {
+                HttpTransport httpTransport = new NetHttpTransport();
+                HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
+                parseMenu.setUpdateResult(AppConstants.PRODUCTION_SUCCESS);
+                String htmlResponse = null;
+                HttpRequest request = null;
+                try {
+                    request = requestFactory.buildGetRequest(new GenericUrl(parseUrl));
+                    htmlResponse = request.execute().parseAsString();
+                } catch (Exception e) {
+                    htmlResponse = getByConnection(parseUrl);
+                    if (htmlResponse == null) {
+                        return;
+                    }
+                }
+                htmlResponse = htmlResponse.replace("\n", "").replace("\r", "").replace("\t", "");
+
+                // Убираем заголовок
+                if (parseMenu.getTagTrash() != null) {
+                    int trashIdx = htmlResponse.indexOf(parseMenu.getTagTrash()) + parseMenu.getTagTrash().length();
+                    htmlResponse = htmlResponse.substring(trashIdx);
+                }
+                htmlResponse = htmlResponse.substring(htmlResponse.indexOf(parseMenu.getTagEndSection()));
+                // Убираем комментарии
+                htmlResponse = AppUtils.polish(htmlResponse);
+                boolean proceed = true;
+                while (proceed) {
+                    //Укорачиваем
+                    int endSectionIdx = htmlResponse.indexOf(parseMenu.getTagEndSection());
+                    String section = null;
+                    if (endSectionIdx > -1) {
+                        section = AppUtils.getSection(htmlResponse, parseMenu.getTagEndSection());
+                        htmlResponse = htmlResponse.substring(section.length());
+                    } else {
+                        section = htmlResponse;
+                    }
+                    //Получаем данные
+                    String entityName = AppUtils.getFieldValue(section, parseMenu.getTagName());
+                    if (entityName == null) {
+                        proceed = false;
+                        break;
+                    }
+                    String uniqueName = entityName.toUpperCase().replace(" ", "_") + "_" + parseMenu.getCompanyId().toString();
+                    MenuEntity menuEntity = menuEntityRepository.findByName(uniqueName);
+                    if (menuEntity == null) {
+                        menuEntity = new MenuEntity();
+                    }
+                    menuEntity.setName(uniqueName);
+                    menuEntity.setDisplayName(entityName);
+                    if( parseMenu.getTagDescription() != null &&
+                            parseMenu.getTagDescription().trim().length() > 0 ){
+                        menuEntity.setDescription(AppUtils.getFieldValue(section, parseMenu.getTagDescription()));
+                    }
+                    String imageUrl = AppUtils.getFieldValue(section, parseMenu.getTagImageUrl());
+                    menuEntity.setImageUrl(parseMenu.getPrefixUrl() != null ? parseMenu.getPrefixUrl() + imageUrl : imageUrl);
+                    // wsp One
+                    WeightSizePrice wspOne = getWSP(section, parseMenu.getTagWeightOne(),
+                            parseMenu.getTagSizeOne(), parseMenu.getTagPriceOne());
+                    menuEntity.setWeightOne(wspOne.getWeight());
+                    menuEntity.setSizeOne(wspOne.getSize());
+                    menuEntity.setPriceOne(wspOne.getPrice());
+
+                    // wsp Two
+                    WeightSizePrice wspTwo = getWSP(section, parseMenu.getTagWeightTwo(),
+                            parseMenu.getTagSizeTwo(), parseMenu.getTagPriceTwo());
+                    menuEntity.setWeightTwo(wspTwo.getWeight());
+                    menuEntity.setSizeTwo(wspTwo.getSize());
+                    menuEntity.setPriceTwo(wspTwo.getPrice());
+
+                    // wsp Three
+                    WeightSizePrice wspThree = getWSP(section, parseMenu.getTagWeightThree(),
+                            parseMenu.getTagSizeThree(), parseMenu.getTagPriceThree());
+                    menuEntity.setWeightThree(wspThree.getWeight());
+                    menuEntity.setSizeThree(wspThree.getSize());
+                    menuEntity.setPriceThree(wspThree.getPrice());
+
+                    // wsp Four
+                    WeightSizePrice wspFour = getWSP(section, parseMenu.getTagWeightFour(),
+                            parseMenu.getTagSizeFour(), parseMenu.getTagPriceFour());
+                    menuEntity.setWeightFour(wspFour.getWeight());
+                    menuEntity.setSizeFour(wspFour.getSize());
+                    menuEntity.setPriceFour(wspFour.getPrice());
+
+                    menuEntityRepository.save(menuEntity);
+                    Integer itemId = menuItemRepository.getMenuItemId(parseMenu.getCompanyId(), parseMenu.getTypeId(),
+                            parseMenu.getCategoryId(), menuEntity.getId());
+                    if (itemId == null) {
+                        MenuItem menuItem = new MenuItem();
+                        menuItem.setCompanyId(parseMenu.getCompanyId());
+                        menuItem.setTypeId(parseMenu.getTypeId());
+                        menuItem.setCategoryId(parseMenu.getCategoryId());
+                        menuItem.setEntityId(menuEntity.getId());
+                        menuItemRepository.save(menuItem);
+                    }
+                }
+                parseMenu.setProcessed(AppConstants.PROCESSED);
+            } catch (Exception e) {
+                parseMenu.setUpdateResult(AppConstants.ERROR_PRODUCTION);
+                StringBuilder st = new StringBuilder();
+                for (int i = e.getStackTrace().length - 2; i < e.getStackTrace().length; i++) {
+                    st.append("METHOD '" + e.getStackTrace()[i].getMethodName() + "',LINE NUMBER [" + e.getStackTrace()[i].getLineNumber() + "]; ");
+                }
+                String description = e.getMessage() + ", Stack trace: " + st.toString();
+                parseMenu.setDescription(description.trim().length() > 1999 ?
+                        description.trim().substring(0, 1999) : description);
+            }
+
+        }
+
         parseMenu.setLastUpdate(AppUtils.formatDate(AppConstants.UPDATE_DATE_FORMAT, new Date()));
         parseRepository.save(parseMenu);
 
@@ -187,8 +205,6 @@ public class ParseServiceImpl implements ParseService {
         ParseResult parseResult = new ParseResult();
         HttpTransport httpTransport = new NetHttpTransport();
         HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
-        String htmlResponse = null;
-        HttpRequest request = null;
         parseMenu.setBroken(false);
         parseResult.getHtmlResult().setStatus(TestStatus.ERROR.value());
         StringBuilder emptyTags = new StringBuilder();
@@ -196,195 +212,214 @@ public class ParseServiceImpl implements ParseService {
         updateJournal.setParseUrl(parseMenu.getParseUrl());
         updateJournal.setValue(AppConstants.TEST_SUCCESS);
         parseMenu.setUpdateResult(AppConstants.TEST_SUCCESS);
-        try {
-            request = requestFactory.buildGetRequest(new GenericUrl(parseMenu.getParseUrl()));
-            htmlResponse = request.execute().parseAsString();
-        } catch (Exception e) {
-            htmlResponse = getByConnection(parseMenu.getParseUrl());
-            if (htmlResponse == null) {
-                parseResult.getHtmlResult().setStatus(TestStatus.ERROR.value());
-                parseMenu.setBroken(true);
-                parseResult.setMessage(e.getMessage());
-            }
+        //Собираем все url
+        List<String> parsedUrls =  new LinkedList<>();
+        parsedUrls.add( parseMenu.getParseUrl() );
+        if( parseMenu.getParseUrlTwo() != null && parseMenu.getParseUrlTwo().trim().length() > 0 ){
+            parsedUrls.add( parseMenu.getParseUrlTwo() );
         }
-        List<MenuEntityModel> menuEntities = new LinkedList<>();
+        if( parseMenu.getParseUrlThree() != null && parseMenu.getParseUrlThree().trim().length() > 0 ){
+            parsedUrls.add( parseMenu.getParseUrlThree() );
+        }
+        if( parseMenu.getParseUrlFour() != null && parseMenu.getParseUrlFour().trim().length() > 0 ){
+            parsedUrls.add( parseMenu.getParseUrlFour() );
+        }
         StringBuilder sb = new StringBuilder();
         int iterationStep = 0;
-        if (htmlResponse != null) {
-            parseResult.getHtmlResult().setStatus(TestStatus.PASSED.value());
-
+        List<MenuEntityModel> menuEntities = new LinkedList<>();
+        for(String parseUrl : parsedUrls ){
+            String htmlResponse = null;
+            HttpRequest request = null;
             try {
-                LOG.info("** GET FULL HTML ...");
-                htmlResponse = htmlResponse.replace("\n", "").replace("\r", "").replace("\t", "");
-                LOG.info("** Ok");
-                LOG.info("**");
-                // Убираем заголовок
-                parseResult.getHtmlClean().setStatus(TestStatus.ERROR.value());
-                LOG.info("** REMOVE THE HEADINGS ...");
-                if (parseMenu.getTagTrash() != null) {
-                    int trashIdx = htmlResponse.indexOf(parseMenu.getTagTrash()) + parseMenu.getTagTrash().length();
-                    htmlResponse = htmlResponse.substring(trashIdx);
-                }
-                parseResult.getHtmlClean().setStatus(TestStatus.PASSED.value());
-                LOG.info("** Ok");
-                LOG.info("**");
-                LOG.info("** CLEAN COMMENTS ...");
-                parseResult.getHtmlTag().setStatus(TestStatus.ERROR.value());
-                htmlResponse = htmlResponse.substring(htmlResponse.indexOf(parseMenu.getTagEndSection()));
-                // Убираем комментарии
-                htmlResponse = AppUtils.polish(htmlResponse);
-                if( parseMenu.getId() == 21){
-                    System.out.println("Html Response: "+htmlResponse);
-                }
-                parseResult.getHtmlTag().setStatus(TestStatus.PASSED.value());
-                LOG.info("** Ok");
-                LOG.info("**");
-                boolean proceed = true;
-                while (proceed) {
-                    parseResult.setStep(iterationStep);
-                    StringBuilder sbError = new StringBuilder();
-                    sbError.append("Product [" + iterationStep + "]");
-                    //Укорачиваем
-                    LOG.info("** SECTION [" + iterationStep + "]");
-                    LOG.info("** ACCESSING ...");
-                    int endSectionIdx = htmlResponse.indexOf(parseMenu.getTagEndSection());
-                    String section = null;
-                    if (endSectionIdx > -1) {
-                        section = AppUtils.getSection(htmlResponse, parseMenu.getTagEndSection());
-                        htmlResponse = htmlResponse.substring(section.length());
-                    } else {
-                        section = htmlResponse;
-                    }
-                    LOG.info("** Ok");
-                    LOG.info("**");
-                    //Получаем данные
-                    LOG.info("** PRODUCT NAME ...");
-                    parseResult.getProductName().setStatus(TestStatus.ERROR.value());
-                    parseResult.getProductName().setiStep(iterationStep - 1);
-                    String entityName = AppUtils.getFieldValue(section, parseMenu.getTagName());
-                    LOG.info("** Ok");
-                    LOG.info("**");
-                    parseResult.getProductName().setStatus(TestStatus.PASSED.value());
-                    if (entityName == null) {
-                        proceed = false;
-                        if (iterationStep == 0) {
-                            throw new BusinessLogicException("Не найдено имя блюда, процесс завершен");
-                        } else {
-                            break;
-                        }
-                    }
-                    if (parseMenu.getTagName() != null && (entityName == null || entityName.trim().length() == 0)) {
-                        emptyTags.append("[" + iterationStep + "] tag_name;");
-                    }
-                    parseResult.setSection(section);
-                    sb.append(AppConstants.SECTION).append((iterationStep + 1)).append("]").append(section);
-                    String uniqueName = entityName.toUpperCase().replace(" ", "_") + "_" + parseMenu.getCompanyId().toString();
-                    MenuEntityModel menuEntity = new MenuEntityModel();
-                    menuEntity.setName(uniqueName);
-                    menuEntity.setDisplayName(entityName);
-                    LOG.info("** GET DESCRIPTION ...");
-                    parseResult.getProductDesc().setStatus(TestStatus.ERROR.value());
-                    parseResult.getProductDesc().setiStep(iterationStep);
-                    menuEntity.setDescription(AppUtils.getFieldValue(section, parseMenu.getTagDescription()));
-                    parseResult.getProductDesc().setStatus(TestStatus.PASSED.value());
-                    if (parseMenu.getTagDescription() != null && (menuEntity.getDescription() == null ||
-                            menuEntity.getDescription().trim().length() == 0)) {
-                        emptyTags.append("[" + iterationStep + "] tag_description;");
-                    }
-                    LOG.info("** Ok");
-                    LOG.info("**");
-                    LOG.info("** GET THE IMAGE ...");
-                    parseResult.getProductImg().setStatus(TestStatus.ERROR.value());
-                    parseResult.getProductImg().setiStep(iterationStep);
-                    String imageUrl = AppUtils.getFieldValue(section, parseMenu.getTagImageUrl());
-                    parseResult.getProductImg().setStatus(TestStatus.PASSED.value());
-                    if (parseMenu.getTagImageUrl() != null && (imageUrl == null || imageUrl.trim().length() == 0)) {
-                        emptyTags.append("[" + iterationStep + "] tag_img_url;");
-                    }
-                    LOG.info("** Ok");
-                    LOG.info("**");
-                    menuEntity.setImageUrl(parseMenu.getPrefixUrl() != null ? parseMenu.getPrefixUrl() + imageUrl : imageUrl);
-                    // wsp One
-                    LOG.info("** GET WSP - 1 (Weight, Size, Price)  ...");
-                    parseResult.getWspOne().setStatus(TestStatus.ERROR.value());
-                    parseResult.getWspOne().setiStep(iterationStep);
-                    WeightSizePrice wspOne = getWSP(section, parseMenu.getTagWeightOne(),
-                            parseMenu.getTagSizeOne(), parseMenu.getTagPriceOne());
-                    menuEntity.setWeightOne(wspOne.getWeight());
-                    menuEntity.setSizeOne(wspOne.getSize());
-                    menuEntity.setPriceOne(wspOne.getPrice());
-                    parseResult.getWspOne().setStatus(TestStatus.PASSED.value());
-                    if (parseMenu.getTagPriceOne() != null && wspOne.getPrice() == null) {
-                        emptyTags.append("[" + iterationStep + "] tag_price_one;");
-                    }
-                    LOG.info("** Ok");
-                    LOG.info("**");
-
-                    // wsp Two
-                    LOG.info("** GET WSP - 2  ...");
-                    parseResult.getWspTwo().setStatus(TestStatus.ERROR.value());
-                    parseResult.getWspTwo().setiStep(iterationStep);
-                    WeightSizePrice wspTwo = getWSP(section, parseMenu.getTagWeightTwo(),
-                            parseMenu.getTagSizeTwo(), parseMenu.getTagPriceTwo());
-                    menuEntity.setWeightTwo(wspTwo.getWeight());
-                    menuEntity.setSizeTwo(wspTwo.getSize());
-                    menuEntity.setPriceTwo(wspTwo.getPrice());
-                    parseResult.getWspTwo().setStatus(TestStatus.PASSED.value());
-                    if (parseMenu.getTagPriceTwo() != null && wspTwo.getPrice() == null) {
-                        emptyTags.append("[" + iterationStep + "] tag_price_two;");
-                    }
-                    LOG.info("** Ok");
-                    LOG.info("**");
-
-                    // wsp Three
-                    LOG.info("** GET WSP - 3  ...");
-                    parseResult.getWspThree().setStatus(TestStatus.ERROR.value());
-                    parseResult.getWspThree().setiStep(iterationStep);
-                    WeightSizePrice wspThree = getWSP(section, parseMenu.getTagWeightThree(),
-                            parseMenu.getTagSizeThree(), parseMenu.getTagPriceThree());
-                    menuEntity.setWeightThree(wspThree.getWeight());
-                    menuEntity.setSizeThree(wspThree.getSize());
-                    menuEntity.setPriceThree(wspThree.getPrice());
-                    parseResult.getWspThree().setStatus(TestStatus.PASSED.value());
-                    if (parseMenu.getTagPriceThree() != null && wspThree.getPrice() == null) {
-                        emptyTags.append("[" + iterationStep + "] tag_price_three;");
-                    }
-                    LOG.info("** Ok");
-                    LOG.info("**");
-                    // wsp Four
-                    LOG.info("** GET WSP - 4  ...");
-                    parseResult.getWspFour().setStatus(TestStatus.ERROR.value());
-                    parseResult.getWspFour().setiStep(iterationStep);
-                    WeightSizePrice wspFour = getWSP(section, parseMenu.getTagWeightFour(),
-                            parseMenu.getTagSizeFour(), parseMenu.getTagPriceFour());
-                    menuEntity.setWeightFour(wspFour.getWeight());
-                    menuEntity.setSizeFour(wspFour.getSize());
-                    menuEntity.setPriceFour(wspFour.getPrice());
-                    parseResult.getWspFour().setStatus(TestStatus.PASSED.value());
-                    if (parseMenu.getTagPriceFour() != null && wspFour.getPrice() == null) {
-                        emptyTags.append("[" + iterationStep + "] tag_price_four;");
-                    }
-                    LOG.info("** Ok");
-                    LOG.info("**");
-                    menuEntities.add(menuEntity);
-                    iterationStep++;
-                }
+                request = requestFactory.buildGetRequest(new GenericUrl( parseUrl ));
+                htmlResponse = request.execute().parseAsString();
             } catch (Exception e) {
-                LOG.error("** EXCEPTION: " + e.getMessage());
-                e.printStackTrace();
-                StringBuilder st = new StringBuilder();
-                for (int i = e.getStackTrace().length - 2; i < e.getStackTrace().length; i++) {
-                    st.append("METHOD '" + e.getStackTrace()[i].getMethodName() + "',LINE NUMBER [" + e.getStackTrace()[i].getLineNumber() + "]; ");
+                htmlResponse = getByConnection( parseUrl );
+                if (htmlResponse == null) {
+                    parseResult.getHtmlResult().setStatus(TestStatus.ERROR.value());
+                    parseMenu.setBroken(true);
+                    parseResult.setMessage(e.getMessage());
                 }
-                LOG.error("** " + st.toString());
-                parseMenu.setBroken(true);
-                parseMenu.setUpdateResult(AppConstants.ERROR);
-                updateJournal.setValue(AppConstants.ERROR);
-                String description = e.getMessage() + ", Stack trace: " + st.toString();
-                parseMenu.setDescription(description.trim().length() > 1999 ?
-                        description.trim().substring(0, 1999) : description);
-                parseResult.setMessage(e.getMessage());
-                parseResult.setStackTrace(st.toString());
+            }
+            if (htmlResponse != null) {
+                parseResult.getHtmlResult().setStatus(TestStatus.PASSED.value());
+
+                try {
+                    LOG.info("** GET FULL HTML ...");
+                    htmlResponse = htmlResponse.replace("\n", "").replace("\r", "").replace("\t", "");
+                    LOG.info("** Ok");
+                    LOG.info("**");
+                    // Убираем заголовок
+                    parseResult.getHtmlClean().setStatus(TestStatus.ERROR.value());
+                    LOG.info("** REMOVE THE HEADINGS ...");
+                    if (parseMenu.getTagTrash() != null) {
+                        int trashIdx = htmlResponse.indexOf(parseMenu.getTagTrash()) + parseMenu.getTagTrash().length();
+                        htmlResponse = htmlResponse.substring(trashIdx);
+                    }
+                    parseResult.getHtmlClean().setStatus(TestStatus.PASSED.value());
+                    LOG.info("** Ok");
+                    LOG.info("**");
+                    LOG.info("** CLEAN COMMENTS ...");
+                    parseResult.getHtmlTag().setStatus(TestStatus.ERROR.value());
+                    htmlResponse = htmlResponse.substring(htmlResponse.indexOf(parseMenu.getTagEndSection()));
+                    // Убираем комментарии
+                    htmlResponse = AppUtils.polish(htmlResponse);
+                    if( parseMenu.getId() == 21){
+                        System.out.println("Html Response: "+htmlResponse);
+                    }
+                    parseResult.getHtmlTag().setStatus(TestStatus.PASSED.value());
+                    LOG.info("** Ok");
+                    LOG.info("**");
+                    boolean proceed = true;
+                    while (proceed) {
+                        parseResult.setStep(iterationStep);
+                        StringBuilder sbError = new StringBuilder();
+                        sbError.append("Product [" + iterationStep + "]");
+                        //Укорачиваем
+                        LOG.info("** SECTION [" + iterationStep + "]");
+                        LOG.info("** ACCESSING ...");
+                        int endSectionIdx = htmlResponse.indexOf(parseMenu.getTagEndSection());
+                        String section = null;
+                        if (endSectionIdx > -1) {
+                            section = AppUtils.getSection(htmlResponse, parseMenu.getTagEndSection());
+                            htmlResponse = htmlResponse.substring(section.length());
+                        } else {
+                            section = htmlResponse;
+                        }
+                        LOG.info("** Ok");
+                        LOG.info("**");
+                        //Получаем данные
+                        LOG.info("** PRODUCT NAME ...");
+                        parseResult.getProductName().setStatus(TestStatus.ERROR.value());
+                        parseResult.getProductName().setiStep(iterationStep - 1);
+                        String entityName = AppUtils.getFieldValue(section, parseMenu.getTagName());
+                        LOG.info("** Ok");
+                        LOG.info("**");
+                        parseResult.getProductName().setStatus(TestStatus.PASSED.value());
+                        if (entityName == null) {
+                            proceed = false;
+                            if (iterationStep == 0) {
+                                throw new BusinessLogicException("Не найдено имя блюда, процесс завершен");
+                            } else {
+                                break;
+                            }
+                        }
+                        if (parseMenu.getTagName() != null && (entityName == null || entityName.trim().length() == 0)) {
+                            emptyTags.append("[" + iterationStep + "] tag_name;");
+                        }
+                        parseResult.setSection(section);
+                        sb.append(AppConstants.SECTION).append((iterationStep + 1)).append("]").append(section);
+                        String uniqueName = entityName.toUpperCase().replace(" ", "_") + "_" + parseMenu.getCompanyId().toString();
+                        MenuEntityModel menuEntity = new MenuEntityModel();
+                        menuEntity.setName(uniqueName);
+                        menuEntity.setDisplayName(entityName);
+                        LOG.info("** GET DESCRIPTION ...");
+                        parseResult.getProductDesc().setStatus(TestStatus.ERROR.value());
+                        parseResult.getProductDesc().setiStep(iterationStep);
+                        if( parseMenu.getTagDescription() != null &&
+                                parseMenu.getTagDescription().trim().length() > 0 ){
+                            menuEntity.setDescription(AppUtils.getFieldValue(section, parseMenu.getTagDescription()));
+                        }
+                        parseResult.getProductDesc().setStatus(TestStatus.PASSED.value());
+                        if (parseMenu.getTagDescription() != null && (menuEntity.getDescription() == null ||
+                                menuEntity.getDescription().trim().length() == 0)) {
+                            emptyTags.append("[" + iterationStep + "] tag_description;");
+                        }
+                        LOG.info("** Ok");
+                        LOG.info("**");
+                        LOG.info("** GET THE IMAGE ...");
+                        parseResult.getProductImg().setStatus(TestStatus.ERROR.value());
+                        parseResult.getProductImg().setiStep(iterationStep);
+                        String imageUrl = AppUtils.getFieldValue(section, parseMenu.getTagImageUrl());
+                        parseResult.getProductImg().setStatus(TestStatus.PASSED.value());
+                        if (parseMenu.getTagImageUrl() != null && (imageUrl == null || imageUrl.trim().length() == 0)) {
+                            emptyTags.append("[" + iterationStep + "] tag_img_url;");
+                        }
+                        LOG.info("** Ok");
+                        LOG.info("**");
+                        menuEntity.setImageUrl(parseMenu.getPrefixUrl() != null ? parseMenu.getPrefixUrl() + imageUrl : imageUrl);
+                        // wsp One
+                        LOG.info("** GET WSP - 1 (Weight, Size, Price)  ...");
+                        parseResult.getWspOne().setStatus(TestStatus.ERROR.value());
+                        parseResult.getWspOne().setiStep(iterationStep);
+                        WeightSizePrice wspOne = getWSP(section, parseMenu.getTagWeightOne(),
+                                parseMenu.getTagSizeOne(), parseMenu.getTagPriceOne());
+                        menuEntity.setWeightOne(wspOne.getWeight());
+                        menuEntity.setSizeOne(wspOne.getSize());
+                        menuEntity.setPriceOne(wspOne.getPrice());
+                        parseResult.getWspOne().setStatus(TestStatus.PASSED.value());
+                        if (parseMenu.getTagPriceOne() != null && wspOne.getPrice() == null) {
+                            emptyTags.append("[" + iterationStep + "] tag_price_one;");
+                        }
+                        LOG.info("** Ok");
+                        LOG.info("**");
+
+                        // wsp Two
+                        LOG.info("** GET WSP - 2  ...");
+                        parseResult.getWspTwo().setStatus(TestStatus.ERROR.value());
+                        parseResult.getWspTwo().setiStep(iterationStep);
+                        WeightSizePrice wspTwo = getWSP(section, parseMenu.getTagWeightTwo(),
+                                parseMenu.getTagSizeTwo(), parseMenu.getTagPriceTwo());
+                        menuEntity.setWeightTwo(wspTwo.getWeight());
+                        menuEntity.setSizeTwo(wspTwo.getSize());
+                        menuEntity.setPriceTwo(wspTwo.getPrice());
+                        parseResult.getWspTwo().setStatus(TestStatus.PASSED.value());
+                        if (parseMenu.getTagPriceTwo() != null && wspTwo.getPrice() == null) {
+                            emptyTags.append("[" + iterationStep + "] tag_price_two;");
+                        }
+                        LOG.info("** Ok");
+                        LOG.info("**");
+
+                        // wsp Three
+                        LOG.info("** GET WSP - 3  ...");
+                        parseResult.getWspThree().setStatus(TestStatus.ERROR.value());
+                        parseResult.getWspThree().setiStep(iterationStep);
+                        WeightSizePrice wspThree = getWSP(section, parseMenu.getTagWeightThree(),
+                                parseMenu.getTagSizeThree(), parseMenu.getTagPriceThree());
+                        menuEntity.setWeightThree(wspThree.getWeight());
+                        menuEntity.setSizeThree(wspThree.getSize());
+                        menuEntity.setPriceThree(wspThree.getPrice());
+                        parseResult.getWspThree().setStatus(TestStatus.PASSED.value());
+                        if (parseMenu.getTagPriceThree() != null && wspThree.getPrice() == null) {
+                            emptyTags.append("[" + iterationStep + "] tag_price_three;");
+                        }
+                        LOG.info("** Ok");
+                        LOG.info("**");
+                        // wsp Four
+                        LOG.info("** GET WSP - 4  ...");
+                        parseResult.getWspFour().setStatus(TestStatus.ERROR.value());
+                        parseResult.getWspFour().setiStep(iterationStep);
+                        WeightSizePrice wspFour = getWSP(section, parseMenu.getTagWeightFour(),
+                                parseMenu.getTagSizeFour(), parseMenu.getTagPriceFour());
+                        menuEntity.setWeightFour(wspFour.getWeight());
+                        menuEntity.setSizeFour(wspFour.getSize());
+                        menuEntity.setPriceFour(wspFour.getPrice());
+                        parseResult.getWspFour().setStatus(TestStatus.PASSED.value());
+                        if (parseMenu.getTagPriceFour() != null && wspFour.getPrice() == null) {
+                            emptyTags.append("[" + iterationStep + "] tag_price_four;");
+                        }
+                        LOG.info("** Ok");
+                        LOG.info("**");
+                        menuEntities.add(menuEntity);
+                        iterationStep++;
+                    }
+                } catch (Exception e) {
+                    LOG.error("** EXCEPTION: " + e.getMessage());
+                    e.printStackTrace();
+                    StringBuilder st = new StringBuilder();
+                    for (int i = e.getStackTrace().length - 2; i < e.getStackTrace().length; i++) {
+                        st.append("METHOD '" + e.getStackTrace()[i].getMethodName() + "',LINE NUMBER [" + e.getStackTrace()[i].getLineNumber() + "]; ");
+                    }
+                    LOG.error("** " + st.toString());
+                    parseMenu.setBroken(true);
+                    parseMenu.setUpdateResult(AppConstants.ERROR);
+                    updateJournal.setValue(AppConstants.ERROR);
+                    String description = e.getMessage() + ", Stack trace: " + st.toString();
+                    parseMenu.setDescription(description.trim().length() > 1999 ?
+                            description.trim().substring(0, 1999) : description);
+                    parseResult.setMessage(e.getMessage());
+                    parseResult.setStackTrace(st.toString());
+                }
             }
         }
         if (isUpdateJournal) {

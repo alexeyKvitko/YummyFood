@@ -65,6 +65,8 @@ export class CompanyEditComponent implements OnInit {
       displayName: [{value: this.companyModel.displayName,disabled: true}, Validators.compose([Validators.required])],
       city: [{value: this.companyModel.city.name,disabled: true}, Validators.compose([Validators.required])],
       url: [{value: this.companyModel.url, disabled: true}],
+      thumb: [{value: this.companyModel.thumbUrl, disabled: true}],
+      deliTime: [{value: this.companyModel.deliveryTimeMin, disabled: true}],
       email: [{value: this.companyModel.email, disabled: true}],
       phoneOne: [{value: this.companyModel.phoneOne,disabled: true}, Validators.compose([Validators.required])],
       phoneTwo: [{value: this.companyModel.phoneTwo, disabled: true}],
@@ -195,6 +197,7 @@ export class CompanyEditComponent implements OnInit {
       }
     });
     companyModel.url = this.companyForm.get('url').value;
+    companyModel.thumbUrl = this.companyForm.get('thumb').value;
     companyModel.email = this.companyForm.get('email').value;
     companyModel.phoneOne = this.companyForm.get('phoneOne').value;
     companyModel.phoneTwo = this.companyForm.get('phoneTwo').value;
@@ -202,6 +205,7 @@ export class CompanyEditComponent implements OnInit {
     companyModel.logo = this.companyForm.get('logo').value;
 
     companyModel.delivery = this.companyForm.get('minOrder').value;
+    companyModel.deliveryTimeMin = this.companyForm.get('deliTime').value;
     companyModel.commentCount = this.companyForm.get('reviewNum').value;
     companyModel.payTypeCash = this.companyForm.get('payCash').value;
     companyModel.payTypeCard = this.companyForm.get('payCard').value;
@@ -234,7 +238,13 @@ export class CompanyEditComponent implements OnInit {
     if ( companyModel.url == null ||  companyModel.url.trim().length == 0 ){
       result = result + "Сайт компании; ";
     }
-    if ( companyModel.phoneOne == null ||  companyModel.phoneOne.trim().length == 0 ){
+    if ( companyModel.thumbUrl == null ||  companyModel.thumbUrl.trim().length == 0 ){
+      result = result + "Миниатюра компании; ";
+    }
+    if ( companyModel.deliveryTimeMin == null ){
+      result = result + "Вермя доставки; ";
+    }
+    if ( companyModel.phoneOne == null ){
       result = result + "Телефон; ";
     }
     if ( companyModel.delivery == null  ){
@@ -282,12 +292,13 @@ export class CompanyEditComponent implements OnInit {
         text: "Кол-во отзывов: "+companyModel.commentCount+", Телефон: "+companyModel.phoneOne
       });
     }
-    if ( result == null && companyModel.phoneOne.trim().length != 10 ){
+    let checkPhone = " "+companyModel.phoneOne;
+    if ( result == null && checkPhone.trim().length != 10 ){
       result = "Телефон";
       swal({
         type: 'error',
         title: 'Длина телефонного номера должна быть равна 10',
-        text: "Получили: "+companyModel.phoneOne.trim().length
+        text: "Получили: "+checkPhone.length
       });
     }
 
@@ -396,6 +407,14 @@ export class CompanyEditComponent implements OnInit {
       }
       case 'url': {
         value = this.companyEdit.companyModel.url;
+        break;
+      }
+      case 'deliTime': {
+        value = this.companyEdit.companyModel.deliveryTimeMin;
+        break;
+      }
+      case 'thumb': {
+        value = this.companyEdit.companyModel.thumbUrl;
         break;
       }
       case 'email': {
