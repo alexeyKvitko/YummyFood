@@ -11,7 +11,15 @@
   right: 0;
   @include box-shadow(0 1px 1px 1px rgba($teal-color, .3));
   background-color: $card-content-bg;
-  border-radius: 3px;
+  border-radius: 6px;
+  .blank-header{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 14%;
+    background-color: $white;
+  }
   img{
     width: 100%;
     height: auto;
@@ -58,21 +66,25 @@
     }
     &:hover{
       cursor: pointer;
+      h2{
+        white-space: normal;
+        overflow: visible;
+        text-overflow: unset;
+      }
       height: 80%;
       .company-entity-pin{
         visibility: visible;
       }
     }
     h2{
-      padding: 0px 8px;
-      margin-top: 4px;
-      font-family: Taurus;
-      color: $primary-text-color;
+      margin: 2px 8px;
+      font-family: B52;
+      color: $menu-title-text-color;
       font-size: 20px;
-      font-weight: 600;
+      font-weight: 300;
     }
     p{
-      margin-top: 16px;
+      margin: 16px 8px 0px 8px;
       color: $primary-text-color;
       font-family: Roboto-Condensed;
       visibility: hidden;
@@ -105,6 +117,7 @@
 
   .header-fixed{
     height: 80%;
+    h2{}
     p{
       visibility: visible;
     }
@@ -115,6 +128,12 @@
 
   .header-float{
     height: 14%;
+    h2{
+      display:block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 
 
