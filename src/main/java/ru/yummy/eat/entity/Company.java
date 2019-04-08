@@ -24,8 +24,8 @@ public class Company implements Serializable {
     @Column( name = "city_id" )
     private Integer cityId;
 
-    @Column( name = "thumb_url" )
-    private String thumbUrl;
+    @Column( name = "thumb" )
+    private String thumb;
 
     @Column( name = "url" )
     private String url;
@@ -122,12 +122,12 @@ public class Company implements Serializable {
         this.cityId = cityId;
     }
 
-    public String getThumbUrl() {
-        return thumbUrl;
+    public String getThumb() {
+        return thumb;
     }
 
-    public void setThumbUrl(String thumbUrl) {
-        this.thumbUrl = thumbUrl;
+    public void setThumb(String thumb) {
+        this.thumb = thumb;
     }
 
     public String getUrl() {

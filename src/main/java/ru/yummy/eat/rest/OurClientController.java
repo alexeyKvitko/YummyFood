@@ -7,6 +7,7 @@ import ru.yummy.eat.AppConstants;
 import ru.yummy.eat.exception.BusinessLogicException;
 import ru.yummy.eat.model.ApiResponse;
 import ru.yummy.eat.model.ClientOrderModel;
+import ru.yummy.eat.model.FavoriteCompanyModel;
 import ru.yummy.eat.model.OurClientModel;
 import ru.yummy.eat.service.impl.OurClientServiceImpl;
 
@@ -99,6 +100,22 @@ public class OurClientController {
     public ApiResponse deleteMenuType(@PathVariable String uuid)  {
         ApiResponse response = null;
         response = clientService.getClientByUUID( uuid );
+        return response;
+    }
+
+    @RequestMapping(value = "/addToFavorite", method = RequestMethod.POST)
+    public ApiResponse addCompanyToFavorite(@RequestBody FavoriteCompanyModel favoriteCompanyModel ) {
+        ApiResponse response = new ApiResponse();
+        response.setStatus(HttpStatus.OK.value());
+        response = clientService.addToFavorite( favoriteCompanyModel );
+        return response;
+    }
+
+    @RequestMapping(value = "/removeFromFavorite", method = RequestMethod.POST)
+    public ApiResponse removeCompanyFromFavorite(@RequestBody FavoriteCompanyModel favoriteCompanyModel ) {
+        ApiResponse response = new ApiResponse();
+        response.setStatus(HttpStatus.OK.value());
+        response = clientService.removeFromFavorite( favoriteCompanyModel );
         return response;
     }
 }

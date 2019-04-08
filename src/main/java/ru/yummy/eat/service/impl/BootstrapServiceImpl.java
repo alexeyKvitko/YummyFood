@@ -80,6 +80,7 @@ public class BootstrapServiceImpl {
         bootstrapModel.setDeliveryMenu( menuService.getAllMenus() );
         bootstrapModel.setCities( convertUtils.convertCitiesToModelList( cities ) );
         bootstrapModel.setDeliveryCity( city.getName() );
+        bootstrapModel.setStaticUrl( AppConstants.STATIC_URL );
         return bootstrapModel;
     }
 }

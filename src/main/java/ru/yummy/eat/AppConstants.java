@@ -56,6 +56,11 @@ public abstract class AppConstants {
     public static final String MORE_SIGN= ">";
     public static final String LESS_SIGN= "<";
 
+
+    public static final String STATIC_URL= "http://194.58.122.145:8080/static/images/";
+
+
+
     public static final String START_COMMENT= "<!--";
     public static final String END_COMMENT= "-->";
 
@@ -86,10 +91,12 @@ public abstract class AppConstants {
             put("&nbsp;"," ");
             put("руб.","");
             put("руб","");
+            put("/>","");
             put("</","");
             put(">","");
             put("<","");
             put("=","");
+            put("br","");
             put("&#1088;","");
             put("&#171;","«");
             put("&#187;","»");

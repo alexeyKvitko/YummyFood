@@ -8,3 +8,5 @@ taskkill /PID 13468 /F
 
 Набор иконок
 https://www.iconfinder.com/iconsets/super-mono-basic
+
+ng build --prod --output-path docs --base-href /yummy-eat.ru/

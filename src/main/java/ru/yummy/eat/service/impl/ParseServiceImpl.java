@@ -481,6 +481,7 @@ public class ParseServiceImpl implements ParseService {
                 return wsp;
             }
             wsp.setPrice(entityPrice);
+
             if (tagWeight != null) {
                 String weight = AppUtils.getFieldValue(section, tagWeight);
                 if (weight != null && tagWeight.indexOf(AppConstants.INLINE_TAG_VALUE) == -1) {
@@ -488,8 +489,12 @@ public class ParseServiceImpl implements ParseService {
                     weight = weight + " гр.";
                 }
                 LOG.info("** WEIGHT: " + weight);
-                wsp.setWeight(weight);
+                if ( weight != null ){
+                    weight = weight.length() < 20 ? weight : weight.substring(0,19);
+                }
+                wsp.setWeight( weight );
             }
+
             if (tagSize != null) {
                 String size = AppUtils.getFieldValue(section, tagSize);
                 if (size != null && tagSize.indexOf(AppConstants.INLINE_TAG_VALUE) == -1) {
@@ -497,7 +502,10 @@ public class ParseServiceImpl implements ParseService {
                     size = size + " см.";
                 }
                 LOG.info("** SIZE: " + size);
-                wsp.setSize(size);
+                if (size != null){
+                  size = size.length() < 20 ? size : size.substring(0,19);
+                }
+                wsp.setSize( size );
             }
         }
         return wsp;

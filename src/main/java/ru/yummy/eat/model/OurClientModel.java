@@ -4,6 +4,7 @@ import org.pojomatic.Pojomatic;
 import org.pojomatic.annotations.AutoProperty;
 
 import java.io.Serializable;
+import java.util.List;
 
 @AutoProperty
 public class OurClientModel implements Serializable {
@@ -17,7 +18,7 @@ public class OurClientModel implements Serializable {
     private String uuid;
     private String bonus;
     private String additionalMessage;
-
+    private List<FavoriteCompanyModel> favoriteCompanies;
 
     public Integer getId() {
         return id;
@@ -81,6 +82,14 @@ public class OurClientModel implements Serializable {
 
     public void setAdditionalMessage(String additionalMessage) {
         this.additionalMessage = additionalMessage;
+    }
+
+    public List<FavoriteCompanyModel> getFavoriteCompanies() {
+        return favoriteCompanies;
+    }
+
+    public void setFavoriteCompanies(List<FavoriteCompanyModel> favoriteCompanies) {
+        this.favoriteCompanies = favoriteCompanies;
     }
 
     @Override public boolean equals(Object o) {

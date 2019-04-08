@@ -15,7 +15,7 @@ public class CompanyModel implements Serializable {
     private String companyName;
     private String displayName;
     private City city;
-    private String thumbUrl;
+    private String thumb;
     private String url;
     private String email;
     private String phoneOne;
@@ -86,12 +86,12 @@ public class CompanyModel implements Serializable {
         this.city = city;
     }
 
-    public String getThumbUrl() {
-        return thumbUrl;
+    public String getThumb() {
+        return thumb;
     }
 
-    public void setThumbUrl(String thumbUrl) {
-        this.thumbUrl = thumbUrl;
+    public void setThumb(String thumb) {
+        this.thumb = thumb;
     }
 
     public String getUrl() {

@@ -11,6 +11,7 @@ export class BootstrapAppModel {
   cities: DictionaryModel[];
   fastMenu: FastMenuModel;
   deliveryCity: string;
+  staticUrl: string;
   isDefault: boolean;
 
   constructor() {

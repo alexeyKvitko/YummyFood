@@ -2,6 +2,7 @@ package ru.yummy.eat.model;
 
 import org.pojomatic.Pojomatic;
 import org.pojomatic.annotations.AutoProperty;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,6 +16,7 @@ public class BootstrapModel implements Serializable {
     private DeliveryMenu deliveryMenu;
     private FastMenu fastMenu;
     private String deliveryCity;
+    private String staticUrl;
     private boolean isDefault;
 
     public List<CompanyModel> getCompanies() {
@@ -71,6 +73,14 @@ public class BootstrapModel implements Serializable {
 
     public void setFastMenu(FastMenu fastMenu) {
         this.fastMenu = fastMenu;
+    }
+
+    public String getStaticUrl() {
+        return staticUrl;
+    }
+
+    public void setStaticUrl(String staticUrl) {
+        this.staticUrl = staticUrl;
     }
 
     @Override public boolean equals(Object o) {

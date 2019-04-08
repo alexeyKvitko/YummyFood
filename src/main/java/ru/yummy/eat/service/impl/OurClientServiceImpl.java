@@ -7,12 +7,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import ru.yummy.eat.AppConstants;
 import ru.yummy.eat.entity.ClientOrder;
+import ru.yummy.eat.entity.FavoriteCompany;
 import ru.yummy.eat.entity.OrderEntity;
 import ru.yummy.eat.entity.OurClient;
 import ru.yummy.eat.model.ApiResponse;
 import ru.yummy.eat.model.ClientOrderModel;
+import ru.yummy.eat.model.FavoriteCompanyModel;
 import ru.yummy.eat.model.OurClientModel;
 import ru.yummy.eat.repo.ClientOrderRepository;
+import ru.yummy.eat.repo.FavoriteCompanyRepository;
 import ru.yummy.eat.repo.OrderEntityRepository;
 import ru.yummy.eat.repo.OurClientRepository;
 import ru.yummy.eat.util.AppUtils;
@@ -36,6 +39,9 @@ public class OurClientServiceImpl {
 
     @Autowired
     OrderEntityRepository orderEntityRepo;
+
+    @Autowired
+    FavoriteCompanyRepository favoriteCompanyRepo;
 
     @Autowired
     MailServiceImpl mailService;
@@ -69,7 +75,7 @@ public class OurClientServiceImpl {
         if( checkResult == null ){
             try {
                 clientRepo.save( ourClient );
-                ourClientModel = convertUtils.convertOurClientToModel( ourClient );
+                ourClientModel = convertUtils.convertOurClientToModel( ourClient, null );
             } catch ( Exception e ){
                 LOG.error( "Exception got when register client: "+e.getMessage() );
                 ourClientModel.setId( AppConstants.FAKE_ID );
@@ -98,7 +104,8 @@ public class OurClientServiceImpl {
                 result = AppConstants.WRONG_PASSWORD;
             }
             if (result == null) {
-                ourClientModel = convertUtils.convertOurClientToModel( existClient );
+                ourClientModel = convertUtils.convertOurClientToModel( existClient,
+                        favoriteCompanyRepo.findAllByClientId( existClient.getId() ));
             } else {
                 ourClientModel.setId( AppConstants.FAKE_ID );
                 ourClientModel.setAdditionalMessage( result );
@@ -195,10 +202,42 @@ public class OurClientServiceImpl {
         ApiResponse response = new ApiResponse();
         response.setStatus( HttpStatus.OK.value() );
         try {
-            OurClientModel ourClientModel = convertUtils.convertOurClientToModel( clientRepo.findByUuid( uuid) );
+            OurClient ourClient = clientRepo.findByUuid( uuid );
+            OurClientModel ourClientModel = convertUtils.convertOurClientToModel( ourClient
+                                                        , favoriteCompanyRepo.findAllByClientId( ourClient.getId() ));
             response.setResult( ourClientModel );
         } catch ( Exception e ){
             LOG.error( "Exception got when register client: "+e.getMessage() );
+            response.setStatus( HttpStatus.INTERNAL_SERVER_ERROR.value() );
+            response.setMessage( e.getMessage() );
+        }
+        return response;
+    }
+
+    public ApiResponse addToFavorite( FavoriteCompanyModel favoriteCompanyModel ){
+        ApiResponse response = new ApiResponse();
+        response.setStatus( HttpStatus.OK.value() );
+        FavoriteCompany favoriteCompany = convertUtils.convertModelToFavoriteCompany( favoriteCompanyModel );
+        try {
+            favoriteCompanyRepo.save( favoriteCompany );
+            response.setMessage( favoriteCompany.getId().toString() );
+        } catch ( Exception e ){
+            LOG.error( "Exception got when add to favorite: "+e.getMessage() );
+            e.printStackTrace();
+            response.setStatus( HttpStatus.INTERNAL_SERVER_ERROR.value() );
+            response.setMessage( e.getMessage() );
+        }
+        return response;
+    }
+
+    public ApiResponse removeFromFavorite( FavoriteCompanyModel favoriteCompanyModel ){
+        ApiResponse response = new ApiResponse();
+        response.setStatus( HttpStatus.OK.value() );
+        try {
+            favoriteCompanyRepo.delete( convertUtils.convertModelToFavoriteCompany( favoriteCompanyModel ) );
+        } catch ( Exception e ){
+            LOG.error( "Exception got when delete from favorite: "+e.getMessage() );
+            e.printStackTrace();
             response.setStatus( HttpStatus.INTERNAL_SERVER_ERROR.value() );
             response.setMessage( e.getMessage() );
         }
