@@ -1,5 +1,7 @@
 package ru.yummy.eat;
 
+import ru.yummy.eat.util.AppUtils;
+
 import java.util.*;
 
 public abstract class AppConstants {

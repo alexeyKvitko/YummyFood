@@ -18,6 +18,11 @@ public interface MenuCategoryRepository extends CrudRepository<MenuCategory, Int
             "INNER JOIN MenuItem mi on mi.categoryId = mc.id and mi.companyId = :companyId and mi.typeId = :typeId order by mc.displayName")
     List<MenuCategory> findCategoriesByCompanyAndTypeIdOrderByDisplayName(@Param("companyId") Integer companyId,@Param("typeId") Integer typeId );
 
+    @Query("SELECT  mc from MenuCategory mc " +
+            "INNER JOIN MenuItem mi on mi.categoryId = mc.id GROUP BY mi.categoryId" +
+            " ORDER BY count(mi.categoryId) DESC")
+    List<MenuCategory> findAllOrderByCategoryCount();
+
     List<MenuCategory> findAllByOrderByDisplayName();
 
     @Query(value=GET_MENU_CATEGORY_IDS_SQL,nativeQuery = true)

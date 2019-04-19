@@ -61,7 +61,9 @@ public class AdminCompanyController {
         response.setStatus( HttpStatus.OK.value() );
         try {
             List<MenuEntityModel> menuEntityModels = companyService.getCompanyDishes( deliveryCity, categoryId );
-            response.setResult( menuEntityModels );
+            Dishes dishes = new Dishes();
+            dishes.setDishes( menuEntityModels );
+            response.setResult( dishes );
         } catch (BusinessLogicException e){
             response.setStatus( HttpStatus.INTERNAL_SERVER_ERROR.value() );
             response.setMessage( e.getMessage() );

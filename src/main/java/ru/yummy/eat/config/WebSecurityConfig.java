@@ -1,5 +1,7 @@
 package ru.yummy.eat.config;
 
+import freemarker.cache.ClassTemplateLoader;
+import freemarker.template.TemplateExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +15,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
 
 import javax.annotation.Resource;
 
@@ -60,5 +63,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public BCryptPasswordEncoder encoder(){
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean(name = "freemarkerConfig")
+    public freemarker.template.Configuration getFreeMarkerConfiguration() {
+        freemarker.template.Configuration configuration = new freemarker.template.Configuration( freemarker.template.Configuration.VERSION_2_3_23 );
+        ClassTemplateLoader loader = new ClassTemplateLoader(
+                getClass(), "/templates/");
+        configuration.setTemplateLoader(loader);
+        configuration.setDefaultEncoding("UTF-8");
+        configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+        return configuration;
     }
 }

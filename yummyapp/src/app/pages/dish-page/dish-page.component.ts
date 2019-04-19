@@ -57,7 +57,7 @@ export class DishPageComponent implements OnInit {
       console.log('Error: ' + error);
     });
     this._globalService.dataBusChanged('data-loaded',true);
-    this.loadEntities( 1);
+    this.loadEntities( 1 );
   }
 
   showCategoryItem( idx: number){
@@ -145,8 +145,8 @@ export class DishPageComponent implements OnInit {
     this.companyService.getCompanyDishes( this.deliveryCity, dishId ).subscribe(data => {
       this.showPepsi = false;
       if (data.status === 200) {
-        this.menuEntities = data.result;
-        this.fillTripleMenuEntity( data.result );
+        this.menuEntities = data.result.dishes;
+        this.fillTripleMenuEntity( this.menuEntities );
         this.selectedCompanies =  new Array<number>();
         this.companies.forEach( company =>{
           document.getElementById("company-checkbox-"+company.id).checked = false;
