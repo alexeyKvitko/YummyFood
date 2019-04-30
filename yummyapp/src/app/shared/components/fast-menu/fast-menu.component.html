@@ -1,4 +1,8 @@
 <div class="fast-menu" [ngClass]="{'with-bg':showBackground}" [style.top]="topPos">
+  <div class="fast-menu-item" [ngClass]="{'menu-sel':selected == 0}" (click)="selectMenu(0)">
+    <img src="assets/images/menu/all-company.png">
+    <div class="lbl">Заведения</div>
+  </div>
   <div class="fast-menu-item" [ngClass]="{'menu-sel':selected == 1}" (click)="selectMenu(1)">
     <img src="assets/images/menu/pizza.png">
     <div class="lbl">Пицца</div>

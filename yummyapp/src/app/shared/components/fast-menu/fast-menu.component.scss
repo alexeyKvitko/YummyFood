@@ -17,8 +17,8 @@
   border: 1px solid $card-bg;
   .fast-menu-item{
     margin: 0px 10px;
-    min-width: 140px;
-    width: 130px;
+    min-width: 120px;
+    width: 120px;
     height: 72px;
     text-align: center;
     background-color: rgba($white,0.8);
@@ -31,14 +31,14 @@
       margin-top: -40px;
       position: relative;
       text-align: center;
-      width:96px;
-      height: 96px;
+      width:92px;
+      height: 92px;
       @include transition(all .3s);
     }
     .lbl{
       margin-top: -10px;
       font-size: 18px;
-      font-family: Taurus;
+      font-family: B52;
       color: $bright-coral;
       @include transition(all .3s);
       text-transform: uppercase;
@@ -47,31 +47,31 @@
       background-color: rgba($white,0.9);
       cursor: pointer;
       height: 80px;
-      width: 140px;
+      width: 120px;
       img{
         margin-top: 16px;
-        width:128px;
-        height: 128px;
+        width:108px;
+        height: 108px;
         @include transition(all .3s);
       }
       .lbl{
         font-size: 22px;
-        margin-top: -130px;
+        margin-top: -120px;
       }
     }
   }
   .menu-sel{
     height: 80px;
-    width: 140px;
+    width: 120px;
     img{
       margin-top: 16px;
-      width:128px;
-      height: 128px;
+      width:108px;
+      height: 108px;
       @include transition(all .3s);
     }
     .lbl{
       font-size: 22px;
-      margin-top: -130px;
+      margin-top: -120px;
     }
   }
 
@@ -85,13 +85,13 @@
     left:0;
     top: 150px;
     width: 90px;
-    height: 400px;
+    height: 450px;
     //background-color: transparent;
     //border: 1px solid transparent;т
     .fast-menu-item{
       margin: 3px 0px;
       min-width:72px;
-      max-width: 90px;
+      max-width: 96px;
       height: 64px;
       width: 72px;
       text-align: center;
@@ -106,7 +106,7 @@
         visibility: hidden;
       }
       &:hover{
-        width: 90px;
+        width: 96px;
         height: 64px;
         background-color: rgba($white,0.6);
         img{

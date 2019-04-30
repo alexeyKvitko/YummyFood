@@ -63,7 +63,7 @@ export class FastMenuComponent implements OnInit {
     }
     this.selected = val;
     this.selectValue.emit( val );
-  }
+ }
 
   selectMenuByDish( dishId) {
     let fastMenu = this.companyService.getFastMenuModel();
@@ -103,6 +103,9 @@ export class FastMenuComponent implements OnInit {
           menuValue = 5;
         }
       });
+    }
+    if( menuValue == -1 ){
+      menuValue = 0;
     }
 
     this.selected = menuValue;

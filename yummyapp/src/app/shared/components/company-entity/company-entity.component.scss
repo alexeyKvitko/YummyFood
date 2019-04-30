@@ -185,8 +185,8 @@
     }
     .company-entity-button{
       margin: 0 auto;
-      margin-top: 18px;
-      margin-bottom: 8px;
+      margin-top: 10px;
+      margin-bottom: 16px;
       width: 50%;
       padding: 6px 0px;
       //display: flex;
@@ -213,8 +213,8 @@
       }
     }
     .entity-footer-price{
-      padding-top: 4px;
       display: flex;
+      margin-top: -4px;
       flex-direction: row;
       align-items: center;
       .wsp-small{

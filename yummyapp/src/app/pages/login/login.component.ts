@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {LoginService} from "../../services/login.service";
 
 @Component({
@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   invalidLogin: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private loginService: LoginService) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private loginService: LoginService) {}
 
   onSubmit() {
     if (this.loginForm.invalid) {

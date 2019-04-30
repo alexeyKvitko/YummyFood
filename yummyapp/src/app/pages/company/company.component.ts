@@ -226,6 +226,9 @@ export class CompanyComponent implements OnInit {
   setSelectedFastMenu( value){
     let fastMenu = this.companyService.getFastMenuModel();
     switch ( value ){
+      case 0:
+        this.selectedFastMenu = [];
+        break;
       case 1 :
         this.selectedFastMenu = fastMenu.pizzaIds;
         break;
@@ -248,7 +251,7 @@ export class CompanyComponent implements OnInit {
 
   selectFastMenu( value ){
     this.setSelectedFastMenu( value );
-      this.clearFilters(false);
+    this.clearFilters(false);
     this.selectedFastMenu.forEach(id => {
       this.selectDish(id);
       document.getElementById("dish-checkbox-" + id).checked = true;
