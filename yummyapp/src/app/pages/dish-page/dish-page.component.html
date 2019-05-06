@@ -19,7 +19,6 @@
           </div>
           <div class="right-part">
             <div class="decity-count">
-              <img src="assets/images/pepsi.gif" *ngIf="showPepsi">
               <span *ngIf="!showPepsi">{{dishCountStr}}</span>
             </div>
           </div>
@@ -75,7 +74,11 @@
             </div>
           </div>
           <div  class="dish-page-body-right">
-            <div class="company-row-content" *ngFor="let triple of tripleEntities">
+            <div style="text-align: center" *ngIf="showPepsi">
+              <img src="assets/images/loader.gif" >
+            </div>
+            <div *ngIf="!showPepsi">
+            <div class="company-row-content" *ngFor="let triple of tripleEntities" >
               <div class="square-box" *ngIf="triple.entityOne.priceOne != null">
                 <company-entity [menuEntity]="triple.entityOne" (selectCompany)="showCompanyDetail($event)">
                 </company-entity>
@@ -88,6 +91,7 @@
                 <company-entity [menuEntity]="triple.entityThree" (selectCompany)="showCompanyDetail($event)">
                 </company-entity>
               </div>
+            </div>
             </div>
           </div>
         </div>

@@ -26,8 +26,12 @@ import { Routes, RouterModule } from '@angular/router';
 const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: 'pages/login/fidele',
+    redirectTo: 'pages/login',
     pathMatch: 'full'
+  },
+  {
+    path: ':company',
+    redirectTo: 'pages/:company'
   },
   {
     path: '**',

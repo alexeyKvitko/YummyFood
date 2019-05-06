@@ -28,8 +28,13 @@ export class DialogComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log('this.type',this.type);
     if( this.type && this.type === "login" ){
       this.dialogClass = "login-dialog";
+    } else {
+      if( this.type && this.type === "email" ){
+        this.dialogClass = "email-dialog";
+      }
     }
   }
 

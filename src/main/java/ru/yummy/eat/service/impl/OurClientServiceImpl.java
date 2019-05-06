@@ -245,4 +245,13 @@ public class OurClientServiceImpl {
     }
 
 
+    public String sendEmailToUs( String message ){
+        String result = AppConstants.EMAIL_SEND_SUCCESS;
+        if ( !mailService.sendEmail( "Сообщение от пользователя", message ) ){
+            result = AppConstants.UNEXPECTED_ERROR;
+        }
+        return result;
+    }
+
+
 }

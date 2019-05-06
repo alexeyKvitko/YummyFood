@@ -1,3 +1,8 @@
+<div class="warning-test">Внимание:
+  <div class="blinking">СЕРВИС В РАЗРАБОТКЕ! </div>
+  <div class="blinking">ЗАКАЗЫ НЕ ОБРАБАТЫВАЮТСЯ! </div>
+  <div class="blinking-white" (click)="showEmailDialog()">отправить предложение, пожелание</div>
+</div>
 <div class="logo" [style.opacity]="logoOpacity">
   <div class="avatar-wrap">
     <div class="avatar">
@@ -7,8 +12,8 @@
 </div>
 <div class="first_header">
   <div class="col-md-4 container">
-    <a href="#" class="header-left"><i class="fa fa-phone icon"></i>+7978 255 7978</a>
-    <a href="#" class="header-left"><i class="far fa-envelope icon"></i>delivery@edanyma.ru</a>
+    <span class="header-left"><i class="fa fa-phone icon"></i>+7978 255 7978</span>
+    <span class="header-left" (click)="showEmailDialog()"><i class="far fa-envelope icon"></i>delivery@edanyma.ru</span>
   </div>
   <div class="col-md-4 container">
     <a class="header-left map" (click)="openCityModal()">
@@ -46,6 +51,7 @@
           <img [src]="basketEntityImage">
         </div>
       </div>
+
     </div>
   </div>
 </div>
@@ -75,3 +81,4 @@
   </div>
 </app-dialog>
 <login-dialog></login-dialog>
+<email-dialog></email-dialog>

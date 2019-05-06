@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Override
     public User save(UserModel user) {
-          String admin_ps = bcryptEncoder.encode("admin_pswd");
+          String admin_ps = bcryptEncoder.encode("a_pswd");
           String user_ps = bcryptEncoder.encode("1111");
 //        User newUser = new User();
 //        newUser.setUsername(user.getUsername());

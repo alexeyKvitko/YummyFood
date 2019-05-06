@@ -1,0 +1,22 @@
+<app-dialog [(visible)]="showEmailDialog" type="email">
+  <div class="login-form">
+    <h2>НАПИШИТЕ НАМ</h2>
+    <p>Крымская Служба Доставки Еды</p>
+    <form [formGroup]="emailForm" (ngSubmit)="onSubmit()">
+      <div class="input-control">
+        <label for="comment-id">Ваше сообщение:</label>
+        <textarea style="resize: none;" id="comment-id"  cols="57" rows="3" formControlName="message" >
+        </textarea>
+      </div>
+      <div class="enter-btn">
+        <button type="button" class="btn btn-success btn-with-icon" (click)="onSubmit()">
+          <i class="far fa-paper-plane"></i>&nbsp;&nbsp;ОТПРАВИТЬ
+        </button>
+        <div class="error-msg" *ngIf="sendError != null">
+          <span>{{sendError}}</span>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</app-dialog>

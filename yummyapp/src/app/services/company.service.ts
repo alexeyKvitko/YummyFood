@@ -18,18 +18,40 @@ export class CompanyService {
   private companyUrl = '/api/company';
   private apiUrl = '/api';
   private bootstrapApp: BootstrapAppModel = new BootstrapAppModel();
+  private isBootstrapLoading: boolean = false;
 
   constructor(private http: HttpClient,private _globalService: GlobalService) {
   }
 
   public initBootstrapApp( latitude, longitude ) {
-    this.http.get<BootstrapAppModel>(this.companyUrl+'/bootstrap/'+latitude+"/"+longitude).subscribe( data => {
+    if ( this.isBootstrapLoading ){
+      return;
+    }
+    this.isBootstrapLoading = true;
+      this.http.get<BootstrapAppModel>(this.companyUrl+'/bootstrap/'+latitude+"/"+longitude).subscribe( data => {
       this.bootstrapApp = data;
       this.bootstrapApp.companies.forEach( company =>{
         company.isPresentInBasket = false;
       });
       this._globalService.dataBusChanged('data-loaded', true);
       this._globalService.dataBusChanged('selected-link', null);
+      this.isBootstrapLoading = false;
+    });
+  }
+
+  public initBootstrapAppWithLink( latitude, longitude, link ) {
+    if ( this.isBootstrapLoading ){
+      return;
+    }
+    this.isBootstrapLoading = true;
+    this.http.get<BootstrapAppModel>(this.companyUrl+'/bootstrap/'+latitude+"/"+longitude).subscribe( data => {
+      this.bootstrapApp = data;
+      this.bootstrapApp.companies.forEach( company =>{
+        company.isPresentInBasket = false;
+      });
+      this._globalService.dataBusChanged('data-loaded', true);
+      this._globalService.dataBusChanged('selected-link', link);
+      this.isBootstrapLoading = false;
     });
   }
 

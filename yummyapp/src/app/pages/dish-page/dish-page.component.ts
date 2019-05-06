@@ -137,7 +137,8 @@ export class DishPageComponent implements OnInit {
 
   showCompanyDetail(companyId){
     window.localStorage.setItem('companyId',companyId);
-    this.router.navigate(['pages/company-detail']);
+    let companyName = this.companyService.getCompanyById( companyId ).companyName;
+    this.router.navigate(['pages/company-detail/'+companyName]);
   }
 
   loadEntities( dishId ){

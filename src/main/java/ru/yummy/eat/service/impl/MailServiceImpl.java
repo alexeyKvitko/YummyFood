@@ -29,7 +29,8 @@ public class MailServiceImpl {
     @Autowired
     private Configuration freemarkerConfig;
 
-    public void sendEmail(String result) {
+    public boolean sendEmail(String subject, String result) {
+        boolean success = true;
         try {
             Properties props = PropertiesLoaderUtils.loadAllProperties("mail.properties");
 
@@ -39,7 +40,7 @@ public class MailServiceImpl {
             MimeMessageHelper helper = new MimeMessageHelper( message, true, "UTF-8" );
             helper.setFrom( new InternetAddress( "alexey.kvitko.15@gmail.com", false ) );
             helper.setTo( new InternetAddress("alexey.kvitko.15@gmail.com") );
-            helper.setSubject("Обновление базы предприятий");
+            helper.setSubject( subject );
             StringBuilder bodyBuilder = new StringBuilder();
             bodyBuilder.append("<html><body><H1><b>"+ AppUtils.formatDate(AppConstants.UPDATE_DATE_FORMAT, new Date() ) +"</b></H1><br>" );
             bodyBuilder.append(result);
@@ -53,8 +54,13 @@ public class MailServiceImpl {
         } catch (Exception e) {
             LOG.error("Can't send email" + e.getMessage());
             e.printStackTrace();
+            success = false;
         }
+        return success;
     }
+
+
+
 
     public boolean sendConfirmCodeEmail(String mailTo, String code) {
         boolean result = true;

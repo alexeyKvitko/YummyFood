@@ -43,6 +43,9 @@ export class BasketComponent implements OnInit {
   initBasket(){
     this.customerBasket = new Array<BasketModel>();
     this.basketPrice = this.globalService.getBasketPrice();
+    if ( this.basketPrice == 0 ){
+      this.showFinishOrder = false;
+    }
     let simpleBasket = this.globalService.getBasket();
     let companies = this.companyService.getCompaniesModel();
     simpleBasket.forEach( menuEntity => {
@@ -85,7 +88,8 @@ export class BasketComponent implements OnInit {
 
   showCompanyDetail(companyId){
     window.localStorage.setItem('companyId',companyId);
-    this.router.navigate(['pages/company-detail']);
+    let companyName = this.companyService.getCompanyById( companyId ).companyName;
+    this.router.navigate(['pages/company-detail/'+companyName]);
   }
 
   finishOrder(){

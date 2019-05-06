@@ -22,6 +22,7 @@ import {FastMenuComponent} from "./components/fast-menu/fast-menu.component";
 import {PhoneInputComponent} from "./components/phone-input/phone-input.component";
 import {LoginDialogComponent} from "./components/login-dialog/login-dialog.component";
 import {FinishOrderComponent} from "./components/finish-order/finish-order.component";
+import {EmailDialogComponent} from "./components/email-dialog/email-dialog.component";
 
 @NgModule({
   imports: [
@@ -48,6 +49,7 @@ import {FinishOrderComponent} from "./components/finish-order/finish-order.compo
     ProfileComponent,
     DialogComponent,
     LoginDialogComponent,
+    EmailDialogComponent,
     FinishOrderComponent
   ],
   exports: [
@@ -69,6 +71,7 @@ import {FinishOrderComponent} from "./components/finish-order/finish-order.compo
     ProfileComponent,
     DialogComponent,
     LoginDialogComponent,
+    EmailDialogComponent,
     FinishOrderComponent
   ]
 })

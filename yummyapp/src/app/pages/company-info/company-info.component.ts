@@ -522,7 +522,8 @@ export class CompanyInfoComponent implements OnInit {
   }
 
   backToDetails(){
-    this.router.navigate(['pages/company-detail']);
+    let companyName = this.companyService.getCompanyById( this.companyId ).companyName;
+    this.router.navigate(['pages/company-detail/'+companyName]);
   }
 
   isParseTabShow(){

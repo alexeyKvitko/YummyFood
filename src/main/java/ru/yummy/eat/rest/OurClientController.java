@@ -24,11 +24,11 @@ public class OurClientController {
         ApiResponse response = new ApiResponse();
         response.setStatus(HttpStatus.OK.value());
         String result = clientService.registerClient(ourClientModel);
-        if ( !result.matches(AppConstants.UUID_PATTERN) ) {
+        if (!result.matches(AppConstants.UUID_PATTERN)) {
             response.setStatus(HttpStatus.CREATED.value());
             response.setMessage(result);
         } else {
-            response.setResult( result );
+            response.setResult(result);
         }
         return response;
     }
@@ -37,12 +37,12 @@ public class OurClientController {
     public ApiResponse registerMobileClient(@RequestBody OurClientModel ourClientModel) {
         ApiResponse response = new ApiResponse();
         response.setStatus(HttpStatus.OK.value());
-        OurClientModel newClient = clientService.registerMobileClient( ourClientModel );
-        if ( AppConstants.FAKE_ID.equals( newClient.getId() ) ) {
+        OurClientModel newClient = clientService.registerMobileClient(ourClientModel);
+        if (AppConstants.FAKE_ID.equals(newClient.getId())) {
             response.setStatus(HttpStatus.CREATED.value());
-            response.setMessage( newClient.getAdditionalMessage() );
+            response.setMessage(newClient.getAdditionalMessage());
         } else {
-            response.setResult( newClient );
+            response.setResult(newClient);
         }
         return response;
     }
@@ -52,11 +52,11 @@ public class OurClientController {
         ApiResponse response = new ApiResponse();
         response.setStatus(HttpStatus.OK.value());
         String result = clientService.validateAndSendEmailConfirmCode(ourClientModel);
-        if ( !result.matches(AppConstants.CONFIRM_CODE_PATTERN) ) {
+        if (!result.matches(AppConstants.CONFIRM_CODE_PATTERN)) {
             response.setStatus(HttpStatus.CREATED.value());
             response.setMessage(result);
         } else {
-            response.setResult( result );
+            response.setResult(result);
         }
         return response;
     }
@@ -66,11 +66,11 @@ public class OurClientController {
         ApiResponse response = new ApiResponse();
         response.setStatus(HttpStatus.OK.value());
         String result = clientService.authorizationClient(ourClientModel);
-        if ( !result.matches(AppConstants.UUID_PATTERN) ) {
+        if (!result.matches(AppConstants.UUID_PATTERN)) {
             response.setStatus(HttpStatus.CREATED.value());
             response.setMessage(result);
         } else {
-            response.setResult( result );
+            response.setResult(result);
         }
         return response;
     }
@@ -79,12 +79,12 @@ public class OurClientController {
     public ApiResponse authorizationMobileClient(@RequestBody OurClientModel ourClientModel) {
         ApiResponse response = new ApiResponse();
         response.setStatus(HttpStatus.OK.value());
-        OurClientModel existClient = clientService.authorizationMobileClient( ourClientModel );
-        if ( AppConstants.FAKE_ID.equals( existClient.getId() ) ) {
+        OurClientModel existClient = clientService.authorizationMobileClient(ourClientModel);
+        if (AppConstants.FAKE_ID.equals(existClient.getId())) {
             response.setStatus(HttpStatus.CREATED.value());
-            response.setMessage( existClient.getAdditionalMessage() );
+            response.setMessage(existClient.getAdditionalMessage());
         } else {
-            response.setResult( existClient );
+            response.setResult(existClient);
         }
         return response;
     }
@@ -97,25 +97,37 @@ public class OurClientController {
     }
 
     @GetMapping("/getClientInfo/{uuid}")
-    public ApiResponse deleteMenuType(@PathVariable String uuid)  {
+    public ApiResponse deleteMenuType(@PathVariable String uuid) {
         ApiResponse response = null;
-        response = clientService.getClientByUUID( uuid );
+        response = clientService.getClientByUUID(uuid);
         return response;
     }
 
     @RequestMapping(value = "/addToFavorite", method = RequestMethod.POST)
-    public ApiResponse addCompanyToFavorite(@RequestBody FavoriteCompanyModel favoriteCompanyModel ) {
+    public ApiResponse addCompanyToFavorite(@RequestBody FavoriteCompanyModel favoriteCompanyModel) {
         ApiResponse response = new ApiResponse();
         response.setStatus(HttpStatus.OK.value());
-        response = clientService.addToFavorite( favoriteCompanyModel );
+        response = clientService.addToFavorite(favoriteCompanyModel);
         return response;
     }
 
     @RequestMapping(value = "/removeFromFavorite", method = RequestMethod.POST)
-    public ApiResponse removeCompanyFromFavorite(@RequestBody FavoriteCompanyModel favoriteCompanyModel ) {
+    public ApiResponse removeCompanyFromFavorite(@RequestBody FavoriteCompanyModel favoriteCompanyModel) {
         ApiResponse response = new ApiResponse();
         response.setStatus(HttpStatus.OK.value());
-        response = clientService.removeFromFavorite( favoriteCompanyModel );
+        response = clientService.removeFromFavorite(favoriteCompanyModel);
+        return response;
+    }
+
+    @GetMapping("/sendEmailToUs/{message}")
+    public ApiResponse sendEmailToUs(@PathVariable String message) {
+        ApiResponse response = new ApiResponse();
+        response.setStatus(HttpStatus.OK.value());
+        String result = clientService.sendEmailToUs(message);
+        if (AppConstants.UNEXPECTED_ERROR.equals(result)) {
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        }
+        response.setMessage(result);
         return response;
     }
 }

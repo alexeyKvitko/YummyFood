@@ -643,7 +643,7 @@ public class ParseServiceImpl implements ParseService {
                 sb.append("</ul>");
             }
         }
-        mailService.sendEmail( sb.toString() );
+        mailService.sendEmail( "Обновление базы предприятий", sb.toString() );
     }
 
     private class TestParsing implements Callable<String> {

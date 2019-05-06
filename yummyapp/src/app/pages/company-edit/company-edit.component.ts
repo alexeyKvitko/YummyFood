@@ -564,7 +564,8 @@ export class CompanyEditComponent implements OnInit {
     if ( this.companyId == '-1'){
       this.router.navigate(['pages/company']);
     } else {
-      this.router.navigate(['pages/company-detail']);
+      let companyName = this.companyService.getCompanyById( this.companyId ).companyName;
+      this.router.navigate(['pages/company-detail/'+companyName]);
     }
 
   }

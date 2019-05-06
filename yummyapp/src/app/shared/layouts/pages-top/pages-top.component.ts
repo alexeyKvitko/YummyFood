@@ -130,9 +130,17 @@ export class PagesTopComponent implements OnInit{
     this.companyService.removeCompaniesFromBasket();
     this._globalService.dataBusChanged("add-to-basket","update");
     swal('Город доставки: '+city.displayName);
-    this.companyService.initBootstrapApp( city.latitude, city.longitude );
-    this.selectedLink = null;
-    this.routeToLink( this.topMenus[0].link );
+    this.selectedLink = 'pages/home-page';
+    this.companyService.initBootstrapAppWithLink( city.latitude, city.longitude, this.selectedLink );
+    this._globalService.data$.subscribe(data => {
+      if (data.ev === 'data-loaded') {
+        if (data.value) {
+          console.log("CITY CHANGEDING");
+          this.router.navigate(['pages/home-page']);
+        }
+      }
+    });
+
   }
 
   registration(){
@@ -142,6 +150,10 @@ export class PagesTopComponent implements OnInit{
 
   showLoginDialog(){
     this._globalService.dataBusChanged('show-login-dialog', true);
+  }
+
+  showEmailDialog(){
+    this._globalService.dataBusChanged('show-email-dialog', true);
   }
 
   openCityModal(){

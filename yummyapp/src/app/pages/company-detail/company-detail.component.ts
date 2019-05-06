@@ -40,10 +40,10 @@ export class CompanyDetailComponent implements OnInit {
   deliveryCity: string;
 
   constructor(private router: Router, private companyService: CompanyService, private _globalService: GlobalService, private ar :ActivatedRoute) {
+    this.companyId = window.localStorage.getItem('companyId');
     if ( this.companyId != null ){
       this.companyDetail = this.companyService.getCompanyById( this.companyId );
     }
-    this.deliveryCity = this.companyService.getDeliveryCity();
     this._globalService.dataBusChanged('pageLoading', true);
     this.selMenuType.id = '-1';
     this.selMenuCategory.id = '-1';
@@ -63,9 +63,10 @@ export class CompanyDetailComponent implements OnInit {
         this.companyInfo = data;
         this.menuTypes = data.menuTypes;
         this.menuEntities = data.menuEntities;
+        this.deliveryCity = this.companyService.getDeliveryCity();
         let basket = this._globalService.getBasket();
         this.menuEntities.forEach( entity =>{
-          entity.count = 0
+          entity.count = 0;
           basket.forEach( basketEntity =>{
             if ( this.companyId == basketEntity.companyId &&
                    basketEntity.id == entity.id ){
