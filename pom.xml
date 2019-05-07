@@ -90,6 +90,12 @@
             <version>2.3.28</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.twilio.sdk</groupId>
+            <artifactId>twilio</artifactId>
+            <version>7.27.0</version>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>yummyeat</finalName>

@@ -10,6 +10,7 @@ import ru.yummy.eat.model.ClientOrderModel;
 import ru.yummy.eat.model.FavoriteCompanyModel;
 import ru.yummy.eat.model.OurClientModel;
 import ru.yummy.eat.service.impl.OurClientServiceImpl;
+import ru.yummy.eat.service.impl.SmsServiceImpl;
 
 @CrossOrigin
 @RestController
@@ -18,6 +19,9 @@ public class OurClientController {
 
     @Autowired
     OurClientServiceImpl clientService;
+
+    @Autowired
+    SmsServiceImpl smsService;
 
     @RequestMapping(value = "/registerClient", method = RequestMethod.POST)
     public ApiResponse registerClient(@RequestBody OurClientModel ourClientModel) {
@@ -46,6 +50,7 @@ public class OurClientController {
         }
         return response;
     }
+
 
     @RequestMapping(value = "/validateAndSendEmail", method = RequestMethod.POST)
     public ApiResponse validateAndSendEmail(@RequestBody OurClientModel ourClientModel) {
@@ -130,4 +135,18 @@ public class OurClientController {
         response.setMessage(result);
         return response;
     }
+
+    @GetMapping("/sendSmsCode/{phone}")
+    public ApiResponse sendSmsCodeToClient(@PathVariable String phone) {
+        ApiResponse response = new ApiResponse();
+        response.setStatus(HttpStatus.OK.value());
+        String result = smsService.send( phone );
+        if ( result == null ) {
+            result = AppConstants.CODE_NOT_SEND;
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        }
+        response.setMessage(result);
+        return response;
+    }
+
 }

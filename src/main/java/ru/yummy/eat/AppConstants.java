@@ -30,7 +30,7 @@ public abstract class AppConstants {
     public static final String EMAIL_NOT_FOUND = "Пользователь с указанным E-MAIL не найден";
     public static final String PHONE_NOT_FOUND = "Пользователь с указанным телефонным номером не найден";
     public static final String WRONG_PASSWORD = "Введен неверный пароль";
-    public static final String WRONG_EMAIL = "Код подтверждения не отправлен, попробуйте позже ...";
+    public static final String CODE_NOT_SEND = "Код подтверждения не отправлен, попробуйте позже ...";
     public static final String USER_EXIST = "Пользователь %s зарегистрирован";
     public static final String USER_NOT_EXIST = "Пользователь %s не зарегистрирован";
 
@@ -55,6 +55,8 @@ public abstract class AppConstants {
 
     public static final String SPACE_SPLIT = "&nbsp;";
     public static final String CURVE_SPLIT = "~";
+
+    public static final String PHONE_PREFIX = "+7";
 
     public static final String MORE_SYMBOL = "&gt;";
 

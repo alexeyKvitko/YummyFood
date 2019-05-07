@@ -62,8 +62,8 @@ public class MailServiceImpl {
 
 
 
-    public boolean sendConfirmCodeEmail(String mailTo, String code) {
-        boolean result = true;
+    public String sendConfirmCodeEmail( String mailTo ) {
+        String code = AppUtils.getRandomBetweenRange( 4000,9999 )+"";
         try {
             Properties props = PropertiesLoaderUtils.loadAllProperties("mail.properties");
             Session mailSession = Session.getDefaultInstance(props);
@@ -87,9 +87,9 @@ public class MailServiceImpl {
         } catch (Exception e) {
             LOG.error("Can't send email" + e.getMessage());
             e.printStackTrace();
-            result = false;
+            code = null;
         }
-        return result;
+        return code;
     }
 
 

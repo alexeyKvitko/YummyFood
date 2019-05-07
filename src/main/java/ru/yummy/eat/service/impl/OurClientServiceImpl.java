@@ -18,7 +18,6 @@ import ru.yummy.eat.repo.ClientOrderRepository;
 import ru.yummy.eat.repo.FavoriteCompanyRepository;
 import ru.yummy.eat.repo.OrderEntityRepository;
 import ru.yummy.eat.repo.OurClientRepository;
-import ru.yummy.eat.util.AppUtils;
 import ru.yummy.eat.util.ConvertUtils;
 
 import java.util.List;
@@ -45,6 +44,9 @@ public class OurClientServiceImpl {
 
     @Autowired
     MailServiceImpl mailService;
+
+    @Autowired
+    SmsServiceImpl smsService;
 
 
     public String registerClient( OurClientModel ourClientModel ) {
@@ -140,14 +142,15 @@ public class OurClientServiceImpl {
                 result = null;
             }
         }
-        if( result == null && ourClientModel.getEmail() != null ){
-            result = AppUtils.getRandomBetweenRange( 4000,9999 )+"";
-            if( !mailService.sendConfirmCodeEmail( ourClientModel.getEmail(), result ) ){
-                result = AppConstants.WRONG_EMAIL;
+        if ( result == null ){
+            if( ourClientModel.getEmail() != null ){
+                result = mailService.sendConfirmCodeEmail( ourClientModel.getEmail() );
+            } else if(  ourClientModel.getPhone() != null ){
+                result = smsService.send( ourClientModel.getPhone() );
             }
-        }
-        if( result == null && ourClientModel.getPhone() != null ){
-            result = AppConstants.SEND_PHONE_CODE;
+            if( result == null ){
+                result = AppConstants.CODE_NOT_SEND;
+            }
         }
         return result;
     }
