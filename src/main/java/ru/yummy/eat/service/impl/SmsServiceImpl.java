@@ -43,7 +43,7 @@ public class SmsServiceImpl {
         String code = AppUtils.getRandomBetweenRange( 4000,9999 )+"";
         try {
             Message message = Message.creator(username, new PhoneNumber( AppConstants.PHONE_PREFIX + to ),
-                                                                     new PhoneNumber(from), code).create();
+                                                                     new PhoneNumber(from), "ЕдаНяма.рф, код подтверждения: "+code).create();
             LOG.info("New message sent: {}, to: {}",   message.getSid(), to);
         } catch (Exception e) {
             code = null;
