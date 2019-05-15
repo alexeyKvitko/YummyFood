@@ -33,8 +33,9 @@ public abstract class AppConstants {
     public static final String CODE_NOT_SEND = "Код подтверждения не отправлен, попробуйте позже ...";
     public static final String USER_EXIST = "Пользователь %s зарегистрирован";
     public static final String USER_NOT_EXIST = "Пользователь %s не зарегистрирован";
+    public static final String USER_UPDATED = "Данные Пользователя Обновлены";
 
-    public static final String UNEXPECTED_ERROR = "Непредвиденная ошибка";
+    public static final String UNEXPECTED_ERROR = "Непредвиденная ошибка. Попробуйте еще раз !";
     public static final String EMAIL_SEND_SUCCESS = "Ваше сообщение отправлено";
 
     public static final String DEFAULT_LOGO = "default.png";

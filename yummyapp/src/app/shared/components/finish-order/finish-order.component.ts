@@ -87,7 +87,8 @@ export class FinishOrderComponent implements OnInit {
       this.nickNameError = "Обращение - обязательное поле!";
       accepted = false;
     }
-    if( accepted && this.clientOrder.email.length > 0 && !this.emailIsValid( this.ourClient.email.toLowerCase() ) ){
+    if( accepted && this.clientOrder.email != null &&
+      this.clientOrder.email.length > 0 && !this.emailIsValid( this.ourClient.email.toLowerCase() ) ){
       this.emailError = "Hекорректный электронный адрес!";
       accepted = false;
     }

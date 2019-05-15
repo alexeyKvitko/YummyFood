@@ -70,10 +70,10 @@ public class OurClientController {
     public ApiResponse authorizationClient(@RequestBody OurClientModel ourClientModel) {
         ApiResponse response = new ApiResponse();
         response.setStatus(HttpStatus.OK.value());
-        String result = clientService.authorizationClient(ourClientModel);
-        if (!result.matches(AppConstants.UUID_PATTERN)) {
+        OurClientModel result = clientService.authorizationClient(ourClientModel);
+        if ( result.getAdditionalMessage() != null ) {
             response.setStatus(HttpStatus.CREATED.value());
-            response.setMessage(result);
+            response.setMessage( result.getAdditionalMessage() );
         } else {
             response.setResult(result);
         }
@@ -85,13 +85,19 @@ public class OurClientController {
         ApiResponse response = new ApiResponse();
         response.setStatus(HttpStatus.OK.value());
         OurClientModel existClient = clientService.authorizationMobileClient(ourClientModel);
-        if (AppConstants.FAKE_ID.equals(existClient.getId())) {
+        if ( existClient.getAdditionalMessage() != null ) {
             response.setStatus(HttpStatus.CREATED.value());
             response.setMessage(existClient.getAdditionalMessage());
+            response.setResult( null );
         } else {
-            response.setResult(existClient);
+            response.setResult( existClient );
         }
         return response;
+    }
+
+    @RequestMapping(value = "/updateClientInfo", method = RequestMethod.POST)
+    public ApiResponse updateClientInfo(@RequestBody OurClientModel ourClientModel) {
+        return clientService.updateClientInfo( ourClientModel );
     }
 
     @RequestMapping(value = "/createClientOrder", method = RequestMethod.POST)
