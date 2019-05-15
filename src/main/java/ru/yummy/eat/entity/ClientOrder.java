@@ -14,6 +14,18 @@ public class ClientOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "order_date")
+    private String orderDate;
+
+    @Column(name = "order_time")
+    private String orderTime;
+
+    @Column(name = "order_price")
+    private Integer orderPrice;
+
+    @Column(name = "order_status")
+    private String orderStatus;
+
     @Column(name = "nick_name")
     private String nickName;
 
@@ -60,6 +72,38 @@ public class ClientOrder {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public String getOrderTime() {
+        return orderTime;
+    }
+
+    public void setOrderTime(String orderTime) {
+        this.orderTime = orderTime;
+    }
+
+    public Integer getOrderPrice() {
+        return orderPrice;
+    }
+
+    public void setOrderPrice(Integer orderPrice) {
+        this.orderPrice = orderPrice;
+    }
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public String getNickName() {

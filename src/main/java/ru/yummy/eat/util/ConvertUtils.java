@@ -327,6 +327,10 @@ public class ConvertUtils {
     public ClientOrder convertModelToClientOrder(ClientOrderModel clientOrderModel) {
         ClientOrder clientOrder = new ClientOrder();
         clientOrder.setId(AppConstants.FAKE_ID.equals(clientOrderModel.getId()) ? null : clientOrderModel.getId());
+        clientOrder.setOrderDate( clientOrderModel.getOrderDate() );
+        clientOrder.setOrderTime(clientOrderModel.getOrderTime() );
+        clientOrder.setOrderPrice(clientOrderModel.getOrderPrice() );
+        clientOrder.setOrderStatus(clientOrderModel.getOrderStatus() );
         clientOrder.setNickName(clientOrderModel.getNickName());
         clientOrder.setEmail(clientOrderModel.getEmail());
         clientOrder.setPhone(clientOrderModel.getPhone());
