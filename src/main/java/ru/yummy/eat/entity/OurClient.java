@@ -18,6 +18,11 @@ public class OurClient {
     @Column(name="email")
     private String email;
 
+    @Column(name="nick_name")
+    private String nickName;
+
+    @Column(name="primary_address")
+    private String primaryAddress;
 
     @Column(name="phone")
     private String phone;
@@ -31,12 +36,31 @@ public class OurClient {
     @Column(name="bonus")
     private String bonus;
 
+    @Column(name="photo")
+    private String photo;
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getPrimaryAddress() {
+        return primaryAddress;
+    }
+
+    public void setPrimaryAddress(String primaryAddress) {
+        this.primaryAddress = primaryAddress;
     }
 
     public String getEmail() {
@@ -73,6 +97,14 @@ public class OurClient {
 
     public String getBonus() {
         return bonus;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public void setBonus(String bonus) {

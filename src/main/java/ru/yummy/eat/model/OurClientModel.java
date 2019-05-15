@@ -11,12 +11,15 @@ public class OurClientModel implements Serializable {
 
 
     private Integer id;
+    private String nickName;
+    private String primaryAddress;
     private String email;
     private String phone;
     private String password;
     private String confirm;
     private String uuid;
     private String bonus;
+    private String photo;
     private String additionalMessage;
     private List<FavoriteCompanyModel> favoriteCompanies;
 
@@ -90,6 +93,30 @@ public class OurClientModel implements Serializable {
 
     public void setFavoriteCompanies(List<FavoriteCompanyModel> favoriteCompanies) {
         this.favoriteCompanies = favoriteCompanies;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getPrimaryAddress() {
+        return primaryAddress;
+    }
+
+    public void setPrimaryAddress(String primaryAddress) {
+        this.primaryAddress = primaryAddress;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     @Override public boolean equals(Object o) {

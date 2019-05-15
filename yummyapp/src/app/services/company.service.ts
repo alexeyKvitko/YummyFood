@@ -9,6 +9,7 @@ import {CompanyEditModel} from "../model/company-edit.model";
 import {BootstrapAppModel} from "../model/bootstrap-app.model";
 import {GlobalService} from "../shared/services/global.service";
 import {FastMenuModel} from "../model/fast-menu.model";
+import {OurClientModel} from "../model/our-client";
 
 @Injectable({
   providedIn: 'root'
@@ -58,6 +59,8 @@ export class CompanyService {
   public loadBootstrapApp() {
     return this.http.get<CompanyModel[]>(this.companyUrl+'/short');
   }
+
+
 
   public getCompaniesModel() {
     return this.bootstrapApp.companies;
@@ -165,6 +168,10 @@ export class CompanyService {
 
   public copyParseModel( copyParseData ) {
     return this.http.post<ApiResponse>(this.apiUrl+'/copyParseData', copyParseData);
+  }
+
+  public testPayment( ) {
+    return this.http.post('https://payeer.com/merchant/?m_shop=792221744&m_orderid=12345&m_amount=10.00&m_curr=RUB&m_desc=VGVzdCBwYXltZW50IOKEljEyMzQ1&m_sign=ADBB6375CC944F458CB7CCD2E2807187C67FAFA9818E02BA6C3A69B818A78CD4&lang=ru',null);
   }
 
 }

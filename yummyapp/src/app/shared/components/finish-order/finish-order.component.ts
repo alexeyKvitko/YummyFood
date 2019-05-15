@@ -33,8 +33,6 @@ export class FinishOrderComponent implements OnInit {
 
   @Output()
   orderClosed: EventEmitter<ClientOrderModel> = new EventEmitter<ClientOrderModel>();
-  @Output()
-  scrollOrder: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(private formBuilder: FormBuilder, private clientService: ClientService) { }
 
@@ -89,7 +87,8 @@ export class FinishOrderComponent implements OnInit {
       this.nickNameError = "Обращение - обязательное поле!";
       accepted = false;
     }
-    if( accepted && this.clientOrder.email.length > 0 && !this.emailIsValid( this.clientOrder.email.toLowerCase() ) ){
+    if( accepted && this.clientOrder.email != null &&
+      this.clientOrder.email.length > 0 && !this.emailIsValid( this.ourClient.email.toLowerCase() ) ){
       this.emailError = "Hекорректный электронный адрес!";
       accepted = false;
     }
@@ -126,7 +125,6 @@ export class FinishOrderComponent implements OnInit {
       },3000);
       return;
     }
-    this.scrollOrder.emit(1);
     this.clientService.createOrder( this.clientOrder ).subscribe(data => {
       if (data.status == 200) {
         let homeLink = 'pages/home-page';

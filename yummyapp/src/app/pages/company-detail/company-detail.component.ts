@@ -1,4 +1,4 @@
-import {Component, NgModule, OnInit, ViewChild} from '@angular/core';
+import {Component, Inject, NgModule, OnInit, ViewChild} from '@angular/core';
 import {CompanyInfoModel} from "../../model/company-info.model";
 import {MenuCategoryModel} from "../../model/menu-category.model";
 import {MenuTypeModel} from "../../model/menu-type.model";
@@ -9,8 +9,7 @@ import {GlobalService} from "../../shared/services/global.service";
 import {TripleEntityModel} from "../../model/triple-entity.model";
 import {TrackScrollDirective} from "../../directives/track-scroll";
 import {CompanyModel} from "../../model/company.model";
-import {document} from "ngx-bootstrap";
-import {LoginService} from "../../services/login.service";
+import {  } from '@angular/common';
 
 @Component({
   selector: 'app-company-detail',
@@ -39,7 +38,7 @@ export class CompanyDetailComponent implements OnInit {
 
   deliveryCity: string;
 
-  constructor(private router: Router, private companyService: CompanyService, private _globalService: GlobalService, private ar :ActivatedRoute) {
+  constructor(private router: Router, private companyService: CompanyService, private _globalService: GlobalService) {
     this.companyId = window.localStorage.getItem('companyId');
     if ( this.companyId != null ){
       this.companyDetail = this.companyService.getCompanyById( this.companyId );
@@ -142,6 +141,7 @@ export class CompanyDetailComponent implements OnInit {
       this.toUpIconOpacity = 0;
     }
   }
+
 
   moveToTop(){
     document.getElementById("top").scrollIntoView({behavior: "smooth", block: "start"});

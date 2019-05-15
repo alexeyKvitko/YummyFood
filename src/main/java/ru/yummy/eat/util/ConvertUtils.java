@@ -281,6 +281,9 @@ public class ConvertUtils {
         if (AppConstants.FAKE_ID.equals(ourClientModel.getId())) {
             ourClient.setId(null);
         }
+        ourClient.setNickName( ourClientModel.getNickName() );
+        ourClient.setPrimaryAddress( ourClientModel.getPrimaryAddress() );
+        ourClient.setPhoto( ourClientModel.getPhoto() );
         ourClient.setEmail(ourClientModel.getEmail() != null ? ourClientModel.getEmail().toLowerCase().trim() : null);
         ourClient.setPhone(ourClientModel.getPhone() != null ? ourClientModel.getPhone().trim() : null);
         ourClient.setPassword(bcryptEncoder.encode(ourClientModel.getPassword()));
@@ -291,6 +294,9 @@ public class ConvertUtils {
 
     public OurClientModel convertOurClientToModel(OurClient ourClient, List<FavoriteCompany> favoriteCompanies) {
         OurClientModel ourClientModel = new OurClientModel();
+        ourClientModel.setNickName( ourClient.getNickName() );
+        ourClientModel.setPrimaryAddress( ourClient.getPrimaryAddress() );
+        ourClientModel.setPhoto( ourClient.getPhoto() );
         ourClientModel.setId(ourClient.getId());
         ourClientModel.setEmail(ourClient.getEmail());
         ourClientModel.setPhone(ourClient.getPhone());

@@ -7,6 +7,10 @@ import {BasketModel} from "../../model/basket.model";
 import {Router} from "@angular/router";
 import {ClientService} from "../../services/client.service";
 import {OurClientModel} from "../../model/our-client";
+import {formatDate} from '@angular/common';
+import { sha256 } from 'js-sha256';
+import {ClientOrderModel} from "../../model/client-order.model";
+
 
 @Component({
   selector: 'app-basket',
@@ -15,14 +19,21 @@ import {OurClientModel} from "../../model/our-client";
 })
 export class BasketComponent implements OnInit {
 
+  payWalletUrl: string = 'https://payeer.com/merchant/?m_shop=792221744&m_curr=RUB&lang=ru';
+  shop: string ='792221744';
+  secretKey: string = '123';
+  mOrderIdParam: string ='&m_orderid=';
+  mAmountParam: string ='&m_amount=';
+  mDescParam: string ='&m_desc=';
+  mSignParam: string ='&m_sign=';
   basketPrice : number = 0;
   customerBasket: BasketModel[] = new Array<BasketModel>();
+  clientOrder: ClientOrderModel;
   toUpIconOpacity: number = 0;
   enableOrder: boolean;
   showFinishOrder: boolean = false;
   ourClient: OurClientModel = new OurClientModel();
   orderOpen: boolean = true;
-  orderNum: number;
 
   constructor(private  globalService : GlobalService, private  clientService : ClientService,
               private companyService: CompanyService,
@@ -120,10 +131,9 @@ export class BasketComponent implements OnInit {
   }
 
   closeOrder( clientOrder ){
-    document.getElementById("finish-order-id").scrollIntoView({behavior: "smooth", block: "start"});
+    document.getElementById("top").scrollIntoView({behavior: "smooth", block: "start"});
     this.orderOpen = false;
-    this.orderNum = clientOrder.id;
-    document.getElementById("issued-order").scrollIntoView({behavior: "smooth", block: "start"});
+    this.clientOrder = clientOrder;
   }
 
   moveToTop(){
@@ -134,6 +144,22 @@ export class BasketComponent implements OnInit {
     let link = 'pages/home';
     this.globalService.dataBusChanged("selected-link",link);
     this.router.navigate([link]);
+  }
+
+  payFromWallet(){
+    let now = formatDate(new Date(), 'dd-MM-yyyy', 'en');
+    let desc = this.utf8_to_b64('Оплата заказа №'+this.clientOrder.id+', от '+now);
+    this.basketPrice = 10;
+    let params:any[] = [this.shop,this.clientOrder.id,this.basketPrice+".00",'RUB',desc,this.secretKey ];
+    let paramAsString = params.join(':');
+    let sign = sha256( paramAsString ).toUpperCase();
+    let url = this.payWalletUrl+this.mOrderIdParam+this.clientOrder.id+this.mAmountParam+this.basketPrice+
+                this.mDescParam+desc+this.mSignParam+sign;
+    (window as any).open(url,'_blank');
+  }
+
+   utf8_to_b64( str ) {
+    return window.btoa(unescape(encodeURIComponent( str )));
   }
 
   ngOnDestroy(){

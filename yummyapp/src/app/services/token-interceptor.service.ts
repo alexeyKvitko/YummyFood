@@ -11,9 +11,9 @@ export class TokenInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let token = window.localStorage.getItem('token');
     // Add to production
-    req = req.clone({
-      url: this.baseUrl+req.url
-    });
+    // req = req.clone({
+    //   url: this.baseUrl+req.url
+    // });
     if (token ) {
       req = req.clone({
         setHeaders: {
