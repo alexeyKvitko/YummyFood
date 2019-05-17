@@ -10,6 +10,7 @@ import ru.yummy.eat.entity.ClientOrder;
 import ru.yummy.eat.entity.FavoriteCompany;
 import ru.yummy.eat.entity.OrderEntity;
 import ru.yummy.eat.entity.OurClient;
+import ru.yummy.eat.exception.BusinessLogicException;
 import ru.yummy.eat.model.ApiResponse;
 import ru.yummy.eat.model.ClientOrderModel;
 import ru.yummy.eat.model.FavoriteCompanyModel;
@@ -279,6 +280,29 @@ public class OurClientServiceImpl {
             result = AppConstants.UNEXPECTED_ERROR;
         }
         return result;
+    }
+
+    public ApiResponse removeClientFully( String uuid ){
+        ApiResponse response = new ApiResponse();
+        response.setStatus(HttpStatus.OK.value());
+        try {
+             OurClient ourClient = clientRepo.findByUuid( uuid );
+             if( ourClient == null ){
+                 throw new BusinessLogicException("Client not found");
+             }
+             ourClient.setNickName("_"+ourClient.getNickName() );
+             ourClient.setPhone( "_"+ourClient.getPhone() );
+             ourClient.setEmail( "_"+ourClient.getEmail() );
+             ourClient.setPassword( null );
+             ourClient.setUuid( null );
+            clientRepo.save( ourClient );
+        } catch ( Exception e ) {
+            LOG.error("Exception got when delete client: " + e.getMessage());
+            e.printStackTrace();
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.setMessage(e.getMessage());
+        }
+        return response;
     }
 
 

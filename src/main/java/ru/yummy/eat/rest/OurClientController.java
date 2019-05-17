@@ -114,6 +114,13 @@ public class OurClientController {
         return response;
     }
 
+    @GetMapping("/removeClient/{uuid}")
+    public ApiResponse removeClient(@PathVariable String uuid) {
+        ApiResponse response = null;
+        response = clientService.removeClientFully( uuid );
+        return response;
+    }
+
     @RequestMapping(value = "/addToFavorite", method = RequestMethod.POST)
     public ApiResponse addCompanyToFavorite(@RequestBody FavoriteCompanyModel favoriteCompanyModel) {
         ApiResponse response = new ApiResponse();

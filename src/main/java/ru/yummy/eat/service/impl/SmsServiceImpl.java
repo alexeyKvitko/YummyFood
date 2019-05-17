@@ -41,13 +41,15 @@ public class SmsServiceImpl {
 
     public String send( String to ) {
         String code = AppUtils.getRandomBetweenRange( 4000,9999 )+"";
+        String sendTo = AppConstants.PHONE_PREFIX + to;
         try {
-            Message message = Message.creator(username, new PhoneNumber( AppConstants.PHONE_PREFIX + to ),
+
+            Message message = Message.creator(username, new PhoneNumber( sendTo ),
                                                                      new PhoneNumber(from), AppConstants.SMS_CODE_MSG+code).create();
-            LOG.info("New message sent: {}, to: {}",   message.getSid(), to);
+            LOG.info("New message sent: {}, to: {}",   message.getSid(), sendTo);
         } catch (Exception e) {
             code = null;
-            LOG.error("New message sent failed: to: {}", to, e);
+            LOG.error("New message sent failed: to: {}", sendTo, e);
         }
         return code;
     }
