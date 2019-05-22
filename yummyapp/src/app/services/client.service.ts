@@ -28,6 +28,10 @@ export class ClientService {
     return this.http.get<ApiResponse>(this.clientUrl + '/getClientInfo/' + uuid);
   }
 
+  public getPayeerUrl(orderId: string, amount: string, date: string){
+    return this.http.get<ApiResponse>(this.clientUrl + '/getPayeerUrl/' + orderId +"/"+amount+"/"+date);
+  }
+
   public createOrder( clientOrder : ClientOrderModel ){
     return this.http.post<ApiResponse>(this.clientUrl + '/createClientOrder', clientOrder );
   }

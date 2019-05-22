@@ -243,6 +243,17 @@
                 font-size: 12px;
                 font-weight: 400;
               }
+              .wallet-div{
+                width: 100%;
+                padding: 24px 0px;
+                text-align: center;
+                p{
+                  font-family: B52;
+                  font-size: 18px;
+                  color: $bright-coral;
+                }
+                border: 1px dotted $bright-coral;
+              }
             }
           }
         }

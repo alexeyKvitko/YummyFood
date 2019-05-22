@@ -69,10 +69,13 @@
                     <p>на сумму</p>
                     <h2>{{basketPrice}}&nbsp;руб.</h2>
                     <p>Успешно Сформирован</p>
-                    <button type="button" class="btn btn-warning btn-with-icon" (click)="payFromWallet()"
-                            style="margin-top: 6px;margin-bottom:  14px" *ngIf="clientOrder.payType === 'WALLET'">
-                      ОПЛАТИТЬ С КОШЕЛЬКА
-                    </button>
+                    <div class="wallet-div" *ngIf="clientOrder.payType === 'WALLET'">
+                      <p>Выберите способ оплаты:</p>
+                      <button type="button" class="btn btn-info btn-with-icon" (click)="payFromWallet()" style="margin-top: 6px;margin-bottom:  14px" >
+                        PAYEER
+                      </button>
+                    </div>
+
                     <div class="just-text">
                       Если Вам не перезвонили по заказу в течении <span>10 минут</span>, пожалуйста,
                       сообщите нам об этом по номеру <span>+7978 255 7978</span>

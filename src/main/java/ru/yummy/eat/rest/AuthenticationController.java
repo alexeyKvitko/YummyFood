@@ -16,6 +16,9 @@ import ru.yummy.eat.model.AuthToken;
 import ru.yummy.eat.model.LoginUser;
 import ru.yummy.eat.service.UserService;
 import ru.yummy.eat.service.impl.OurClientServiceImpl;
+import ru.yummy.eat.service.impl.PayeerServiceImpl;
+
+import java.math.BigDecimal;
 
 @CrossOrigin
 @RestController
@@ -40,32 +43,6 @@ public class AuthenticationController {
     }
 
 
-    @RequestMapping(value = "/successMerchant", method = RequestMethod.GET)
-    public ApiResponse successMerchant(){
-        ApiResponse response = new ApiResponse();
-        response.setStatus( HttpStatus.OK.value() );
-        response.setMessage( "Success Merchant" );
-        LOG.info( "Success Merchant" );
-        return response;
-    }
-
-    @RequestMapping(value = "/failMerchant", method = RequestMethod.GET)
-    public ApiResponse failMerchant(){
-        ApiResponse response = new ApiResponse();
-        response.setStatus( HttpStatus.OK.value() );
-        response.setMessage( "Fail Merchant" );
-        LOG.info( "Fail Merchant" );
-        return response;
-    }
-
-    @RequestMapping(value = "/handlerMerchant", method = RequestMethod.GET)
-    public ApiResponse handlerMerchant(){
-        ApiResponse response = new ApiResponse();
-        response.setStatus( HttpStatus.OK.value() );
-        response.setMessage( "Handler Merchant" );
-        LOG.info( "Handler Merchant" );
-        return response;
-    }
 
     @RequestMapping(value = "/generate-token", method = RequestMethod.POST)
     public ApiResponse<AuthToken> register(@RequestBody LoginUser loginUser) throws AuthenticationException {

@@ -148,15 +148,19 @@ export class BasketComponent implements OnInit {
 
   payFromWallet(){
     let now = formatDate(new Date(), 'dd-MM-yyyy', 'en');
-    let desc = this.utf8_to_b64('Оплата заказа №'+this.clientOrder.id+', от '+now);
     this.basketPrice = 10;
-    let params:any[] = [this.shop,this.clientOrder.id,this.basketPrice+".00",'RUB',desc,this.secretKey ];
-    let paramAsString = params.join(':');
-    let sign = sha256( paramAsString ).toUpperCase();
-    let url = this.payWalletUrl+this.mOrderIdParam+this.clientOrder.id+this.mAmountParam+this.basketPrice+
-                this.mDescParam+desc+this.mSignParam+sign;
-    (window as any).open(url,'_blank');
+    let orderId: string = this.clientOrder.id.toString();
+    let amount: string = this.basketPrice+".00";
+    this.clientService.getPayeerUrl( orderId, amount, now  ).subscribe(data => {
+      if (data.status == 200) {
+        let url = data.message;
+        this.clientOrder.payType = null;
+        (window as any).open(url,'_blank');
+      }
+      this.showFinishOrder = true;
+    });
   }
+
 
    utf8_to_b64( str ) {
     return window.btoa(unescape(encodeURIComponent( str )));

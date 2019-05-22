@@ -65,6 +65,12 @@ public class ClientOrder {
     @Column(name = "pay_type")
     private String payType;
 
+    @Column(name = "pay_status")
+    private String payStatus;
+
+    @Column(name = "pay_amount")
+    private String payAmount;
+
 
     public Integer getId() {
         return id;
@@ -208,6 +214,22 @@ public class ClientOrder {
 
     public void setPayType(String payType) {
         this.payType = payType;
+    }
+
+    public String getPayAmount() {
+        return payAmount;
+    }
+
+    public void setPayAmount(String payAmount) {
+        this.payAmount = payAmount;
+    }
+
+    public String getPayStatus() {
+        return payStatus;
+    }
+
+    public void setPayStatus(String payStatus) {
+        this.payStatus = payStatus;
     }
 
     @Override

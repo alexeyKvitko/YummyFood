@@ -3,8 +3,10 @@ package ru.yummy.eat.service.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import ru.yummy.eat.AppConstants;
 import ru.yummy.eat.entity.ClientOrder;
 import ru.yummy.eat.entity.FavoriteCompany;
@@ -15,12 +17,19 @@ import ru.yummy.eat.model.ApiResponse;
 import ru.yummy.eat.model.ClientOrderModel;
 import ru.yummy.eat.model.FavoriteCompanyModel;
 import ru.yummy.eat.model.OurClientModel;
+import ru.yummy.eat.model.enums.PayStatus;
+import ru.yummy.eat.model.enums.PayType;
 import ru.yummy.eat.repo.ClientOrderRepository;
 import ru.yummy.eat.repo.FavoriteCompanyRepository;
 import ru.yummy.eat.repo.OrderEntityRepository;
 import ru.yummy.eat.repo.OurClientRepository;
 import ru.yummy.eat.util.ConvertUtils;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @Service("clientService")
@@ -48,6 +57,12 @@ public class OurClientServiceImpl {
 
     @Autowired
     SmsServiceImpl smsService;
+
+    @Value("${avatar.image.url}")
+    private String avatarUrl;
+
+    @Value("${avatar.image.path}")
+    private String avatarPath;
 
 
     public String registerClient(OurClientModel ourClientModel) {
@@ -214,6 +229,9 @@ public class OurClientServiceImpl {
         response.setStatus(HttpStatus.OK.value());
         try {
             ClientOrder clientOrder = convertUtils.convertModelToClientOrder(clientOrderModel);
+            if ( PayType.WALLET.name().equals( clientOrder.getPayType() ) ){
+                clientOrder.setPayStatus( PayStatus.EXPECTED.name() );
+            }
             clientOrderRepo.save(clientOrder);
             List<OrderEntity> orderEntities = convertUtils.convertModelsToOrderEntityList(clientOrder.getId(), clientOrderModel.getOrders());
             orderEntityRepo.saveAll(orderEntities);
@@ -301,6 +319,54 @@ public class OurClientServiceImpl {
             e.printStackTrace();
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             response.setMessage(e.getMessage());
+        }
+        return response;
+    }
+
+    public void updateOrderStatus( String orderId, String payAmount, String payStatus ){
+        try {
+            Integer id = Integer.valueOf( orderId );
+            ClientOrder clientOrder = clientOrderRepo.findById( id ).get();
+            clientOrder.setPayAmount( payAmount );
+            clientOrder.setPayStatus( payStatus );
+            clientOrderRepo.save( clientOrder );
+        } catch ( Exception e ){
+            LOG.error("Exception when update order status: "+e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public ApiResponse updateClientAvatar( String uuid, MultipartFile avatar ){
+        ApiResponse response = new ApiResponse();
+        response.setStatus(HttpStatus.OK.value());
+        ByteArrayInputStream bis = null;
+        try {
+//            String uuid = avatar.getName();
+            OurClient ourClient = clientRepo.findByUuid( uuid );
+            String path = avatarPath+avatar.getOriginalFilename();
+            ourClient.setPhoto( avatarUrl+ avatar.getOriginalFilename() );
+            bis = new ByteArrayInputStream( avatar.getBytes() );
+            BufferedImage bImage2 = ImageIO.read(bis);
+            File file = new File( path );
+            if ( file.isFile() && file.exists() ){
+                boolean isDeleted = file.delete();
+            }
+            ImageIO.write(bImage2, "jpg", new File( path ) );
+            clientRepo.save( ourClient );
+            response.setMessage( ourClient.getPhoto() );
+        } catch (Exception e) {
+            LOG.error("Exception  when  update client avatar: " + e.getMessage());
+            e.printStackTrace();
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.setMessage(e.getMessage());
+        } finally {
+            if( bis != null ){
+                try {
+                    bis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return response;
     }

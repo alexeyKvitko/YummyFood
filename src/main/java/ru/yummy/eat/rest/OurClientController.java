@@ -1,27 +1,39 @@
 package ru.yummy.eat.rest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.yummy.eat.AppConstants;
 import ru.yummy.eat.exception.BusinessLogicException;
-import ru.yummy.eat.model.ApiResponse;
-import ru.yummy.eat.model.ClientOrderModel;
-import ru.yummy.eat.model.FavoriteCompanyModel;
-import ru.yummy.eat.model.OurClientModel;
+import ru.yummy.eat.model.*;
 import ru.yummy.eat.service.impl.OurClientServiceImpl;
+import ru.yummy.eat.service.impl.PayeerServiceImpl;
 import ru.yummy.eat.service.impl.SmsServiceImpl;
+
+import javax.annotation.PostConstruct;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 
 @CrossOrigin
 @RestController
 @RequestMapping({"/api/client"})
 public class OurClientController {
 
+    private static final Logger LOG = LoggerFactory.getLogger(OurClientController.class);
+
     @Autowired
     OurClientServiceImpl clientService;
 
     @Autowired
     SmsServiceImpl smsService;
+
+    @Autowired
+    PayeerServiceImpl payeerService;
 
     @RequestMapping(value = "/registerClient", method = RequestMethod.POST)
     public ApiResponse registerClient(@RequestBody OurClientModel ourClientModel) {
@@ -159,6 +171,29 @@ public class OurClientController {
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         }
         response.setMessage(result);
+        return response;
+    }
+
+    @GetMapping("/getPayeerUrl/{orderId}/{amount}/{date}")
+    public ApiResponse getPayeerUrl(@PathVariable String orderId,@PathVariable String amount,
+                                    @PathVariable String date) {
+        ApiResponse response = new ApiResponse();
+        response.setStatus(HttpStatus.OK.value());
+        String result = payeerService.generatePayeerPaymentURL( orderId, amount, date );
+        if ( result == null ) {
+            result = AppConstants.UNEXPECTED_ERROR;
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        }
+        response.setMessage(result);
+        return response;
+    }
+
+    @RequestMapping(value = "/updateClientAvatar", method = RequestMethod.POST)
+    public ApiResponse updateClientAvatar(@RequestParam("clientAvatar") MultipartFile clientAvatar,
+                                          @RequestPart String description) {
+        LOG.info("------------------- Original FileName: "+ clientAvatar.getOriginalFilename() );
+        ApiResponse response = clientService.updateClientAvatar( description.replaceAll("\"",""), clientAvatar );
+        LOG.info("Response Message: "+response.getMessage());
         return response;
     }
 
