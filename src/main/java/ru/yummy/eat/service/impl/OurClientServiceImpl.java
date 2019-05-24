@@ -13,10 +13,7 @@ import ru.yummy.eat.entity.FavoriteCompany;
 import ru.yummy.eat.entity.OrderEntity;
 import ru.yummy.eat.entity.OurClient;
 import ru.yummy.eat.exception.BusinessLogicException;
-import ru.yummy.eat.model.ApiResponse;
-import ru.yummy.eat.model.ClientOrderModel;
-import ru.yummy.eat.model.FavoriteCompanyModel;
-import ru.yummy.eat.model.OurClientModel;
+import ru.yummy.eat.model.*;
 import ru.yummy.eat.model.enums.PayStatus;
 import ru.yummy.eat.model.enums.PayType;
 import ru.yummy.eat.repo.ClientOrderRepository;
@@ -202,9 +199,9 @@ public class OurClientServiceImpl {
         try {
             OurClient existClient = clientRepo.findByUuid(ourClientModel.getUuid());
             if (existClient != null) {
-                existClient.setNickName(ourClientModel.getNickName());
-                existClient.setPhone(ourClientModel.getPhone());
-                existClient.setEmail(ourClientModel.getEmail());
+                existClient.setNickName( ourClientModel.getNickName() );
+                existClient.setPhone( ourClientModel.getPhone() );
+                existClient.setEmail( ourClientModel.getEmail() );
                 clientRepo.save(existClient);
                 success = AppConstants.USER_UPDATED;
             } else {
@@ -223,6 +220,63 @@ public class OurClientServiceImpl {
         }
         return response;
     }
+
+    public ApiResponse updateClientAddress(ClientLocation clientLocation) {
+        ApiResponse response = new ApiResponse();
+        response.setStatus(HttpStatus.OK.value());
+        String success = null;
+        String error = null;
+        try {
+            OurClient existClient = clientRepo.findByUuid( clientLocation.getUuid() );
+            if (existClient != null) {
+                convertUtils.updateClientLocation( existClient, clientLocation );
+                clientRepo.save(existClient);
+                success = AppConstants.USER_UPDATED;
+            } else {
+                error = String.format(AppConstants.USER_NOT_EXIST, clientLocation.getUuid());
+            }
+        } catch (Exception e) {
+            LOG.error("Exception when update exist client address: " + e.getMessage());
+            e.printStackTrace();
+            error = AppConstants.UNEXPECTED_ERROR;
+        }
+        if ( success != null ){
+            response.setMessage( success );
+        } else if( error != null ){
+            response.setMessage( error );
+            response.setStatus( HttpStatus.INTERNAL_SERVER_ERROR.value() );
+        }
+        return response;
+    }
+
+    public ApiResponse updateClientPassword(OurClientModel ourClientModel) {
+        ApiResponse response = new ApiResponse();
+        response.setStatus(HttpStatus.OK.value());
+        String success = null;
+        String error = null;
+        try {
+            OurClient existClient = clientRepo.findByUuid(ourClientModel.getUuid());
+            if (existClient != null) {
+                existClient.setPassword( convertUtils.getEncondedPasword( ourClientModel.getPassword() ) );
+                clientRepo.save(existClient);
+                success = AppConstants.USER_UPDATED;
+            } else {
+                error = String.format(AppConstants.USER_NOT_EXIST, ourClientModel.getUuid());
+            }
+        } catch (Exception e) {
+            LOG.error("Exception when update exist client: " + e.getMessage());
+            e.printStackTrace();
+            error = AppConstants.UNEXPECTED_ERROR;
+        }
+        if ( success != null ){
+            response.setMessage( success );
+        } else if( error != null ){
+            response.setMessage( error );
+            response.setStatus( HttpStatus.INTERNAL_SERVER_ERROR.value() );
+        }
+        return response;
+    }
+
 
     public ApiResponse createClientOrder(ClientOrderModel clientOrderModel) {
         ApiResponse response = new ApiResponse();

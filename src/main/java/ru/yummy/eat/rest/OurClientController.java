@@ -112,6 +112,16 @@ public class OurClientController {
         return clientService.updateClientInfo( ourClientModel );
     }
 
+    @RequestMapping(value = "/updateClientAddress", method = RequestMethod.POST)
+    public ApiResponse updateClientInfo(@RequestBody ClientLocation clientLocation) {
+        return clientService.updateClientAddress( clientLocation );
+    }
+
+    @RequestMapping(value = "/updateClientPassword", method = RequestMethod.POST)
+    public ApiResponse updateClientPassword(@RequestBody OurClientModel ourClientModel) {
+        return clientService.updateClientPassword( ourClientModel );
+    }
+
     @RequestMapping(value = "/createClientOrder", method = RequestMethod.POST)
     public ApiResponse createClientOrder(@RequestBody ClientOrderModel clientOrderModel) {
         ApiResponse response = null;

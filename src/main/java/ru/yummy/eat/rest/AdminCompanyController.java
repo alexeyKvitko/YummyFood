@@ -10,6 +10,7 @@ import ru.yummy.eat.service.ParseService;
 import ru.yummy.eat.service.impl.BootstrapServiceImpl;
 import ru.yummy.eat.service.impl.CompanyServiceImpl;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 //@CrossOrigin(origins = "http://yummy-eat.ru", maxAge = 3600)

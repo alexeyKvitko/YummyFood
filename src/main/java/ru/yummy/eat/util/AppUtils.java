@@ -153,7 +153,7 @@ public abstract class AppUtils {
 
     public static City getNearestCity( double lat1, double long1, List<City> cities){
         City nearest = null;
-        int minDistance = 10000;
+        int minDistance = 100000;
         for(City city: cities){
             int distance = getHaversineInM( lat1, long1, city.getLatitude(), city.getLongitude() );
             if ( distance < minDistance ){
@@ -188,6 +188,14 @@ public abstract class AppUtils {
             LOG.error( "Ошибка преобразования: "+ex.getMessage() );
         }
         return result;
+    }
+
+    public static boolean nullOrEmpty( String value ) {
+        return value == null || ( value != null && value.trim().length() == 0 );
+    }
+
+    public static boolean nullOrEmpty( List value ) {
+        return value == null || ( value != null && value.size() == 0 );
     }
 
 }

@@ -12,7 +12,6 @@ public class OurClientModel implements Serializable {
 
     private Integer id;
     private String nickName;
-    private String primaryAddress;
     private String email;
     private String phone;
     private String password;
@@ -21,6 +20,7 @@ public class OurClientModel implements Serializable {
     private String bonus;
     private String photo;
     private String additionalMessage;
+    private ClientLocation clientLocation;
     private List<FavoriteCompanyModel> favoriteCompanies;
 
     public Integer getId() {
@@ -103,20 +103,20 @@ public class OurClientModel implements Serializable {
         this.nickName = nickName;
     }
 
-    public String getPrimaryAddress() {
-        return primaryAddress;
-    }
-
-    public void setPrimaryAddress(String primaryAddress) {
-        this.primaryAddress = primaryAddress;
-    }
-
     public String getPhoto() {
         return photo;
     }
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public ClientLocation getClientLocation() {
+        return clientLocation;
+    }
+
+    public void setClientLocation(ClientLocation clientLocation) {
+        this.clientLocation = clientLocation;
     }
 
     @Override public boolean equals(Object o) {

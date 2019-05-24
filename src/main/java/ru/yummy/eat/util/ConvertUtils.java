@@ -282,27 +282,61 @@ public class ConvertUtils {
             ourClient.setId(null);
         }
         ourClient.setNickName( ourClientModel.getNickName() );
-        ourClient.setPrimaryAddress( ourClientModel.getPrimaryAddress() );
         ourClient.setPhoto( ourClientModel.getPhoto() );
         ourClient.setEmail(ourClientModel.getEmail() != null ? ourClientModel.getEmail().toLowerCase().trim() : null);
         ourClient.setPhone(ourClientModel.getPhone() != null ? ourClientModel.getPhone().trim() : null);
         ourClient.setPassword(bcryptEncoder.encode(ourClientModel.getPassword()));
         ourClient.setUuid(UUID.randomUUID().toString());
         ourClient.setBonus(ourClientModel.getBonus());
+        if ( ourClientModel.getClientLocation() != null ){
+            ourClient.setCity( ourClientModel.getClientLocation().getCity() );
+            ourClient.setStreet( ourClientModel.getClientLocation().getStreet() );
+            ourClient.setHouse( ourClientModel.getClientLocation().getHouse() );
+            ourClient.setEntrance( ourClientModel.getClientLocation().getEntrance() );
+            ourClient.setFloor( ourClientModel.getClientLocation().getFloor() );
+            ourClient.setIntercom( ourClientModel.getClientLocation().getIntercom() );
+            ourClient.setLatitude( ourClientModel.getClientLocation().getLatitude() );
+            ourClient.setLongitude( ourClientModel.getClientLocation().getLongitude() );
+        }
         return ourClient;
+    }
+    
+    public void updateClientLocation(OurClient ourClient, ClientLocation clientLocation ){
+        ourClient.setCity( clientLocation.getCity() );
+        ourClient.setStreet( clientLocation.getStreet() );
+        ourClient.setHouse( clientLocation.getHouse() );
+        ourClient.setEntrance( clientLocation.getEntrance() );
+        ourClient.setFloor( clientLocation.getFloor() );
+        ourClient.setIntercom( clientLocation.getIntercom() );
+        ourClient.setLatitude( clientLocation.getLatitude() );
+        ourClient.setLongitude( clientLocation.getLongitude() );
+    }
+
+    public  String getEncondedPasword(String rawPassword){
+        return bcryptEncoder.encode( rawPassword );
     }
 
     public OurClientModel convertOurClientToModel(OurClient ourClient, List<FavoriteCompany> favoriteCompanies) {
         OurClientModel ourClientModel = new OurClientModel();
+        ClientLocation clientLocation = new ClientLocation();
         ourClientModel.setNickName( ourClient.getNickName() );
-        ourClientModel.setPrimaryAddress( ourClient.getPrimaryAddress() );
         ourClientModel.setPhoto( ourClient.getPhoto() );
         ourClientModel.setId(ourClient.getId());
         ourClientModel.setEmail(ourClient.getEmail());
         ourClientModel.setPhone(ourClient.getPhone());
-        ourClientModel.setPassword(null);
+        ourClientModel.setPassword( ourClient.getPassword() );
         ourClientModel.setUuid(ourClient.getUuid());
         ourClientModel.setBonus(ourClient.getBonus());
+        clientLocation.setCity( ourClient.getCity() );
+        clientLocation.setUuid( ourClient.getUuid() );
+        clientLocation.setStreet( ourClient.getStreet() );
+        clientLocation.setHouse( ourClient.getHouse() );
+        clientLocation.setEntrance( ourClient.getEntrance() );
+        clientLocation.setFloor( ourClient.getFloor() );
+        clientLocation.setIntercom( ourClient.getIntercom() );
+        clientLocation.setLatitude( ourClient.getLatitude() );
+        clientLocation.setLongitude( ourClient.getLongitude() );
+        ourClientModel.setClientLocation( clientLocation );
         if (favoriteCompanies != null) {
             List<FavoriteCompanyModel> favoriteCompanyModels = new LinkedList<>();
             for (FavoriteCompany favorite : favoriteCompanies) {
@@ -310,7 +344,6 @@ public class ConvertUtils {
             }
             ourClientModel.setFavoriteCompanies(favoriteCompanyModels);
         }
-
         return ourClientModel;
     }
 

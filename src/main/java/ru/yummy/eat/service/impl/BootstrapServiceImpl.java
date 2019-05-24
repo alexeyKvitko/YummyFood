@@ -46,9 +46,11 @@ public class BootstrapServiceImpl {
         Double lon = null;
         List<City> cities = null;
         City city = null;
+        City simferopol = null;
         List<Company> companies = null;
         List<CompanyAction> companyActions =  null;
         try {
+            simferopol = cityRepo.findById( AppConstants.SIMFEROPOL_ID ).get();
             if (latitude == null || longitude == null ||
              AppConstants.FAKE_STR_ID.equals( latitude ) ||
                     AppConstants.FAKE_STR_ID.equals( longitude ) ) {
@@ -60,8 +62,14 @@ public class BootstrapServiceImpl {
             }
             cities = cityRepo.findByOrderByName();
             city = AppUtils.getNearestCity(lat, lon, cities);
+            if ( city == null ){
+                city = simferopol;
+            }
             companies = companyRepo.findAllByCityId( city.getId() );
             companyActions = companyActionRepo.findAllByCityId( city.getId() );
+            if ( AppUtils.nullOrEmpty( companyActions ) ){
+                companyActions = companyActionRepo.findAllByCityId( simferopol.getId() );
+            }
 
         } catch ( Exception e ){
             LOG.error("Exception in method [getBootstrapModel]: "+ e.getMessage() );

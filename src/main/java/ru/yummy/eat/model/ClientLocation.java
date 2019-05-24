@@ -1,104 +1,20 @@
-package ru.yummy.eat.entity;
-
+package ru.yummy.eat.model;
 
 import org.pojomatic.Pojomatic;
 import org.pojomatic.annotations.AutoProperty;
 
-import javax.persistence.*;
-
-@Entity
-@Table( name = "our_client" )
 @AutoProperty
-public class OurClient {
+public class ClientLocation {
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer id;
-
-    @Column(name="email")
-    private String email;
-
-    @Column(name="nick_name")
-    private String nickName;
-
-    @Column(name="phone")
-    private String phone;
-
-    @Column(name="password")
-    private String password;
-
-    @Column(name="uuid")
     private String uuid;
-
-    @Column(name="bonus")
-    private String bonus;
-
-    @Column(name="photo")
-    private String photo;
-
-    @Column(name="city")
     private String city;
-
-    @Column(name="street")
     private String street;
-
-    @Column(name="house")
     private String house;
-
-    @Column(name="entrance")
     private String entrance;
-
-    @Column(name="floor")
     private String floor;
-
-    @Column(name="intercom")
     private String intercom;
-
-    @Column(name="latitude")
     private Double latitude;
-
-    @Column(name="longitude")
     private Double longitude;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getUuid() {
         return uuid;
@@ -106,22 +22,6 @@ public class OurClient {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
-    }
-
-    public String getBonus() {
-        return bonus;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
-    public void setBonus(String bonus) {
-        this.bonus = bonus;
     }
 
     public String getCity() {
