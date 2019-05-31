@@ -14,6 +14,24 @@ public class ClientOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "client_uuid")
+    private String clientUuid;
+
+    @Column(name = "company_one_id")
+    private Integer companyOneId;
+
+    @Column(name = "company_one_name")
+    private String companyOneName;
+
+    @Column(name = "company_two_id")
+    private Integer companyTwoId;
+
+    @Column(name = "company_two_name")
+    private String companyTwoName;
+
+    @Column(name = "company_logo")
+    private String companyLogo;
+
     @Column(name = "order_date")
     private String orderDate;
 
@@ -78,6 +96,54 @@ public class ClientOrder {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getClientUuid() {
+        return clientUuid;
+    }
+
+    public void setClientUuid(String clientUuid) {
+        this.clientUuid = clientUuid;
+    }
+
+    public Integer getCompanyOneId() {
+        return companyOneId;
+    }
+
+    public void setCompanyOneId(Integer companyOneId) {
+        this.companyOneId = companyOneId;
+    }
+
+    public String getCompanyOneName() {
+        return companyOneName;
+    }
+
+    public void setCompanyOneName(String companyOneName) {
+        this.companyOneName = companyOneName;
+    }
+
+    public Integer getCompanyTwoId() {
+        return companyTwoId;
+    }
+
+    public void setCompanyTwoId(Integer companyTwoId) {
+        this.companyTwoId = companyTwoId;
+    }
+
+    public String getCompanyTwoName() {
+        return companyTwoName;
+    }
+
+    public String getCompanyLogo() {
+        return companyLogo;
+    }
+
+    public void setCompanyLogo(String companyLogo) {
+        this.companyLogo = companyLogo;
+    }
+
+    public void setCompanyTwoName(String companyTwoName) {
+        this.companyTwoName = companyTwoName;
     }
 
     public String getOrderDate() {

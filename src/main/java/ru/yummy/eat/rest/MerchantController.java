@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.yummy.eat.model.enums.PayStatus;
-import ru.yummy.eat.service.impl.OurClientServiceImpl;
+import ru.yummy.eat.service.impl.OrderServiceImpl;
 
 @CrossOrigin
 @RestController
@@ -18,7 +18,7 @@ public class MerchantController {
     private static final String ERROR = "error";
 
     @Autowired
-    OurClientServiceImpl clientService;
+    OrderServiceImpl orderService;
 
     @RequestMapping(value = "/getWalleteBalance", method = RequestMethod.GET)
     public String getWalleteBalance(){
@@ -65,7 +65,7 @@ public class MerchantController {
         String result = SUCCESS;
         if (SUCCESS.equals( paymentStatus ) ) {
             try {
-                clientService.updateOrderStatus( orderId, amount, PayStatus.SUCCESS.name() );
+                orderService.updateOrderStatus( orderId, amount, PayStatus.SUCCESS.name() );
             } catch (Exception e) {
                 result = ERROR;
             }
@@ -109,7 +109,7 @@ public class MerchantController {
         LOG.info("m_params: "+dopParams );
         String result = SUCCESS;
         try {
-            clientService.updateOrderStatus( orderId, amount, PayStatus.FAIL.name() );
+            orderService.updateOrderStatus( orderId, amount, PayStatus.FAIL.name() );
         } catch (Exception e) {
             result = ERROR;
         }

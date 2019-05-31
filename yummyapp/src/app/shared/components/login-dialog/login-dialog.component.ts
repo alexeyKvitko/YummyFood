@@ -70,7 +70,7 @@ export class LoginDialogComponent implements OnInit {
     }
     this.clientService.authorizationOurClient( this.ourClient ).subscribe(data => {
       if (data.status == 200) {
-        window.localStorage.setItem("our-client",data.result );
+        window.localStorage.setItem("our-client",data.result.uuid );
         let homeLink = 'pages/home-page';
         let rememberMe = this.authForm.controls.rememberMe.value ? 'true':'false';
         window.localStorage.setItem("remember-me", rememberMe);

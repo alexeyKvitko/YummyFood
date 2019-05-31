@@ -17,11 +17,12 @@ public class OurClientModel implements Serializable {
     private String password;
     private String confirm;
     private String uuid;
-    private String bonus;
     private String photo;
     private String additionalMessage;
-    private ClientLocation clientLocation;
+    private String payType;
+    private ClientLocationModel clientLocationModel;
     private List<FavoriteCompanyModel> favoriteCompanies;
+    private List<BonusModel> bonusModels;
 
     public Integer getId() {
         return id;
@@ -61,14 +62,6 @@ public class OurClientModel implements Serializable {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
-    }
-
-    public String getBonus() {
-        return bonus;
-    }
-
-    public void setBonus(String bonus) {
-        this.bonus = bonus;
     }
 
     public String getConfirm() {
@@ -111,12 +104,28 @@ public class OurClientModel implements Serializable {
         this.photo = photo;
     }
 
-    public ClientLocation getClientLocation() {
-        return clientLocation;
+    public ClientLocationModel getClientLocationModel() {
+        return clientLocationModel;
     }
 
-    public void setClientLocation(ClientLocation clientLocation) {
-        this.clientLocation = clientLocation;
+    public void setClientLocationModel(ClientLocationModel clientLocationModel) {
+        this.clientLocationModel = clientLocationModel;
+    }
+
+    public List<BonusModel> getBonusModels() {
+        return bonusModels;
+    }
+
+    public void setBonusModels(List<BonusModel> bonusModels) {
+        this.bonusModels = bonusModels;
+    }
+
+    public String getPayType() {
+        return payType;
+    }
+
+    public void setPayType(String payType) {
+        this.payType = payType;
     }
 
     @Override public boolean equals(Object o) {

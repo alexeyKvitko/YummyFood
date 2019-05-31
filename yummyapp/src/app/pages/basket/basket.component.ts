@@ -105,6 +105,7 @@ export class BasketComponent implements OnInit {
 
   finishOrder(){
     let uuid = window.localStorage.getItem("our-client");
+    console.log("uuid", uuid );
     if( uuid != null ){
       this.clientService.getClientInfo( uuid ).subscribe(data => {
         if (data.status == 200) {

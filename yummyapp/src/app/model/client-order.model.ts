@@ -2,6 +2,7 @@ import {BasketModel} from "./basket.model";
 
 export class ClientOrderModel{
   id: number;
+  clientUuid: string;
   orderDate: string;
   orderTime: string;
   orderPrice: number;

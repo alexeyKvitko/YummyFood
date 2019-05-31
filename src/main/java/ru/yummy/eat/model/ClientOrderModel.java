@@ -3,6 +3,7 @@ package ru.yummy.eat.model;
 import org.pojomatic.Pojomatic;
 import org.pojomatic.annotations.AutoProperty;
 
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,6 +11,12 @@ import java.util.List;
 public class ClientOrderModel implements Serializable {
 
     private Integer id;
+    private String clientUuid;
+    private Integer companyOneId;
+    private String companyOneName;
+    private Integer companyTwoId;
+    private String companyTwoName;
+    private String companyLogo;
     private String orderDate;
     private String orderTime;
     private Integer orderPrice;
@@ -35,6 +42,54 @@ public class ClientOrderModel implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getClientUuid() {
+        return clientUuid;
+    }
+
+    public void setClientUuid(String clientUuid) {
+        this.clientUuid = clientUuid;
+    }
+
+    public Integer getCompanyOneId() {
+        return companyOneId;
+    }
+
+    public void setCompanyOneId(Integer companyOneId) {
+        this.companyOneId = companyOneId;
+    }
+
+    public String getCompanyOneName() {
+        return companyOneName;
+    }
+
+    public void setCompanyOneName(String companyOneName) {
+        this.companyOneName = companyOneName;
+    }
+
+    public Integer getCompanyTwoId() {
+        return companyTwoId;
+    }
+
+    public void setCompanyTwoId(Integer companyTwoId) {
+        this.companyTwoId = companyTwoId;
+    }
+
+    public String getCompanyTwoName() {
+        return companyTwoName;
+    }
+
+    public void setCompanyTwoName(String companyTwoName) {
+        this.companyTwoName = companyTwoName;
+    }
+
+    public String getCompanyLogo() {
+        return companyLogo;
+    }
+
+    public void setCompanyLogo(String companyLogo) {
+        this.companyLogo = companyLogo;
     }
 
     public String getOrderDate() {

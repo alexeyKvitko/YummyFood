@@ -8,6 +8,7 @@ import ru.yummy.eat.entity.*;
 import ru.yummy.eat.model.*;
 import ru.yummy.eat.repo.CityRepository;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
@@ -287,29 +288,30 @@ public class ConvertUtils {
         ourClient.setPhone(ourClientModel.getPhone() != null ? ourClientModel.getPhone().trim() : null);
         ourClient.setPassword(bcryptEncoder.encode(ourClientModel.getPassword()));
         ourClient.setUuid(UUID.randomUUID().toString());
-        ourClient.setBonus(ourClientModel.getBonus());
-        if ( ourClientModel.getClientLocation() != null ){
-            ourClient.setCity( ourClientModel.getClientLocation().getCity() );
-            ourClient.setStreet( ourClientModel.getClientLocation().getStreet() );
-            ourClient.setHouse( ourClientModel.getClientLocation().getHouse() );
-            ourClient.setEntrance( ourClientModel.getClientLocation().getEntrance() );
-            ourClient.setFloor( ourClientModel.getClientLocation().getFloor() );
-            ourClient.setIntercom( ourClientModel.getClientLocation().getIntercom() );
-            ourClient.setLatitude( ourClientModel.getClientLocation().getLatitude() );
-            ourClient.setLongitude( ourClientModel.getClientLocation().getLongitude() );
+        ourClient.setPayType( ourClientModel.getPayType() );
+        ourClient.setBonuses( convertBonusModelCollectionToEntities( ourClientModel.getBonusModels() ) );
+        if ( ourClientModel.getClientLocationModel() != null ){
+            ourClient.setCity( ourClientModel.getClientLocationModel().getCity() );
+            ourClient.setStreet( ourClientModel.getClientLocationModel().getStreet() );
+            ourClient.setHouse( ourClientModel.getClientLocationModel().getHouse() );
+            ourClient.setEntrance( ourClientModel.getClientLocationModel().getEntrance() );
+            ourClient.setFloor( ourClientModel.getClientLocationModel().getFloor() );
+            ourClient.setIntercom( ourClientModel.getClientLocationModel().getIntercom() );
+            ourClient.setLatitude( ourClientModel.getClientLocationModel().getLatitude() );
+            ourClient.setLongitude( ourClientModel.getClientLocationModel().getLongitude() );
         }
         return ourClient;
     }
     
-    public void updateClientLocation(OurClient ourClient, ClientLocation clientLocation ){
-        ourClient.setCity( clientLocation.getCity() );
-        ourClient.setStreet( clientLocation.getStreet() );
-        ourClient.setHouse( clientLocation.getHouse() );
-        ourClient.setEntrance( clientLocation.getEntrance() );
-        ourClient.setFloor( clientLocation.getFloor() );
-        ourClient.setIntercom( clientLocation.getIntercom() );
-        ourClient.setLatitude( clientLocation.getLatitude() );
-        ourClient.setLongitude( clientLocation.getLongitude() );
+    public void updateClientLocation(OurClient ourClient, ClientLocationModel clientLocationModel){
+        ourClient.setCity( clientLocationModel.getCity() );
+        ourClient.setStreet( clientLocationModel.getStreet() );
+        ourClient.setHouse( clientLocationModel.getHouse() );
+        ourClient.setEntrance( clientLocationModel.getEntrance() );
+        ourClient.setFloor( clientLocationModel.getFloor() );
+        ourClient.setIntercom( clientLocationModel.getIntercom() );
+        ourClient.setLatitude( clientLocationModel.getLatitude() );
+        ourClient.setLongitude( clientLocationModel.getLongitude() );
     }
 
     public  String getEncondedPasword(String rawPassword){
@@ -318,7 +320,7 @@ public class ConvertUtils {
 
     public OurClientModel convertOurClientToModel(OurClient ourClient, List<FavoriteCompany> favoriteCompanies) {
         OurClientModel ourClientModel = new OurClientModel();
-        ClientLocation clientLocation = new ClientLocation();
+        ClientLocationModel clientLocationModel = new ClientLocationModel();
         ourClientModel.setNickName( ourClient.getNickName() );
         ourClientModel.setPhoto( ourClient.getPhoto() );
         ourClientModel.setId(ourClient.getId());
@@ -326,17 +328,17 @@ public class ConvertUtils {
         ourClientModel.setPhone(ourClient.getPhone());
         ourClientModel.setPassword( ourClient.getPassword() );
         ourClientModel.setUuid(ourClient.getUuid());
-        ourClientModel.setBonus(ourClient.getBonus());
-        clientLocation.setCity( ourClient.getCity() );
-        clientLocation.setUuid( ourClient.getUuid() );
-        clientLocation.setStreet( ourClient.getStreet() );
-        clientLocation.setHouse( ourClient.getHouse() );
-        clientLocation.setEntrance( ourClient.getEntrance() );
-        clientLocation.setFloor( ourClient.getFloor() );
-        clientLocation.setIntercom( ourClient.getIntercom() );
-        clientLocation.setLatitude( ourClient.getLatitude() );
-        clientLocation.setLongitude( ourClient.getLongitude() );
-        ourClientModel.setClientLocation( clientLocation );
+        ourClientModel.setPayType( ourClient.getPayType() );
+        clientLocationModel.setCity( ourClient.getCity() );
+        clientLocationModel.setUuid( ourClient.getUuid() );
+        clientLocationModel.setStreet( ourClient.getStreet() );
+        clientLocationModel.setHouse( ourClient.getHouse() );
+        clientLocationModel.setEntrance( ourClient.getEntrance() );
+        clientLocationModel.setFloor( ourClient.getFloor() );
+        clientLocationModel.setIntercom( ourClient.getIntercom() );
+        clientLocationModel.setLatitude( ourClient.getLatitude() );
+        clientLocationModel.setLongitude( ourClient.getLongitude() );
+        ourClientModel.setClientLocationModel(clientLocationModel);
         if (favoriteCompanies != null) {
             List<FavoriteCompanyModel> favoriteCompanyModels = new LinkedList<>();
             for (FavoriteCompany favorite : favoriteCompanies) {
@@ -344,6 +346,7 @@ public class ConvertUtils {
             }
             ourClientModel.setFavoriteCompanies(favoriteCompanyModels);
         }
+        ourClientModel.setBonusModels( convertBonusCollectionToModels( ourClient.getBonuses() ) );
         return ourClientModel;
     }
 
@@ -366,6 +369,7 @@ public class ConvertUtils {
     public ClientOrder convertModelToClientOrder(ClientOrderModel clientOrderModel) {
         ClientOrder clientOrder = new ClientOrder();
         clientOrder.setId(AppConstants.FAKE_ID.equals(clientOrderModel.getId()) ? null : clientOrderModel.getId());
+        clientOrder.setClientUuid( clientOrderModel.getClientUuid() );
         clientOrder.setOrderDate( clientOrderModel.getOrderDate() );
         clientOrder.setOrderTime(clientOrderModel.getOrderTime() );
         clientOrder.setOrderPrice(clientOrderModel.getOrderPrice() );
@@ -384,6 +388,45 @@ public class ConvertUtils {
         clientOrder.setComment(clientOrderModel.getComment());
         clientOrder.setPayType(clientOrderModel.getPayType());
         return clientOrder;
+    }
+
+    public ClientOrderModel convertClientOrderToModel(ClientOrder clientOrder) {
+        ClientOrderModel clientOrderModel = new ClientOrderModel();
+        clientOrderModel.setId( clientOrder.getId());
+        clientOrderModel.setClientUuid( clientOrder.getClientUuid() );
+        clientOrderModel.setCompanyOneId( clientOrder.getCompanyOneId() );
+        clientOrderModel.setCompanyOneName( clientOrder.getCompanyOneName() );
+        clientOrderModel.setCompanyTwoId( clientOrder.getCompanyTwoId() );
+        clientOrderModel.setCompanyTwoName( clientOrder.getCompanyTwoName() );
+        clientOrderModel.setCompanyLogo( clientOrder.getCompanyLogo() );
+        clientOrderModel.setOrderDate( clientOrder.getOrderDate() );
+        clientOrderModel.setOrderTime(clientOrder.getOrderTime() );
+        clientOrderModel.setOrderPrice(clientOrder.getOrderPrice() );
+        clientOrderModel.setOrderStatus(clientOrder.getOrderStatus() );
+        clientOrderModel.setNickName(clientOrder.getNickName());
+        clientOrderModel.setEmail(clientOrder.getEmail());
+        clientOrderModel.setPhone(clientOrder.getPhone());
+        clientOrderModel.setCity(clientOrder.getCity());
+        clientOrderModel.setStreet(clientOrder.getStreet());
+        clientOrderModel.setBuilding(clientOrder.getBuilding());
+        clientOrderModel.setEntry(clientOrder.getEntry());
+        clientOrderModel.setFloor(clientOrder.getFloor());
+        clientOrderModel.setFlat(clientOrder.getFlat());
+        clientOrderModel.setIntercom(clientOrder.getIntercom());
+        clientOrderModel.setNeedChange(clientOrder.getNeedChange());
+        clientOrderModel.setComment(clientOrder.getComment());
+        clientOrderModel.setPayType(clientOrder.getPayType());
+        return clientOrderModel;
+    }
+
+    public List<ClientOrderModel> convertClientOrdersToModels(List<ClientOrder> orders){
+        List< ClientOrderModel > orderModels =  new LinkedList<>();
+        if (orders != null) {
+            for(ClientOrder order: orders ){
+                orderModels.add( convertClientOrderToModel(order ) );
+            }
+        }
+        return orderModels;
     }
 
     public List<OrderEntity> convertModelsToOrderEntityList(Integer orderId, List<BasketModel> basketModels) {
@@ -423,6 +466,51 @@ public class ConvertUtils {
             companyActionModels.add(new CompanyActionModel(companyAction.getCompanyName(), companyAction.getActionImgUrl()));
         }
         return companyActionModels;
+    }
+
+    public BonusModel convertBonusToModel( Bonus bonus ){
+        BonusModel bonusModel = new BonusModel();
+        bonusModel.setId( bonus.getId() );
+        bonusModel.setUuid( bonus.getClientUuid() );
+        bonusModel.setCompanyId( bonus.getCompanyId() );
+        bonusModel.setCompanyName( bonus.getCompanyName() );
+        bonusModel.setCompanyLogo( bonus.getCompanyLogo() );
+        bonusModel.setBonusType( bonus.getBonusType() );
+        bonusModel.setBonusValue( bonus.getBonusValue() );
+        return bonusModel;
+    }
+    
+    public Bonus convertBonusModelToEntity( BonusModel bonusModel ){
+        Bonus bonus = new Bonus();
+        bonus.setId( bonusModel.getId() );
+        bonus.setClientUuid( bonusModel.getUuid() );
+        bonus.setCompanyId( bonusModel.getCompanyId() );
+        bonus.setCompanyName( bonusModel.getCompanyName() );
+        bonus.setCompanyLogo( bonusModel.getCompanyLogo() );
+        bonus.setBonusType( bonusModel.getBonusType() );
+        bonus.setBonusValue( bonusModel.getBonusValue() );
+        return bonus;
+    }
+
+
+    public List<BonusModel> convertBonusCollectionToModels(List<Bonus> bonuses ){
+        List<BonusModel> bonusModels =  new ArrayList<>();
+        if( bonuses != null ){
+            for( Bonus bonus: bonuses ){
+                bonusModels.add( convertBonusToModel( bonus ) );
+            }
+        }
+        return bonusModels;
+    }
+
+    public List<Bonus> convertBonusModelCollectionToEntities(List<BonusModel> bonusModels ){
+        List<Bonus> bonuses =  new ArrayList<>();
+        if( bonusModels != null ){
+            for( BonusModel bonusModel: bonusModels ){
+                bonuses.add( convertBonusModelToEntity( bonusModel ) );
+            }
+        }
+        return bonuses;
     }
 
 

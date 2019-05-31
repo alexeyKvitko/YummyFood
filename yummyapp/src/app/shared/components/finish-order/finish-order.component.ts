@@ -5,6 +5,7 @@ import {ClientOrderModel} from "../../../model/client-order.model";
 import {BasketModel} from "../../../model/basket.model";
 import {ClientService} from "../../../services/client.service";
 import swal from "sweetalert2";
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'finish-order',
@@ -15,6 +16,9 @@ export class FinishOrderComponent implements OnInit {
 
   @Input()
   ourClient: OurClientModel;
+
+  @Input()
+  basketPrice: number;
 
   @Input()
   orderBasket: BasketModel[];
@@ -67,6 +71,7 @@ export class FinishOrderComponent implements OnInit {
 
   onSubmit(){
     this.clientOrder.id = -1;
+    this.clientOrder.clientUuid = this.ourClient.uuid;
     this.clientOrder.nickName = this.orderForm.controls.nickName.value;
     this.clientOrder.email = this.orderForm.controls.email.value;
     this.clientOrder.phone = this.changedPhone != null ? this.changedPhone : this.ourClient.phone;
@@ -80,6 +85,11 @@ export class FinishOrderComponent implements OnInit {
     this.clientOrder.needChange = this.orderForm.controls.needChange.value;
     this.clientOrder.comment = this.orderForm.controls.comment.value;
     this.clientOrder.orders = this.orderBasket;
+    let today = new Date();
+    this.clientOrder.orderDate = formatDate( today, 'dd-MM-yyyy', 'en-US', '+0300');
+    this.clientOrder.orderTime = formatDate( today, 'hh:mm', 'en-US', '+0300');
+    this.clientOrder.orderPrice = this.basketPrice;
+    this.clientOrder.orderStatus = 'IN_PROGRESS';
 
     let accepted = true;
     if( ( this.clientOrder.nickName == null ||

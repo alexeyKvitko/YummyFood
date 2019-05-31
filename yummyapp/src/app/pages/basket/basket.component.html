@@ -54,7 +54,8 @@
               </basket-company>
             </div>
             <div id="finish-order-id">
-              <finish-order [(ourClient)]="ourClient" [(orderBasket)]="customerBasket" (scrollOrder)="scrollOrderToTop($event)"
+              <finish-order [(ourClient)]="ourClient" [(orderBasket)]="customerBasket" [(basketPrice)]="basketPrice"
+                            (scrollOrder)="scrollOrderToTop($event)"
                             (orderClosed)="closeOrder($event)" *ngIf="showFinishOrder && orderOpen"></finish-order>
             </div>
             <div id="issued-order">

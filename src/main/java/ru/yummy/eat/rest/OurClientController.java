@@ -7,17 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.yummy.eat.AppConstants;
-import ru.yummy.eat.exception.BusinessLogicException;
 import ru.yummy.eat.model.*;
 import ru.yummy.eat.service.impl.OurClientServiceImpl;
 import ru.yummy.eat.service.impl.PayeerServiceImpl;
 import ru.yummy.eat.service.impl.SmsServiceImpl;
-
-import javax.annotation.PostConstruct;
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 
 @CrossOrigin
 @RestController
@@ -112,25 +105,25 @@ public class OurClientController {
         return clientService.updateClientInfo( ourClientModel );
     }
 
-    @RequestMapping(value = "/updateClientAddress", method = RequestMethod.POST)
-    public ApiResponse updateClientInfo(@RequestBody ClientLocation clientLocation) {
-        return clientService.updateClientAddress( clientLocation );
+    @RequestMapping(value = "/updateClientPayType", method = RequestMethod.POST)
+    public ApiResponse updateClientPayType(@RequestBody OurClientModel ourClientModel) {
+        return clientService.updateClientPayType( ourClientModel );
     }
+
+    @RequestMapping(value = "/updateClientAddress", method = RequestMethod.POST)
+    public ApiResponse updateClientInfo(@RequestBody ClientLocationModel clientLocationModel) {
+        return clientService.updateClientAddress(clientLocationModel);
+    }
+
 
     @RequestMapping(value = "/updateClientPassword", method = RequestMethod.POST)
     public ApiResponse updateClientPassword(@RequestBody OurClientModel ourClientModel) {
         return clientService.updateClientPassword( ourClientModel );
     }
 
-    @RequestMapping(value = "/createClientOrder", method = RequestMethod.POST)
-    public ApiResponse createClientOrder(@RequestBody ClientOrderModel clientOrderModel) {
-        ApiResponse response = null;
-        response = clientService.createClientOrder(clientOrderModel);
-        return response;
-    }
 
     @GetMapping("/getClientInfo/{uuid}")
-    public ApiResponse deleteMenuType(@PathVariable String uuid) {
+    public ApiResponse getClientInfo(@PathVariable String uuid) {
         ApiResponse response = null;
         response = clientService.getClientByUUID(uuid);
         return response;

@@ -4,7 +4,7 @@ import org.pojomatic.Pojomatic;
 import org.pojomatic.annotations.AutoProperty;
 
 @AutoProperty
-public class ClientLocation {
+public class ClientLocationModel {
 
     private String uuid;
     private String city;

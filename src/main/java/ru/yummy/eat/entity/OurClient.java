@@ -5,11 +5,13 @@ import org.pojomatic.Pojomatic;
 import org.pojomatic.annotations.AutoProperty;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table( name = "our_client" )
 @AutoProperty
-public class OurClient {
+public class OurClient implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -29,9 +31,6 @@ public class OurClient {
 
     @Column(name="uuid")
     private String uuid;
-
-    @Column(name="bonus")
-    private String bonus;
 
     @Column(name="photo")
     private String photo;
@@ -59,6 +58,13 @@ public class OurClient {
 
     @Column(name="longitude")
     private Double longitude;
+
+    @Column(name="pay_type")
+    private String payType;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER )
+    @JoinColumn(name = "client_uuid", referencedColumnName="uuid")
+    private List<Bonus> bonuses;
 
     public Integer getId() {
         return id;
@@ -108,20 +114,12 @@ public class OurClient {
         this.uuid = uuid;
     }
 
-    public String getBonus() {
-        return bonus;
-    }
-
     public String getPhoto() {
         return photo;
     }
 
     public void setPhoto(String photo) {
         this.photo = photo;
-    }
-
-    public void setBonus(String bonus) {
-        this.bonus = bonus;
     }
 
     public String getCity() {
@@ -186,6 +184,22 @@ public class OurClient {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    public String getPayType() {
+        return payType;
+    }
+
+    public void setPayType(String payType) {
+        this.payType = payType;
+    }
+
+    public List<Bonus> getBonuses() {
+        return bonuses;
+    }
+
+    public void setBonuses(List<Bonus> bonuses) {
+        this.bonuses = bonuses;
     }
 
     @Override public boolean equals(Object o) {

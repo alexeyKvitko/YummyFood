@@ -8,15 +8,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.yummy.eat.AppConstants;
-import ru.yummy.eat.entity.ClientOrder;
 import ru.yummy.eat.entity.FavoriteCompany;
-import ru.yummy.eat.entity.OrderEntity;
 import ru.yummy.eat.entity.OurClient;
 import ru.yummy.eat.exception.BusinessLogicException;
-import ru.yummy.eat.model.*;
-import ru.yummy.eat.model.enums.PayStatus;
-import ru.yummy.eat.model.enums.PayType;
-import ru.yummy.eat.repo.ClientOrderRepository;
+import ru.yummy.eat.model.ApiResponse;
+import ru.yummy.eat.model.ClientLocationModel;
+import ru.yummy.eat.model.FavoriteCompanyModel;
+import ru.yummy.eat.model.OurClientModel;
 import ru.yummy.eat.repo.FavoriteCompanyRepository;
 import ru.yummy.eat.repo.OrderEntityRepository;
 import ru.yummy.eat.repo.OurClientRepository;
@@ -27,7 +25,6 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 @Service("clientService")
 public class OurClientServiceImpl {
@@ -39,12 +36,6 @@ public class OurClientServiceImpl {
 
     @Autowired
     OurClientRepository clientRepo;
-
-    @Autowired
-    ClientOrderRepository clientOrderRepo;
-
-    @Autowired
-    OrderEntityRepository orderEntityRepo;
 
     @Autowired
     FavoriteCompanyRepository favoriteCompanyRepo;
@@ -221,19 +212,19 @@ public class OurClientServiceImpl {
         return response;
     }
 
-    public ApiResponse updateClientAddress(ClientLocation clientLocation) {
+    public ApiResponse updateClientAddress(ClientLocationModel clientLocationModel) {
         ApiResponse response = new ApiResponse();
         response.setStatus(HttpStatus.OK.value());
         String success = null;
         String error = null;
         try {
-            OurClient existClient = clientRepo.findByUuid( clientLocation.getUuid() );
+            OurClient existClient = clientRepo.findByUuid( clientLocationModel.getUuid() );
             if (existClient != null) {
-                convertUtils.updateClientLocation( existClient, clientLocation );
+                convertUtils.updateClientLocation( existClient, clientLocationModel);
                 clientRepo.save(existClient);
                 success = AppConstants.USER_UPDATED;
             } else {
-                error = String.format(AppConstants.USER_NOT_EXIST, clientLocation.getUuid());
+                error = String.format(AppConstants.USER_NOT_EXIST, clientLocationModel.getUuid());
             }
         } catch (Exception e) {
             LOG.error("Exception when update exist client address: " + e.getMessage());
@@ -277,27 +268,34 @@ public class OurClientServiceImpl {
         return response;
     }
 
-
-    public ApiResponse createClientOrder(ClientOrderModel clientOrderModel) {
+    public ApiResponse updateClientPayType(OurClientModel ourClientModel) {
         ApiResponse response = new ApiResponse();
         response.setStatus(HttpStatus.OK.value());
+        String success = null;
+        String error = null;
         try {
-            ClientOrder clientOrder = convertUtils.convertModelToClientOrder(clientOrderModel);
-            if ( PayType.WALLET.name().equals( clientOrder.getPayType() ) ){
-                clientOrder.setPayStatus( PayStatus.EXPECTED.name() );
+            OurClient existClient = clientRepo.findByUuid(ourClientModel.getUuid());
+            if (existClient != null) {
+                existClient.setPayType( ourClientModel.getPayType() );
+                clientRepo.save(existClient);
+                success = AppConstants.USER_UPDATED;
+            } else {
+                error = String.format(AppConstants.USER_NOT_EXIST, ourClientModel.getUuid());
             }
-            clientOrderRepo.save(clientOrder);
-            List<OrderEntity> orderEntities = convertUtils.convertModelsToOrderEntityList(clientOrder.getId(), clientOrderModel.getOrders());
-            orderEntityRepo.saveAll(orderEntities);
-            response.setResult(clientOrder.getId());
-            LOG.info("Creare Order with Id: " + clientOrder.getId());
         } catch (Exception e) {
-            LOG.error("Exception got when save client order: " + e.getMessage());
-            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-            response.setMessage(e.getMessage());
+            LOG.error("Exception when update exist client: " + e.getMessage());
+            e.printStackTrace();
+            error = AppConstants.UNEXPECTED_ERROR;
+        }
+        if ( success != null ){
+            response.setMessage( success );
+        } else if( error != null ){
+            response.setMessage( error );
+            response.setStatus( HttpStatus.INTERNAL_SERVER_ERROR.value() );
         }
         return response;
     }
+
 
     public ApiResponse getClientByUUID(String uuid) {
         ApiResponse response = new ApiResponse();
@@ -377,18 +375,7 @@ public class OurClientServiceImpl {
         return response;
     }
 
-    public void updateOrderStatus( String orderId, String payAmount, String payStatus ){
-        try {
-            Integer id = Integer.valueOf( orderId );
-            ClientOrder clientOrder = clientOrderRepo.findById( id ).get();
-            clientOrder.setPayAmount( payAmount );
-            clientOrder.setPayStatus( payStatus );
-            clientOrderRepo.save( clientOrder );
-        } catch ( Exception e ){
-            LOG.error("Exception when update order status: "+e.getMessage());
-            e.printStackTrace();
-        }
-    }
+
 
     public ApiResponse updateClientAvatar( String uuid, MultipartFile avatar ){
         ApiResponse response = new ApiResponse();

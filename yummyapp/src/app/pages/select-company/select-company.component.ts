@@ -69,6 +69,8 @@ export class SelectCompanyComponent implements OnInit {
         this.selectedCompanyId = '6';
         break;
       case 'enter-admin':
+        latitude = 44.9521;
+        longitude = 34.1024;
         this.onSubmit();
         this.selectedCompanyId == null;
         break;
@@ -99,12 +101,11 @@ export class SelectCompanyComponent implements OnInit {
       username: "admin",
       password: "a_pswd"
     };
-
     this.loginService.login(loginPayload).subscribe(data => {
+      debugger
       if(data.status === 200) {
         window.localStorage.setItem('token', data.result.token);
         window.localStorage.setItem('userrole', data.result.userRole);
-        console.log("You are logged in as administrator ...", data.result.userRole );
         this.router.navigate(['pages/home-page']);
       }else {
         alert(data.message);

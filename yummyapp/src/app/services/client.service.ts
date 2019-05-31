@@ -11,6 +11,7 @@ import {CompanyModel} from "../model/company.model";
 export class ClientService {
 
   private clientUrl = '/api/client';
+  private orderUrl = '/api/client/order';
 
   constructor( private http: HttpClient ) {}
 
@@ -32,12 +33,13 @@ export class ClientService {
     return this.http.get<ApiResponse>(this.clientUrl + '/getPayeerUrl/' + orderId +"/"+amount+"/"+date);
   }
 
-  public createOrder( clientOrder : ClientOrderModel ){
-    return this.http.post<ApiResponse>(this.clientUrl + '/createClientOrder', clientOrder );
-  }
 
   public sendEmailToUs( message: string ) {
     return this.http.get<ApiResponse>(this.clientUrl+'/sendEmailToUs/'+ message);
+  }
+
+  public createOrder( clientOrder : ClientOrderModel ){
+    return this.http.post<ApiResponse>(this.orderUrl + '/createClientOrder', clientOrder );
   }
 
 
