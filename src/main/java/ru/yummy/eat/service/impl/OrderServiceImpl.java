@@ -8,9 +8,7 @@ import org.springframework.stereotype.Service;
 import ru.yummy.eat.AppConstants;
 import ru.yummy.eat.entity.ClientOrder;
 import ru.yummy.eat.entity.OrderEntity;
-import ru.yummy.eat.model.ApiResponse;
-import ru.yummy.eat.model.BasketModel;
-import ru.yummy.eat.model.ClientOrderModel;
+import ru.yummy.eat.model.*;
 import ru.yummy.eat.model.enums.PayStatus;
 import ru.yummy.eat.model.enums.PayType;
 import ru.yummy.eat.repo.ClientOrderRepository;
@@ -46,7 +44,6 @@ public class OrderServiceImpl {
             if (PayType.WALLET.name().equals(clientOrder.getPayType())) {
                 clientOrder.setPayStatus(PayStatus.EXPECTED.name());
             }
-            List<OrderEntity> orderEntities = convertUtils.convertModelsToOrderEntityList(clientOrder.getId(), clientOrderModel.getOrders());
             Map<Integer, String> orderCompanies = new HashMap<>();
             for(BasketModel basketModel : clientOrderModel.getOrders() ){
                 orderCompanies.put( basketModel.getCompany().getId(), basketModel.getCompany().getDisplayName() );
@@ -68,8 +65,8 @@ public class OrderServiceImpl {
                 }
                 idx++;
             }
-
             clientOrderRepo.save(clientOrder);
+            List<OrderEntity> orderEntities = convertUtils.convertModelsToOrderEntityList(clientOrder.getId(), clientOrderModel.getOrders());
             orderEntityRepo.saveAll(orderEntities);
             response.setResult(clientOrder.getId());
             LOG.info("Creare Order with Id: " + clientOrder.getId());
@@ -95,12 +92,20 @@ public class OrderServiceImpl {
         }
     }
 
-    public ApiResponse getClientOrders( String uuid ) {
-        ApiResponse response = new ApiResponse();
+    public ApiResponse<ExistOrders> getClientOrders(String uuid ) {
+        ApiResponse<ExistOrders> response = new ApiResponse();
         response.setStatus( HttpStatus.OK.value() );
         try {
             List<ClientOrder> clientOrders = clientOrderRepo.findAllByClientUuidOrderByOrderDateDesc( uuid );
-            response.setResult( convertUtils.convertClientOrdersToModels( clientOrders ));
+            List<ClientOrderModel> orderModels = new ArrayList<>();
+            for(ClientOrder order: clientOrders ){
+                List<OrderEntity> orderEntities = orderEntityRepo.findAllByOrderId( order.getId() );
+                List<BasketModel> basketModels = convertUtils.convertOrderEntitiesToBasketModel( orderEntities );
+                ClientOrderModel orderModel = convertUtils.convertClientOrderToModel( order );
+                orderModel.setOrders( basketModels );
+                orderModels.add( orderModel );
+            }
+            response.setResult( new ExistOrders( orderModels ) );
         } catch (Exception e) {
             LOG.error("Exception got when get client orders: " + e.getMessage());
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());

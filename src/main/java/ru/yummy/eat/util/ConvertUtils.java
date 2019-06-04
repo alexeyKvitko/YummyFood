@@ -7,17 +7,22 @@ import ru.yummy.eat.AppConstants;
 import ru.yummy.eat.entity.*;
 import ru.yummy.eat.model.*;
 import ru.yummy.eat.repo.CityRepository;
+import ru.yummy.eat.repo.CompanyRepository;
+import ru.yummy.eat.repo.MenuEntityRepository;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Component
 public class ConvertUtils {
 
     @Autowired
     CityRepository cityRepo;
+
+    @Autowired
+    MenuEntityRepository menuEntityRepo;
+
+    @Autowired
+    CompanyRepository companyRepo;
 
     @Autowired
     private BCryptPasswordEncoder bcryptEncoder;
@@ -390,7 +395,30 @@ public class ConvertUtils {
         return clientOrder;
     }
 
-    public ClientOrderModel convertClientOrderToModel(ClientOrder clientOrder) {
+    public List<BasketModel> convertOrderEntitiesToBasketModel(List<OrderEntity> orderEntities){
+        List<BasketModel> basketModels = new ArrayList<>();
+        for(OrderEntity orderEntity : orderEntities ){
+            MenuEntity menuEntity = menuEntityRepo.findById( orderEntity.getEntityId() ).get();
+            MenuEntityModel entityModel = convertMenuEntityToModel( menuEntity, orderEntity.getCompanyId(), null, null );
+            entityModel.setWspType( orderEntity.getWspType() );
+            entityModel.setCount( orderEntity.getCount() );
+            CompanyModel companyModel = convertCompanyToModel( companyRepo.findById( orderEntity.getCompanyId() ).get() );
+            Optional<BasketModel> optional = basketModels.stream().filter( basket -> basket.getCompany().getId().equals( companyModel.getId() ) ).findFirst();
+            if ( optional.isPresent() ){
+                optional.get().getBasket().add( entityModel );
+            } else {
+                BasketModel basketModel = new BasketModel();
+                basketModel.setCompany( companyModel );
+                basketModel.setBasket( new ArrayList<>() );
+                basketModels.add( basketModel );
+            }
+        }
+        return basketModels;
+    }
+
+
+
+    public ClientOrderModel convertClientOrderToModel(ClientOrder clientOrder  ) {
         ClientOrderModel clientOrderModel = new ClientOrderModel();
         clientOrderModel.setId( clientOrder.getId());
         clientOrderModel.setClientUuid( clientOrder.getClientUuid() );
@@ -419,16 +447,6 @@ public class ConvertUtils {
         return clientOrderModel;
     }
 
-    public List<ClientOrderModel> convertClientOrdersToModels(List<ClientOrder> orders){
-        List< ClientOrderModel > orderModels =  new LinkedList<>();
-        if (orders != null) {
-            for(ClientOrder order: orders ){
-                orderModels.add( convertClientOrderToModel(order ) );
-            }
-        }
-        return orderModels;
-    }
-
     public List<OrderEntity> convertModelsToOrderEntityList(Integer orderId, List<BasketModel> basketModels) {
         List<OrderEntity> orderEntities = new LinkedList<>();
         for (BasketModel basketModel : basketModels) {
@@ -437,7 +455,7 @@ public class ConvertUtils {
                 orderEntity.setId(null);
                 orderEntity.setOrderId(orderId);
                 orderEntity.setCompanyId(basketModel.getCompany().getId());
-                orderEntity.setEntityId(entityModel.getId());
+                orderEntity.setEntityId( entityModel.getId());
                 orderEntity.setCount(entityModel.getCount());
                 orderEntity.setWspType(entityModel.getWspType());
                 switch (entityModel.getWspType().toUpperCase()) {

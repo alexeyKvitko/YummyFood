@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.yummy.eat.model.ApiResponse;
 import ru.yummy.eat.model.ClientOrderModel;
+import ru.yummy.eat.model.ExistOrders;
 import ru.yummy.eat.service.impl.OrderServiceImpl;
 
 @CrossOrigin
@@ -26,8 +27,8 @@ public class OrderController {
     }
 
     @GetMapping("/getClientOrders/{uuid}")
-    public ApiResponse createClientOrder(@PathVariable String uuid) {
-        ApiResponse response = null;
+    public ApiResponse<ExistOrders> getClientOrders(@PathVariable String uuid) {
+        ApiResponse<ExistOrders> response = null;
         response = orderService.getClientOrders( uuid );
         return response;
     }

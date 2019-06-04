@@ -108,7 +108,7 @@
     </build>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <start-class>ru.yummy.eat.YammyFoodApplication</start-class>
+        <start-class>ru.yummy.eat.YummyFoodApplication</start-class>
         <java.version>1.8</java.version>
     </properties>
 </project>

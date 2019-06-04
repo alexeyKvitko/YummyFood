@@ -8,15 +8,15 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableScheduling
 @SpringBootApplication
-public class YammyFoodApplication extends SpringBootServletInitializer {
+public class YummyFoodApplication extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources( YammyFoodApplication.class );
+        return application.sources( YummyFoodApplication.class );
     }
 
     public static void main(String[] args) {
-        SpringApplication.run( YammyFoodApplication.class, args);
+        SpringApplication.run( YummyFoodApplication.class, args);
     }
 }
 
