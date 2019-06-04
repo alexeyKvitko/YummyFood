@@ -410,6 +410,7 @@ public class ConvertUtils {
                 BasketModel basketModel = new BasketModel();
                 basketModel.setCompany( companyModel );
                 basketModel.setBasket( new ArrayList<>() );
+                basketModel.getBasket().add( entityModel );
                 basketModels.add( basketModel );
             }
         }
