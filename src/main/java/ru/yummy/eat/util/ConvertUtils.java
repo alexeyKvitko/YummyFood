@@ -1,5 +1,7 @@
 package ru.yummy.eat.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -10,10 +12,13 @@ import ru.yummy.eat.repo.CityRepository;
 import ru.yummy.eat.repo.CompanyRepository;
 import ru.yummy.eat.repo.MenuEntityRepository;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Component
 public class ConvertUtils {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ConvertUtils.class);
 
     @Autowired
     CityRepository cityRepo;
@@ -535,6 +540,32 @@ public class ConvertUtils {
 
     public boolean isPasswordMatches(String rawPswd, String encodePswd) {
         return bcryptEncoder.matches(rawPswd, encodePswd);
+    }
+
+    public FeedbackModel convertFeedbackToModel( Feedback feedback ){
+        FeedbackModel model = new FeedbackModel();
+        model.setId( feedback.getId() );
+        model.setCompanyId( feedback.getCompanyId() );
+        model.setRate( feedback.getRate() );
+        model.setPerson( feedback.getPerson() );
+        model.setPersonAvatar( feedback.getPersonAvatar() );
+        model.setFeedbackDate( feedback.getFeedbackDate() );
+        model.setFeedbackTime( feedback.getFeedbackTime() );
+        model.setComment( feedback.getComment() );
+        return model;
+    }
+
+    public Feedback convertFeedbackModelToEntity( FeedbackModel model ){
+        Feedback feedback = new Feedback();
+        feedback.setId( model.getId() );
+        feedback.setCompanyId( model.getCompanyId() );
+        feedback.setRate( model.getRate() );
+        feedback.setPerson( model.getPerson() );
+        feedback.setPersonAvatar( model.getPersonAvatar() );
+        feedback.setFeedbackDate( model.getFeedbackDate() );
+        feedback.setFeedbackTime( model.getFeedbackTime() );
+        feedback.setComment( model.getComment() );
+        return feedback;
     }
 
 }

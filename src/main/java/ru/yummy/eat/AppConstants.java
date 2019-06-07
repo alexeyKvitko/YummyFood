@@ -29,6 +29,7 @@ public abstract class AppConstants {
     public static final String COMPANY_MIX_LOGO = "company-mix.png";
 
     public static final String JPG_EXT = ".jpg";
+    public static final String PNG_EXT = ".png";
 
     public static final String SMS_CODE_MSG = "ЕдаНяма.рф, код подтверждения: ";
 

@@ -55,8 +55,8 @@ public class OrderServiceImpl {
                     clientOrder.setCompanyOneName( orderCompanies.get( key ) );
                     String logo = clientOrderModel.getOrders().stream()
                                                     .filter( model -> model.getCompany().getId().equals( key ) )
-                                                                            .findFirst().get().getCompany().getLogo();
-                    clientOrder.setCompanyLogo( logo );
+                                                                            .findFirst().get().getCompany().getThumb();
+                    clientOrder.setCompanyLogo( logo+AppConstants.PNG_EXT );
                 }
                 if( idx == 1 ){
                     clientOrder.setCompanyTwoId( key );
@@ -72,6 +72,7 @@ public class OrderServiceImpl {
             LOG.info("Creare Order with Id: " + clientOrder.getId());
         } catch (Exception e) {
             LOG.error("Exception got when save client order: " + e.getMessage());
+            e.printStackTrace();
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             response.setMessage(e.getMessage());
         }
@@ -92,7 +93,7 @@ public class OrderServiceImpl {
         }
     }
 
-    public ApiResponse<ExistOrders> getClientOrders(String uuid ) {
+    public ApiResponse<ExistOrders> getClientOrders( String uuid ) {
         ApiResponse<ExistOrders> response = new ApiResponse();
         response.setStatus( HttpStatus.OK.value() );
         try {
@@ -108,6 +109,7 @@ public class OrderServiceImpl {
             response.setResult( new ExistOrders( orderModels ) );
         } catch (Exception e) {
             LOG.error("Exception got when get client orders: " + e.getMessage());
+            e.printStackTrace();
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             response.setMessage(e.getMessage());
         }
