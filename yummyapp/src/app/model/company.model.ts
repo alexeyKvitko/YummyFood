@@ -15,6 +15,7 @@ export class CompanyModel {
   delivery: number;
   deliveryTimeMin: number;
   commentCount: string;
+  feedbackRate: number;
   deliveryCondition: string;
   payTypeCash: number;
   payTypeCard: number;

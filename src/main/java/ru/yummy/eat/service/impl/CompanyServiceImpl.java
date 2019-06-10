@@ -24,6 +24,9 @@ public class CompanyServiceImpl {
     CompanyRepository companyRepo;
 
     @Autowired
+    FeedbackRepository feedbackRepo;
+
+    @Autowired
     MenuTypeRepository menuTypeRepo;
 
     @Autowired
@@ -69,6 +72,8 @@ public class CompanyServiceImpl {
             return companyInfo;
         }
         company = convertUtils.convertCompanyToModel(companyRepo.findById(companyId).get());
+        Integer feedbackRate = feedbackRepo.getTotalRateByCompanyId( company.getId() );
+        company.setFeedbackRate( feedbackRate != null ? feedbackRate : 0 );
         List<MenuType> menuTypes = menuTypeRepo.findTypesByCompanyIdOrderByDisplayName(Integer.valueOf(companyId));
         for (MenuType menuType : menuTypes) {
             MenuTypeModel menuTypeModel = convertUtils.convertMenuTypeToModel(menuType);

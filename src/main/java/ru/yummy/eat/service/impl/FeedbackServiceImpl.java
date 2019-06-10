@@ -45,7 +45,7 @@ public class FeedbackServiceImpl {
         ApiResponse<List<FeedbackModel>> response = new ApiResponse();
         response.setStatus(HttpStatus.OK.value());
         try {
-            List<Feedback> feedbacks = feedbackRepo.findAllByCompanyId( companyId );
+            List<Feedback> feedbacks = feedbackRepo.findAllByCompanyIdOrderByCreateDateDesc( companyId );
             List<FeedbackModel> feedbackModels = new LinkedList<>();
             for(Feedback feedback : feedbacks ){
                 feedbackModels.add( convertUtils.convertFeedbackToModel( feedback ) );

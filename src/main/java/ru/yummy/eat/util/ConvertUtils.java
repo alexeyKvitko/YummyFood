@@ -565,6 +565,7 @@ public class ConvertUtils {
         feedback.setFeedbackDate( model.getFeedbackDate() );
         feedback.setFeedbackTime( model.getFeedbackTime() );
         feedback.setComment( model.getComment() );
+        feedback.setCreateDate( new Date() );
         return feedback;
     }
 

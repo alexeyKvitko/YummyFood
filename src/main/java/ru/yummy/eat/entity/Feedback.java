@@ -4,6 +4,7 @@ import org.pojomatic.Pojomatic;
 import org.pojomatic.annotations.AutoProperty;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "feedback")
@@ -34,6 +35,9 @@ public class Feedback {
 
     @Column(name="comment")
     private String comment;
+
+    @Column(name="create_date")
+    private Date createDate;
 
     public Integer getId() {
         return id;
@@ -89,6 +93,14 @@ public class Feedback {
 
     public void setRate(Integer rate) {
         this.rate = rate;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
     public String getComment() {
