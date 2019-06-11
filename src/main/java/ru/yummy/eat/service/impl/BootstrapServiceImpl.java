@@ -15,6 +15,7 @@ import ru.yummy.eat.model.CompanyModel;
 import ru.yummy.eat.repo.CityRepository;
 import ru.yummy.eat.repo.CompanyActionRepository;
 import ru.yummy.eat.repo.CompanyRepository;
+import ru.yummy.eat.repo.FeedbackRepository;
 import ru.yummy.eat.util.AppUtils;
 import ru.yummy.eat.util.ConvertUtils;
 
@@ -27,6 +28,9 @@ public class BootstrapServiceImpl {
 
     @Autowired
     CompanyRepository companyRepo;
+
+    @Autowired
+    FeedbackRepository feedbackRepo;
 
     @Autowired
     CityRepository cityRepo;
@@ -77,6 +81,8 @@ public class BootstrapServiceImpl {
         bootstrapModel.setCompanies( convertUtils.convertCompaniesToModelList( companies ) );
         try {
             for( CompanyModel companyModel: bootstrapModel.getCompanies() ){
+                Integer feedbackRate = feedbackRepo.getTotalRateByCompanyId( companyModel.getId() );
+                companyModel.setFeedbackRate( feedbackRate != null ? feedbackRate : 0 );
                 companyModel.setMenuTypeIds( menuService.getMenuTypeIdsAsString( companyModel.getId() ) );
                 companyModel.setMenuCategoiesIds( menuService.getMenuCategoryIdsAsString( companyModel.getId() ) );
             }
