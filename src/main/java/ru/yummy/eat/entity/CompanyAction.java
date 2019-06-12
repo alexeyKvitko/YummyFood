@@ -20,6 +20,9 @@ public class CompanyAction {
     @Column(name="action_img_url")
     private String actionImgUrl;
 
+    @Column(name="full_screen_action")
+    private String fullScreenAction;
+
     @Column(name="city_id")
     private Integer cityId;
 
@@ -37,6 +40,14 @@ public class CompanyAction {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public String getFullScreenAction() {
+        return fullScreenAction;
+    }
+
+    public void setFullScreenAction(String fullScreenAction) {
+        this.fullScreenAction = fullScreenAction;
     }
 
     public String getActionImgUrl() {

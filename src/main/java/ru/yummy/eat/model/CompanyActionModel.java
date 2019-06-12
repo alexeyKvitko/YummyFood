@@ -8,12 +8,14 @@ public class CompanyActionModel {
 
     private String companyName;
     private String actionImgUrl;
+    private String fullScreenAction;
 
     public CompanyActionModel(){}
 
-    public CompanyActionModel( String companyName, String actionImgUrl ) {
+    public CompanyActionModel( String companyName, String actionImgUrl, String fullScreenAction ) {
         this.companyName = companyName;
         this.actionImgUrl = actionImgUrl;
+        this.fullScreenAction = fullScreenAction;
     }
 
     public String getCompanyName() {

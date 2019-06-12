@@ -487,7 +487,8 @@ public class ConvertUtils {
     public List<CompanyActionModel> convertCompanyActionsToModels(List<CompanyAction> companyActions) {
         List<CompanyActionModel> companyActionModels = new LinkedList<>();
         for (CompanyAction companyAction : companyActions) {
-            companyActionModels.add(new CompanyActionModel(companyAction.getCompanyName(), companyAction.getActionImgUrl()));
+            companyActionModels.add(new CompanyActionModel(companyAction.getCompanyName(),
+                                                companyAction.getActionImgUrl(),companyAction.getFullScreenAction()));
         }
         return companyActionModels;
     }
