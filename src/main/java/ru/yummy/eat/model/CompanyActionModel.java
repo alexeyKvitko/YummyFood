@@ -6,16 +6,26 @@ import org.pojomatic.annotations.AutoProperty;
 @AutoProperty
 public class CompanyActionModel {
 
+    private Integer companyId;
     private String companyName;
     private String actionImgUrl;
     private String fullScreenAction;
 
     public CompanyActionModel(){}
 
-    public CompanyActionModel( String companyName, String actionImgUrl, String fullScreenAction ) {
+    public CompanyActionModel( Integer companyId, String companyName, String actionImgUrl, String fullScreenAction ) {
+        this.companyId = companyId;
         this.companyName = companyName;
         this.actionImgUrl = actionImgUrl;
         this.fullScreenAction = fullScreenAction;
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 
     public String getCompanyName() {
@@ -32,6 +42,14 @@ public class CompanyActionModel {
 
     public void setActionImgUrl( String actionImgUrl ) {
         this.actionImgUrl = actionImgUrl;
+    }
+
+    public String getFullScreenAction() {
+        return fullScreenAction;
+    }
+
+    public void setFullScreenAction(String fullScreenAction) {
+        this.fullScreenAction = fullScreenAction;
     }
 
     @Override public boolean equals(Object o) {

@@ -14,6 +14,9 @@ public class CompanyAction {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name="company_id")
+    private Integer companyId;
+
     @Column(name="company_name")
     private String companyName;
 
@@ -32,6 +35,15 @@ public class CompanyAction {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 
     public String getCompanyName() {
