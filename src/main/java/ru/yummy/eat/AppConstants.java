@@ -1,8 +1,7 @@
 package ru.yummy.eat;
 
-import ru.yummy.eat.util.AppUtils;
-
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public abstract class AppConstants {
 
@@ -11,6 +10,7 @@ public abstract class AppConstants {
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String HEADER_STRING = "Authorization";
     public static final String UPDATE_DATE_FORMAT = "dd-MM-yyyy HH:mm";
+    public static final String DATE_FORMAT = "dd-MM-yyyy";
 
     public static final String UUID_PATTERN = "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}";
     public static final String CONFIRM_CODE_PATTERN = "^\\d{4}$";

@@ -3,7 +3,6 @@ package ru.yummy.eat.model;
 import org.pojomatic.Pojomatic;
 import org.pojomatic.annotations.AutoProperty;
 
-import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.List;
 
@@ -33,7 +32,10 @@ public class ClientOrderModel implements Serializable {
     private String intercom;
     private Integer needChange;
     private String comment;
+    private String payStatus;
+    private String payAmount;
     private String payType;
+    private String payUrl;
     private List<BasketModel> orders;
 
     public Integer getId() {
@@ -234,6 +236,30 @@ public class ClientOrderModel implements Serializable {
 
     public void setOrders(List<BasketModel> orders) {
         this.orders = orders;
+    }
+
+    public String getPayUrl() {
+        return payUrl;
+    }
+
+    public void setPayUrl(String payUrl) {
+        this.payUrl = payUrl;
+    }
+
+    public String getPayStatus() {
+        return payStatus;
+    }
+
+    public void setPayStatus(String payStatus) {
+        this.payStatus = payStatus;
+    }
+
+    public String getPayAmount() {
+        return payAmount;
+    }
+
+    public void setPayAmount(String payAmount) {
+        this.payAmount = payAmount;
     }
 
     @Override

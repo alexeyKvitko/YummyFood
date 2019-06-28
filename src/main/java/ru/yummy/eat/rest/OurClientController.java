@@ -7,7 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.yummy.eat.AppConstants;
-import ru.yummy.eat.model.*;
+import ru.yummy.eat.model.ApiResponse;
+import ru.yummy.eat.model.ClientLocationModel;
+import ru.yummy.eat.model.FavoriteCompanyModel;
+import ru.yummy.eat.model.OurClientModel;
+import ru.yummy.eat.qiwi.QiwiServiceImpl;
 import ru.yummy.eat.service.impl.OurClientServiceImpl;
 import ru.yummy.eat.service.impl.PayeerServiceImpl;
 import ru.yummy.eat.service.impl.SmsServiceImpl;
@@ -27,6 +31,9 @@ public class OurClientController {
 
     @Autowired
     PayeerServiceImpl payeerService;
+
+    @Autowired
+    QiwiServiceImpl qiwiService;
 
     @RequestMapping(value = "/registerClient", method = RequestMethod.POST)
     public ApiResponse registerClient(@RequestBody OurClientModel ourClientModel) {
@@ -183,6 +190,19 @@ public class OurClientController {
         ApiResponse response = new ApiResponse();
         response.setStatus(HttpStatus.OK.value());
         String result = payeerService.generatePayeerPaymentURL( orderId, amount, date );
+        if ( result == null ) {
+            result = AppConstants.UNEXPECTED_ERROR;
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        }
+        response.setMessage(result);
+        return response;
+    }
+
+    @GetMapping("/getQiwiUrl/{orderId}/{amount}")
+    public ApiResponse getQiwiUrl(@PathVariable Integer orderId,@PathVariable String amount ) {
+        ApiResponse response = new ApiResponse();
+        response.setStatus(HttpStatus.OK.value());
+        String result = qiwiService.generatePaymentUrl( orderId, amount );
         if ( result == null ) {
             result = AppConstants.UNEXPECTED_ERROR;
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());

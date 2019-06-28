@@ -11,9 +11,11 @@ import ru.yummy.eat.entity.OrderEntity;
 import ru.yummy.eat.model.*;
 import ru.yummy.eat.model.enums.PayStatus;
 import ru.yummy.eat.model.enums.PayType;
+import ru.yummy.eat.qiwi.QiwiServiceImpl;
 import ru.yummy.eat.repo.ClientOrderRepository;
 import ru.yummy.eat.repo.CompanyRepository;
 import ru.yummy.eat.repo.OrderEntityRepository;
+import ru.yummy.eat.util.AppUtils;
 import ru.yummy.eat.util.ConvertUtils;
 
 import java.util.*;
@@ -35,15 +37,19 @@ public class OrderServiceImpl {
     @Autowired
     CompanyRepository companyRepo;
 
+    @Autowired
+    QiwiServiceImpl qiwiService;
 
-    public ApiResponse createClientOrder(ClientOrderModel clientOrderModel) {
+    @Autowired
+    PayeerServiceImpl payeerService;
+
+
+    public ApiResponse<ClientOrderResponse> createClientOrder(ClientOrderModel clientOrderModel) {
         ApiResponse response = new ApiResponse();
         response.setStatus(HttpStatus.OK.value());
         try {
             ClientOrder clientOrder = convertUtils.convertModelToClientOrder(clientOrderModel);
-            if (PayType.WALLET.name().equals(clientOrder.getPayType())) {
-                clientOrder.setPayStatus(PayStatus.EXPECTED.name());
-            }
+
             Map<Integer, String> orderCompanies = new HashMap<>();
             for(BasketModel basketModel : clientOrderModel.getOrders() ){
                 orderCompanies.put( basketModel.getCompany().getId(), basketModel.getCompany().getDisplayName() );
@@ -65,11 +71,27 @@ public class OrderServiceImpl {
                 }
                 idx++;
             }
-            clientOrderRepo.save(clientOrder);
+            clientOrderRepo.save( clientOrder );
             List<OrderEntity> orderEntities = convertUtils.convertModelsToOrderEntityList(clientOrder.getId(), clientOrderModel.getOrders());
             orderEntityRepo.saveAll(orderEntities);
-            response.setResult(clientOrder.getId());
-            LOG.info("Creare Order with Id: " + clientOrder.getId());
+            String payUrl = null;
+            if ( PayType.QIWI.name().equals(clientOrder.getPayType() ) )   {
+                payUrl = qiwiService.generatePaymentUrl( clientOrder.getId(), clientOrder.getOrderPrice().toString() );
+
+            } else  if ( PayType.PAYEER.name().equals(clientOrder.getPayType()) ) {
+                String now = AppUtils.formatDate( AppConstants.DATE_FORMAT, new Date(), Locale.ENGLISH );
+                payUrl = payeerService.generatePayeerPaymentURL( clientOrder.getId().toString(), clientOrder.getOrderPrice().toString(), now );
+            }
+            if ( payUrl != null ){
+                clientOrder.setPayStatus( PayStatus.EXPECTED.name() );
+                clientOrder.setPayUrl( payUrl );
+                clientOrderRepo.save( clientOrder );
+            }
+            ClientOrderResponse orderResponse = new ClientOrderResponse();
+            orderResponse.setOrderId( clientOrder.getId() );
+            orderResponse.setPayUrl( payUrl );
+            response.setResult( orderResponse );
+            LOG.info("Creare Order: " + orderResponse.toString());
         } catch (Exception e) {
             LOG.error("Exception got when save client order: " + e.getMessage());
             e.printStackTrace();
@@ -82,11 +104,13 @@ public class OrderServiceImpl {
 
     public void updateOrderStatus(String orderId, String payAmount, String payStatus) {
         try {
+            LOG.info("START UPDATE ORDER ["+orderId+"], amount ["+payAmount+"], status ["+payStatus+"]");
             Integer id = Integer.valueOf(orderId);
             ClientOrder clientOrder = clientOrderRepo.findById(id).get();
             clientOrder.setPayAmount(payAmount);
             clientOrder.setPayStatus(payStatus);
             clientOrderRepo.save(clientOrder);
+            LOG.info(" OPRDER ["+orderId+"], updated");
         } catch (Exception e) {
             LOG.error("Exception when update order status: " + e.getMessage());
             e.printStackTrace();

@@ -89,6 +89,9 @@ public class ClientOrder {
     @Column(name = "pay_amount")
     private String payAmount;
 
+    @Column(name = "pay_url")
+    private String payUrl;
+
 
     public Integer getId() {
         return id;
@@ -296,6 +299,14 @@ public class ClientOrder {
 
     public void setPayStatus(String payStatus) {
         this.payStatus = payStatus;
+    }
+
+    public String getPayUrl() {
+        return payUrl;
+    }
+
+    public void setPayUrl(String payUrl) {
+        this.payUrl = payUrl;
     }
 
     @Override

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.yummy.eat.model.ApiResponse;
 import ru.yummy.eat.model.ClientOrderModel;
+import ru.yummy.eat.model.ClientOrderResponse;
 import ru.yummy.eat.model.ExistOrders;
 import ru.yummy.eat.service.impl.OrderServiceImpl;
 
@@ -20,7 +21,7 @@ public class OrderController {
     OrderServiceImpl orderService;
 
     @RequestMapping(value = "/createClientOrder", method = RequestMethod.POST)
-    public ApiResponse createClientOrder(@RequestBody ClientOrderModel clientOrderModel) {
+    public ApiResponse<ClientOrderResponse> createClientOrder(@RequestBody ClientOrderModel clientOrderModel) {
         ApiResponse response = null;
         response = orderService.createClientOrder(clientOrderModel);
         return response;

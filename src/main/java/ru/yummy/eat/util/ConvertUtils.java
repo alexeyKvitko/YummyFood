@@ -12,7 +12,6 @@ import ru.yummy.eat.repo.CityRepository;
 import ru.yummy.eat.repo.CompanyRepository;
 import ru.yummy.eat.repo.MenuEntityRepository;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Component
@@ -397,6 +396,7 @@ public class ConvertUtils {
         clientOrder.setNeedChange(clientOrderModel.getNeedChange());
         clientOrder.setComment(clientOrderModel.getComment());
         clientOrder.setPayType(clientOrderModel.getPayType());
+        clientOrder.setPayUrl( clientOrderModel.getPayUrl() );
         return clientOrder;
     }
 
@@ -450,6 +450,9 @@ public class ConvertUtils {
         clientOrderModel.setNeedChange(clientOrder.getNeedChange());
         clientOrderModel.setComment(clientOrder.getComment());
         clientOrderModel.setPayType(clientOrder.getPayType());
+        clientOrderModel.setPayUrl( clientOrder.getPayUrl() );
+        clientOrderModel.setPayStatus( clientOrder.getPayStatus() );
+        clientOrderModel.setPayAmount( clientOrder.getPayAmount() );
         return clientOrderModel;
     }
 
@@ -487,7 +490,7 @@ public class ConvertUtils {
     public List<CompanyActionModel> convertCompanyActionsToModels(List<CompanyAction> companyActions) {
         List<CompanyActionModel> companyActionModels = new LinkedList<>();
         for (CompanyAction companyAction : companyActions) {
-            companyActionModels.add(new CompanyActionModel(companyAction.getId(), companyAction.getCompanyName(),
+            companyActionModels.add(new CompanyActionModel(companyAction.getCompanyId(), companyAction.getCompanyName(),
                                                 companyAction.getActionImgUrl(),companyAction.getFullScreenAction()));
         }
         return companyActionModels;

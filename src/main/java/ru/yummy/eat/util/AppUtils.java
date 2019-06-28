@@ -10,6 +10,7 @@ import ru.yummy.eat.model.SearchParam;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public abstract class AppUtils {
 
@@ -180,7 +181,16 @@ public abstract class AppUtils {
     }
 
     public static String formatDate( String format, Date date ) {
-        SimpleDateFormat sdf = new SimpleDateFormat( format );
+        return formatDate( format, date, null);
+    }
+
+    public static String formatDate(String format, Date date, Locale locale) {
+        SimpleDateFormat sdf;
+        if ( locale != null ){
+            sdf = new SimpleDateFormat( format, locale );
+        } else {
+            sdf = new SimpleDateFormat( format );
+        }
         String result = null;
         try {
             result = sdf.format(date);

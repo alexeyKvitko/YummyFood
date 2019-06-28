@@ -1,10 +1,13 @@
 package ru.yummy.eat.rest;
 
+import com.google.gson.Gson;
+import com.qiwi.billpayments.sdk.model.BillStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.yummy.eat.model.enums.PayStatus;
+import ru.yummy.eat.qiwi.QiwiResponse;
 import ru.yummy.eat.service.impl.OrderServiceImpl;
 
 @CrossOrigin
@@ -151,5 +154,28 @@ public class MerchantController {
         LOG.info("summa_out: "+summaOut );
         LOG.info("m_params: "+dopParams );
         return SUCCESS;
+    }
+
+    @PostMapping("/paymentResult")
+    public void paymentResult( @RequestBody String responseData ) {
+        if ( responseData == null ){
+            LOG.warn("GET NULL RESPONSE FROM QIWI KASSA");
+        }
+        try {
+            LOG.info("Response Data: "+ responseData );
+            Gson gson = new Gson();
+            QiwiResponse qiwiResponse = gson.fromJson( responseData, QiwiResponse.class );
+            LOG.info("QiwiResponse: "+ qiwiResponse.toString() );
+            if( qiwiResponse.getBill() != null && qiwiResponse.getBill().getStatus() != null ){
+                LOG.info("Update payment: "+qiwiResponse.getBill().getBillId()+", status: "+qiwiResponse.getBill().getStatus().getValue() );
+                String payStatus = BillStatus.PAID. equals( qiwiResponse.getBill().getStatus().getValue() )
+                        ? PayStatus.SUCCESS.name() : qiwiResponse.getBill().getStatus().getValue().toString();
+                LOG.info("Qiwi PayStatus: "+ payStatus );
+                orderService.updateOrderStatus(qiwiResponse.getBill().getBillId(), qiwiResponse.getBill().getAmount().getValue().toString(), payStatus );
+            }
+        } catch ( Exception e ){
+            LOG.error( "CAN NOT CONVERT RESPONSE: "+e.getMessage() );
+            e.printStackTrace();
+        }
     }
 }
