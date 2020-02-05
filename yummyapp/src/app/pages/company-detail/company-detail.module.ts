@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+Simport { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { routing } from './company-detail.routing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
